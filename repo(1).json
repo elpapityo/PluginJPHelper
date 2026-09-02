@@ -1,0 +1,22 @@
+[
+  {
+    "Author": "Elpa",
+    "Name": "Plugin JP Helper",
+    "Description": "Dalamudプラグインの表示文字列を日本語化する補助プラグインです。",
+    "Punchline": "Dalamudプラグインの固定辞書日本語化支援",
+    "InternalName": "PluginJPHelper",
+    "AssemblyVersion": "0.1.0.0",
+    "RepoUrl": "https://github.com/elpapityo/PluginJPHelper",
+    "ApplicableVersion": "any",
+    "DalamudApiLevel": 15,
+    "IsHide": false,
+    "IsTestingExclusive": false,
+    "DownloadLinkInstall": "https://github.com/elpapityo/PluginJPHelper/releases/download/v0.1.0/PluginJPHelper_v0.1.0.zip",
+    "DownloadLinkUpdate": "https://github.com/elpapityo/PluginJPHelper/releases/download/v0.1.0/PluginJPHelper_v0.1.0.zip",
+    "LastUpdate": "1788319200",
+    "Tags": [
+      "translation",
+      "japanese"
+    ]
+  }
+]
