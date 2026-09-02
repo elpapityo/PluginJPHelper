@@ -1,0 +1,15 @@
+{
+  "Author": "Elpa",
+  "Name": "Plugin JP Helper",
+  "Punchline": "Dalamudプラグインの固定辞書日本語化支援",
+  "Description": "Dalamudプラグインの表示文字列を日本語化する補助プラグインです。",
+  "InternalName": "PluginJPHelper",
+  "AssemblyVersion": "0.1.0.0",
+  "RepoUrl": "https://github.com/elpapityo/PluginJPHelper",
+  "ApplicableVersion": "any",
+  "DalamudApiLevel": 15,
+  "Tags": [
+    "translation",
+    "japanese"
+  ]
+}
