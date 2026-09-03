@@ -4,9 +4,9 @@
     "Name": "Plugin JP Helper",
     "Punchline": "Dalamudプラグインの固定辞書日本語化支援",
     "Description": "Dalamudプラグインの表示文字列を日本語化する補助プラグインです。",
-    "Changelog": "v0.2.0 公式辞書配布、Help、開くコマンド、未翻訳取得の自動・手動切替、辞書・取得一覧の削除機能を追加",
+    "Changelog": "v0.3.0 コミュニティ辞書Web投稿・削除、公式/コミュニティ更新通知、起動時＋1時間ごとの更新確認、Helpの投稿手順と個人情報注意を追加",
     "InternalName": "PluginJPHelper",
-    "AssemblyVersion": "0.2.0.0",
+    "AssemblyVersion": "0.3.0.0",
     "RepoUrl": "https://github.com/elpapityo/PluginJPHelper",
     "ApplicableVersion": "any",
     "Tags": [
@@ -17,9 +17,9 @@
     "LoadPriority": 0,
     "IconUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/assets/PluginJPHelper.png",
     "ImageUrls": [],
-    "DownloadLinkInstall": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.2.0/PluginJPHelper_v0.2.0.zip",
-    "DownloadLinkUpdate": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.2.0/PluginJPHelper_v0.2.0.zip",
-    "DownloadLinkTesting": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.2.0/PluginJPHelper_v0.2.0.zip",
+    "DownloadLinkInstall": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.3.0/PluginJPHelper_v0.3.0.zip",
+    "DownloadLinkUpdate": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.3.0/PluginJPHelper_v0.3.0.zip",
+    "DownloadLinkTesting": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.3.0/PluginJPHelper_v0.3.0.zip",
     "IsHide": false,
     "IsTestingExclusive": false
   }
