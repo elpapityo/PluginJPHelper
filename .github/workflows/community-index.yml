@@ -1,0 +1,117 @@
+name: Community Dictionary Index
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'Dictionaries/Community/*.csv'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild-index:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Rebuild community-index.json
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+        run: |
+          python3 - <<'PY'
+          import csv, json, os, pathlib, subprocess, urllib.parse, urllib.request
+
+          root = pathlib.Path('Dictionaries/Community')
+          index_path = root / 'community-index.json'
+          expected = ['Plugin','Menu','Section','Type','English','Japanese']
+
+          old = {}
+          if index_path.exists():
+              try:
+                  data = json.loads(index_path.read_text(encoding='utf-8-sig'))
+                  old = {e.get('fileName',''): e for e in data.get('entries', [])}
+              except Exception:
+                  old = {}
+
+          token = os.environ.get('GH_TOKEN','')
+          repo = os.environ.get('GH_REPOSITORY','')
+
+          def git(*args):
+              return subprocess.check_output(['git', *args], text=True).strip()
+
+          def owner_for(path, filename):
+              prev = old.get(filename, {}).get('owner','').strip()
+              if prev and prev != 'unknown':
+                  return prev
+              try:
+                  commits = git('log','--diff-filter=A','--format=%H','--reverse','--',str(path)).splitlines()
+                  if commits:
+                      sha = commits[0].strip()
+                      req = urllib.request.Request(
+                          f'https://api.github.com/repos/{repo}/commits/{sha}',
+                          headers={'Authorization': f'Bearer {token}', 'Accept':'application/vnd.github+json'}
+                      )
+                      with urllib.request.urlopen(req, timeout=20) as r:
+                          obj = json.load(r)
+                      login = ((obj.get('author') or {}).get('login') or '').strip()
+                      if login:
+                          return login
+              except Exception:
+                  pass
+              return os.environ.get('GITHUB_ACTOR','unknown') or 'unknown'
+
+          entries = []
+          for path in sorted(root.glob('*.csv'), key=lambda p: p.name.casefold()):
+              try:
+                  with path.open('r', encoding='utf-8-sig', newline='') as f:
+                      reader = csv.reader(f)
+                      header = next(reader, None)
+                      if header != expected:
+                          continue
+                      plugin = ''
+                      for row in reader:
+                          if len(row) >= 1 and row[0].strip():
+                              plugin = row[0].strip()
+                              break
+                      if not plugin:
+                          plugin = path.stem
+              except Exception:
+                  continue
+
+              blob_sha = git('hash-object', str(path))
+              try:
+                  updated = git('log','-1','--format=%as','--',str(path)) or ''
+              except Exception:
+                  updated = ''
+              owner = owner_for(path, path.name)
+              quoted = urllib.parse.quote(path.name)
+              entries.append({
+                  'fileName': path.name,
+                  'pluginName': plugin,
+                  'owner': owner,
+                  'updated': updated,
+                  'sha': blob_sha,
+                  'downloadUrl': f'https://raw.githubusercontent.com/{repo}/main/Dictionaries/Community/{quoted}'
+              })
+
+          out = {'version': 1, 'entries': entries}
+          index_path.write_text(json.dumps(out, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          PY
+
+      - name: Commit index when changed
+        run: |
+          if git diff --quiet -- Dictionaries/Community/community-index.json; then
+            echo "community-index.json is already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Dictionaries/Community/community-index.json
+          git commit -m "Update community dictionary index"
+          git push
