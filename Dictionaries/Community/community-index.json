@@ -16,6 +16,14 @@
       "updated": "2026-09-03",
       "sha": "4560b892af0b97e9f6198622de06295bae6bac59",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/%E2%80%BBTextAdvance_v0.2.csv"
+    },
+    {
+      "fileName": "※TESTPlugin_2026-09-03_エルパテステス.csv",
+      "pluginName": "TESTPlugin",
+      "owner": "エルパテステス",
+      "updated": "2026-09-03",
+      "sha": "28b0ba94f8f54b313d7196dc686b1c8f61a5f77a",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/%E2%80%BBTESTPlugin_2026-09-03_%E3%82%A8%E3%83%AB%E3%83%91%E3%83%86%E3%82%B9%E3%83%86%E3%82%B9.csv"
     }
   ]
 }
