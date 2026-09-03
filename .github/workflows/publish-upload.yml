@@ -5,9 +5,6 @@ on:
     branches: [ main ]
     paths:
       - "upload/PluginJPHelper_v*.zip"
-      - "CHANGELOG.md"
-      - "pluginmaster.json"
-      - ".github/workflows/publish-upload.yml"
   workflow_dispatch:
 
 permissions:
