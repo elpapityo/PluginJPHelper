@@ -1,0 +1,266 @@
+﻿Plugin,Menu,Section,Type,English,Japanese
+Artisan,,,Text/RenderTextWrapped, by Puni.sh, by Puni.sh
+Artisan,,,Text/RenderTextWrapped, uses per craft, 1製作あたりの使用回数
+Artisan,,,Text/RenderTextWrapped, when 状態 is:, 状態が次の場合：
+Artisan,,,Selectable,1.一時作成 (ID: 27074),1.一時作成 (ID: 27074)
+Artisan,,,RadioButtonBool/RenderText,1st,1番目
+Artisan,,,RadioButtonBool/RenderText,2nd,2番目
+Artisan,,,RadioButtonBool/RenderText,3rd,3番目
+Artisan,,,Text/RenderTextWrapped,Action Usage,アクション使用
+Artisan,,,Text,Add new item.,新しい項目を追加
+Artisan,,,RenderText,Add new items to lists this many times from context menu,コンテキストメニューからリストへ追加する回数
+Artisan,,,Checkbox/RenderText,ALC,ALC
+Artisan,,,Checkbox/RenderText,"Allow ""Backload 工数""",「Backload 工数」を許可
+Artisan,,,Checkbox/RenderText,"Allow ""Ensure 100% reliability""",「100%成功保証」を許可
+Artisan,,,Checkbox/RenderText,Allow specialist actions when available,使用可能なら専門家アクションを許可
+Artisan,,,Text/RenderTextWrapped,Already Crafted Recipe,作成済みレシピ
+Artisan,,,Text/RenderTextWrapped,Amount Result,数量結果
+Artisan,,,Checkbox/RenderText,Apply to all valid crafts,対象となる全製作に適用
+Artisan,,,Checkbox/RenderText,ARM,ARM
+Artisan,,,Text/RenderTextWrapped,Artisan - 4.0.5.18,Artisan - 4.0.5.18
+Artisan,,,Text/RenderTextWrapped,Artisan - Overview,Artisan - 概要
+Artisan,,,Text/RenderTextWrapped,"Artisan also has the ability to create a list of items and have it start crafting each of them, one after another, automatically. Crafting lists have a lot of powerful tools to streamline the process of going from materials to final products. It also supports importing and exporting to Teamcraft.",Artisanでは製作物のリストを作成し、上から順に自動製作できます。製作リストには素材から完成品までの工程を効率化するための機能があり、Teamcraftとのインポート／エクスポートにも対応しています。
+Artisan,,,Text/RenderTextWrapped,"Artisan features an ""Automatic Action Execution Mode"" which merely takes the suggestions provided to it and performs the action on your behalf. By default, this will fire as fast as the game allows, which is faster than normal macros. You are not bypassing any sort of game restrictions doing this, however you can set a delay should you choose to. Enabling this has nothing to do with the suggestion making process Artisan uses by default.",Artisanには「アクション自動実行モード」があり、提示した推奨アクションを代わりに実行します。標準ではゲームが許す最速間隔で動作し、通常のマクロより高速です。ゲーム側の制限を回避するものではなく、必要なら遅延を設定できます。この設定はArtisanの推奨アクション算出には影響しません。
+Artisan,,,Text/RenderTextWrapped,Artisan Windows,Artisanウィンドウ
+Artisan,,,Text/RenderTextWrapped,Auto Action Mode,アクション自動実行
+Artisan,,,Checkbox/RenderText,Automatic action execution mode,アクション自動実行モード
+Artisan,,,Checkbox/RenderText,Automatic Repairs,自動修理
+Artisan,,,Text/RenderTextWrapped,Automatic Usage,自動使用
+Artisan,,,Checkbox/RenderText,Automatically adjust all sub-crafts after changing quantities,数量変更後、すべての中間素材数を自動調整
+Artisan,,,Checkbox/RenderText,Automatically Extract Materia,マテリアを自動精製
+Artisan,,,Checkbox/RenderText,Automatically extract materia from spiritbonded gear,錬精度100%の装備からマテリアを自動精製
+Artisan,,,Checkbox/RenderText,Automatically generate a Raphael macro if a valid one hasn't been created,有効なRaphaelマクロがない場合、自動生成
+Artisan,,,Checkbox/RenderText,Automatically generate on expert recipes,高難度レシピでも自動生成
+Artisan,,,Checkbox/RenderText,Automatically repair gear,装備を自動修理
+Artisan,,,Checkbox/RenderText,Automatically switch to the Raphael macro once one has been created,Raphaelマクロ作成後、自動でそのマクロへ切り替え
+Artisan,,,Text/RenderTextWrapped,Automation,自動化
+Artisan,,,Text/RenderTextWrapped,Base Stats,基本ステータス
+Artisan,,,Text/RenderTextWrapped,"Before you get started with Artisan, we should go over a few things about how the plugin works. Artisan is simple to use once you understand a few key factors.",Artisanを使い始める前に、プラグインの基本的な仕組みを確認します。いくつかの要点を理解すれば簡単に使えます。
+Artisan,,,Checkbox/RenderText,BSM,BSM
+Artisan,,,Button,Build List,リストを作成
+Artisan,,,Button,Build List (with subcrafts),リストを作成（中間素材を含む）
+Artisan,,,Text/RenderTextWrapped,"By clicking the ""Execute recommended action"" button, you are instructing the plugin to perform the suggestion it has recommended. This considered semi-manual as you still have to click each action, but you don't have to worry about finding them on your hotbars. ""Full-Manual"" mode is performed by pressing the buttons on your hotbar as normal. You are provided with an aid by default as Artisan will highlight the action on your hotbar if it is slotted. (This can be disabled in the settings)",「推奨アクションを実行」ボタンを押すと、Artisanが提示した推奨アクションを実行します。毎回クリックが必要なので半手動ですが、ホットバーからアクションを探す必要はありません。「完全手動」では通常どおりホットバーを操作します。標準では推奨アクションがホットバー上で強調表示されます（設定で無効化可能）。
+Artisan,,,Button,Clear Raphael Macro Cache (currently 1021 stored),Raphaelマクロキャッシュを消去（現在1021件）
+Artisan,,,Text/RenderTextWrapped,Click here to be taken to the Crafting List menu.,クリックして製作リストメニューへ移動
+Artisan,,,Text/RenderTextWrapped,Click here to be taken to the Endurance menu.,クリックして連続製作メニューへ移動
+Artisan,,,Text/RenderTextWrapped,Click here to be taken to the Macro menu.,クリックしてマクロメニューへ移動
+Artisan,,,Text/RenderTextWrapped,Collectable Recipe,収集品レシピ
+Artisan,,,Text/RenderTextWrapped,Consumables,消耗品
+Artisan,,,Text/RenderTextWrapped,Copy Theme,テーマをコピー
+Artisan,,,Text/RenderTextWrapped,Cosmic Exploration,コスモエクスプローラー
+Artisan,,,Text/RenderTextWrapped,CP,CP
+Artisan,,,Checkbox/RenderText,Craft only X times,指定回数だけ製作
+Artisan,,,Selectable/Text/RenderTextWrapped,Crafting Lists,製作リスト
+Artisan,,,Text/RenderTextWrapped,"Crafting lists are a fantastic way to queue up different crafts and have them craft one-by-one. Create a list by importing from Teamcraft using the button at the bottom, or click the '+' icon and give your list a name. You can also right click an item from the game's recipe menu to either add it to a new list if one is not selected, or to create a new list with it as the first item if a list is not selected.",製作リストでは複数の製作物をキューに入れ、順番に製作できます。画面下のボタンからTeamcraftのリストを取り込むか、「+」を押してリスト名を付けて作成します。ゲームの製作手帳からアイテムを右クリックして、選択中のリストへ追加したり、新しいリストの先頭項目として作成することもできます。
+Artisan,,,Text/RenderTextWrapped,Crafting Modes,製作モード
+Artisan,,,Text/RenderTextWrapped,Criteria,条件
+Artisan,,,Checkbox/RenderText,CRP,CRP
+Artisan,,,Checkbox/RenderText,CUL,CUL
+Artisan,,,Text/RenderTextWrapped,Currently saved macros: 1021,保存済みマクロ：1021件
+Artisan,,,RenderText,Delay before resuming (seconds),再開までの待機時間（秒）
+Artisan,,,RenderText,Delay between list crafts (seconds),リスト製作間の待機時間（秒）
+Artisan,,,Button,Delete Entire Cache (Hold CTRL),キャッシュを全削除（CTRL長押し）
+Artisan,,,Button,Delete Filtered Macros (Hold CTRL),絞り込み中のマクロを削除（CTRL長押し）
+Artisan,,,Text/RenderTextWrapped,DEX,DEX
+Artisan,,,Checkbox/RenderText,Disable Allagan Tools integration with crafting lists,製作リストとAllagan Toolsの連携を無効化
+Artisan,,,Checkbox/RenderText,Disable auto-equipping required items for special recipes,特殊レシピで必要装備の自動装着を無効化
+Artisan,,,Checkbox/RenderText,Disable context menu options,コンテキストメニュー項目を無効化
+Artisan,,,Checkbox/RenderText,Disable Custom Theme,カスタムテーマを無効化
+Artisan,,,Checkbox/RenderText,Disable Endurance and pause lists when Duty Finder is ready,コンテンツ突入可能時、連続製作を停止してリストを一時停止
+Artisan,,,Checkbox/RenderText,Disable Endurance if unable to repair,修理できない場合、連続製作を停止
+Artisan,,,Checkbox/RenderText,Disable Endurance Mode Upon Crafting an NQ item,NQ品を作成したら連続製作モードを停止
+Artisan,,,Checkbox/RenderText,Disable Endurance Mode Upon Failed Craft,製作失敗時に連続製作モードを停止
+Artisan,,,Checkbox/RenderText,Disable highlighting box,強調表示枠を無効化
+Artisan,,,Checkbox/RenderText,Disable recommendation toasts,推奨通知を無効化
+Artisan,,,Button,Discord,Discord
+Artisan,,,Text/RenderTextWrapped,Discord server.,Discordサーバー
+Artisan,,,Checkbox/RenderText,Dock mini-menu position to Crafting Log,ミニメニュー位置を製作手帳に固定
+Artisan,,,RenderText,Don't use consumables when level difference with craft is greater than,レシピとのレベル差がこの値を超える場合、消耗品を使用しない
+Artisan,,,Text/RenderTextWrapped,Duplicate Current Selection,現在の選択を複製
+Artisan,,,Checkbox/RenderText,Enable Endurance Mode,連続製作モードを有効化
+Artisan,,,Checkbox/RenderText,Enable hover preview in manual mode,手動モードでマウスオーバープレビューを有効化
+Artisan,,,Selectable/Text/RenderTextWrapped,Endurance,連続製作
+Artisan,,,Text/RenderTextWrapped,"Endurance mode is Artisan's way to repeat the same craft over and over, either so many times or until you run out of materials. It has full capabilities to automatically repair your gear once a piece is under a certain percentage, use food/potions/exp manuals and extract materia from spiritbonding. Please note these settings are independent of crafting list settings, and only intended to be used to craft the one item repeatedly.",連続製作モードは、同じアイテムを指定回数または素材がなくなるまで繰り返し製作する機能です。装備の自動修理、食事／薬／経験値マニュアルの使用、マテリア精製などに対応します。これらは製作リスト設定とは別で、1種類を繰り返し作る用途向けです。
+Artisan,,,Checkbox/RenderText,Enforce consumables,消耗品の使用を強制
+Artisan,,,Text/RenderTextWrapped,Ensuring reliability may not always work and is very CPU and RAM intensive. 16GB+ of spare RAM is recommended. NO SUPPORT SHALL BE GIVEN IF YOU HAVE THIS ON,成功保証は常に機能するとは限らず、CPUとRAMを非常に多く消費します。空きRAM 16GB以上を推奨します。この設定を有効にしている場合はサポート対象外です。
+Artisan,,,RenderText,Execution delay (ms)###ActionDelay,実行遅延（ms）###ActionDelay
+Artisan,,,Checkbox/RenderText,Exit Crafting Stance After Completion,完了後に製作状態を解除
+Artisan,,,Checkbox/RenderText,Expanded Crafting Log search bar,製作手帳の検索欄を拡張
+Artisan,,,Text/RenderTextWrapped,Expert Recipe,高難度レシピ
+Artisan,,,Text/RenderTextWrapped,Export,エクスポート
+Artisan,,,Checkbox/RenderText,Fallback to another solver if Raphael is locked.,Raphaelが使用不可なら別ソルバーへ切り替え
+Artisan,,,Selectable,FC Workshops,FCカンパニークラフト
+Artisan,,,Text/RenderTextWrapped,Food Usage:,食事使用：
+Artisan,,,Text/RenderTextWrapped,Force ,強制 
+Artisan,,,Text/RenderTextWrapped,General,一般
+Artisan,,,Text/RenderTextWrapped,Github page.,GitHubページ
+Artisan,,,Text/RenderTextWrapped,Got Questions?,質問がありますか？
+Artisan,,,Text/RenderTextWrapped,GP,GP
+Artisan,,,Checkbox/RenderText,GSM,GSM
+Artisan,,,Text/RenderTextWrapped,Here you can change some settings Artisan will use. Some of these can also be toggled during a craft.,Artisanで使用する各種設定を変更できます。一部は製作中にも切り替え可能です。
+Artisan,,,Checkbox/RenderText,Hide action tooltips in manual mode,手動モードでアクションツールチップを非表示
+Artisan,,,Checkbox/RenderText,Hide mini-menu simulator results,ミニメニューのシミュレーター結果を非表示
+Artisan,,,Checkbox/RenderText,Hide Quest Helper,クエストヘルパーを非表示
+Artisan,,,Text/RenderTextWrapped,HQable Recipe,HQ作成可能レシピ
+Artisan,,,Checkbox/RenderText,"I understand, let me in",理解しました。続行します
+Artisan,,,Text/RenderTextWrapped,I would first like to thank you for downloading my little crafting plugin. I have been working on Artisan consistently since June 2022 and it's my magnum opus of a plugin.,まず、この製作プラグインをダウンロードしていただきありがとうございます。Artisanは2022年6月から継続して開発してきた、作者にとって集大成となるプラグインです。
+Artisan,,,Text/RenderTextWrapped,icon in the crafting log.,製作手帳内のアイコン
+Artisan,,,Text/RenderTextWrapped,"If you do not have the automatic mode enabled, you will have access to 2 more modes. ""Semi-Manual Mode"" and ""Full Manual"". ""Semi-Manual Mode"" will appear in a small pop-up window when you start crafting.",自動モードを有効にしていない場合、「半手動モード」と「完全手動」の2つを利用できます。「半手動モード」は製作開始時に小さなポップアップで表示されます。
+Artisan,,,Text/RenderTextWrapped,"If you have questions about things not outlined here, you can drop a question in our",ここに記載されていない内容について質問がある場合は、こちらへ：
+Artisan,,,Text/RenderTextWrapped,Import,インポート
+Artisan,,,Button,Import List From Clipboard (Artisan Export),クリップボードからリストをインポート（Artisan形式）
+Artisan,,,Button,Import Macro From Clipboard,クリップボードからマクロをインポート
+Artisan,,,Button,Import Macro From Clipboard (Artisan Export),クリップボードからマクロをインポート（Artisan形式）
+Artisan,,,Text/RenderTextWrapped,IMPORTANT: These settings have been selected for optimal performance. Changing them may make the solver significantly worse. Use at your own risk.,重要：これらの設定は最適な性能になるよう調整されています。変更するとソルバー性能が大幅に低下する可能性があります。変更は自己責任で行ってください。
+Artisan,,,Text/RenderTextWrapped,"In order to use Artisan's manual recommendation highlights, please slot every crafting action you have unlocked to a visible hotbar.",Artisanの手動推奨アクション強調表示を使うには、修得済みの製作アクションをすべて表示中のホットバーへ配置してください。
+Artisan,,,Text/RenderTextWrapped,"In this simulator, you can test out different solvers against recipes and analyze how well they perform. You can set your HQ ingredient layouts, set consumables and even which gearset to use. The simulator can be configured to randomize conditions or use ""Normal"" condition only, so actual execution mileage may vary.",このシミュレーターでは、各レシピに対して異なるソルバーを試し、性能を確認できます。HQ素材構成、消耗品、使用するギアセットも設定できます。状態をランダム化するか「通常」だけに固定できるため、実際の製作結果とは差が出る場合があります。
+Artisan,,,Text/RenderTextWrapped,"In this tab, you can browse all the FC Workshop projects in the game. It is broken into 3 main sections. The first is an overview of the full project. The second breaks down each of the parts. The last is each of the phases. In each section, you can click a button to create a crafting list with all you need to craft that particular section.",このタブではゲーム内のFCカンパニークラフトを一覧できます。全体概要、各パーツ、各工程の3つに分かれています。それぞれの項目から、その部分に必要な製作物をまとめた製作リストを作成できます。
+Artisan,,,Text/RenderTextWrapped,INT,INT
+Artisan,,,Text/RenderTextWrapped,"Join our Discord community for project announcements, updates, and support.",プロジェクトのお知らせ、更新情報、サポートについてはDiscordコミュニティへ参加してください。
+Artisan,,,Text/RenderTextWrapped,Left click a list to open the editor. Right click a list to select it without opening the editor.,左クリックでリスト編集を開きます。右クリックでは編集画面を開かずリストだけ選択します。
+Artisan,,,Text/RenderTextWrapped,Level,レベル
+Artisan,,,Text/RenderTextWrapped,Level-based Recipes,レベル指定レシピ
+Artisan,,,Selectable,List Builder,リスト作成
+Artisan,,,Text/RenderTextWrapped,List Name,リスト名
+Artisan,,,Checkbox/RenderText,LTW,LTW
+Artisan,,,Text/RenderTextWrapped,Macro Generation,マクロ生成
+Artisan,,,RenderText,Macro generation timeout (minutes),マクロ生成タイムアウト（分）
+Artisan,,,Selectable,Macros,マクロ
+Artisan,,,Text/RenderTextWrapped,Manual Usage:,手動使用：
+Artisan,,,RadioButtonBool/RenderText,Max,最大
+Artisan,,,Text/RenderTextWrapped,Max ,最大 
+Artisan,,,Text/RenderTextWrapped,Max Durability,最大耐久
+Artisan,,,Text/RenderTextWrapped,Max Level,最大レベル
+Artisan,,,Checkbox/RenderText,Max Quantity Mode,最大数量モード
+Artisan,,,Text/RenderTextWrapped,Max 品質 for non-collectable recipes:,非収集品レシピの最大品質：
+Artisan,,,RenderText,Maximum threads (0 for all),最大スレッド数（0＝すべて）
+Artisan,,,Text/RenderTextWrapped,Medicine Usage:,薬品使用：
+Artisan,,,Text/RenderTextWrapped,Min. Control,最低加工精度
+Artisan,,,Text/RenderTextWrapped,Min. Craftsmanship,最低作業精度
+Artisan,,,Text/RenderTextWrapped,Minimum Level,最低レベル
+Artisan,,,Text/RenderTextWrapped,Misc.,その他
+Artisan,,,Text/RenderTextWrapped,MND,MND
+Artisan,,,Text/RenderTextWrapped,Name Contains,名前に含む
+Artisan,,,Text/RenderTextWrapped,Native UI Replacements,標準UI置換
+Artisan,,,Button,New Macro,新しいマクロ
+Artisan,,,Checkbox/RenderText,No,いいえ
+Artisan,,,RenderText,Number of actions to queue up,先行入力するアクション数
+Artisan,,,Text/RenderTextWrapped,"Once you have created a macro, you will have to assign it to a recipe. This is easily accomplished by using the Recipe Window dropdown. By default, this is attached to the top right of the in-game crafting log window but can be unattached in the settings.",マクロを作成したらレシピへ割り当てる必要があります。レシピウィンドウのドロップダウンから簡単に設定できます。標準ではゲーム内製作手帳の右上に固定されていますが、設定で切り離せます。
+Artisan,,,Text/RenderTextWrapped,Open Config,設定を開く
+Artisan,,,Text/RenderTextWrapped,Other Plugins,他プラグイン
+Artisan,,,Selectable,Overview,概要
+Artisan,,,Checkbox/RenderText,Overwrite crafts that already have a macro assigned to them,既にマクロ割り当て済みの製作を上書き
+Artisan,,,Checkbox/RenderText,Pause lists if unable to repair,修理できない場合、リストを一時停止
+Artisan,,,Text/RenderTextWrapped,Performance,パフォーマンス
+Artisan,,,Checkbox/RenderText,Play sound after finishing a list,リスト完了時に効果音を再生
+Artisan,,,Checkbox/RenderText,Play sound after finishing Endurance,連続製作完了時に効果音を再生
+Artisan,,,Checkbox/RenderText,Play sound on errors,エラー時に効果音を再生
+Artisan,,,Checkbox/RenderText,Prevent Artisan from auto-solving after macro,マクロ後にArtisanが自動解法を開始しない
+Artisan,,,Checkbox/RenderText,Prioritize NPC repairs over self-repairs,自己修理よりNPC修理を優先
+Artisan,,,Text/RenderTextWrapped,Published and developed with ,公開・開発：
+Artisan,,,Text/RenderTextWrapped,Quest Only Recipe,クエスト専用レシピ
+Artisan,,,Selectable,Raphael Cache,Raphaelキャッシュ
+Artisan,,,Selectable,Recipe Assigner,レシピ割り当て
+Artisan,,,Text/RenderTextWrapped,Recipe from a Book,秘伝書レシピ
+Artisan,,,Text/RenderTextWrapped,Repairs,修理
+Artisan,,,Checkbox/RenderText,Replicate macro delay,マクロの待機時間を再現
+Artisan,,,Button,Repository,リポジトリ
+Artisan,,,Checkbox/RenderText,"Reset ""Number of Times to Add"" after adding to list",リスト追加後「追加回数」をリセット
+Artisan,,,Button,Reset All Cosmic Exploration Recipe Configs (Hold CTRL),コスモエクスプローラーのレシピ設定を全リセット（CTRL長押し）
+Artisan,,,Button,Reset Mini-Menu Position,ミニメニュー位置をリセット
+Artisan,,,Button,Restock Inventory From Retainers,リテイナーから所持品を補充
+Artisan,,,Checkbox/RenderText,Resume Endurance and unpause lists when done,完了後に連続製作を再開し、リストの一時停止を解除
+Artisan,,,Text/RenderTextWrapped,Secondary Recipe,二次レシピ
+Artisan,,,Text/RenderTextWrapped,"Select a macro you have created from the dropdown box. When you go to craft this item, the suggestions will be replaced by the contents of your macro.",作成済みマクロをドロップダウンから選択します。このアイテムを製作する際、推奨アクションの代わりにマクロ内容が使用されます。
+Artisan,,,Text/RenderTextWrapped,Select Job(s),ジョブを選択
+Artisan,,,Text/RenderTextWrapped,Select Recipe,レシピを選択
+Artisan,,,Checkbox/RenderText,Set new items added to list as Quick Synth,リストへ追加した新規アイテムを簡易製作に設定
+Artisan,,,Checkbox/RenderText,Show leveling category completion in Crafting Log,製作手帳にレベリングカテゴリの達成状況を表示
+Artisan,,,Checkbox/RenderText,Show other categories' completion in Crafting Log,製作手帳に他カテゴリの達成状況を表示
+Artisan,,,Selectable,Simulator,シミュレーター
+Artisan,,,RenderText,Simulator action image size,シミュレーターのアクション画像サイズ
+Artisan,,,Text/RenderTextWrapped,Simulator UI,シミュレーターUI
+Artisan,,,Checkbox/RenderText,Skip crafting items you already have enough of,必要数を所持済みのアイテムは製作をスキップ
+Artisan,,,Checkbox/RenderText,Skip macro step if unable to use action,アクション使用不可ならマクロ手順をスキップ
+Artisan,,,Selectable,SND納品用 (ID: 3184),SND納品用 (ID: 3184)
+Artisan,,,Text/RenderTextWrapped,Solvers/Macros,ソルバー／マクロ
+Artisan,,,Text/RenderTextWrapped,Sounds,サウンド
+Artisan,,,Button,Source Code,ソースコード
+Artisan,,,Button,Sponsor,支援
+Artisan,,,Text/RenderTextWrapped,Squadron Manual:,軍用マニュアル：
+Artisan,,,Text/RenderTextWrapped,Stars,星数
+Artisan,,,Button,Start Crafting List,製作リストを開始
+Artisan,,,Text/RenderTextWrapped,Start crafts with ,製作開始時：
+Artisan,,,Text/RenderTextWrapped,STR,STR
+Artisan,,,Text/RenderTextWrapped,Teamcraft Lists,Teamcraftリスト
+Artisan,,,Text/RenderTextWrapped,The expert recipe solver is not an alternative to the standard solver. This is used exclusively with expert recipes.,高難度レシピソルバーは標準ソルバーの代替ではありません。高難度レシピ専用です。
+Artisan,,,Text/RenderTextWrapped,These settings will automatically be applied when creating a crafting list.,これらの設定は製作リスト作成時に自動適用されます。
+Artisan,,,Text/RenderTextWrapped,"This section is for building lists based on certain criteria rather than individually. Give your list a name and select your criteria from below then select ""Build List"" and a new list will be created with all items that match the criteria. If you do not select any checkboxes then that category will be treated as ""Any"" or ""All"" except for which job crafts it.",ここでは個別追加ではなく、指定条件に一致するアイテムをまとめてリスト化できます。リスト名と条件を指定して「リストを作成」を押すと、条件に一致する全アイテムで新しいリストが作成されます。チェックを何も付けないカテゴリは、製作ジョブを除き「任意／すべて」として扱われます。
+Artisan,,,Text/RenderTextWrapped,This solver only applies to recipes with the,このソルバーが適用されるのは次の条件を持つレシピのみ：
+Artisan,,,Text/RenderTextWrapped,This tab allows you to quickly assign solvers and consumables to recipes based on recipe criteria.,このタブではレシピ条件に基づいて、ソルバーと消耗品をまとめて割り当てられます。
+Artisan,,,Text/RenderTextWrapped,This tab shows all of the currently saved Raphael-generated macros for the currently logged in character.,現在ログイン中のキャラクターに保存されているRaphael生成マクロをすべて表示します。
+Artisan,,,Text/RenderTextWrapped,"This tab will allow you to add macros that Artisan can use instead of its own decisions. Once you create a new macro, click on it from the list below to open up the macro editor window for your macro.",このタブではArtisanの自動判断の代わりに使用するマクロを追加できます。新しいマクロを作成したら、下の一覧からクリックしてマクロ編集画面を開きます。
+Artisan,,,Text/RenderTextWrapped,Use ,使用：
+Artisan,,,Checkbox/RenderText,"Use ""Queue Next X"" button instead of ""Execute Recommended Action"" button",「推奨アクションを実行」の代わりに「次のX件をキュー」ボタンを使用
+Artisan,,,Checkbox/RenderText,Use consumables for Quick Synth crafts,簡易製作でも消耗品を使用
+Artisan,,,Checkbox/RenderText,Use consumables for trial crafts,試作でも消耗品を使用
+Artisan,,,Checkbox/RenderText,Use Native Craft-X Buttons in Recipe Log,製作手帳で標準の個数指定ボタンを使用
+Artisan,,,Checkbox/RenderText,Use Quick Synthesis where possible,可能な場合は簡易製作を使用
+Artisan,,,Checkbox/RenderText,Use Raphael as default solver,Raphaelを標準ソルバーとして使用
+Artisan,,,Checkbox/RenderText,Use specialist actions,専門家アクションを使用
+Artisan,,,Text/RenderTextWrapped,VIT,VIT
+Artisan,,,Checkbox/RenderText,WVR,WVR
+Artisan,,,Text/RenderTextWrapped,You can also raise issues on our,問題報告はこちら：
+Artisan,,,Text/RenderTextWrapped,下地加工,下地加工
+Artisan,,,Text/RenderTextWrapped,不屈,不屈
+Artisan,,,Text/RenderTextWrapped,作業精度,作業精度
+Artisan,,,Text/RenderTextWrapped,信仰,信仰
+Artisan,,,Text/RenderTextWrapped,加工精度,加工精度
+Artisan,,,Text/RenderTextWrapped,品質,品質
+Artisan,,,Text/RenderTextWrapped,品質 breakpoint for collectables:,収集品の品質しきい値：
+Artisan,,,Text/RenderTextWrapped,必要工数,必要工数
+Artisan,,,Text/RenderTextWrapped,意思力,意思力
+Artisan,,,Text/RenderTextWrapped,技術力,技術力
+Artisan,,,Text/RenderTextWrapped,暗闇耐性,暗闇耐性
+Artisan,,,Text/RenderTextWrapped,最高品質,最高品質
+Artisan,,,Text/RenderTextWrapped,獲得力,獲得力
+Artisan,,,Text/RenderTextWrapped,真価,真価
+Artisan,,,Text/RenderTextWrapped,秘訣,秘訣
+Artisan,,,Text/RenderTextWrapped,錬精度上昇量,錬精度上昇量
+Artisan,,,Text/RenderTextWrapped,高品質,高品質
+Artisan,Crafting Lists,Import,Source/Notify,Clipboard is empty.,クリップボードが空です。
+Artisan,Crafting Lists,Import,Source/Notify,Invalid import string.,インポート文字列が正しくありません。
+Artisan,Crafting Lists,Lists,Source/Tab,Premade Lists,プリセットリスト
+Artisan,Crafting Lists,Lists,Source/Tab,User Lists,ユーザーリスト
+Artisan,Crafting Lists,Retainers,Source/Button,Abort Collecting From Retainer,リテイナーからの回収を中止
+Artisan,Crafting Lists,Retainers,Source/Text,Please enable Allagan Tools for retainer features.,リテイナー機能を使用するにはAllagan Toolsを有効にしてください。
+Artisan,Crafting Lists,Retainers,Source/Text,Please install Allagan Tools for retainer features.,リテイナー機能を使用するにはAllagan Toolsをインストールしてください。
+Artisan,Raphael,Automatic Usage,Source/Tooltip,"Important notes:
+
+• Any recipes opened with Artisan before changing this setting will still use their current solvers.
+• If you disable this setting, any recipes that were set to Raphael will stay that way until changed.
+• The Standard Solver is used as the default solver if this setting is disabled.","重要：
+
+・この設定を変更する前にArtisanで開いたレシピは、現在のソルバーを使い続けます。
+・この設定を無効にしても、Raphaelに設定済みのレシピは変更するまでそのままです。
+・この設定が無効の場合、標準ソルバーがデフォルトとして使用されます。"
+Artisan,Raphael,Automatic Usage,Source/Tooltip,"This will prevent Raphael from being used if it is currently locked, meaning another solver will automatically be set instead.",Raphaelが現在使用不可の場合はRaphaelを使わず、代わりに別のソルバーを自動設定します。
+Artisan,Raphael,Macro Generation,Source/Tooltip,The Raphael solver will use UP TO this many charges depending on the recipe's difficulty.,Raphaelソルバーはレシピ難易度に応じて、最大でこの回数まで使用します。
+Artisan,Raphael,Macro Generation,Source/Tooltip,This setting only applies to Cosmic Exploration recipes on missions with Steady Hand.,この設定は「Steady Hand」があるコスモエクスプローラーのミッションレシピにのみ適用されます。
+Artisan,Raphael,Performance,Source/Tooltip,"By default the Raphael generator uses everything it can (setting = 0), but on lower-end machines you might need to use less CPU at the cost of speed.",標準ではRaphael生成処理が利用可能なCPUを最大限使用します（設定=0）。性能が低いPCでは、速度と引き換えにCPU使用量を減らすことができます。
+Artisan,Raphael,Performance,Source/Tooltip,Enables a checkbox on the Crafting Log mini-menu. This setting will try to find a solution that works for any permutation of per-step crafting conditions.,製作手帳のミニメニューにチェック項目を追加します。各工程の製作状態がどの組み合わせでも成功する解法を探索します。
+Artisan,Raphael,Performance,Source/Tooltip,"If a solution takes longer than this many minutes to generate, macro generation will be canceled.",解法の生成が指定した分数を超えた場合、マクロ生成をキャンセルします。
+Artisan,Raphael,Solver,Source/Tooltip,"""Ensure 100% reliability"" is enabled, which is very CPU- and RAM-intensive.
+Due to this, no support will be given if you have issues.",「100%成功保証」が有効です。この機能はCPUとRAMを非常に多く消費するため、この設定に起因する問題はサポート対象外です。
+Artisan,Raphael,Solver,Source/Checkbox,Allow [s!HeartAndSoul],[s!HeartAndSoul] の使用を許可
+Artisan,Raphael,Solver,Source/Checkbox,Allow [s!QuickInnovation],[s!QuickInnovation] の使用を許可
+Artisan,Raphael,Solver,Source/Checkbox,Backload progress,工数を後回し
+Artisan,Raphael,Solver,Source/Button,Build Raphael Solution,Raphael解法を生成
+Artisan,Raphael,Solver,Source/Button,Cancel Raphael Generation,Raphael生成をキャンセル
+Artisan,Raphael,Solver,Source/Checkbox,Ensure 100% reliability,100%成功保証
+Artisan,Raphael,Solver,Source/Tooltip,Find a solution that finishes quality before starting on progress. Useful for simple expert recipes where the Malleable condition might otherwise cause an early finish.,工数を進める前に品質を完成させる解法を探します。「高能率」などで工数が早く完成してしまう可能性がある高難度レシピに有効です。
+Artisan,Raphael,Solver,Source/Text,No Raphael solution generated,Raphaelの解法が生成されていません
+Artisan,Raphael,Solver,Source/Text,Raphael Solver Settings,Raphaelソルバー設定
+Artisan,Raphael,Solver,Source/Button,Rebuild Raphael Solution,Raphael解法を再生成
+Artisan,Raphael,Solver,Source/Tooltip,The generated macro will require one crafter's delineation per craft.,生成されたマクロは、1回の製作につきクラフターの製図用紙を1個消費します。
+Artisan,Raphael,Solver,Source/Tooltip,Try to find a solution that works for any permutation of per-step crafting conditions. EXTREMELY RAM AND CPU INTENSIVE NO SUPPORT WILL BE GIVEN IF YOU HAVE THIS ON,各工程の製作状態がどの組み合わせでも成功する解法を探索します。CPUとRAMを非常に多く消費します。この設定を有効にしている場合はサポート対象外です。
