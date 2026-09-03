@@ -1,0 +1,49 @@
+name: Sync Official Dictionaries Once
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - ".github/workflows/sync-official-dictionaries.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sync official dictionaries from tested repository
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $headers = @{ 'User-Agent' = 'PluginJPHelper-production-sync' }
+          $api = 'https://api.github.com/repos/elpapityo/PluginJPHelper-Dictionary-Test/contents/Dictionaries/Official?ref=main'
+          $items = Invoke-RestMethod -Headers $headers -Uri $api
+
+          Remove-Item -Recurse -Force 'Dictionaries/Official' -ErrorAction SilentlyContinue
+          New-Item -ItemType Directory 'Dictionaries/Official' -Force | Out-Null
+
+          foreach ($item in $items) {
+            if ($item.type -ne 'file' -or $item.name -notlike '*.csv') { continue }
+            Invoke-WebRequest -Headers $headers -Uri $item.download_url -OutFile (Join-Path 'Dictionaries/Official' $item.name)
+          }
+
+          Invoke-WebRequest -Headers $headers -Uri 'https://raw.githubusercontent.com/elpapityo/PluginJPHelper-Dictionary-Test/main/Dictionaries/notice.txt' -OutFile 'Dictionaries/notice.txt'
+
+          $count = (Get-ChildItem 'Dictionaries/Official' -Filter '*.csv').Count
+          if ($count -lt 1) { throw 'No official dictionaries downloaded.' }
+          Write-Host "Synced $count official dictionaries."
+
+      - name: Commit production dictionaries
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Dictionaries/Official Dictionaries/notice.txt
+          git diff --cached --quiet && exit 0
+          git commit -m "Sync official dictionaries to production"
+          git push
