@@ -1,0 +1,1 @@
+Plugin JP Helper icon asset is stored as assets/PluginJPHelper.png (512x512 PNG).
