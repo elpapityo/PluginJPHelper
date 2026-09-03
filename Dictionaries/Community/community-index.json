@@ -16,6 +16,15 @@
       "updated": "2026-09-03",
       "sha": "2beecd690a8a274f60f327ad79849ee1411e8383",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/%E2%80%BBGatherBuddyReborn_v0.1.csv"
+    },
+    {
+      "fileName": "Artisan_v0.1.csv",
+      "pluginName": "Artisan",
+      "owner": "エルパ",
+      "updated": "2026-09-03",
+      "sha": "d36752844561444d4c5072b44c600ff9dd12649b",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/Artisan_v0.1.csv",
+      "deleteKeyHash": "334f812af8cd25702e38ace198b0534d1f77e62b9fe75863697cf537ba906412"
     }
   ]
 }
