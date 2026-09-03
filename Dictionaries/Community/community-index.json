@@ -2,29 +2,12 @@
   "version": 1,
   "entries": [
     {
-      "fileName": "※TextAdvance_v0.2.csv",
-      "pluginName": "TextAdvance",
-      "owner": "elpapityo-sys",
-      "updated": "2026-09-03",
-      "sha": "4560b892af0b97e9f6198622de06295bae6bac59",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/%E2%80%BBTextAdvance_v0.2.csv"
-    },
-    {
       "fileName": "※GatherBuddyReborn_v0.1.csv",
       "pluginName": "GatherBuddyReborn",
       "owner": "エルパ",
       "updated": "2026-09-03",
       "sha": "2beecd690a8a274f60f327ad79849ee1411e8383",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/%E2%80%BBGatherBuddyReborn_v0.1.csv"
-    },
-    {
-      "fileName": "※PandorasBox_v0.1.csv",
-      "pluginName": "PandorasBox",
-      "owner": "エルパ",
-      "updated": "2026-09-03",
-      "sha": "28b0ba94f8f54b313d7196dc686b1c8f61a5f77a",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/%E2%80%BBPandorasBox_v0.1.csv",
-      "deleteKeyHash": "2e4bdab9ccd05149b3a6553ecf012bc2ee94f73e9b3338eeb40559f0b1c91deb"
     }
   ]
 }
