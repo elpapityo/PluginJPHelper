@@ -1,0 +1,58 @@
+name: Promote Plugin JP Helper v0.2.0 Source
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - "_source_chunks/**"
+      - ".github/workflows/promote-v0.2.0-source.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  promote:
+    if: ${{ hashFiles('_source_chunks/chunk_00.txt') != '' }}
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reconstruct source ZIP
+        shell: pwsh
+        run: |
+          $b64 = (Get-ChildItem _source_chunks/chunk_*.txt | Sort-Object Name | ForEach-Object { Get-Content $_ -Raw }) -join ''
+          [IO.File]::WriteAllBytes('source.zip', [Convert]::FromBase64String($b64))
+          Remove-Item -Recurse -Force staging -ErrorAction SilentlyContinue
+          Expand-Archive source.zip -DestinationPath staging -Force
+      - name: Promote source files
+        shell: pwsh
+        run: |
+          Remove-Item -Recurse -Force PluginJPHelper -ErrorAction SilentlyContinue
+          Copy-Item staging/PluginJPHelper PluginJPHelper -Recurse
+          Copy-Item staging/README.md README.md -Force
+          Copy-Item staging/build.bat build.bat -Force
+          Copy-Item staging/pluginmaster.json pluginmaster.json -Force
+          Remove-Item -Recurse -Force Dictionaries -ErrorAction SilentlyContinue
+          New-Item -ItemType Directory Dictionaries | Out-Null
+          Copy-Item staging/Dictionaries/* Dictionaries/ -Recurse -Force
+      - name: Copy official dictionaries from tested repository
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory Dictionaries/Official -Force | Out-Null
+          $headers = @{ 'User-Agent' = 'PluginJPHelper-release' }
+          $items = Invoke-RestMethod -Headers $headers -Uri 'https://api.github.com/repos/elpapityo/PluginJPHelper-Dictionary-Test/contents/Dictionaries/Official?ref=main'
+          foreach ($item in $items) {
+            if ($item.name -notlike '*.csv') { continue }
+            if ($item.name -eq 'GatherBuddyReborn.csv') { continue }
+            Invoke-WebRequest -Headers $headers -Uri $item.download_url -OutFile (Join-Path 'Dictionaries/Official' $item.name)
+          }
+          Invoke-WebRequest -Headers $headers -Uri 'https://raw.githubusercontent.com/elpapityo/PluginJPHelper-Dictionary-Test/main/Dictionaries/notice.txt' -OutFile 'Dictionaries/notice.txt'
+      - name: Commit production v0.2.0 source
+        shell: pwsh
+        run: |
+          Remove-Item -Recurse -Force _source_chunks -ErrorAction SilentlyContinue
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Update Plugin JP Helper to v0.2.0" || exit 0
+          git push
