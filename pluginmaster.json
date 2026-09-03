@@ -15,7 +15,7 @@
     ],
     "DalamudApiLevel": 15,
     "LoadPriority": 0,
-    "IconUrl": "",
+    "IconUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/assets/PluginJPHelper.png",
     "ImageUrls": [],
     "DownloadLinkInstall": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.2.0/PluginJPHelper_v0.2.0.zip",
     "DownloadLinkUpdate": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.2.0/PluginJPHelper_v0.2.0.zip",
