@@ -1,0 +1,1 @@
+Icon source approved for Plugin JP Helper v0.2.0. Runtime installer icon URL: https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/assets/PluginJPHelper.png
