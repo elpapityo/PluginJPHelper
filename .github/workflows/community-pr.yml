@@ -18,7 +18,6 @@ jobs:
       valid: ${{ steps.validate.outputs.valid }}
     steps:
       - name: Download PR files safely
-        id: prepare
         uses: actions/github-script@v7
         with:
           script: |
@@ -30,9 +29,7 @@ jobs:
               owner, repo, pull_number: pr.number, per_page: 100
             });
             fs.mkdirSync('pr_files', { recursive: true });
-            const meta = [];
             for (const f of files) {
-              meta.push({ filename: f.filename, status: f.status, size: f.changes || 0 });
               if (f.status === 'removed') continue;
               const safe = f.filename.replace(/[^A-Za-z0-9_.\-\u0080-\uFFFF]/g, '_');
               const res = await github.rest.repos.getContent({
@@ -86,6 +83,9 @@ jobs:
                   errors.append(f'{name}: Community以外のファイルは変更できません。')
                   continue
               base = name.split('/')[-1]
+              if base in ('.gitkeep', 'community-index.json'):
+                  errors.append(f'{name}: 管理ファイルは変更できません。')
+                  continue
               if not base.lower().endswith('.csv'):
                   errors.append(f'{name}: CSV以外は変更できません。')
                   continue
@@ -119,6 +119,7 @@ jobs:
               if rows[0] != expected:
                   errors.append(f'{base}: ヘッダーは Plugin,Menu,Section,Type,English,Japanese の6列にしてください。')
                   continue
+
               plugins = set()
               data_count = 0
               for line_no, row in enumerate(rows[1:], start=2):
@@ -148,12 +149,8 @@ jobs:
                   errors.append(f'{base}: 1つのCSVに複数のPlugin名が含まれています。')
 
           ok = not errors
-          lines = ['<!-- PJH-COMMUNITY-CHECK -->']
-          lines.append('## Plugin JP Helper コミュニティ辞書チェック')
-          if ok:
-              lines.append('✅ CSVチェックに成功しました。Communityへ自動反映できます。')
-          else:
-              lines.append('❌ CSVチェックに失敗しました。以下を修正してください。')
+          lines = ['<!-- PJH-COMMUNITY-CHECK -->', '## Plugin JP Helper コミュニティ辞書チェック']
+          lines.append('✅ CSVチェックに成功しました。Communityへ自動反映します。' if ok else '❌ CSVチェックに失敗しました。以下を修正してください。')
           if errors:
               lines.append('\n### エラー')
               lines += [f'- {x}' for x in errors[:100]]
@@ -178,11 +175,8 @@ jobs:
             const issue_number = context.payload.pull_request.number;
             const comments = await github.paginate(github.rest.issues.listComments, { owner, repo, issue_number, per_page: 100 });
             const old = comments.find(c => c.user?.type === 'Bot' && c.body?.includes('PJH-COMMUNITY-CHECK'));
-            if (old) {
-              await github.rest.issues.updateComment({ owner, repo, comment_id: old.id, body });
-            } else {
-              await github.rest.issues.createComment({ owner, repo, issue_number, body });
-            }
+            if (old) await github.rest.issues.updateComment({ owner, repo, comment_id: old.id, body });
+            else await github.rest.issues.createComment({ owner, repo, issue_number, body });
 
   auto-merge:
     needs: validate
@@ -195,7 +189,104 @@ jobs:
           script: |
             const { owner, repo } = context.repo;
             const pull_number = context.payload.pull_request.number;
-            const result = await github.rest.pulls.merge({
-              owner, repo, pull_number, merge_method: 'squash'
-            });
+            const result = await github.rest.pulls.merge({ owner, repo, pull_number, merge_method: 'squash' });
             if (!result.data.merged) core.setFailed(`自動Mergeできませんでした: ${result.data.message || 'unknown'}`);
+
+      - name: Checkout updated main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Rebuild community index immediately
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+          PR_OWNER: ${{ github.event.pull_request.user.login }}
+        run: |
+          git pull --ff-only origin main
+          python3 - <<'PY'
+          import csv, json, os, pathlib, subprocess, urllib.parse, urllib.request
+
+          root = pathlib.Path('Dictionaries/Community')
+          index_path = root / 'community-index.json'
+          expected = ['Plugin','Menu','Section','Type','English','Japanese']
+          old = {}
+          if index_path.exists():
+              try:
+                  data = json.loads(index_path.read_text(encoding='utf-8-sig'))
+                  old = {e.get('fileName',''): e for e in data.get('entries', [])}
+              except Exception:
+                  pass
+
+          token = os.environ.get('GH_TOKEN','')
+          repo = os.environ.get('GH_REPOSITORY','')
+          pr_owner = os.environ.get('PR_OWNER','unknown') or 'unknown'
+
+          def git(*args):
+              return subprocess.check_output(['git', *args], text=True).strip()
+
+          def owner_for(path, filename):
+              prev = old.get(filename, {}).get('owner','').strip()
+              if prev and prev != 'unknown':
+                  return prev
+              try:
+                  commits = git('log','--diff-filter=A','--format=%H','--reverse','--',str(path)).splitlines()
+                  if commits:
+                      sha = commits[0].strip()
+                      req = urllib.request.Request(
+                          f'https://api.github.com/repos/{repo}/commits/{sha}',
+                          headers={'Authorization': f'Bearer {token}', 'Accept':'application/vnd.github+json'}
+                      )
+                      with urllib.request.urlopen(req, timeout=20) as r:
+                          obj = json.load(r)
+                      login = ((obj.get('author') or {}).get('login') or '').strip()
+                      if login and login != 'github-actions[bot]':
+                          return login
+              except Exception:
+                  pass
+              return pr_owner
+
+          entries = []
+          for path in sorted(root.glob('*.csv'), key=lambda p: p.name.casefold()):
+              try:
+                  with path.open('r', encoding='utf-8-sig', newline='') as f:
+                      reader = csv.reader(f)
+                      if next(reader, None) != expected:
+                          continue
+                      plugin = ''
+                      for row in reader:
+                          if len(row) >= 1 and row[0].strip():
+                              plugin = row[0].strip(); break
+                      if not plugin:
+                          plugin = path.stem
+              except Exception:
+                  continue
+              blob_sha = git('hash-object', str(path))
+              try:
+                  updated = git('log','-1','--format=%as','--',str(path)) or ''
+              except Exception:
+                  updated = ''
+              entries.append({
+                  'fileName': path.name,
+                  'pluginName': plugin,
+                  'owner': owner_for(path, path.name),
+                  'updated': updated,
+                  'sha': blob_sha,
+                  'downloadUrl': f'https://raw.githubusercontent.com/{repo}/main/Dictionaries/Community/{urllib.parse.quote(path.name)}'
+              })
+
+          index_path.write_text(json.dumps({'version':1,'entries':entries}, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+          PY
+
+      - name: Commit refreshed index
+        run: |
+          if git diff --quiet -- Dictionaries/Community/community-index.json; then
+            echo "community-index.json is already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Dictionaries/Community/community-index.json
+          git commit -m "Update community dictionary index"
+          git push
