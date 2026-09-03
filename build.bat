@@ -2,7 +2,7 @@
 setlocal EnableExtensions EnableDelayedExpansion
 cd /d "%~dp0"
 
-set "VERSION=0.1.0"
+set "VERSION=0.2.0"
 set "PROJECT=%~dp0PluginJPHelper\PluginJPHelper.csproj"
 set "MANIFEST=%~dp0PluginJPHelper\PluginJPHelper.json"
 set "OUTDIR=%~dp0PluginJPHelper\bin\x64\Release"
@@ -17,7 +17,7 @@ echo Plugin JP Helper v%VERSION% build / release
 echo ================================================
 echo.
 
-findstr /C:"\"AssemblyVersion\": \"0.1.0.0\"" "%MANIFEST%" >nul
+findstr /C:"\"AssemblyVersion\": \"0.2.0.0\"" "%MANIFEST%" >nul
 if errorlevel 1 goto :manifest_failed
 
 dotnet build "%PROJECT%" -c Release -p:Platform=x64
@@ -80,7 +80,7 @@ exit /b 0
 
 :manifest_failed
 echo.
-echo MANIFEST ERROR: AssemblyVersion 0.1.0.0 not found.
+echo MANIFEST ERROR: AssemblyVersion 0.2.0.0 not found.
 pause
 exit /b 1
 
