@@ -16,15 +16,6 @@
       "updated": "2026-09-03",
       "sha": "2beecd690a8a274f60f327ad79849ee1411e8383",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/%E2%80%BBGatherBuddyReborn_v0.1.csv"
-    },
-    {
-      "fileName": "Splatoon_v0.2.csv",
-      "pluginName": "Splatoon",
-      "owner": "エルパ",
-      "updated": "2026-09-03",
-      "sha": "b159e986e74cbba2fe8aad4a926bc280647fe627",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/Splatoon_v0.2.csv",
-      "deleteKeyHash": "538ae2b6c3fbb655bee599d9aa5f029c8b4de02e634cc2c92fcdca95b31ef570"
     }
   ]
 }
