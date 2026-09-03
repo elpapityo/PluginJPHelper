@@ -24,4 +24,4 @@ jobs:
       - name: Publish release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create V0.2.0 PluginJPHelper_v0.2.0.zip --title "Plugin JP Helper v0.2.0" --notes "v0.2.0 本番公開。テストリポジトリ経由でDalamudインストール確認済み。"
+        run: gh release create V0.2.0 PluginJPHelper_v0.2.0.zip --repo "elpapityo/PluginJPHelper" --title "Plugin JP Helper v0.2.0" --notes "v0.2.0 本番公開。テストリポジトリ経由でDalamudインストール確認済み。"
