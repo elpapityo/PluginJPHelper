@@ -1,0 +1,51 @@
+name: Release Plugin JP Helper v0.2.0
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - "PluginJPHelper/**"
+      - "Dictionaries/**"
+      - "README.md"
+      - "build.bat"
+      - "pluginmaster.json"
+      - ".github/workflows/release-v0.2.0.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      - name: Build
+        shell: pwsh
+        run: dotnet build PluginJPHelper/PluginJPHelper.csproj -c Release -p:Platform=x64
+      - name: Package
+        shell: pwsh
+        run: |
+          $dll = Get-ChildItem -Recurse PluginJPHelper/bin/x64/Release -Filter PluginJPHelper.dll | Select-Object -First 1
+          if (-not $dll) { throw "PluginJPHelper.dll not found" }
+          $build = $dll.Directory.FullName
+          Remove-Item -Recurse -Force package -ErrorAction SilentlyContinue
+          New-Item -ItemType Directory package | Out-Null
+          Copy-Item "$build/PluginJPHelper.dll" package/
+          if (Test-Path "$build/PluginJPHelper.deps.json") { Copy-Item "$build/PluginJPHelper.deps.json" package/ }
+          if (Test-Path "$build/PluginJPHelper.runtimeconfig.json") { Copy-Item "$build/PluginJPHelper.runtimeconfig.json" package/ }
+          Copy-Item PluginJPHelper/PluginJPHelper.json package/
+          if (Test-Path "$build/Microsoft.Windows.SDK.NET.dll") { Copy-Item "$build/Microsoft.Windows.SDK.NET.dll" package/ }
+          if (Test-Path "$build/WinRT.Runtime.dll") { Copy-Item "$build/WinRT.Runtime.dll" package/ }
+          if (Test-Path Dictionaries) { Copy-Item Dictionaries package/Dictionaries -Recurse }
+          Compress-Archive -Path package/* -DestinationPath PluginJPHelper_v0.2.0.zip -CompressionLevel Optimal -Force
+      - name: Replace release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete V0.2.0 --repo "${{ github.repository }}" --yes --cleanup-tag 2>$null
+          gh release create V0.2.0 PluginJPHelper_v0.2.0.zip --repo "${{ github.repository }}" --title "Plugin JP Helper v0.2.0" --notes "Plugin JP Helper v0.2.0"
