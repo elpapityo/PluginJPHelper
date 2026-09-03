@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "fileName": "PJH_Community_Test.csv",
+      "pluginName": "PluginJPHelper Community Test",
+      "owner": "elpapityo",
+      "updated": "2026/09/03",
+      "sha": "b1ec1baf9f5417f7ed2d0d7364f95352b31d4861",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/PJH_Community_Test.csv"
+    }
+  ]
+}
