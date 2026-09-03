@@ -2,6 +2,22 @@
   "version": 1,
   "entries": [
     {
+      "fileName": "PR_Test_Sample.csv",
+      "pluginName": "PRTest",
+      "owner": "elpapityo",
+      "updated": "2026-09-03",
+      "sha": "12c23f41a2e2656ddc056900b82a3ef86b02f4ae",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/PR_Test_Sample.csv"
+    },
+    {
+      "fileName": "PR_Test_Sample2.csv",
+      "pluginName": "PRTest2",
+      "owner": "elpapityo",
+      "updated": "2026-09-03",
+      "sha": "137611736b5fa3933a666e3d91c3f2afb95abdc3",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/PR_Test_Sample2.csv"
+    },
+    {
       "fileName": "※GatherBuddyReborn_v0.1.csv",
       "pluginName": "GatherBuddyReborn",
       "owner": "elpapityo",
