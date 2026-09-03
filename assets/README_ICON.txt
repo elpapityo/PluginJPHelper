@@ -1,0 +1,1 @@
+Icon is referenced from pluginmaster.json and PluginJPHelper/PluginJPHelper.json via https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/assets/PluginJPHelper.png
