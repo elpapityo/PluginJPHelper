@@ -1,0 +1,101 @@
+﻿Plugin,Menu,Section,Type,English,Japanese
+TextAdvance,,,Checkbox/RenderText,(very experimental) Allow flight,（試験的）飛行を許可
+TextAdvance,,,Button,Add current character,現在のキャラクターを追加
+TextAdvance,,,CollapsingHeaderPtr,Antistuck,スタック回避
+TextAdvance,,,CollapsingHeaderPtr,Auto interact,自動インタラクト
+TextAdvance,,,Text/RenderTextWrapped,Auto interacted objects:,自動インタラクトした対象：
+TextAdvance,,,Checkbox/RenderText,Auto-confirm request handins (RH),アイテム納品を自動確定（RH）
+TextAdvance,,,TabItem,Auto-enable,自動有効化
+TextAdvance,,,Text/RenderTextWrapped,Auto-enable plugin when you log in with characters:,次のキャラクターでログインした時にプラグインを自動有効化：
+TextAdvance,,,RenderText,Auto-interact max radius,自動インタラクト最大範囲
+TextAdvance,,,Checkbox/RenderText,Auto-interact upon arrival,到着時に自動インタラクト
+TextAdvance,,,Checkbox/RenderText,Automatic cutscene skip confirmation (CC),カットシーンスキップを自動確認（CC）
+TextAdvance,,,Checkbox/RenderText,Automatic ESC press during cutscene (CS),カットシーン中にESCを自動入力（CS）
+TextAdvance,,,Checkbox/RenderText,Automatic interaction with quest-related object (IN),クエスト関連対象へ自動インタラクト（IN）
+TextAdvance,,,Checkbox/RenderText,Automatic quest accept (QA),クエストを自動受注（QA）
+TextAdvance,,,Checkbox/RenderText,Automatic quest complete (QC),クエストを自動完了（QC）
+TextAdvance,,,Checkbox/RenderText,Automatic request fill (RF),納品アイテムを自動セット（RF）
+TextAdvance,,,Checkbox/RenderText,Automatic reward pick (RP),報酬を自動選択（RP）
+TextAdvance,,,Checkbox/RenderText,Automatic talk skip (TS),会話を自動送り（TS）
+TextAdvance,,,Text/RenderTextWrapped,Automatically accepts new quests when talking to quest initiating NPC,クエスト開始NPCとの会話時に新しいクエストを自動受注します
+TextAdvance,,,Text/RenderTextWrapped,Automatically advances most of the subtitles. Some subtitles may only be advanced manually still.,ほとんどの字幕を自動で進めます。一部の字幕は手動操作が必要な場合があります。
+TextAdvance,,,Text/RenderTextWrapped,Automatically completes quests when talking to NPC that completes quest,クエスト完了NPCとの会話時にクエストを自動完了します
+TextAdvance,,,Text/RenderTextWrapped,Automatically confirms cutscene skips upon pressing ESC.,ESCを押した際のカットシーンスキップ確認を自動で行います。
+TextAdvance,,,Text/RenderTextWrapped,Automatically confirms most of item requests once filled. Some requests may not be automatically confirmed.,アイテムをセットした後、ほとんどの納品確認を自動で行います。一部は自動確認されない場合があります。
+TextAdvance,,,Text/RenderTextWrapped,Automatically fills item request window. Some requests may not be automatically filled.,アイテム納品ウィンドウへ自動でアイテムをセットします。一部は自動セットされない場合があります。
+TextAdvance,,,Text/RenderTextWrapped,Automatically interacts with nearby quest-related NPCs and objects.,近くにいるクエスト関連NPCやオブジェクトへ自動でインタラクトします。
+TextAdvance,,,Text/RenderTextWrapped,Automatically picks quest completion reward based on simple rules that are configured below,下で設定した簡単なルールに従って、クエスト完了報酬を自動選択します
+TextAdvance,,,Text/RenderTextWrapped,Automatically presses ESC key during cutscene when cutscene is skippable. Does not skips normally unskippable cutscenes.,スキップ可能なカットシーン中にESCキーを自動入力します。通常スキップできないカットシーンはスキップしません。
+TextAdvance,,,Text/RenderTextWrapped,Button to hold to temporarily disable plugin when active:,プラグイン有効中に押している間だけ一時無効化するキー：
+TextAdvance,,,Text/RenderTextWrapped,Button to hold to temporarily enable plugin when inactive:,プラグイン無効中に押している間だけ一時有効化するキー：
+TextAdvance,,,Button,copy target descriptor,対象情報をコピー
+TextAdvance,,,Text/RenderTextWrapped,Current plugin state: globally,現在のプラグイン状態：全体
+TextAdvance,,,CollapsingHeaderPtr,Cutscene,カットシーン
+TextAdvance,,,Button,Disable external control (Plugin1),外部制御を無効化（Plugin1）
+TextAdvance,,,Button,Disable external control (Plugin2),外部制御を無効化（Plugin2）
+TextAdvance,,,Checkbox/RenderText,Disable manual plugin state change notification,手動での有効／無効切替通知を無効化
+TextAdvance,,,Checkbox/RenderText,Disable notification upon login if character has auto-enable on,自動有効化対象キャラクターでログインした時の通知を無効化
+TextAdvance,,,Checkbox/RenderText,Disable reward pick chat notification,報酬自動選択のチャット通知を無効化
+TextAdvance,,,Text/RenderTextWrapped,disabled,無効
+TextAdvance,,,RenderText,Display only while holding key,キーを押している間だけ表示
+TextAdvance,,,Checkbox/RenderText,Display quest target indicators,クエスト対象インジケーターを表示
+TextAdvance,,,Checkbox/RenderText,Don't auto-disable plugin on logout,ログアウト時にプラグインを自動無効化しない
+TextAdvance,,,Checkbox/RenderText,Enable event NPC finder,イベントNPC検索を有効化
+TextAdvance,,,Checkbox/RenderText,Enable event object finder,イベントオブジェクト検索を有効化
+TextAdvance,,,Button,Enable external control (Plugin1),外部制御を有効化（Plugin1）
+TextAdvance,,,Button,Enable external control (Plugin2),外部制御を有効化（Plugin2）
+TextAdvance,,,Checkbox/RenderText,Enable finder when plugin is disabled,プラグイン無効中も検索機能を有効化
+TextAdvance,,,Checkbox/RenderText,Enable indicators when plugin is disabled,プラグイン無効中もインジケーターを表示
+TextAdvance,,,Checkbox/RenderText,Enable overlay when plugin is enabled,プラグイン有効中にオーバーレイを表示
+TextAdvance,,,Checkbox/RenderText,Enable plugin (non-persistent),プラグインを有効化（一時）
+TextAdvance,,,Checkbox/RenderText,"Enable quest target indicators (global, persistent)",クエスト対象インジケーターを有効化（全体・保存）
+TextAdvance,,,Text/RenderTextWrapped,enabled,有効
+TextAdvance,,,Text/RenderTextWrapped,Equipable item for current job,現在のジョブで装備可能なアイテム
+TextAdvance,,,CollapsingHeaderPtr,External control test,外部制御テスト
+TextAdvance,,,Text/RenderTextWrapped,Functions,機能
+TextAdvance,,,Text/RenderTextWrapped,Gear coffer,装備品チェスト
+TextAdvance,,,TabItem,General config,一般設定
+TextAdvance,,,Text/RenderTextWrapped,Gil sacks,ギル袋
+TextAdvance,,,Checkbox/RenderText,Global enable overrides local settings,全体有効化をエリア別設定より優先
+TextAdvance,,,Text/RenderTextWrapped,High quality gear,HQ装備
+TextAdvance,,,Text/RenderTextWrapped,Highest vendor value,NPC売却価格が最も高いもの
+TextAdvance,,,Button,Install hook,フックを導入
+TextAdvance,,,CollapsingHeaderPtr,IPC test,IPCテスト
+TextAdvance,,,Text/RenderTextWrapped,Lowering this radius may cause issues,この範囲を小さくすると問題が発生する場合があります
+TextAdvance,,,Text/RenderTextWrapped,Navigation,ナビゲーション
+TextAdvance,,,Checkbox/RenderText,Only modified,変更済みのみ
+TextAdvance,,,Text/RenderTextWrapped,Overlay,オーバーレイ
+TextAdvance,,,TabItem,Per area config,エリア別設定
+TextAdvance,,,Text/RenderTextWrapped,Please note: precision is not guaranteed.,注意：位置精度は保証されません。
+TextAdvance,,,Text/RenderTextWrapped,Plugin operation,プラグイン動作
+TextAdvance,,,Checkbox/RenderText,Print navigation status into chat,ナビゲーション状態をチャットへ表示
+TextAdvance,,,CollapsingHeaderPtr,Quest markers,クエストマーカー
+TextAdvance,,,RenderTextWrapped,Quest target indicator color,クエスト対象インジケーターの色
+TextAdvance,,,Checkbox/RenderText,Quest target indicator tether,クエスト対象インジケーターの線を表示
+TextAdvance,,,RenderText,Quest target indicator thickness,クエスト対象インジケーターの太さ
+TextAdvance,,,CollapsingHeaderPtr,Quests,クエスト
+TextAdvance,,,CollapsingHeaderPtr,Request,納品
+TextAdvance,,,CollapsingHeaderPtr,Reward pick,報酬選択
+TextAdvance,,,Text/RenderTextWrapped,Reward picking order,報酬選択の優先順位
+TextAdvance,,,TabItem,Target indicators,対象インジケーター
+TextAdvance,,,Text/RenderTextWrapped,These functions require Splatoon plugin installed and enabled.,これらの機能にはSplatoonプラグインの導入と有効化が必要です。
+TextAdvance,,,Button,UnInstall hook,フックを解除
+TextAdvance,,,Selectable,Use no mount,マウントを使用しない
+TextAdvance,,,Checkbox/RenderText,Use sprint and peloton if possible,可能ならスプリント／プロトンを使用
+TextAdvance,,,Text/RenderTextWrapped,You have Splatoon v3.9.2.25 installed and enabled.,Splatoon v3.9.2.25 が導入・有効化されています。
+TextAdvance,,,Button,♥ Patreon/KoFi,♥ Patreon / Ko-Fi
+TextAdvance,,,Text/RenderTextWrapped,"/at → toggles TextAdvance plugin.
+/at y|yes|enable - turns on TextAdvance.
+/at n|no|disable - turns off TextAdvance.
+/at config|settings - opens TextAdvance settings.
+/at q - toggles visual quest target markers
+/at mtq - move to the first available quest location, if present (requires navmesh integration to be enabled)
+/at mtqstop - cancel all pending movement tasks
+/at mtf - move to flag","/at → TextAdvanceの有効／無効を切り替えます。
+/at y|yes|enable - TextAdvanceを有効にします。
+/at n|no|disable - TextAdvanceを無効にします。
+/at config|settings - TextAdvanceの設定を開きます。
+/at q - クエスト対象マーカーの表示／非表示を切り替えます。
+/at mtq - 利用可能な最初のクエスト地点へ移動します（vnavmesh連携を有効にする必要があります）。
+/at mtqstop - 保留中の移動処理をすべてキャンセルします。
+/at mtf - フラグ地点へ移動します。"
