@@ -5,6 +5,9 @@ on:
     branches: [ main ]
     paths:
       - "upload/PluginJPHelper_v*.zip"
+      - "CHANGELOG.md"
+      - "pluginmaster.json"
+      - ".github/workflows/publish-upload.yml"
   workflow_dispatch:
 
 permissions:
@@ -60,7 +63,7 @@ jobs:
           VERSION="${{ steps.pkg.outputs.version }}"
           if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
             gh release upload "$TAG" "$ZIP" --clobber --repo "$GITHUB_REPOSITORY"
-            gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --title "Plugin JP Helper v${VERSION}"
+            gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --title "Plugin JP Helper v${VERSION}" --notes-file CHANGELOG.md
           else
             gh release create "$TAG" "$ZIP" --repo "$GITHUB_REPOSITORY" --title "Plugin JP Helper v${VERSION}" --notes-file CHANGELOG.md
           fi
