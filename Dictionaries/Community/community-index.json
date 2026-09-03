@@ -8,6 +8,14 @@
       "updated": "2026-09-03",
       "sha": "4560b892af0b97e9f6198622de06295bae6bac59",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/%E2%80%BBTextAdvance_v0.2.csv"
+    },
+    {
+      "fileName": "※GatherBuddyReborn_v0.1.csv",
+      "pluginName": "GatherBuddyReborn",
+      "owner": "エルパ",
+      "updated": "2026-09-03",
+      "sha": "2beecd690a8a274f60f327ad79849ee1411e8383",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/%E2%80%BBGatherBuddyReborn_v0.1.csv"
     }
   ]
 }
