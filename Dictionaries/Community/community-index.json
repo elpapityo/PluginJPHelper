@@ -1,4 +1,14 @@
 {
   "version": 1,
-  "entries": []
+  "entries": [
+    {
+      "fileName": "※GatherBuddyReborn_v0.1.csv",
+      "pluginName": "GatherBuddyReborn",
+      "owner": "エルパ",
+      "updated": "2026-09-03",
+      "sha": "2beecd690a8a274f60f327ad79849ee1411e8383",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/%E2%80%BBGatherBuddyReborn_v0.1.csv",
+      "deleteKeyHash": "8acb6dc3cb0fbead037b79b63a676858b049356a457a7c763146c1640bde1ac1"
+    }
+  ]
 }
