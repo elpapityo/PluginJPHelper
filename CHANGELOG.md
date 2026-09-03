@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## v0.3.1
+
+### 修正・改善
+
+- Artisanの製作リスト画面 `List Editor` / `Processing List` をArtisan所属として認識するよう修正。
+- 既に登録済みのArtisan設定にも、`Artisan|List Editor|Processing List` の判定キーワードを起動時に自動補完するよう改善。
+- Artisan製作リストの動的表示をPJH本体側で翻訳する専用処理を追加。
+- `Approximate List Time`、`Difficulty / Durability / Quality`、`Current Item Progress`、`Overall List Progress`、`Approximate Remaining Duration`、`Crafting: アイテム名` の可変表示に対応。
+- `Craft completed and minimum quality required met in XXs!` と `Craft completed with full quality in XXs!` の秒数可変表示に対応。
+- 動的翻訳では数値・アイテム名を保持し、`##` / `###` のImGui内部IDを変更しない方式で処理。
+- `Retainer Item: ...` は固定部分だけ日本語化し、後続のアイテム名・個数など可変情報を保持。
+- Artisan専用処理として実装し、他プラグインへ汎用部分一致翻訳を広げない方針を維持。
+
+### 実機確認
+
+- Artisan `List Editor` の製作リスト画面で翻訳反映を確認。
+- `Craft completed with full quality in 6s!` の秒数可変表示が日本語化されることを確認。
+
 ## v0.3.0
 
 ### 追加
