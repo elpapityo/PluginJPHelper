@@ -1,0 +1,1 @@
+The previous assets/PluginJPHelper.png was not a valid PNG image and could not be decoded by Pillow. It must be replaced with a valid square PNG.
