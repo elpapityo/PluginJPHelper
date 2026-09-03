@@ -1,0 +1,66 @@
+name: Publish Plugin JP Helper upload
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - "upload/PluginJPHelper_v*.zip"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Select uploaded package
+        id: pkg
+        shell: bash
+        run: |
+          ZIP=""
+          if [ "${{ github.event_name }}" = "push" ]; then
+            ZIP=$(git diff-tree --no-commit-id --name-only -r "$GITHUB_SHA" | grep -E '^upload/PluginJPHelper_v[0-9]+\.[0-9]+\.[0-9]+\.zip$' | head -n 1 || true)
+          fi
+          if [ -z "$ZIP" ]; then
+            ZIP=$(find upload -maxdepth 1 -type f -name 'PluginJPHelper_v*.zip' | sort -V | tail -n 1 || true)
+          fi
+          if [ -z "$ZIP" ]; then
+            echo "No upload ZIP found."
+            exit 1
+          fi
+          FILE=$(basename "$ZIP")
+          VERSION=${FILE#PluginJPHelper_v}
+          VERSION=${VERSION%.zip}
+          TAG="V${VERSION}"
+          echo "zip=$ZIP" >> "$GITHUB_OUTPUT"
+          echo "file=$FILE" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Verify package
+        shell: bash
+        run: |
+          test -s "${{ steps.pkg.outputs.zip }}"
+          unzip -l "${{ steps.pkg.outputs.zip }}" | grep -q 'PluginJPHelper.dll'
+          unzip -l "${{ steps.pkg.outputs.zip }}" | grep -q 'PluginJPHelper.json'
+
+      - name: Create or replace release asset
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          TAG="${{ steps.pkg.outputs.tag }}"
+          ZIP="${{ steps.pkg.outputs.zip }}"
+          VERSION="${{ steps.pkg.outputs.version }}"
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$ZIP" --clobber --repo "$GITHUB_REPOSITORY"
+            gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --title "Plugin JP Helper v${VERSION}"
+          else
+            gh release create "$TAG" "$ZIP" --repo "$GITHUB_REPOSITORY" --title "Plugin JP Helper v${VERSION}" --notes-file CHANGELOG.md
+          fi
