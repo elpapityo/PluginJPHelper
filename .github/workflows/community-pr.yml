@@ -1,0 +1,201 @@
+name: Community Dictionary PR Check
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'Dictionaries/Community/**'
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    outputs:
+      valid: ${{ steps.validate.outputs.valid }}
+    steps:
+      - name: Download PR files safely
+        id: prepare
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const pr = context.payload.pull_request;
+            const { owner, repo } = context.repo;
+            const files = await github.paginate(github.rest.pulls.listFiles, {
+              owner, repo, pull_number: pr.number, per_page: 100
+            });
+            fs.mkdirSync('pr_files', { recursive: true });
+            const meta = [];
+            for (const f of files) {
+              meta.push({ filename: f.filename, status: f.status, size: f.changes || 0 });
+              if (f.status === 'removed') continue;
+              const safe = f.filename.replace(/[^A-Za-z0-9_.\-\u0080-\uFFFF]/g, '_');
+              const res = await github.rest.repos.getContent({
+                owner: pr.head.repo.owner.login,
+                repo: pr.head.repo.name,
+                path: f.filename,
+                ref: pr.head.sha
+              });
+              if (Array.isArray(res.data) || !res.data.content) throw new Error(`File read failed: ${f.filename}`);
+              fs.writeFileSync(path.join('pr_files', safe), Buffer.from(res.data.content, 'base64'));
+            }
+            let baseIndex = { version: 1, entries: [] };
+            try {
+              const idx = await github.rest.repos.getContent({
+                owner, repo,
+                path: 'Dictionaries/Community/community-index.json',
+                ref: pr.base.sha
+              });
+              baseIndex = JSON.parse(Buffer.from(idx.data.content, 'base64').toString('utf8'));
+            } catch {}
+            fs.writeFileSync('pr-meta.json', JSON.stringify({
+              actor: pr.user.login,
+              admin: 'elpapityo',
+              files,
+              baseIndex
+            }, null, 2));
+
+      - name: Validate CSV and ownership
+        id: validate
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import csv, json, os, pathlib, re
+
+          expected = ['Plugin','Menu','Section','Type','English','Japanese']
+          meta = json.loads(pathlib.Path('pr-meta.json').read_text(encoding='utf-8'))
+          actor = meta['actor']
+          admin = meta['admin']
+          owners = {e.get('fileName'): e.get('owner','') for e in meta.get('baseIndex',{}).get('entries',[])}
+          errors = []
+          warnings = []
+          files = meta.get('files', [])
+
+          if len(files) > 20:
+              errors.append('一度に変更できるファイルは20件までです。')
+
+          for f in files:
+              name = f['filename']
+              status = f['status']
+              if not name.startswith('Dictionaries/Community/'):
+                  errors.append(f'{name}: Community以外のファイルは変更できません。')
+                  continue
+              base = name.split('/')[-1]
+              if not base.lower().endswith('.csv'):
+                  errors.append(f'{name}: CSV以外は変更できません。')
+                  continue
+              if status == 'renamed':
+                  errors.append(f'{name}: 名前変更は一度削除してから新規追加してください。')
+                  continue
+              if status == 'removed':
+                  owner = owners.get(base, '')
+                  if actor != admin and owner != actor:
+                      errors.append(f'{base}: 削除できるのは投稿者本人または管理者だけです。投稿者={owner or "不明"} / 実行者={actor}')
+                  continue
+
+              safe = re.sub(r'[^A-Za-z0-9_.\-\u0080-\uFFFF]', '_', name)
+              p = pathlib.Path('pr_files') / safe
+              try:
+                  raw = p.read_text(encoding='utf-8-sig')
+              except Exception as e:
+                  errors.append(f'{base}: UTF-8 CSVとして読み込めません。({e})')
+                  continue
+              if len(raw.encode('utf-8')) > 2_000_000:
+                  errors.append(f'{base}: ファイルサイズが2MBを超えています。')
+                  continue
+              try:
+                  rows = list(csv.reader(raw.splitlines(keepends=True)))
+              except Exception as e:
+                  errors.append(f'{base}: CSV解析に失敗しました。({e})')
+                  continue
+              if not rows:
+                  errors.append(f'{base}: CSVが空です。')
+                  continue
+              if rows[0] != expected:
+                  errors.append(f'{base}: ヘッダーは Plugin,Menu,Section,Type,English,Japanese の6列にしてください。')
+                  continue
+              plugins = set()
+              data_count = 0
+              for line_no, row in enumerate(rows[1:], start=2):
+                  if not any(x.strip() for x in row):
+                      continue
+                  data_count += 1
+                  if len(row) != 6:
+                      errors.append(f'{base} {line_no}行目: 列数が6列ではありません。')
+                      continue
+                  plugin, menu, section, typ, eng, jp = row
+                  if not plugin.strip():
+                      errors.append(f'{base} {line_no}行目: Pluginが空です。')
+                  else:
+                      plugins.add(plugin.strip())
+                  if not eng.strip():
+                      errors.append(f'{base} {line_no}行目: Englishが空です。')
+                  if not jp.strip():
+                      warnings.append(f'{base} {line_no}行目: Japaneseが空です。')
+                  if jp.strip():
+                      eids = re.findall(r'#{2,3}[^\s,\"]+', eng)
+                      jids = re.findall(r'#{2,3}[^\s,\"]+', jp)
+                      if eids != jids:
+                          errors.append(f'{base} {line_no}行目: ## / ### IDが原文と翻訳で一致していません。')
+              if data_count == 0:
+                  errors.append(f'{base}: 翻訳データがありません。')
+              if len(plugins) > 1:
+                  errors.append(f'{base}: 1つのCSVに複数のPlugin名が含まれています。')
+
+          ok = not errors
+          lines = ['<!-- PJH-COMMUNITY-CHECK -->']
+          lines.append('## Plugin JP Helper コミュニティ辞書チェック')
+          if ok:
+              lines.append('✅ CSVチェックに成功しました。Communityへ自動反映できます。')
+          else:
+              lines.append('❌ CSVチェックに失敗しました。以下を修正してください。')
+          if errors:
+              lines.append('\n### エラー')
+              lines += [f'- {x}' for x in errors[:100]]
+          if warnings:
+              lines.append('\n### 警告（投稿は可能）')
+              lines += [f'- {x}' for x in warnings[:100]]
+          pathlib.Path('report.md').write_text('\n'.join(lines)+'\n', encoding='utf-8')
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as f:
+              f.write(f'valid={str(ok).lower()}\n')
+          if not ok:
+              raise SystemExit(1)
+          PY
+
+      - name: Comment result
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const body = fs.existsSync('report.md') ? fs.readFileSync('report.md', 'utf8') : '<!-- PJH-COMMUNITY-CHECK -->\n❌ チェック処理自体でエラーが発生しました。';
+            const { owner, repo } = context.repo;
+            const issue_number = context.payload.pull_request.number;
+            const comments = await github.paginate(github.rest.issues.listComments, { owner, repo, issue_number, per_page: 100 });
+            const old = comments.find(c => c.user?.type === 'Bot' && c.body?.includes('PJH-COMMUNITY-CHECK'));
+            if (old) {
+              await github.rest.issues.updateComment({ owner, repo, comment_id: old.id, body });
+            } else {
+              await github.rest.issues.createComment({ owner, repo, issue_number, body });
+            }
+
+  auto-merge:
+    needs: validate
+    if: needs.validate.outputs.valid == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge valid Community PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const pull_number = context.payload.pull_request.number;
+            const result = await github.rest.pulls.merge({
+              owner, repo, pull_number, merge_method: 'squash'
+            });
+            if (!result.data.merged) core.setFailed(`自動Mergeできませんでした: ${result.data.message || 'unknown'}`);
