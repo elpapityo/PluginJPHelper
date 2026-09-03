@@ -1,0 +1,27 @@
+name: Publish Tested Plugin JP Helper v0.2.0
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - ".github/workflows/publish-tested-v0.2.0.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download tested package
+        run: wget -O PluginJPHelper_v0.2.0.zip "https://github.com/elpapityo/PluginJPHelper-Dictionary-Test/releases/download/V0.2.0-test/PluginJPHelper_v0.2.0-test.zip"
+      - name: Verify package
+        run: |
+          test -s PluginJPHelper_v0.2.0.zip
+          unzip -l PluginJPHelper_v0.2.0.zip | grep PluginJPHelper.dll
+          unzip -l PluginJPHelper_v0.2.0.zip | grep PluginJPHelper.json
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create V0.2.0 PluginJPHelper_v0.2.0.zip --title "Plugin JP Helper v0.2.0" --notes "v0.2.0 本番公開。テストリポジトリ経由でDalamudインストール確認済み。"
