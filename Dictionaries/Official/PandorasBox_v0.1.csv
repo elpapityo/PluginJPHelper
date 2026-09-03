@@ -1,0 +1,190 @@
+﻿Plugin,Menu,Section,Type,English,Japanese
+PandorasBox,,,, by Puni.sh,
+PandorasBox,,,, by Taurenkey (Puni.sh),
+PandorasBox,,,,/pcall,
+PandorasBox,,,,/pcallback,
+PandorasBox,,,,/pdfleave,
+PandorasBox,,,,/pgl,
+PandorasBox,,,,/pglamlink,
+PandorasBox,,,,/pint,
+PandorasBox,,,,/pinteract,
+PandorasBox,,,,/plink,
+PandorasBox,,,,/pmsq,
+PandorasBox,,,,/pre,
+PandorasBox,,,,/presetenmity,
+PandorasBox,,,,/puseitem,
+PandorasBox,,,,About,このプラグインについて
+PandorasBox,,,,Action Combat Targeting,戦闘時のアクション対象を自動選択
+PandorasBox,,,,Actions,アクション
+PandorasBox,,,,Activates your tank stance automatically upon job switching or entering a dungeon.,タンクへジョブチェンジした時やコンテンツへ入った時、タンクスタンスを自動で有効にします。
+PandorasBox,,,,"Add ""Open All"" to Coffers",宝箱アイテムに「すべて開ける」を追加
+PandorasBox,,,,"addonName, updateStateBool, atkValues",
+PandorasBox,,,,Adds a button to Aetherial Reduction to process all items.,精選画面に、対象アイテムをすべて精選するボタンを追加します。
+PandorasBox,,,,Adds a button to the bottom of the saddlebag to entrust duplicates.,チョコボかばんの下部に、重複アイテムをまとめて預けるボタンを追加します。
+PandorasBox,,,,Adds a button to the desynthesis window to desynth all from the current dropdown. (Disclaimer: Pandora takes no responsibility for the loss of any Ultimate weapons or other rare items. Please use responsibly.),分解画面に、現在選択中の一覧をすべて分解するボタンを追加します。（注意：絶武器などの希少品を失ってもPandoraは責任を負いません。十分確認して使用してください。）
+PandorasBox,,,,Adds a button to the extract materia window to start extracting all.,マテリア精製画面に、すべて精製するボタンを追加します。
+PandorasBox,,,,Adds a context menu to items whilst the FC chest is open to quickly deposit them.,カンパニーチェストを開いている間、アイテムの右クリックメニューに素早く預ける項目を追加します。
+PandorasBox,,,,Adds a description of what stage a quest is for when talking to the NPC.,NPCとの会話時、そのクエストがどの段階のものか説明を表示します。
+PandorasBox,,,,"Adds an ""Open All"" option to the right click menu of various items that stack and can be opened from the inventory.",所持品から開封できるスタック可能アイテムの右クリックメニューに「すべて開ける」を追加します。
+PandorasBox,,,,Allows deciphering treaure maps from hotbar.,ホットバーから宝の地図を解読できるようにします。
+PandorasBox,,,,Auto Active Time Maneuver,アクティブタイムマニューバーを自動操作
+PandorasBox,,,,Auto-Collect,収集品採集を自動有効化
+PandorasBox,,,,Auto-Commendation after Duty,コンテンツ終了後にMIP推薦を自動実行
+PandorasBox,,,,Auto-Cordial,コーディアルを自動使用
+PandorasBox,,,,Auto-Equip Recommended Gear,さいきょう装備を自動装備
+PandorasBox,,,,Auto-interact with Gathering Nodes,採集ポイントを自動操作
+PandorasBox,,,,Auto-interact with Objects in Instances,コンテンツ内オブジェクトを自動操作
+PandorasBox,,,,Auto-Join Party Finder Groups,パーティ募集へ自動参加
+PandorasBox,,,,Auto-Meditation,黙想を自動使用
+PandorasBox,,,,Auto-Motif (Out of Combat),モチーフを自動描画（非戦闘時）
+PandorasBox,,,,Auto-Mount After Combat,戦闘終了後に自動騎乗
+PandorasBox,,,,Auto-Mount after Gathering,採集終了後に自動騎乗
+PandorasBox,,,,Auto-Mount on Zone Change,エリア移動後に自動騎乗
+PandorasBox,,,,Auto-Open Map Coords,チャットの座標リンクを自動で開く
+PandorasBox,,,,Auto-Peloton,プロトンを自動使用
+PandorasBox,,,,Auto-Prospect/Triangulate,採掘師／園芸師の探索アクションを自動使用
+PandorasBox,,,,Auto-select Gardening Soil/Seeds,栽培の土／種を自動選択
+PandorasBox,,,,Auto-select Turn-ins,納品アイテムを自動選択
+PandorasBox,,,,Auto-Sprint in Sanctuaries,レストエリアでスプリントを自動使用
+PandorasBox,,,,Auto-Sprint on Island Sanctuary,無人島でスプリントIIを自動使用
+PandorasBox,,,,Auto-Summon Chocobo,バディチョコボを自動呼び出し
+PandorasBox,,,,Auto-Summon Fairy/Carbuncle,フェアリー／カーバンクルを自動召喚
+PandorasBox,,,,Auto-Sync FATEs,FATEへ自動レベルシンク
+PandorasBox,,,,Auto-Tank Stance,タンクスタンスを自動有効化
+PandorasBox,,,,Auto-Teleport to Map Coords,チャットの座標へ自動テレポ
+PandorasBox,,,,Automatically Confirm##AutoConfirm_AutoSelectTurnin_0,自動で決定##AutoConfirm_AutoSelectTurnin_0
+PandorasBox,,,,Automatically confirms the lower quality popup menu.,HQ品をNQへ下げる確認画面を自動で決定します。
+PandorasBox,,,,Automatically consumes a Gysahl Green in the overworld if you don't have your chocobo out.,フィールドでバディチョコボがいない場合、ギサールの野菜を自動使用します。
+PandorasBox,,,,Automatically draws motifs when outside of combat and not in a sanctuary.,非戦闘中かつレストエリア外で、モチーフを自動的に描画します。
+PandorasBox,,,,Automatically Enabled Yes Buttons,「はい」ボタンを自動で有効化
+PandorasBox,,,,Automatically equip recommended gear upon job changing.,ジョブチェンジ時に「さいきょう」装備へ自動で変更します。
+PandorasBox,,,,Automatically fill in gardening windows with seeds and soil.,栽培画面へ種と土を自動でセットします。
+PandorasBox,,,,Automatically give a commendation to a random player in your party at the end of a duty.,コンテンツ終了時、PTメンバーの1人へランダムにMIP推薦を行います。
+PandorasBox,,,,Automatically hits a button or mashes for you when the ATM is on screen.,アクティブタイムマニューバー表示中、必要なボタン入力を自動で行います。
+PandorasBox,,,,Automatically merge stacks of same items,同じアイテムのスタックを自動でまとめる
+PandorasBox,,,,Automatically Open Chests,宝箱を自動で開ける
+PandorasBox,,,,Automatically opens the map to coordinates posted in chat.,チャットに投稿された座標リンクのマップを自動で開きます。
+PandorasBox,,,,Automatically Refresh Party Finder,パーティ募集を自動更新
+PandorasBox,,,,Automatically reset enmity on target dummies if you do not perform an action after a specified amount of time.,指定時間アクションを行わなかった場合、木人との戦闘状態を自動で解除します。
+PandorasBox,,,,Automatically summons your Fairy or Carbuncle upon switching to SCH or SMN respectively.,学者または召喚士へジョブチェンジした時、フェアリーまたはカーバンクルを自動召喚します。
+PandorasBox,,,,Automatically targets and switches your target to the nearest within your line of sight.,視界内にいる最も近い対象を自動でターゲットします。
+PandorasBox,,,,"Automatically teleports to the nearest aetheryte to a map link posted in chat. Requires ""Teleporter"" plugin installed.",チャットに投稿された座標リンクに最も近いエーテライトへ自動テレポします。「Teleporter」プラグインが必要です。
+PandorasBox,,,,"Automatically try to pick all the keys, levers, and other thingymabobs. Also works to try and open doors and stuff. (VERY EXPERIMENTAL)",コンテンツ内の鍵、レバー、その他のオブジェクトや扉を自動で操作します。（非常に実験的な機能）
+PandorasBox,,,,Automatically use a cordial when below a given threshold.,GPが設定値を下回った時、コーディアルを自動使用します。
+PandorasBox,,,,Automatically use Meditation when out of combat.,非戦闘時に黙想を自動使用します。
+PandorasBox,,,,Automatically uses Isle Sprint.,無人島でスプリントIIを自動使用します。
+PandorasBox,,,,"Automatically uses sprint when in an area you are gaining rested experience, such as cities.",都市などレストボーナスが蓄積するエリアで、スプリントを自動使用します。
+PandorasBox,,,,Callback,コールバック
+PandorasBox,,,,Chat,チャット
+PandorasBox,,,,ChatFeature,チャット機能
+PandorasBox,,,,Commands,コマンド
+PandorasBox,,,,Default Grand Company Shop Menu,軍票交換窓口の初期タブ
+PandorasBox,,,,Default Vendor Buy Amount,ショップ購入個数の初期値
+PandorasBox,,,,Desynth All,すべて分解
+PandorasBox,,,,Disable Known Glamours in Glamour Creation,登録済み装備をミラージュドレッサーへ入れない
+PandorasBox,,,,Disable Starting Buffs on Nodes with Collectibles,収集品の採集ポイントでは開始時バフを無効化
+PandorasBox,,,,Disable Theme,テーマを無効化
+PandorasBox,,,,Disabled Reason: Crashing.,無効化理由：クラッシュするため。
+PandorasBox,,,,Disabled Reason: Moved to CBT,無効化理由：CBTへ移動しました。
+PandorasBox,,,,Disabled Reason: No longer being supported. Someone please PR further updates ty.,無効化理由：サポート終了。更新できる方はPRをお願いします。
+PandorasBox,,,,Disables items from being transferred to the glamour dresser if it already exists in it,すでにミラージュドレッサーへ登録されている装備は、重ねて入れられないようにします。
+PandorasBox,,,,Discord,
+PandorasBox,,,,Do you dare to open Pandora's Box?,パンドラの箱を開けますか？
+PandorasBox,,,,Enable Pandora Gathering,Pandora Gatheringを有効化
+PandorasBox,,,,Enable rapid fire button presses on controller by holding down a button.,コントローラーのボタンを長押しすると連打する機能を有効にします。
+PandorasBox,,,,Enable Theme,テーマを有効化
+PandorasBox,,,,Extract All Materia,マテリアを一括精製
+PandorasBox,,,,FATE Targeting Mode,FATEターゲットモード
+PandorasBox,,,,FC Chest Quick Deposit,カンパニーチェストへ素早く預ける
+PandorasBox,,,,Fires arbitrary callbacks to any addon of your choosing. Play with responsibly.,指定したアドオンへ任意のコールバックを送信します。内容を理解したうえで使用してください。
+PandorasBox,,,,For quickly linking multiple gearsets to a glamour plate.,複数のギアセットをミラージュプレートへ素早く関連付けます。
+PandorasBox,,,,Glamour Plate Link,ミラージュプレート関連付け
+PandorasBox,,,,Hold Shift / L2 / LT to Temporarily Disable on Starting a Node,採集開始時にShift／L2／LTを押している間は一時的に無効化
+PandorasBox,,,,Inactivity Dummy Reset,無操作時に木人戦を自動解除
+PandorasBox,,,,Interact with Target,ターゲットを操作
+PandorasBox,,,,Interacts with gathering nodes when close enough and on the correct job.,正しいギャザラージョブで採集ポイントへ近づくと、自動で操作します。
+PandorasBox,,,,Interacts with your current target.,現在のターゲットを操作します。
+PandorasBox,,,,"It's like the other item link commands, but allows searching.",他のアイテムリンク用コマンドと同様ですが、アイテム名の検索にも対応しています。
+PandorasBox,,,,Item Link,アイテムリンク
+PandorasBox,,,,itemName,
+PandorasBox,,,,"Join our Discord community for project announcements, updates, and support.",プロジェクトのお知らせ、更新情報、サポートについてはDiscordコミュニティへ参加してください。
+PandorasBox,,,,Leave Duty,コンテンツから退出
+PandorasBox,,,,Map Hotbar Decipher,ホットバーから宝の地図を解読
+PandorasBox,,,,Min. GP###MinGP7,最低GP###MinGP7
+PandorasBox,,,,Mounts on zone change if not already mounted.,エリア移動後、騎乗していなければ自動でマウントに乗ります。
+PandorasBox,,,,Mounts upon ending combat.,戦闘終了後に自動でマウントに乗ります。
+PandorasBox,,,,Mounts upon finishing gathering from a node. Will try to execute for up to 3 seconds after the delay if moving.,採集ポイントでの採集終了後、自動でマウントに乗ります。移動中の場合は、設定した待機時間後から最大3秒間実行を試みます。
+PandorasBox,,,,MSQ Countdown,メインクエスト残数表示
+PandorasBox,,,,Other,その他
+PandorasBox,,,,Pandora Quick Gather,Pandora連続採集
+PandorasBox,,,,Pandora's Box,
+PandorasBox,,,,Pandora's Box - 1.6.4.4,
+PandorasBox,,,,Party Finder Show More,パーティ募集の表示件数を増やす
+PandorasBox,,,,Preserve Map Links in Clipboard,コピー時に座標リンクを保持
+PandorasBox,,,,Preserves the formatting for map links so they can be interacted with after pasting.,座標リンクの書式を保持し、貼り付け後もクリックできるようにします。
+PandorasBox,,,,Prevents the Command Panel from closing during load screens.,ロード画面へ切り替わってもコマンドパネルが閉じないようにします。
+PandorasBox,,,,Prints a message in chat with how many main scenario quests left in the current expansion you have to complete.,現在進めている拡張パッケージのメインクエスト残数をチャットへ表示します。
+PandorasBox,,,,Published and developed with ,公開・開発：
+PandorasBox,,,,Quick Lower Quality,HQ品をすばやくNQ化
+PandorasBox,,,,Quickly leaves a duty.,コンテンツからすばやく退出します。
+PandorasBox,,,,Raise the display limit from 50 to the 100 limit actually allowed by the game.,パーティ募集の表示上限を50件から、ゲーム側で許可されている100件へ増やします。
+PandorasBox,,,,Reduce All Items,すべて精選
+PandorasBox,,,,Refreshes the Party Finder at set intervals,設定した間隔でパーティ募集を更新します。
+PandorasBox,,,,Remember Item Between Nodes,採集ポイント間で選択アイテムを保持
+PandorasBox,,,,Replaces the Quick Gather checkbox with a new one that enables better quick gathering. Works on all nodes and can be interrupted at any point by disabling the checkbox. Also remembers your settings between sessions.,「連続採集」のチェック項目を高機能版へ置き換えます。全ての採集ポイントで使用でき、チェックを外せば途中で停止できます。設定は次回起動時にも保持されます。
+PandorasBox,,,,Replaces the Trade button on the collectables interface with a Trade All button for the selected collectable.,収集品納品画面の「納品」ボタンを、選択中の収集品をすべて納品するボタンへ置き換えます。
+PandorasBox,,,,Repository,リポジトリ
+PandorasBox,,,,Reset Enmity,敵視をリセット
+PandorasBox,,,,Resets combat with target dummies. Accepts arguments for t(arget) or a(ll). Defaults to all.,木人との戦闘状態を解除します。引数はt（ターゲット）またはa（すべて）を指定でき、省略時はすべてが対象です。
+PandorasBox,,,,Reveal Hidden Items,隠されたアイテムを表示
+PandorasBox,,,,Saddlebag Entrust Duplicates,重複アイテムをチョコボかばんへ預ける
+PandorasBox,,,,Search,検索
+PandorasBox,,,,Searches feature names and descriptions for a given word or phrase.,入力した単語や文章から機能名と説明を検索します。
+PandorasBox,,,,Set delay (seconds)##Throttle_AutoSwitchGatherer_0,待機時間（秒）##Throttle_AutoSwitchGatherer_0
+PandorasBox,,,,Sets the default amount for items to buy from vendors,ショップで購入するアイテム数の初期値を設定します。
+PandorasBox,,,,Sets the default tab in the grand company menu when you open it.,軍票交換窓口を開いた時に表示する初期タブを設定します。
+PandorasBox,,,,Sets the Yes button on Yes/No prompts to automatically be enabled if normally a checkbox needed checked.,通常はチェックを入れないと押せない確認画面の「はい」ボタンを、自動で押せる状態にします。
+PandorasBox,,,,Simplify Relic Quest Pickup,武器強化クエストの受注を簡略化
+PandorasBox,,,,Skip '/mount' In Macros If Mounted,騎乗中はマクロの「/mount」をスキップ
+PandorasBox,,,,Source Code,ソースコード
+PandorasBox,,,,Sponsor,支援
+PandorasBox,,,,Sticky Command Panel,コマンドパネルを閉じない
+PandorasBox,,,,Switch Gatherers Automatically,採掘師／園芸師を自動切り替え
+PandorasBox,,,,Switches to the appropriate gathering job when approaching a gathering spot and you have both Triangulate & Prospect active. Must have a gearset for the job to switch to.,両方の探索アクションが有効な状態で採集ポイントへ近づくと、適切なギャザラージョブへ自動で切り替えます。切り替え先ジョブのギアセット登録が必要です。
+PandorasBox,,,,Syncs when entering a FATE if you're overlevelled.,レベルが高すぎる状態でFATEへ入った時、自動でレベルシンクします。
+PandorasBox,,,,"t, a",
+PandorasBox,,,,Targeting,ターゲット
+PandorasBox,,,,Targets,ターゲット
+PandorasBox,,,,Trade All Collectables,収集品を一括納品
+PandorasBox,,,,Turbo Controller,コントローラー連打
+PandorasBox,,,,UI,画面表示
+PandorasBox,,,,Use Item,アイテムを使用
+PandorasBox,,,,Use ノフィカの福音 / ナルザルの福音,ノフィカの福音／ナルザルの福音を使用
+PandorasBox,,,,Use バウンティフルハーベスト / バウンティフルイールド,バウンティフルハーベスト／バウンティフルイールドを使用
+PandorasBox,,,,Use ブレスドハーベストII / キングスイールドII,ブレスドハーベストII／キングスイールドIIを使用
+PandorasBox,,,,Use 十二神の加護,十二神の加護を使用
+PandorasBox,,,,Use 大地の恵み,大地の恵みを使用
+PandorasBox,,,,Use 老農の知 / 石工の理,老農の知／石工の理を使用
+PandorasBox,,,,Uses an Item from your inventory.,所持品にあるアイテムを使用します。
+PandorasBox,,,,Uses Peloton automatically outside of combat. (Physical Ranged only),非戦闘時にプロトンを自動使用します。（遠隔物理DPSのみ）
+PandorasBox,,,,Using a macro with /mount in it will skip that line if you're already mounted,マクロに「/mount」が含まれている場合、すでに騎乗中ならその行をスキップします。
+PandorasBox,,,,Walk up to a chest to automatically open it. (Does not work with Deep Dungeon chests),宝箱へ近づくと自動で開けます。（ディープダンジョンの宝箱には対応していません）
+PandorasBox,,,,"When in a FATE and able to participate (synced), automatically targets FATE associated enemies.",FATE参加可能状態（レベルシンク済み）の時、FATE対象の敵を自動でターゲットします。
+PandorasBox,,,,"When switching to FSH, ensures Collector's Glove will always be on.",漁師へジョブチェンジした時、収集品採集を必ず有効にします。
+PandorasBox,,,,"When switching to MIN or BTN, automatically activate the other jobs searching ability.",採掘師または園芸師へジョブチェンジした時、もう一方のクラスの探索アクションも自動で有効にします。
+PandorasBox,,,,"When you open your inventory, the plugin will try and pull all stacks of the same item together.",所持品を開いた時、同じアイテムのスタックを自動でまとめます。
+PandorasBox,,,,"Whenever you click a Party Finder listing, this will bypass the description window and auto click the join button.",パーティ募集を選択すると募集詳細画面を省略し、参加ボタンを自動で押します。
+PandorasBox,,,,"Whenever you have to select an item to turn in, it will automatically fill in the interface.",納品アイテムを選択する画面で、対象アイテムを自動的にセットします。
+PandorasBox,,,,"[-r <role>], [-j <jobs>], [-g <gearset names/nums>], [-n plate number]",
+PandorasBox,,,,"[<item name>], [<id>]",
+PandorasBox,,,,プロジェクトのお知らせ、更新情報、サポートについてはDiscordコミュニティへ参加してください。,
+PandorasBox,,,,公開・開発：,
+PandorasBox,,,Text/RenderTextWrapped, by Taurenkey (Puni.sh), by Taurenkey (Puni.sh)
+PandorasBox,,,Checkbox/RenderText,Activate if main tank dies (respects party size option)##ActivateOnDeath_AutoTankStance_3,MTが死亡した場合に有効化（PT人数設定に従う）##ActivateOnDeath_AutoTankStance_3
+PandorasBox,,,RenderText,Activate when party size is less than or equal to##MaxParty_AutoTankStance_0,PT人数が次の人数以下なら有効化##MaxParty_AutoTankStance_0
+PandorasBox,,,Checkbox/RenderText,Activate when synced to a fate##ActivateInFate_AutoTankStance_5,FATEにレベルシンクした時に有効化##ActivateInFate_AutoTankStance_5
+PandorasBox,,,Checkbox/RenderText,Function only in a duty##OnlyInDuty_AutoTankStance_2,コンテンツ内でのみ動作##OnlyInDuty_AutoTankStance_2
+PandorasBox,,,Checkbox/RenderText,Only activate on entrance if no other tank has stance##NoOtherTanks_AutoTankStance_4,突入時、他のタンクがスタンスを入れていない場合のみ有効化##NoOtherTanks_AutoTankStance_4
+PandorasBox,,,Text/RenderTextWrapped,Pandora's Box,Pandora's Box
+PandorasBox,,,RenderText,Set delay (seconds)##Throttle_AutoTankStance_1,待機時間（秒）##Throttle_AutoTankStance_1
+PandorasBox,,,RenderTextWrapped,検索,検索
