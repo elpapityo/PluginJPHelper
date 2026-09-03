@@ -2,18 +2,10 @@
   "version": 1,
   "entries": [
     {
-      "fileName": "BMR_v0.3.csv",
-      "pluginName": "BMR",
-      "owner": "elpapityo",
-      "updated": "2026/09/03",
-      "sha": "191377cf194a5536391e3d25b6f785088ef40a81",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/BMR_v0.3.csv"
-    },
-    {
       "fileName": "※PandorasBox_v0.1.csv",
       "pluginName": "PandorasBox",
       "owner": "elpapityo",
-      "updated": "2026/09/03",
+      "updated": "2026-09-03",
       "sha": "b7f60eb90d7bb3184da222901658ef22b8faa8d9",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/%E2%80%BBPandorasBox_v0.1.csv"
     }
