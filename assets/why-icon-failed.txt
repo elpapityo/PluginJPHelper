@@ -1,1 +1,0 @@
-The prior icon blob at assets/PluginJPHelper.png was invalid image data. Replacing it with a valid square PNG is required for Dalamud IconUrl rendering.

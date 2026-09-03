@@ -1,1 +1,0 @@
-A valid replacement icon has been prepared locally at 64x64 PNG for the production IconUrl target.

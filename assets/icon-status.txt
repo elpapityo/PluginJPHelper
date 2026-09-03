@@ -1,1 +1,0 @@
-Using assets/PluginJPHelper.png as the manifest icon.

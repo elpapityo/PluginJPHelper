@@ -1,1 +1,0 @@
-The installer icon should be a square PNG between 64x64 and 512x512. The production manifest references assets/PluginJPHelper.png.

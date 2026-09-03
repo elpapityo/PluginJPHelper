@@ -1,1 +1,0 @@
-Binary icon is managed at assets/PluginJPHelper.png. Use the approved square PNG icon (64-512px).
