@@ -4,9 +4,9 @@
     "Name": "Plugin JP Helper",
     "Punchline": "Dalamudプラグインの固定辞書日本語化支援",
     "Description": "Dalamudプラグインの表示文字列を日本語化する補助プラグインです。",
-    "Changelog": "v0.3.1 Artisanの製作リスト翻訳反映を改善。List Editor / Processing List対応、秒数・進捗・品質・製作中アイテム・Retainer Itemなどの可変表示を本体側で翻訳",
+    "Changelog": "v0.3.3 公式／コミュニティ辞書の状態表示・並べ替え・列幅操作を改善。表ヘッダー右クリックの列幅調整メニューを日本語化。",
     "InternalName": "PluginJPHelper",
-    "AssemblyVersion": "0.3.1.0",
+    "AssemblyVersion": "0.3.3.0",
     "RepoUrl": "https://github.com/elpapityo/PluginJPHelper",
     "ApplicableVersion": "any",
     "Tags": [
@@ -17,9 +17,9 @@
     "LoadPriority": 0,
     "IconUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/assets/PluginJPHelper.png",
     "ImageUrls": [],
-    "DownloadLinkInstall": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.3.1/PluginJPHelper_v0.3.1.zip",
-    "DownloadLinkUpdate": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.3.1/PluginJPHelper_v0.3.1.zip",
-    "DownloadLinkTesting": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.3.1/PluginJPHelper_v0.3.1.zip",
+    "DownloadLinkInstall": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.3.3/PluginJPHelper_v0.3.3.zip",
+    "DownloadLinkUpdate": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.3.3/PluginJPHelper_v0.3.3.zip",
+    "DownloadLinkTesting": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.3.3/PluginJPHelper_v0.3.3.zip",
     "IsHide": false,
     "IsTestingExclusive": false
   }
