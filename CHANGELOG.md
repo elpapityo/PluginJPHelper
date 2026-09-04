@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## v0.3.4
+
+### 正式公開
+
+- ゲーム内右クリックメニュー（ContextMenu）の日本語化に対応。
+- GatherBuddyReborn の `Add to Crafting List` / `Open in Vulcan` をPJH側で翻訳できるよう対応。
+- Artisan の `Artisan Crafting List` と、そのサブメニュー項目の日本語化に対応。
+- ContextMenu項目は対象プラグインごとの有効状態に従って翻訳し、他プラグインへグローバル適用しない方式で実装。
+- PJHのメインUIを `Dalamud.Interface.Windowing.WindowSystem` / `Window` 経由へ変更。
+- Dalamud標準のウィンドウ設定に対応し、透明度・背景ブラー・ピン留め・クリック透過を標準設定から変更できるよう改善。
+- PJH独自の背景透明度固定や背景色上書きを行わず、Dalamud Styleの標準描画に従うよう整理。
+
 ## v0.3.3
 
 ### 正式公開
