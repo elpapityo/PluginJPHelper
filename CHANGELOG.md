@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## v0.4.1
+
+### 修正・改善
+
+- Plugin JP Helper本体のVer表記をv0.4.1へ更新。
+- Plugin Installerの更新確認間隔の既定値を999分へ変更。
+- 旧既定値10分を使用している環境は999分へ移行し、手動変更済みの値は維持。
+- ヘルプタブに「Plugin Installerの日本語化：使い方・仕様」を追加。
+- Plugin Installer翻訳の基本操作、差分翻訳、辞書ファイル、Google翻訳、Local-only / private Pluginの扱い、トラブル時の確認方法を記載。
+
+## v0.4.0
+
+### 正式公開
+
+- Plugin Installerの説明翻訳をPJH本体へ統合。
+- Remote Manifestのみを自動翻訳対象とし、Local-only / private Pluginの説明はGoogle翻訳へ送信しない方式に対応。
+- インストール済み公開プラグインの表示翻訳に対応。
+- Plugin Installerでの日本語検索に対応。
+- 一度翻訳した内容を保存し、次回以降は新規・変更された部分だけを差分翻訳する方式に対応。
+- FFXIV用語を翻訳前に保護し、翻訳後に用語辞書の表記へ戻す処理を追加。
+- Google翻訳の状態表示、更新一覧、詳細ログを追加。
+- 日本語化をOFFにすると元の英語表示へ戻る方式を維持。
+
 ## v0.3.4
 
 ### 正式公開
