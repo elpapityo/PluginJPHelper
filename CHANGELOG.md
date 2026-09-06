@@ -6,10 +6,14 @@
 
 - Explorer's Icebox の検証をきっかけに、未翻訳取得で扱えるImGui/UI描画経路を追加・改善。
 - `BeginCombo`、`Selectable`、`TableSetupColumn`、`SliderInt` などの取得経路を拡張。
+- ImSharp / Luna 系UIで使われる `igButtonEx` の取得・翻訳に対応し、Penumbraなどで従来取得できなかったボタン表示を扱えるよう改善。
+- `Restart Tutorial`、`Show Changelogs`、`Open Directory`、`Next`、`Skip Tutorial`、`Disable Tutorial` など、ImSharp / Luna 経由のボタン取得を確認。
 - 内部プラグイン名と辞書名が異なる場合の所有判定・別名対応を改善。
 - ImGuiの `##` / `###` IDを保持し、他プラグインへ不要な部分一致を広げない従来方針を維持。
 - 翻訳辞書CSVを外部で削除した後に「再読み込み」を行っても、以前読み込んだ辞書内容がPJH内部に残り続ける問題を修正。
 - 指定中CSVが存在しない状態で再読み込みした場合、そのCSV由来の編集中辞書データだけを解除し、標準辞書・他プラグイン辞書・未翻訳取得結果には影響しないよう改善。
+- Penumbra用辞書を拡充し、設定画面、チュートリアル、高度な編集画面などの翻訳を追加。
+- Penumbra辞書は公開時点で640件を同梱。
 
 ## v0.4.1
 
