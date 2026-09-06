@@ -43,12 +43,62 @@ jobs:
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
 
-      - name: Verify package
+      - name: Verify package and version
         shell: bash
+        env:
+          ZIP: ${{ steps.pkg.outputs.zip }}
+          VERSION: ${{ steps.pkg.outputs.version }}
         run: |
-          test -s "${{ steps.pkg.outputs.zip }}"
-          unzip -l "${{ steps.pkg.outputs.zip }}" | grep -q 'PluginJPHelper.dll'
-          unzip -l "${{ steps.pkg.outputs.zip }}" | grep -q 'PluginJPHelper.json'
+          set -euo pipefail
+          test -s "$ZIP"
+          unzip -l "$ZIP" | grep -q 'PluginJPHelper.dll'
+          unzip -l "$ZIP" | grep -q 'PluginJPHelper.json'
+          unzip -p "$ZIP" PluginJPHelper.json > /tmp/PluginJPHelper.json
+          python3 - <<'PY'
+          import json, os
+          with open('/tmp/PluginJPHelper.json', encoding='utf-8-sig') as f:
+              manifest = json.load(f)
+          expected = os.environ['VERSION'] + '.0'
+          actual = manifest.get('AssemblyVersion')
+          if actual != expected:
+              raise SystemExit(f'AssemblyVersion mismatch: ZIP={actual!r}, filename={expected!r}')
+          print(f'Verified AssemblyVersion: {actual}')
+          PY
+
+      - name: Sync pluginmaster to uploaded version
+        shell: bash
+        env:
+          VERSION: ${{ steps.pkg.outputs.version }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+
+          version = os.environ['VERSION']
+          path = Path('pluginmaster.json')
+          data = json.loads(path.read_text(encoding='utf-8-sig'))
+          if not isinstance(data, list) or not data:
+              raise SystemExit('pluginmaster.json must contain a non-empty JSON array')
+          entry = data[0]
+          assembly = f'{version}.0'
+          url = f'https://github.com/elpapityo/PluginJPHelper/releases/download/V{version}/PluginJPHelper_v{version}.zip'
+          entry['AssemblyVersion'] = assembly
+          entry['DownloadLinkInstall'] = url
+          entry['DownloadLinkUpdate'] = url
+          entry['DownloadLinkTesting'] = url
+          path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          print(f'Synced pluginmaster.json -> {assembly}')
+          PY
+          if ! git diff --quiet -- pluginmaster.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add pluginmaster.json
+            git commit -m "Sync pluginmaster for v${VERSION}"
+            git push
+          else
+            echo "pluginmaster.json already matches v${VERSION}."
+          fi
 
       - name: Create or replace release asset
         env:
