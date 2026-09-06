@@ -1,0 +1,705 @@
+﻿﻿Plugin,Menu,Section,Type,English,Japanese
+Penumbra,,,,"
+Click to copy to clipboard.",クリックしてクリップボードにコピーします。
+Penumbra,,,,"
+Hold Control and Shift while clicking to  delete.",Ctrl＋Shiftを押しながらクリックすると削除します。
+Penumbra,,,,"
+Hold Control while clicking.",Ctrlを押しながらクリックします。
+Penumbra,,,,"
+THIS IS NOT REVERTIBLE.",この操作は元に戻せません。
+Penumbra,,,, as a placeholder value that only matches empty lists or names.,空のリストまたは名前にのみ一致するプレースホルダー値として使用します。
+Penumbra,,,, in front of a search token to search for mods matching at least one of the '?'-criteria.,検索語の前に付けると、「?」条件のうち少なくとも1つに一致するMODを検索します。
+Penumbra,,,, in front of a search token to search only for mods not matching the criterion.,検索語の前に付けると、その条件に一致しないMODだけを検索します。
+Penumbra,,,, inherits from:,継承元：
+Penumbra,,,, to filter for mods by specific authors.,特定の作者でMODを絞り込みます。
+Penumbra,,,, to filter for mods by the categories of the items they change (use 1-18 or a partial category name).,変更対象アイテムのカテゴリでMODを絞り込みます（1～18、またはカテゴリ名の一部を使用）。
+Penumbra,,,, to filter for mods changing specific items.,特定のアイテムを変更するMODで絞り込みます。
+Penumbra,,,," to filter for mods containing the text in name, path, description, tags, changed items, or group- or option names or descriptions.",名前、パス、説明、タグ、変更アイテム、グループ名・オプション名や説明に指定文字列を含むMODで絞り込みます。
+Penumbra,,,, to filter for mods names without considering the paths.,パスを考慮せず、MOD名だけで絞り込みます。
+Penumbra,,,, to filter for mods set to specific tags.,指定したタグが設定されているMODで絞り込みます。
+Penumbra,,,, to match this exact combination of words.,この単語の組み合わせに完全一致させます。
+Penumbra,,,,'Use No Mods' Collection Assignment,「MODを使用しない」コレクションの割り当て
+Penumbra,,,,", or ",、または 
+Penumbra,,,,"A collection is a set of mod configurations. You can have as many collections as you desire.
+The collection you are currently editing in the mod tab can be selected here and is highlighted.
+","コレクションはMOD設定のまとまりです。必要な数だけ作成できます。
+MODタブで現在編集中のコレクションはここで選択でき、選択中のものが強調表示されます。
+"
+Penumbra,,,,A modifier you need to hold while clicking the Delete Mod button for it to take effect.,「MODを削除」ボタンを有効にするため、クリック時に押しておく修飾キーです。
+Penumbra,,,,A modifier you need to hold while clicking the Incognito or Temporary Settings Mode button for it to take effect.,「匿名化モード」または「一時設定モード」ボタンを有効にするため、クリック時に押しておく修飾キーです。
+Penumbra,,,,Accessory,アクセサリー
+Penumbra,,,,Active,有効
+Penumbra,,,,Actual Path,実ファイルのパス
+Penumbra,,,,Add Tag...,タグを追加…
+Penumbra,,,,Additional Modifier,追加修飾キー
+Penumbra,,,,Advanced,詳細設定
+Penumbra,,,,Advanced Editing: Always Highlight Color Row Pair when Hovering Selection Button,高度な編集：選択ボタンにマウスを合わせた時、常にカラーペア行全体を強調表示
+Penumbra,,,,Advanced Editing: Automatically Pin Mod in Editing Window,高度な編集：編集ウィンドウでMODを自動的に固定
+Penumbra,,,,Advanced Editing: Edit Raw Tile UV Transforms,高度な編集：タイルUV変換を行列値のまま編集
+Penumbra,,,,Advanced Editing: Unlock More Dye Chanels,高度な編集：追加の染色チャンネルを有効化
+Penumbra,,,,"All Single-Selection Groups with more options than specified here will be displayed as Combo-Boxes at the top.
+All other Single-Selection Groups will be displayed as a set of Radio-Buttons.","指定数より多いオプションを持つ単一選択グループは、上部にコンボボックスで表示されます。
+それ以外の単一選択グループはラジオボタンで表示されます。"
+Penumbra,,,,Allow Other Plugins Access to PCP Handling,他のプラグインによるPCP処理へのアクセスを許可
+Penumbra,,,,Alpha,アルファ
+Penumbra,,,,Alphabetical,アルファベット順
+Penumbra,,,,Also check General Settings for UI characters and inheritance through ownership.,UIキャラクターや所有関係による継承については、「全般設定」も確認してください。
+Penumbra,,,,"Although the vanilla game is limited to two dye channels, the current material file format supports four.
+This option will allow the use of those four dye channels in the material editor.
+Please note, though, that this has limited usefulness: at the time of writing, those four channels are only usable within the material editor.","通常のゲームでは染色チャンネルは2つまでですが、現在のマテリアルファイル形式では4つまで対応しています。
+この設定を有効にすると、マテリアルエディターで4つの染色チャンネルを使用できます。
+ただし現時点では、この4チャンネルはマテリアルエディター内でのみ利用できるため、用途は限定的です。"
+Penumbra,,,,Always Open Detailed Mod Import Popup,詳細なMODインポート画面を常に開く
+Penumbra,,,,Always Open Import at Default Directory,インポート時に常に既定ディレクトリを開く
+Penumbra,,,,"Always open the detailed modal popup at the center of the screen with information about the latest imports, instead of the Dalamud notification.",Dalamud通知の代わりに、最新のインポート情報を表示する詳細ダイアログを常に画面中央に開きます。
+Penumbra,,,,"and all displayed individual character names to their initials and world, in case you want to share screenshots.",スクリーンショット共有時のため、表示される個別キャラクター名をイニシャルとワールド名に短縮します。
+Penumbra,,,,Any changes we make in our mod settings later in the next tab will edit this collection.,次のタブでMOD設定を変更すると、このコレクションが編集されます。
+Penumbra,,,,Any World,すべてのワールド
+Penumbra,,,,"Aside from being a collection of settings, we can also assign collections to different functions. This is used to make different mods apply to different characters.",コレクションは設定のまとまりとして使うだけでなく、さまざまな機能へ割り当てることもできます。これにより、キャラクターごとに異なるMODを適用できます。
+Penumbra,,,,Assign PCP Collections,PCPコレクションを割り当てる
+Penumbra,,,,Assignments take precedence before anything else and only apply to one specific character or monster.,割り当ては他の設定より優先され、特定の1キャラクターまたはモンスターにのみ適用されます。
+Penumbra,,,,Assignments.,割り当て
+Penumbra,,,,Author,作者
+Penumbra,,,,Auto Deduplicate on Import,インポート時に同一ファイルを自動整理
+Penumbra,,,,Auto Reduplicate UI Files on PMP Import,PMPインポート時にUIファイルを自動的に複製・正規化
+Penumbra,,,,Automatic Import Directory,自動インポートディレクトリ
+Penumbra,,,,"Automatically deduplicate mod files on import. This will make mod file sizes smaller, but deletes (binary identical) files.",インポート時にMODファイルの重複を自動で排除します。MODの容量は小さくなりますが、バイナリが完全に同一のファイルは削除されます。
+Penumbra,,,,Automatically Dismiss Reports of Successful Mod Imports,MODインポート成功通知を自動で閉じる
+Penumbra,,,,Automatically Migrate V5 Models to V6 on Import,インポート時にV5モデルをV6へ自動移行
+Penumbra,,,,Automatically reduplicate and normalize UI-specific files on import from PMP files. This is STRONGLY recommended because deduplicated UI files crash the game.,PMPからのインポート時に、UI専用ファイルを自動で再複製・正規化します。重複排除されたUIファイルはゲームをクラッシュさせるため、強く推奨されます。
+Penumbra,,,,Automatically Select Character-Associated Collection,キャラクターに関連付けられたコレクションを自動選択
+Penumbra,,,,Baseline for female player characters.,女性プレイヤーキャラクター用の基準設定。
+Penumbra,,,,Baseline for humanoid female non-player characters.,人型女性NPC用の基準設定。
+Penumbra,,,,Baseline for humanoid male non-player characters.,人型男性NPC用の基準設定。
+Penumbra,,,,Baseline for male player characters.,男性プレイヤーキャラクター用の基準設定。
+Penumbra,,,,Battle NPC,バトルNPC
+Penumbra,,,,"Battle- and Event NPCs may apply to more than one ID if they share the same name. This is language dependent. If you change your clients language, verify that your collections are still correctly assigned.",バトルNPCとイベントNPCは、同じ名前を共有している場合、複数のIDに適用されることがあります。これは言語設定に依存します。クライアント言語を変更した場合は、コレクションの割り当てが正しいか確認してください。
+Penumbra,,,,"Bell Retainers apply to Mannequins, but not to outdoor retainers, since those only carry their owners name.",ベル呼び出しのリテイナーはマネキンにも適用されますが、屋外リテイナーには適用されません。屋外リテイナーは所有者名のみを持つためです。
+Penumbra,,,,Both (Focus Mod Name),両方（MOD名を優先）
+Penumbra,,,,Both (Focus Search Path),両方（検索パスを優先）
+Penumbra,,,,Broken Mods,破損MOD
+Penumbra,,,,by ,作者：
+Penumbra,,,,Calculating character list...,キャラクター一覧を計算中...
+Penumbra,,,,Cancel the cleanup. This is not revertible.,クリーンアップをキャンセルします。この操作は元に戻せません。
+Penumbra,,,,Category,カテゴリ
+Penumbra,,,,Changed Items,変更アイテム
+Penumbra,,,,Chat Commands usually print messages on failure but also on success to confirm your action. You can disable this here.,チャットコマンドは通常、失敗時だけでなく成功時にも操作確認のメッセージを表示します。ここで無効にできます。
+Penumbra,,,,Children,子コレクション
+Penumbra,,,,Choose the Directory the File Watcher listens to.,ファイル監視が監視するディレクトリを選択します。
+Penumbra,,,,Choose the sort mode for the mod selector in the mods tab.,MODタブのMOD一覧で使用する並べ替え方法を選択します。
+Penumbra,,,,Clear all required features.,必要機能をすべて解除します。
+Penumbra,,,,Clear completely to remove the path from this mod.,完全に消去して、このMODからパスを削除します。
+Penumbra,,,,Click to copy to clipboard.,クリックしてクリップボードにコピーします。
+Penumbra,,,,"Clicking this will open a new window in which you can
+edit the following things per option for this mod:
+
+		- file redirections
+		- file swaps
+		- metadata manipulations
+		- model materials
+		- duplicates
+		- textures","クリックすると新しいウィンドウが開き、このMODの各オプションについて次の項目を編集できます：
+
+		- ファイルリダイレクト
+		- ファイルスワップ
+		- メタデータ操作
+		- モデルマテリアル
+		- 複製
+		- テクスチャ"
+Penumbra,,,,Collapsed Mod Folder,折りたたまれたMODフォルダー
+Penumbra,,,,Collapsible Option Group Limit,折りたたみ可能なオプショングループの上限
+Penumbra,,,,Collection,コレクション
+Penumbra,,,,Collection Details,コレクション詳細
+Penumbra,,,,Collection: Default,コレクション：デフォルト
+Penumbra,,,,Collections,コレクション
+Penumbra,,,,Color,カラー
+Penumbra,,,,Colors,カラー
+Penumbra,,,,Companion,ミニオン
+Penumbra,,,,Configure how to display the changed items of a single mod in the mods info panel.,単一MODの変更アイテムをMOD情報パネルでどのように表示するか設定します。
+Penumbra,,,,Control,Ctrl
+Penumbra,,,,Control and mouse wheel to scroll.,Ctrl＋マウスホイールでスクロールします。
+Penumbra,,,,Crc64,CRC64
+Penumbra,,,,Create Backups Before Destructive Operations,破壊的操作の前にバックアップを作成
+Penumbra,,,,Create Backups During Manual Migration,手動移行中にバックアップを作成
+Penumbra,,,,Create PCP Collections,PCPコレクションを作成
+Penumbra,,,,Current directory name is identical to new one.,現在のディレクトリ名は新しい名前と同じです。
+Penumbra,,,,Currently Selected Collection,現在選択中のコレクション
+Penumbra,,,,Custom,カスタム
+Penumbra,,,,Days,日
+Penumbra,,,,Decreased Meta Manipulation Value,減少したメタデータ操作値
+Penumbra,,,,Default,デフォルト
+Penumbra,,,,Default Mod Author,既定のMOD作者
+Penumbra,,,,Default Mod Export Directory,既定のMODエクスポート先
+Penumbra,,,,Default Mod Import Directory,既定のMODインポート元
+Penumbra,,,,Default Mod Import Organizational Folder,既定のMODインポート先フォルダー
+Penumbra,,,,Default Option,既定オプション
+Penumbra,,,,Default PCP Organizational Folder,既定のPCP整理フォルダー
+Penumbra,,,,"Delete all selected files entirely from your filesystem, but not their file associations in the mod.
+!!!This can not be reverted!!!
+
+No files selected.","選択したすべてのファイルをファイルシステムから完全に削除します。ただしMOD内のファイル関連付けは残ります。
+!!!この操作は元に戻せません!!!
+
+ファイルが選択されていません。"
+Penumbra,,,,"Deletes all folders that contain no objects or have no size at all (meaning they only have empty subfolders).
+
+THIS IS NOT REVERTIBLE!","中身がなく、サイズも0のフォルダー（空のサブフォルダーしか含まないもの）をすべて削除します。
+
+この操作は元に戻せません！"
+Penumbra,,,,Description,説明
+Penumbra,,,,"Determines the default pinning behavior when opening a new Advanced Editing window.
+
+Pinned: The editing window will stay on the mod it was on at the time of opening/pinning.
+Unpinned: When changing your selected mod in the main window, the editing window will follow the selection, unless a pinned window exists for the new selected mod.","新しい高度な編集ウィンドウを開いた時の、既定の固定動作を設定します。
+
+固定：開いた／固定した時点のMODをそのまま表示し続けます。
+固定解除：メインウィンドウで選択中のMODを変更すると、編集ウィンドウも追従します。ただし新しく選択したMOD用の固定ウィンドウが存在する場合は追従しません。"
+Penumbra,,,,Disable all tutorial entries.,すべてのチュートリアル項目を無効化
+Penumbra,,,,Disabled Mod,無効なMOD
+Penumbra,,,,Display all changed items in a single list sorted alphabetically.,すべての変更アイテムを1つの一覧にまとめ、アルファベット順で表示します。
+Penumbra,,,,Display items as groups by their model and slot. Collapse those groups to a single item by default. Prefers items with more changes affecting them or configured items as the main item.,アイテムをモデルとスロットごとにグループ表示します。既定では各グループを1項目に折りたたみます。変更箇所が多いアイテム、または設定済みアイテムを代表項目として優先します。
+Penumbra,,,,Display items as groups by their model and slot. Expand those groups showing all items by default. Prefers items with more changes affecting them or configured items as the main item.,アイテムをモデルとスロットごとにグループ表示します。既定ではグループを展開して全アイテムを表示します。変更箇所が多いアイテム、または設定済みアイテムを代表項目として優先します。
+Penumbra,,,,Drag primary inheritance here to remove it from the list.,ここへプライマリ継承をドラッグすると一覧から削除します。
+Penumbra,,,,Duplicate Mods,重複MOD
+Penumbra,,,,Edit Mod,MODを編集
+Penumbra,,,,"Edit tags by clicking them, or add new tags. Empty tags are removed.",クリックしてタグを編集するか、新しいタグを追加します。空のタグは削除されます。
+Penumbra,,,,"Edit the raw matrix components of tile UV transforms, instead of having them decomposed into scale, rotation and shear.",タイルUV変換を拡大縮小・回転・せん断へ分解せず、行列値のまま編集します。
+Penumbra,,,,Effective Changes,有効な変更
+Penumbra,,,,Elderly,高齢
+Penumbra,,,,Enable,有効化
+Penumbra,,,,Enable Custom Shape and Attribute Support,カスタムシェイプ・属性のサポートを有効化
+Penumbra,,,,Enable Debug Mode,デバッグモードを有効化
+Penumbra,,,,Enable Directory Watcher,ディレクトリ監視を有効化
+Penumbra,,,,Enable Fully Automatic Import,完全自動インポートを有効化
+Penumbra,,,,Enable HTTP API,HTTP APIを有効化
+Penumbra,,,,Enable Mods,MODを有効化
+Penumbra,,,,Enable Penumbra Crash Logging (Experimental),Penumbraクラッシュログを有効化（試験的）
+Penumbra,,,,Enabled,有効
+Penumbra,,,,Enabled Mod,有効なMOD
+Penumbra,,,,"Enables a File Watcher that automatically listens for Mod files that enter a specified directory, causing Penumbra to open a popup to import these mods.",指定ディレクトリへ入ったMODファイルを自動検知するファイル監視を有効にし、Penumbraがそれらをインポートするポップアップを開くようにします。
+Penumbra,,,,"Enables other applications, e.g. Anamnesis, to use some Penumbra functions, like requesting redraws.",Anamnesisなどの他アプリケーションから、再描画要求など一部のPenumbra機能を利用できるようにします。
+Penumbra,,,,Enables Penumbra to launch a secondary process that records some game activity which may or may not help diagnosing Penumbra-related game crashes.,Penumbraが補助プロセスを起動し、ゲーム内の一部動作を記録できるようにします。Penumbra関連クラッシュの診断に役立つ場合があります。
+Penumbra,,,,Enter ,入力 
+Penumbra,,,,Error,エラー
+Penumbra,,,,Event NPC,イベントNPC
+Penumbra,,,,"Example: 't:Tag1 t:""Tag 2"" -t:Tag3 -a:None s:Body -c:Hempen ?c:Camise ?n:Top' will match any mod that","例：'t:Tag1 t:""Tag 2"" -t:Tag3 -a:None s:Body -c:Hempen ?c:Camise ?n:Top' は、次の条件に一致するMODを検索します："
+Penumbra,,,,Executing this will,これを実行すると
+Penumbra,,,,Expanded Mod Folder,展開されたMODフォルダー
+Penumbra,,,,Expanded Mod Folder Line,展開されたMODフォルダー行
+Penumbra,,,,Female Racial NPC,女性NPC（種族別）
+Penumbra,,,,Female Racial Player,女性プレイヤー（種族別）
+Penumbra,,,,File,ファイル
+Penumbra,,,,"Filter mods for those where their full paths or names contain the given strings, split by spaces.",フルパスまたは名前に指定文字列を含むMODを絞り込みます。複数の文字列はスペースで区切ります。
+Penumbra,,,,Folders First,フォルダーを先頭
+Penumbra,,,,Folders First (Inverted),フォルダーを先頭（逆順）
+Penumbra,,,,Folders Last,フォルダーを末尾
+Penumbra,,,,Folders Last (Inverted),フォルダーを末尾（逆順）
+Penumbra,,,,Force Penumbra to completely re-scan your root directory as if it was restarted.,Penumbraを再起動した時と同様に、ルートディレクトリを完全に再スキャンします。
+Penumbra,,,,Format,形式
+Penumbra,,,,Game Object,ゲームオブジェクト
+Penumbra,,,,Game Path,ゲーム内パス
+Penumbra,,,,General,全般
+Penumbra,,,,General Cleanup,全般クリーンアップ
+Penumbra,,,,Go to next tutorial step.,次のチュートリアル手順へ進みます。
+Penumbra,,,,Group Assignments,グループ割り当て
+Penumbra,,,,Group Edit Mode,グループ編集モード
+Penumbra,,,,Group Editing,グループ編集
+Penumbra,,,,Group Reorder Mode,グループ並べ替えモード
+Penumbra,,,,Grouped (Collapsed),グループ表示（折りたたみ）
+Penumbra,,,,Grouped (Expanded),グループ表示（展開）
+Penumbra,,,,Handle PCP Files,PCPファイルを処理
+Penumbra,,,,Height,高さ
+Penumbra,,,,Hide All Mods with Notes,メモ付きMODをすべて非表示
+Penumbra,,,,Hide Changed Item Filters,変更アイテムのフィルターを非表示
+Penumbra,,,,Hide Config Window when in Cutscenes,カットシーン中は設定ウィンドウを非表示
+Penumbra,,,,Hide Config Window when in GPose,グループポーズ中は設定ウィンドウを非表示
+Penumbra,,,,Hide Config Window when UI is Hidden,UI非表示中は設定ウィンドウを非表示
+Penumbra,,,,Hide Priority Numbers in Mod Selector,MOD一覧の優先度番号を非表示
+Penumbra,,,,Hide Redraw Bar in Mod Panel,MODパネルの再描画バーを非表示
+Penumbra,,,,Hide the Penumbra main window when you are currently in GPose mode.,グループポーズ中はPenumbraのメインウィンドウを非表示にします。
+Penumbra,,,,Hide the Penumbra main window when you are currently watching a cutscene.,カットシーン視聴中はPenumbraのメインウィンドウを非表示にします。
+Penumbra,,,,Hide the Penumbra main window when you manually hide the in-game user interface.,ゲーム内UIを手動で非表示にしている間、Penumbraのメインウィンドウも非表示にします。
+Penumbra,,,,Hides the bracketed non-zero priority numbers displayed in the mod selector when there is enough space for them.,十分な表示幅がある場合でも、MOD一覧に表示される0以外の優先度番号（括弧付き）を非表示にします。
+Penumbra,,,,Hides the lower redraw buttons in the mod panel in your Mods tab.,MODタブのMODパネル下部にある再描画ボタンを非表示にします。
+Penumbra,,,,"Hold Control and click to jump to mod.
+","Ctrlを押しながらクリックするとMODへ移動します。
+"
+Penumbra,,,,Hold control and right-click to delete.,Ctrlを押しながら右クリックすると削除します。
+Penumbra,,,,id,ID
+Penumbra,,,,Identifier,識別子
+Penumbra,,,,"If this is disabled, no mods are applied to characters in the lobby or at the aesthetician.",無効にすると、ロビーや美容師画面のキャラクターにはMODが適用されません。
+Penumbra,,,,"If you are just starting, you can see that the ""Default"" collection is currently assigned to Default and Interface.",初期状態では、「Default」コレクションがDefaultとInterfaceに割り当てられています。
+Penumbra,,,,"If your Automatic Import Directory is the same as your Default Mod Export Directory, prevents mods and character packs you export from being reimported or showing a query popup.",自動インポートディレクトリと既定のMODエクスポート先が同じ場合、エクスポートしたMODやキャラクターパックが再インポートされたり確認ポップアップに出たりするのを防ぎます。
+Penumbra,,,,Ignore Textures Below This Size,このサイズ未満のテクスチャを無視
+Penumbra,,,,Ignore Textures With Smaller Dimensions,これより小さい寸法のテクスチャを無視
+Penumbra,,,,Import Date,インポート日時
+Penumbra,,,,Import Date (Newer First),インポート日時（新しい順）
+Penumbra,,,,Import Date (Older First),インポート日時（古い順）
+Penumbra,,,,"In the Collection Details panel, you can see a detailed overview over the usage of the currently selected collection, as well as remove outdated mod settings and setup inheritance.",「コレクション詳細」パネルでは、現在選択中のコレクションの使用状況を詳しく確認でき、古いMOD設定の削除や継承設定も行えます。
+Penumbra,,,,"In the Group Assignments panel, you can create Assignments for more specific groups of characters based on race or age.",「グループ割り当て」パネルでは、種族や年齢などを基準に、より具体的なキャラクターグループへの割り当てを作成できます。
+Penumbra,,,,"In the Individual Assignments panel, you can manually create assignments for very specific characters or monsters, not just yourself or ones you can currently target.",「個別割り当て」パネルでは、自分自身や現在ターゲットできる対象だけでなく、特定のキャラクターやモンスターへ手動で割り当てを作成できます。
+Penumbra,,,,In-Game Highlight (Primary),ゲーム内ハイライト（メイン）
+Penumbra,,,,In-Game Highlight (Secondary),ゲーム内ハイライト（サブ）
+Penumbra,,,,Incognito Mode,匿名化モード
+Penumbra,,,,Incognito Modifier,匿名化モードの修飾キー
+Penumbra,,,,Increased Meta Manipulation Value,増加したメタデータ操作値
+Penumbra,,,,Individual ,個別 
+Penumbra,,,,Individual Assignments,個別割り当て
+Penumbra,,,,Inheritance can be used to make one collection take the settings of another as long as it does not setup the mod in question itself.,継承を使うと、対象MODをそのコレクション自身で設定していない限り、別のコレクションの設定を引き継げます。
+Penumbra,,,,"Inheritance is a way to use a baseline of mods across multiple collections, without needing to change all those collections if you want to add a single mod.",継承は、複数のコレクションで共通のMOD構成を基準として使う仕組みです。1つMODを追加するたびに全コレクションを変更する必要がなくなります。
+Penumbra,,,,Inherited From,継承元
+Penumbra,,,,"Initial Setup, Step 4: Managing Collections",初期設定 ステップ4：コレクション管理
+Penumbra,,,,"Initial Setup, Step 5: Selected Collection",初期設定 ステップ5：選択中のコレクション
+Penumbra,,,,"Initial Setup, Step 6: Simple Assignments",初期設定 ステップ6：簡易割り当て
+Penumbra,,,,Intended to be a pure white texture of minimal size.,最小サイズの純白テクスチャとして使用されます。
+Penumbra,,,,Internal Order,内部順
+Penumbra,,,,Internal Order (Inverted),内部順（逆順）
+Penumbra,,,,It is strongly recommended to not show your characters name in public screenshots when using Penumbra.,Penumbra使用中に公開スクリーンショットを撮る場合、キャラクター名を表示しないことを強く推奨します。
+Penumbra,,,,Item Id,アイテムID
+Penumbra,,,,items,アイテム
+Penumbra,,,,Keep Default Metadata Changes on Import,インポート時に既定値と同じメタデータ変更を保持
+Penumbra,,,,Last Config Edit,最終設定編集
+Penumbra,,,,Lexicographical,辞書順
+Penumbra,,,,Lexicographical (Inverted),辞書順（逆順）
+Penumbra,,,,Lower Limit for option groups displaying the Collapse/Expand button at the top.,上部に折りたたみ／展開ボタンを表示するオプショングループ数の下限。
+Penumbra,,,,"Make the whole color row pair selection button highlight the pair in game, instead of just the crosshair, even without holding Control.",Ctrlを押していなくても、十字カーソルだけでなくカラーペア選択ボタンの行全体をゲーム内で強調表示します。
+Penumbra,,,,"Makes report notifications automatically disappear after a few seconds if all the mods were successfully imported.
+Reports that contain errors will still have to be manually dismissed.","すべてのMODが正常にインポートされた場合、結果通知を数秒後に自動で閉じます。
+エラーを含む結果通知は手動で閉じる必要があります。"
+Penumbra,,,,Male Racial NPC,男性NPC（種族別）
+Penumbra,,,,Male Racial Player,男性プレイヤー（種族別）
+Penumbra,,,,Management,管理
+Penumbra,,,,Max. Entries,最大件数
+Penumbra,,,,Migration,移行
+Penumbra,,,,Minimum Window Dimensions,ウィンドウ最小サイズ
+Penumbra,,,,Mips,ミップマップ
+Penumbra,,,,Mod,MOD
+Penumbra,,,,Mod Changed Item Display,MOD変更アイテム表示
+Penumbra,,,,Mod Deletion Modifier,MOD削除の修飾キー
+Penumbra,,,,Mod Directory,MODディレクトリ
+Penumbra,,,,Mod Disabled By Inheritance,継承により無効化されたMOD
+Penumbra,,,,Mod Enabled By Inheritance,継承により有効化されたMOD
+Penumbra,,,,Mod Name,MOD名
+Penumbra,,,,Mod Path,MODパス
+Penumbra,,,,Mod Selector Priority,MOD一覧の優先度
+Penumbra,,,,Mod Tags: ,MODタグ：
+Penumbra,,,,Mod With No Settings,設定なしのMOD
+Penumbra,,,,Mod With Resolved Conflicts,競合解決済みMOD
+Penumbra,,,,Mod with Temporary Settings,一時設定ありのMOD
+Penumbra,,,,Mod With Unresolved Conflicts,未解決の競合があるMOD
+Penumbra,,,,mods,MOD
+Penumbra,,,,Mods,MOD
+Penumbra,,,,Mount,マウント
+Penumbra,,,,Name,名前
+Penumbra,,,,New Mod,新規MOD
+Penumbra,,,,New Mod Tint,新規MODの色
+Penumbra,,,,No changes made.,変更はありません。
+Penumbra,,,,No key,キーなし
+Penumbra,,,,No Tint,色なし
+Penumbra,,,,None,なし
+Penumbra,,,,"Normally, metadata changes that equal their default values, which are sometimes exported by TexTools, are discarded. Toggle this to keep them, for example if an option in a mod is supposed to disable a metadata change from a prior option.",通常、TexToolsなどから出力された「既定値と同じメタデータ変更」は破棄されます。以前のオプションによるメタデータ変更を後続オプションで無効化する場合など、これらを保持したい時に有効にしてください。
+Penumbra,,,,"Note that this recomputes the current data of the actor if it still exists, and does not use the cached data.",対象がまだ存在する場合は現在のデータを再計算します。キャッシュ済みデータは使用しません。
+Penumbra,,,,Notes,メモ
+Penumbra,,,,Objects,オブジェクト
+Penumbra,,,,Omit Machinist Offhands in Changed Items,変更アイテムから機工士の副武器を除外
+Penumbra,,,,"Omits all Aetherotransformers (machinist offhands) in the changed items tabs because any change on them changes all of them at the moment.
+
+Changing this triggers a rediscovery of your mods so all changed items can be updated.","機工士の副武器（エーテル変換器）は、現在どれか1つを変更するとすべてに影響するため、変更アイテムタブからすべて除外します。
+
+この設定を変更するとMODの再検出が実行され、変更アイテムが更新されます。"
+Penumbra,,,,"On every login, automatically select the collection associated with the current character as the current collection for editing.",ログインするたびに、現在のキャラクターに関連付けられたコレクションを編集対象として自動選択します。
+Penumbra,,,,"On the left, we have the collection selector. Here, we can create new collections - either empty ones or by duplicating existing ones - and delete any collections not needed anymore.",左側にはコレクション一覧があります。ここでは空のコレクションを新規作成したり、既存コレクションを複製して作成したり、不要なコレクションを削除できます。
+Penumbra,,,,On-Screen,画面内
+Penumbra,,,,On-Screen: Non-Players (Local),画面内：NPC（ローカル）
+Penumbra,,,,On-Screen: Non-Players (Networked),画面内：NPC（ネットワーク）
+Penumbra,,,,On-Screen: Other Players,画面内：他のプレイヤー
+Penumbra,,,,On-Screen: You,画面内：自分
+Penumbra,,,,Open Config Window at Game Start,ゲーム起動時に設定ウィンドウを開く
+Penumbra,,,,Open Folders by Default,初期状態でフォルダーを展開
+Penumbra,,,,Open the default mod data file in the text editor of your choice.,既定のMODデータファイルを設定したテキストエディターで開きます。
+Penumbra,,,,"Open the import window at the location specified here every time, forgetting your previous path.",以前のパスを記憶せず、毎回ここで指定した場所からインポートウィンドウを開きます。
+Penumbra,,,,Open the metadata json file in the text editor of your choice.,メタデータJSONファイルを設定したテキストエディターで開きます。
+Penumbra,,,,Open this directory in your configured file explorer.,設定したファイルエクスプローラーでこのディレクトリを開きます。
+Penumbra,,,,Open this plugin's settings,このプラグインの設定を開く
+Penumbra,,,,Option,オプション
+Penumbra,,,,Original Path,元のパス
+Penumbra,,,,Overruled by ,上書き元：
+Penumbra,,,,Overruled by any other Assignment.,他の割り当てによって上書きされます。
+Penumbra,,,,Owned NPCs take precedence before unowned NPCs of the same type.,所有者ありNPCは、同種の所有者なしNPCより優先されます。
+Penumbra,,,,Path,パス
+Penumbra,,,,PCP Extension,PCP拡張子
+Penumbra,,,,Penumbra will allow for custom shape keys and attributes for modded models to be considered and combined.,Penumbraで、MODモデルのカスタムシェイプキーや属性を考慮し、組み合わせて使用できるようにします。
+Penumbra,,,,Please enter a valid player name and choose an available world or 'Any World'.,有効なプレイヤー名を入力し、利用可能なワールドまたは「すべてのワールド」を選択してください。
+Penumbra,,,,Please enter a valid retainer name.,有効なリテイナー名を入力してください。
+Penumbra,,,,Predefined tags that can be added or removed from mods with a single click.,1クリックでMODへ追加・削除できる定義済みタグです。
+Penumbra,,,,Predefined Tags: ,定義済みタグ：
+Penumbra,,,,Predefined Tags: Add Tag,定義済みタグ：タグを追加
+Penumbra,,,,Predefined Tags: Remove Tag,定義済みタグ：タグを削除
+Penumbra,,,,Preferred Changed Item Star,変更アイテムの優先スター
+Penumbra,,,,Prevent Exported Mods From Being Automatically Reimported,エクスポートしたMODの自動再インポートを防ぐ
+Penumbra,,,,Print Chat Command Success Messages to Chat,チャットコマンド成功メッセージをチャットへ表示
+Penumbra,,,,Priority,優先度
+Penumbra,,,,Put a ,次を付ける：
+Penumbra,,,,Record,記録
+Penumbra,,,,Redundant Collection Assignment,重複したコレクション割り当て
+Penumbra,,,,Redundant Files (WIP),重複ファイル（開発中）
+Penumbra,,,,"Refresh data for the current option.
+This resets unsaved changes.","現在のオプションのデータを更新します。
+未保存の変更はリセットされます。"
+Penumbra,,,,"Regularly, a mod has to match all supplied criteria separately.",通常、MODは指定したすべての条件にそれぞれ一致する必要があります。
+Penumbra,,,,"Reload the current mod from its files.
+If the mod directory or meta file do not exist anymore or if the new mod name is empty, the mod is deleted instead.","現在のMODをファイルから再読み込みします。
+MODディレクトリやメタファイルが存在しない、または新しいMOD名が空の場合、そのMODは削除されます。"
+Penumbra,,,,Remember Changed Items Filters Across Sessions,変更アイテムのフィルターをセッション間で記憶
+Penumbra,,,,Remember Collection Filters Across Sessions,コレクションのフィルターをセッション間で記憶
+Penumbra,,,,Remember Effective Changes Filters Across Sessions,有効な変更のフィルターをセッション間で記憶
+Penumbra,,,,Remember Mod Filters Across Sessions,MODフィルターをセッション間で記憶
+Penumbra,,,,Remember On-Screen Filters Across Sessions,画面内フィルターを次回起動時も保持
+Penumbra,,,,Remember Resource Manager Filters Across Sessions,リソース管理のフィルターを次回起動時も保持
+Penumbra,,,,Remove all game paths associated with the selected files in the current option.,現在のオプションで、選択ファイルに関連付けられたすべてのゲームパスを削除します。
+Penumbra,,,,Rename Fields in Mod Context Menu,MOD右クリックメニューの名前変更欄
+Penumbra,,,,Replace all non-ASCII symbols in mod and option names with underscores when importing mods.,MODインポート時、MOD名とオプション名に含まれる非ASCII文字をすべてアンダースコアへ置き換えます。
+Penumbra,,,,Replace Non-Standard Symbols On Import,インポート時に標準外の記号を置換
+Penumbra,,,,Required Features,必要機能
+Penumbra,,,,Required to be a solid black square with full alpha.,完全不透明な黒一色の正方形である必要があります。
+Penumbra,,,,Required to be a solid blue square with full alpha.,完全不透明な青一色の正方形である必要があります。
+Penumbra,,,,Required to be a solid green square with full alpha.,完全不透明な緑一色の正方形である必要があります。
+Penumbra,,,,Required to be a solid red square with full alpha.,完全不透明な赤一色の正方形である必要があります。
+Penumbra,,,,Required to be a solid white square with full alpha.,完全不透明な白一色の正方形である必要があります。
+Penumbra,,,,Reserved Files,予約済みファイル
+Penumbra,,,,"Reset minimum dimensions to (900, 675).","最小サイズを (900, 675) にリセットします。"
+Penumbra,,,,Resource,リソース
+Penumbra,,,,Resource Logger,リソースログ
+Penumbra,,,,Root Directory,ルートフォルダー
+Penumbra,,,,Runtime mod loader and manager.,ゲーム実行中に動作するMODローダー／管理ツール。
+Penumbra,,,,Search Path,検索パス
+Penumbra,,,,Select which of the two renaming input fields are visible when opening the right-click context menu of a mod in the mod selector.,MOD一覧でMODを右クリックした時に表示する2つの名前変更入力欄のうち、どちらを表示するか選択します。
+Penumbra,,,,Set another optional modifier key to be used in conjunction with the first modifier.,最初の修飾キーと組み合わせて使う、任意の2つ目の修飾キーを設定します。
+Penumbra,,,,Set the default author stored for newly created mods.,新規作成するMODに保存される既定の作者名を設定します。
+Penumbra,,,,"Set the default Penumbra mod folder to place newly imported mods into.
+Leave blank to import into Root.","新しくインポートしたMODを配置する既定のPenumbraフォルダーを設定します。
+空欄の場合はルートへインポートします。"
+Penumbra,,,,"Set the directory mods get saved to when using the export function or loaded from when reimporting backups.
+Keep this empty to use the root directory.","エクスポート時の保存先、およびバックアップ再インポート時の読み込み元ディレクトリを設定します。
+空欄の場合はルートディレクトリを使用します。"
+Penumbra,,,,Set the directory that gets opened when using the file picker to import mods for the first time.,初めてMODをインポートする時、ファイル選択画面で最初に開くディレクトリを設定します。
+Penumbra,,,,Set the minimum dimensions for resizing this window. Reducing these dimensions may cause the window to look bad or more confusing and is not recommended.,このウィンドウをリサイズできる最小サイズを設定します。小さくしすぎると表示が崩れたり分かりにくくなる場合があるため、推奨されません。
+Penumbra,,,,Settings,設定
+Penumbra,,,,"Show Textures With Larger Dimensions, Even If Compressed",圧縮されていても、より大きな寸法のテクスチャを表示
+Penumbra,,,,Size,サイズ
+Penumbra,,,,Size On Disk,ディスク上のサイズ
+Penumbra,,,,"Skip all current tutorial entries, but show any new ones added later.",現在のチュートリアル項目をすべてスキップします。ただし今後追加された新しい項目は表示します。
+Penumbra,,,,"Some mods need to change files that are loaded once when the game starts and never afterwards.
+This can cause issues with Penumbra loading after the files are already loaded.
+This setting causes the game to wait until certain plugins have finished loading, making those mods work (in the base collection).
+
+This changes a setting in the Dalamud Configuration found at /xlsettings -> General.","一部のMODは、ゲーム起動時に一度だけ読み込まれ、その後再読み込みされないファイルを変更する必要があります。
+そのため、対象ファイルの読み込み後にPenumbraが起動すると問題が起こる場合があります。
+この設定では、特定のプラグインの読み込み完了までゲームを待機させ、これらのMODを（ベースコレクションで）正常に動作させます。
+
+この設定は /xlsettings → General にあるDalamud設定を変更します。"
+Penumbra,,,,Some NPCs are available as Battle - and Event NPCs and need to be setup for both if desired.,一部のNPCはバトルNPCとイベントNPCの両方として存在します。必要に応じて両方を設定してください。
+Penumbra,,,,Sort Mode,並び順
+Penumbra,,,,State,状態
+Penumbra,,,,Store Only Matching,一致する項目だけを保存
+Penumbra,,,,"Switch to the default option for the mod.
+This resets unsaved changes.","MODを既定オプションへ切り替えます。
+未保存の変更はリセットされます。"
+Penumbra,,,,Sync,同期
+Penumbra,,,,Tags,タグ
+Penumbra,,,,Target File,対象ファイル
+Penumbra,,,,Texture Dimension Restriction,テクスチャ寸法制限
+Penumbra,,,,Texture Optimization,テクスチャ最適化
+Penumbra,,,,The collection configured to apply to the loaded player character is already selected as the current collection.,読み込まれているプレイヤーキャラクターへ適用するコレクションは、すでに現在のコレクションとして選択されています。
+Penumbra,,,,The configured base collection is already selected as the current collection.,設定済みのベースコレクションは、すでに現在のコレクションとして選択されています。
+Penumbra,,,,The configured interface collection is already selected as the current collection.,設定済みのインターフェースコレクションは、すでに現在のコレクションとして選択されています。
+Penumbra,,,,The current target  is not valid for an assignment.,現在のターゲットは割り当て対象として無効です。
+Penumbra,,,,"The extension used when exporting PCP files. Should generally be either "".pcp"" or "".pmp"".",PCPファイルをエクスポートする際の拡張子です。通常は「.pcp」または「.pmp」を使用します。
+Penumbra,,,,"The folder any penumbra character packs are moved to on import.
+Leave blank to import into Root.","インポート時にPenumbraキャラクターパックを移動するフォルダーです。
+空欄の場合はRootへインポートします。"
+Penumbra,,,,The Selected Collection ,選択中のコレクション 
+Penumbra,,,,The Selected Collection is the one we highlighted in the selector. It is the collection we are currently looking at and editing.,「選択中のコレクション」は一覧で強調表示されているコレクションです。現在表示・編集しているコレクションを示します。
+Penumbra,,,,The settings of the selected mod are not inherited from another collection.,選択中MODの設定は、他のコレクションから継承されていません。
+Penumbra,,,,The Simple Assignments panel shows you the possible assignments that are enough for most people along with descriptions.,「簡易割り当て」パネルには、多くの利用者に十分な基本割り当てと説明が表示されます。
+Penumbra,,,,"There are functions you can assign these collections to, so different mod configurations apply for different things.
+You can assign an existing collection to such a function by clicking the function or dragging the collection over.","コレクションはさまざまな機能へ割り当てることができ、用途ごとに異なるMOD構成を適用できます。
+機能をクリックするか、コレクションをドラッグすると、既存コレクションをその機能へ割り当てられます。"
+Penumbra,,,,"There will always be one collection called ""Default"" that can not be deleted.",「Default」というコレクションは常に存在し、削除できません。
+Penumbra,,,,"This button can toggle Incognito Mode, which shortens all collection names to two letters and a number,",このボタンで匿名化モードを切り替えます。匿名化モードでは、すべてのコレクション名が英字2文字と数字1桁に短縮されます。
+Penumbra,,,,This increments the version marker and restructures the bone table to the new version.,バージョンマーカーを増加させ、ボーンテーブルを新しいバージョン形式へ再構成します。
+Penumbra,,,,This tab shows mods with identical names and some additional data to discern which to keep if they are indeed identical.,このタブでは、同じ名前を持つMODと追加情報を表示し、本当に同一である場合にどちらを残すか判断できます。
+Penumbra,,,,Time,時間
+Penumbra,,,,Type,種類
+Penumbra,,,,Unassigned Collection Assignment,未割り当てのコレクション割り当て
+Penumbra,,,,Unused Files (WIP),未使用ファイル（作業中）
+Penumbra,,,,Unused Mods,未使用MOD
+Penumbra,,,,Upper Limit for Single-Selection Group Radio Buttons,単一選択グループをラジオボタン表示する上限
+Penumbra,,,,Use ,使用 
+Penumbra,,,,Use Assigned Collections based on Ownership,所有関係に基づく割り当てコレクションを使用
+Penumbra,,,,Use Assigned Collections in Adventurer Cards,アドベンチャラープレートで割り当てコレクションを使用
+Penumbra,,,,Use Assigned Collections in Character Window,キャラクターウィンドウで割り当てコレクションを使用
+Penumbra,,,,Use Assigned Collections in Inspect Windows,キャラクター情報ウィンドウで割り当てコレクションを使用
+Penumbra,,,,Use Assigned Collections in Lobby,ロビーで割り当てコレクションを使用
+Penumbra,,,,Use Assigned Collections in Try-On Window,試着ウィンドウで割り当てコレクションを使用
+Penumbra,,,,Use Filesystem Compression,ファイルシステム圧縮を使用
+Penumbra,,,,Use Interface Collection for other Plugin UIs,他プラグインUIにインターフェースコレクションを使用
+Penumbra,,,,Use No Mods in Inspect Windows,キャラクター情報ウィンドウではMODを使用しない
+Penumbra,,,,Use Temporary Settings Per Default,既定で一時設定を使用
+Penumbra,,,,"Use the appropriate individual collection for the character you are currently inspecting, based on their name.",現在調べているキャラクターの名前に基づき、適切な個別コレクションを使用します。
+Penumbra,,,,Use the collection assigned to your interface for other plugins requesting UI-textures and icons through Dalamud.,Dalamud経由でUIテクスチャやアイコンを要求する他プラグインに、インターフェース用コレクションを使用します。
+Penumbra,,,,"Use the empty collection for characters you are inspecting, regardless of the character.
+Takes precedence before the next option.","調べているキャラクターには、対象に関係なく空のコレクションを使用します。
+次の設定より優先されます。"
+Penumbra,,,,"Use the individual collection for your character's name in your try-on, dye preview or glamour plate window, if it is set.",設定されている場合、試着・染色プレビュー・ミラージュプレート画面で、自キャラクター名に割り当てられた個別コレクションを使用します。
+Penumbra,,,,"Use the individual collection for your characters name or the Your Character collection in your main character window, if it is set.",設定されている場合、メインのキャラクターウィンドウで、自キャラクター名の個別コレクションまたは「自分のキャラクター」コレクションを使用します。
+Penumbra,,,,"Use the owner's name to determine the appropriate individual collection for mounts, companions, accessories and combat pets.",マウント、ミニオン、アクセサリー、戦闘ペットに適用する個別コレクションを、所有者名から決定します。
+Penumbra,,,,"Use Windows functionality to transparently reduce storage size of mod files on your computer. This might cost performance, but seems to generally be beneficial to performance by shifting more responsibility to the underused CPU and away from the overused hard drives.",Windowsの機能を使ってMODファイルの保存容量を透過的に減らします。性能コストが発生する可能性はありますが、負荷の高いストレージから比較的余裕のあるCPUへ処理を移すため、一般的には性能面で有利になる場合があります。
+Penumbra,,,,"Used as a default ID-mapping, required to be a solid square of #780000 with full alpha.",既定のIDマッピングとして使用します。完全不透明な #780000 の単色正方形である必要があります。
+Penumbra,,,,"Used as a default normal map, required to be a solid square of #7E7FFF with full alpha.",既定のノーマルマップとして使用します。完全不透明な #7E7FFF の単色正方形である必要があります。
+Penumbra,,,,"Used as the default skin mask, required to be a solid square of #A5749A with full alpha.",既定のスキンマスクとして使用します。完全不透明な #A5749A の単色正方形である必要があります。
+Penumbra,,,,"User Interface, Icons, Maps, Styles.",ユーザーインターフェース、アイコン、マップ、スタイル。
+Penumbra,,,,Uses the File Watcher in order to skip the query popup and automatically import any new mods.,ファイル監視を使用して確認ポップアップを省略し、新しいMODを自動でインポートします。
+Penumbra,,,,Version,バージョン
+Penumbra,,,,Wait for Plugins on Startup,起動時にプラグインの読み込みを待つ
+Penumbra,,,,"We should already have the collection named ""Default"" selected, and for our simple setup, we do not need to do anything here.",「Default」というコレクションがすでに選択されているはずです。基本的な設定では、ここで何か変更する必要はありません。
+Penumbra,,,,Website,ウェブサイト
+Penumbra,,,,What are Reserved Files?,予約ファイルとは？
+Penumbra,,,,"When creating or importing PCP files, other plugins can add and interpret their own data to the character.json file.",PCPファイルの作成・インポート時、他プラグインは character.json に独自データを追加し、そのデータを解釈できます。
+Penumbra,,,,"When encountering specific mods, usually but not necessarily denoted by a .pcp file ending, Penumbra will automatically try to create an associated collection and assign it to a specific character for this mod package. This can turn this behaviour off if unwanted.",特定のMOD（多くは .pcp 拡張子ですが、必ずしもそうとは限りません）を検出すると、PenumbraはそのMODパッケージ用の関連コレクションを自動作成し、特定キャラクターへ割り当てようとします。不要な場合はこの動作を無効にできます。
+Penumbra,,,,"When importing PCP files and creating the associated collection, assign it to the associated character.",PCPファイルのインポート時、関連コレクションを作成したら、そのキャラクターへ割り当てます。
+Penumbra,,,,"When importing PCP files, create the associated collection.",PCPファイルのインポート時に関連コレクションを作成します。
+Penumbra,,,,"When you make any changes to your collection, apply them as temporary changes first and require a click to 'turn permanent' if you want to keep them.",コレクションを変更した時、まず一時変更として適用し、保持したい場合は「恒久化」をクリックする方式にします。
+Penumbra,,,,Whether filters in the Changed Items tab should remember their input and start with their respective lists filtered identically to the last session.,「変更アイテム」タブのフィルター入力を記憶し、次回起動時も前回と同じ条件で一覧を絞り込むかどうか。
+Penumbra,,,,Whether filters in the Collections tab should remember their input and start with their respective lists filtered identically to the last session.,「コレクション」タブのフィルター入力を記憶し、次回起動時も前回と同じ条件で一覧を絞り込むかどうか。
+Penumbra,,,,Whether filters in the Effective Changes tab should remember their input and start with their respective lists filtered identically to the last session.,「有効な変更」タブのフィルター入力を記憶し、次回起動時も前回と同じ条件で一覧を絞り込むかどうか。
+Penumbra,,,,Whether filters in the Mods tab should remember their input and start with their respective lists filtered identically to the last session.,「MOD」タブのフィルター入力を記憶し、次回起動時も前回と同じ条件で一覧を絞り込むかどうか。
+Penumbra,,,,Whether filters in the On-Screen tab should remember their input and start with their respective lists filtered identically to the last session.,「画面上」タブのフィルター入力を記憶し、次回起動時も前回と同じ条件で一覧を絞り込むかどうか。
+Penumbra,,,,Whether filters in the Resource Manager tab should remember their input and start with their respective lists filtered identically to the last session.,「リソースマネージャー」タブのフィルター入力を記憶し、次回起動時も前回と同じ条件で一覧を絞り込むかどうか。
+Penumbra,,,,Whether the Penumbra main window should be open or closed after launching the game.,ゲーム起動後、Penumbraのメインウィンドウを開いた状態にするか閉じた状態にするか。
+Penumbra,,,,Whether to start with all folders collapsed or expanded in the mod selector.,MOD一覧をすべてのフォルダーが折りたたまれた状態／展開された状態のどちらで開始するか。
+Penumbra,,,,Width,幅
+Penumbra,,,,"World, Music, Furniture, baseline for characters and monsters not specialized.",ワールド、音楽、家具、および個別指定されていないキャラクター・モンスター用の基準設定。
+Penumbra,,,,Wrap spaces in ,スペースで折り返す：
+Penumbra,,,,Write to Log,ログへ書き込む
+Penumbra,,,,You can also assign 'Use No Mods' instead of a collection by clicking on the function buttons.,機能ボタンをクリックすると、コレクションの代わりに「MODを使用しない」を割り当てることもできます。
+Penumbra,,,,"You can select inheritances from the combo below to add them.
+Since the order of inheritances is important, you can reorder them here via drag and drop.
+You can also delete inheritances by dragging them onto the trash can.","下のコンボボックスから継承元を選択して追加できます。
+継承の順序は重要なので、ドラッグ＆ドロップで並べ替えできます。
+継承をゴミ箱へドラッグすると削除できます。"
+Penumbra,,,,Your Character,自分のキャラクター
+Penumbra,,,,"Your characters, regardless of name, race or gender. Applies in the login screen.",名前・種族・性別に関係なく自分のキャラクターへ適用します。ログイン画面にも適用されます。
+Penumbra,,,,[DEBUG] Enable the Debug Tab and Resource Manager Tab as well as some additional data collection. Also open the config window on plugin load.,[DEBUG] デバッグタブとリソースマネージャータブ、および追加のデータ収集を有効にします。さらに、プラグイン読み込み時に設定ウィンドウを開きます。
+Penumbra,,,ButtonEx,Beginner's Guides,初心者向けガイド
+Penumbra,,,Text/RenderTextWrapped,Collections are lists of settings for your installed mods.,コレクションは、インストール済みMODの設定をまとめた一覧です。
+Penumbra,,,ButtonEx,Compress Existing Files,既存ファイルを圧縮
+Penumbra,,,ButtonEx,Compute,計算
+Penumbra,,,Text/RenderTextWrapped,Compute the required features automatically from the used features.,使用中の機能から必要機能を自動で算出します。
+Penumbra,,,ButtonEx,Copy Support Info to Clipboard,サポート情報をクリップボードへコピー
+Penumbra,,,Text/RenderTextWrapped,Copy the current settings over to temporary settings to experiment with them.,現在の設定を一時設定へコピーし、試しに変更できるようにします。
+Penumbra,,,ButtonEx,Decompress Existing Files,既存ファイルの圧縮を解除
+Penumbra,,,Text/RenderTextWrapped,Delete all mods that are currently visible. This is NOT reversible.,現在表示されているMODをすべて削除します。この操作は元に戻せません。
+Penumbra,,,ButtonEx,Delete all PCP Collections,すべてのPCPコレクションを削除
+Penumbra,,,ButtonEx,Delete all PCP Mods,すべてのPCP MODを削除
+Penumbra,,,ButtonEx,Delete All Visible Mods,表示中のMODをすべて削除
+Penumbra,,,ButtonEx,Delete Export,エクスポートを削除
+Penumbra,,,Text/RenderTextWrapped,Deletes all collections whose name starts with 'PCP/' from the collection list.,名前が「PCP/」で始まるコレクションを一覧からすべて削除します。
+Penumbra,,,Text/RenderTextWrapped,Deletes all mods tagged with 'PCP' from the mod list.,「PCP」タグが付いたMODを一覧からすべて削除します。
+Penumbra,,,ButtonEx,Disable Tutorial,チュートリアルを無効化
+Penumbra,,,Text/RenderTextWrapped,Do not forget to enable your mods in case they are not.,MODが無効になっている場合は、有効化するのを忘れないでください。
+Penumbra,,,ButtonEx,Edit Description,説明を編集
+Penumbra,,,ButtonEx,Export Character Pack,キャラクターパックを書き出す
+Penumbra,,,ButtonEx,Export Mod,MODを書き出す
+Penumbra,,,ButtonEx,Export To...,指定先へエクスポート…
+Penumbra,,,ButtonEx,Focus,フォーカス
+Penumbra,,,Text/RenderTextWrapped,Force the game to reload its font files.,ゲームにフォントファイルを再読み込みさせます。
+Penumbra,,,ButtonEx,Furniture,家具
+Penumbra,,,Text/RenderTextWrapped,General Tooltips,全般のツールチップ
+Penumbra,,,Text/RenderTextWrapped,Go here after setting up your root folder to continue the tutorial!,ルートフォルダーの設定後、チュートリアルを続けるにはここへ移動してください。
+Penumbra,,,Text/RenderTextWrapped,Hold Control and Shift while clicking.,Ctrl＋Shiftを押しながらクリックします。
+Penumbra,,,Text/RenderTextWrapped,Hover over them when you are unsure what something does or how to do something.,機能や操作方法が分からない場合は、ここにマウスを合わせて確認してください。
+Penumbra,,,Text/RenderTextWrapped,"If you do not know what some of these do yet, return to this later!",まだ分からない項目がある場合は、あとでここへ戻って確認してください。
+Penumbra,,,ButtonEx,Inherit Settings,設定を継承
+Penumbra,,,Text/RenderTextWrapped,"Initial Setup, Step 1: Mod Directory",初期設定 ステップ1：MODフォルダー
+Penumbra,,,Text/RenderTextWrapped,"Initial Setup, Step 2: Enable Mods",初期設定 ステップ2：MODを有効化
+Penumbra,,,Text/RenderTextWrapped,"Initial Setup, Step 3: Collections",初期設定 ステップ3：コレクション
+Penumbra,,,ButtonEx,Join Discord for Support,サポート用Discordに参加
+Penumbra,,,Text/RenderTextWrapped,Local Tags: ,ローカルタグ：
+Penumbra,,,Text/RenderTextWrapped,"Look through all of these settings before starting, they might help you a lot!",始める前にこれらの設定を一通り確認してください。役立つ項目がたくさんあります。
+Penumbra,,,ButtonEx,Next,次へ
+Penumbra,,,ButtonEx,Not Inherited,継承なし
+Penumbra,,,ButtonEx,Open Default Data,既定データを開く
+Penumbra,,,ButtonEx,Open Directory,フォルダーを開く
+Penumbra,,,ButtonEx,Open Mod Directory,MODフォルダーを開く
+Penumbra,,,ButtonEx,Rediscover Mods,MODを再検出
+Penumbra,,,ButtonEx,Refresh Character List,キャラクター一覧を更新
+Penumbra,,,ButtonEx,Reload Fonts,フォントを再読み込み
+Penumbra,,,ButtonEx,Reload Mod,MODを再読み込み
+Penumbra,,,ButtonEx,Reload Resident Resources,常駐リソースを再読み込み
+Penumbra,,,ButtonEx,Rename Mod Directory,MODフォルダー名を変更
+Penumbra,,,Text/RenderTextWrapped,"Reset the extension to its default value of "".pcp"".",拡張子を既定値「.pcp」に戻します。
+Penumbra,,,ButtonEx,Restart Tutorial,チュートリアルを最初からやり直す
+Penumbra,,,ButtonEx,Restore From Export,エクスポートから復元
+Penumbra,,,ButtonEx,Self,自分
+Penumbra,,,ButtonEx,Show All Inactive Mods,無効なMODをすべて表示
+Penumbra,,,ButtonEx,Show Changelogs,更新履歴を表示
+Penumbra,,,Text/RenderTextWrapped,Show other players and what they own.,他のプレイヤーと、その所有物を表示します。
+Penumbra,,,ButtonEx,Skip Tutorial,チュートリアルをスキップ
+Penumbra,,,Text/RenderTextWrapped,"Tags assigned by the mod creator and saved with the mod data. To edit these, look at Edit Mod.",MOD作者が設定し、MODデータに保存されるタグです。編集する場合は「MODを編集」を開いてください。
+Penumbra,,,Text/RenderTextWrapped,"The first step is to set up your mod directory, which is where your mods are extracted to.",最初に、MODの展開先となるMODフォルダーを設定します。
+Penumbra,,,Text/RenderTextWrapped,The folder should be an empty folder no other applications write to.,他のアプリケーションが書き込まない空のフォルダーを使用してください。
+Penumbra,,,Text/RenderTextWrapped,The mod directory should be a short path - like 'C:\FFXIVMods' - on your fastest available drive. Faster drives improve performance.,MODフォルダーは、利用できる最も高速なドライブ上の短いパス（例：C:\FFXIVMODs）にすることを推奨します。高速なドライブほど性能が向上します。
+Penumbra,,,Text/RenderTextWrapped,This is our next stop!,次はここです！
+Penumbra,,,Text/RenderTextWrapped,This symbol gives you further information about whatever setting it appears next to.,このマークは、隣にある設定項目の詳しい説明を表示します。
+Penumbra,,,Text/RenderTextWrapped,"Toggle the temporary settings mode, where all changes you do create temporary settings first and need to be made permanent if desired.",一時設定モードを切り替えます。変更はまず一時設定として適用され、必要に応じて恒久化できます。
+Penumbra,,,Text/RenderTextWrapped,Try to compress all files in your root directory. This will take a while.,ルートフォルダー内のすべてのファイルを圧縮します。完了まで時間がかかります。
+Penumbra,,,Text/RenderTextWrapped,Try to decompress all files in your root directory. This will take a while.,ルートフォルダー内のすべてのファイルを展開します。完了まで時間がかかります。
+Penumbra,,,ButtonEx,Turn Temporary,一時設定にする
+Penumbra,,,ButtonEx,Update View,表示を更新
+Penumbra,,,Text/RenderTextWrapped,"Filter mods for their activation status.
+Middle-Click to clear all filters, including the text-filter.","MODを有効状態で絞り込みます。
+中クリックですべてのフィルター（文字列フィルターを含む）を解除します。"
+Penumbra,,,Text/RenderTextWrapped,"Reload some specific files that the game keeps in memory at all times.
+You usually should not need to do this.","ゲームが常時メモリに保持している一部ファイルを再読み込みします。
+通常、この操作は必要ありません。"
+Penumbra,,,Text/RenderTextWrapped,"Remove current settings from this collection so that it can inherit them.
+Hold Control and Shift to inherit.","このコレクションから現在の設定を削除し、継承できる状態にします。
+継承するにはCtrl＋Shiftを押してください。"
+Penumbra,,,Text/RenderTextWrapped,"Add the file path converted to a game path to all selected files for the current option, optionally skipping the first N folders.",選択したすべてのファイルに対して、ファイルパスをゲーム内パスへ変換して現在のオプションへ追加します。必要に応じて先頭からN個のフォルダーを除外できます。
+Penumbra,,,Text/RenderTextWrapped,Revert all revertible changes since the last file or option reload or data refresh.,前回のファイル／オプション再読み込み、またはデータ更新以降に行った、元に戻せる変更をすべて取り消します。
+Penumbra,,,Text/RenderTextWrapped,Add a copy of this file to the current option.,このファイルのコピーを現在のオプションへ追加します。
+Penumbra,,,Text/RenderTextWrapped,"An option with that name already exists in that group, or no name is specified.",その名前のオプションがすでにこのグループ内に存在するか、名前が指定されていません。
+Penumbra,,,Text/RenderTextWrapped,Attachment Points,アタッチメントポイント
+Penumbra,,,Text/RenderTextWrapped,Attributes,属性
+Penumbra,,,Selectable,Au Ra,アウラ
+Penumbra,,,Selectable,Bracelets,腕輪
+Penumbra,,,Text/RenderTextWrapped,Can import game paths as well as your own files.,ゲーム内パスと手元のファイルの両方をインポートできます。
+Penumbra,,,Text/RenderTextWrapped,Choose a name for the newly created mod. This does not need to be unique.,新しく作成するMODの名前を入力してください。一意である必要はありません。
+Penumbra,,,Text/RenderTextWrapped,Copy all current manipulations to clipboard.,現在のすべての操作内容をクリップボードへコピーします。
+Penumbra,,,Text/RenderTextWrapped,"Delete all selected files entirely from your filesystem, but not their file associations in the mod.
+!!!This can not be reverted!!!
+
+Hold Control and Shift to delete.","選択したファイルをファイルシステムから完全に削除します。MOD内のファイル関連付けは残ります。
+!!!この操作は元に戻せません!!!
+
+削除するにはCtrl＋Shiftを押してください。"
+Penumbra,,,Text/RenderTextWrapped,Delete any entries from all lists that set the value to its default value.,既定値と同じ値を設定している項目を、すべての一覧から削除します。
+Penumbra,,,Text/RenderTextWrapped,Drag a .atch file containing its race code in the path here to import its values.,パス内に種族コードを含む .atch ファイルをここへドラッグすると、その値をインポートできます。
+Penumbra,,,Selectable,Earrings,耳飾り
+Penumbra,,,Selectable,Elezen,エレゼン
+Penumbra,,,Text/RenderTextWrapped,Equipment Parameters,装備パラメータ
+Penumbra,,,Text/RenderTextWrapped,Export this file.,このファイルを書き出します。
+Penumbra,,,Text/RenderTextWrapped,Extra Skeleton Parameters,追加スケルトンパラメータ
+Penumbra,,,Selectable,Female,女性
+Penumbra,,,Selectable,Female (Child),女性（子供）
+Penumbra,,,Text/RenderTextWrapped,Force a redraw of your player character whenever you save a file here.,ここでファイルを保存するたびに、自キャラクターを強制的に再描画します。
+Penumbra,,,Selectable,Glasses,眼鏡
+Penumbra,,,Text/RenderTextWrapped,Global Equipment Parameters,共通装備パラメータ
+Penumbra,,,Selectable,Hat,頭装備
+Penumbra,,,Selectable,Highlander,ハイランダー
+Penumbra,,,Selectable,Hrothgar,ロスガル
+Penumbra,,,Selectable,Lalafell,ララフェル
+Penumbra,,,Selectable,Left Ring,左指輪
+Penumbra,,,Selectable,Male,男性
+Penumbra,,,Selectable,Male (Child),男性（子供）
+Penumbra,,,Selectable,Midlander,ミッドランダー
+Penumbra,,,Selectable,Miqo'te,ミコッテ
+Penumbra,,,Selectable,Necklace,首飾り
+Penumbra,,,Text/RenderTextWrapped,No changes staged.,適用待ちの変更はありません。
+Penumbra,,,Text/RenderTextWrapped,Please enter a name for the newly created mod first.,先に新しく作成するMODの名前を入力してください。
+Penumbra,,,Text/RenderTextWrapped,Please select a target mod different from the current mod.,現在のMODとは異なる対象MODを選択してください。
+Penumbra,,,Text/RenderTextWrapped,Racial Model Edits,種族別モデル編集
+Penumbra,,,Text/RenderTextWrapped,Racial Scaling Edits,種族別スケール編集
+Penumbra,,,Text/RenderTextWrapped,Reload the currently selected path.,現在選択しているパスを再読み込みします。
+Penumbra,,,Text/RenderTextWrapped,Reset all changes made to the .pbd file.,.pbd ファイルに加えた変更をすべてリセットします。
+Penumbra,,,Selectable,Right Ring,右指輪
+Penumbra,,,Selectable,Roegadyn,ルガディン
+Penumbra,,,Text/RenderTextWrapped,Search for identical files in this mod. This may take a while.,このMOD内で同一ファイルを検索します。完了まで時間がかかる場合があります。
+Penumbra,,,Text/RenderTextWrapped,Select the textures included in this mod on your drive or the ones they replace from the game files.,ドライブ上でこのMODに含まれるテクスチャ、またはゲームファイル内で置き換え対象となるテクスチャを選択します。
+Penumbra,,,Text/RenderTextWrapped,Shape Keys,シェイプキー
+Penumbra,,,Text/RenderTextWrapped,"The name of the new or existing option group to find or create the option in. Leave both group and option name blank for the default option.
+A red border indicates an existing option group, a blue border indicates a new one.","オプションを作成または検索する新規／既存のオプショングループ名です。既定オプションを使用する場合は、グループ名とオプション名の両方を空欄にしてください。
+赤い枠は既存のオプショングループ、青い枠は新規グループを示します。"
+Penumbra,,,Text/RenderTextWrapped,"The name of the new or existing option to merge this mod into. Leave both group and option name blank for the default option.
+A red border indicates an existing option, a blue border indicates a new one.","このMODを統合する新規／既存オプション名です。既定オプションを使用する場合は、グループ名とオプション名の両方を空欄にしてください。
+赤い枠は既存オプション、青い枠は新規オプションを示します。"
+Penumbra,,,Text/RenderTextWrapped,"Tries to create a unique copy of a file for every game path manipulated and put them in [Groupname]/[Optionname]/[GamePath] order.
+This will also delete all unused files and directories if it succeeds.
+Care was taken that a failure should not destroy the mod but revert to its original state, but you use this at your own risk anyway.","変更対象の各ゲーム内パスごとにファイルの固有コピーを作成し、[Groupname]/[Optionname]/[GamePath] の順に配置します。
+成功した場合、未使用のファイルとフォルダーもすべて削除されます。
+失敗時には元の状態へ戻るよう配慮されていますが、使用は自己責任です。"
+Penumbra,,,Text/RenderTextWrapped,"Try to add meta manipulations currently stored in the clipboard to the current manipulations.
+Overwrites already existing manipulations.","クリップボードに保存されているメタ操作を現在の操作へ追加します。
+既存の同一操作は上書きされます。"
+Penumbra,,,Text/RenderTextWrapped,"Try to set the current meta manipulations to the set currently stored in the clipboard.
+Removes all other manipulations.","現在のメタ操作を、クリップボードに保存されている内容へ置き換えます。
+それ以外の操作はすべて削除されます。"
+Penumbra,,,Text/RenderTextWrapped,"Use all applied mods from the Selected Collection with their current settings and respecting the enabled state of mods and inheritance,
+instead of using only the selected mod with its current settings in the Selected collection or the default settings, ignoring the enabled state and inheritance.",選択中のMODだけではなく、「選択中のコレクション」に適用されているすべてのMODを、現在の設定・有効状態・継承を反映して使用します。
+Penumbra,,,Text/RenderTextWrapped,Variant Edits,バリアント編集
+Penumbra,,,Selectable,Viera,ヴィエラ
+Penumbra,,,Text/RenderTextWrapped,Visor/Gimmick Edits,バイザー／ギミック編集
+Penumbra,,,TabItem,File Redirections,ファイルリダイレクト
+Penumbra,,,TabItem,Meta Manipulations,メタデータ操作
+Penumbra,,,TabItem,File Swaps,ファイルスワップ
+Penumbra,,,TabItem,Merge Mods,MOD統合
+Penumbra,,,TabItem,Duplicates,重複
+Penumbra,,,TabItem,Import from Screen,画面からインポート
+Penumbra,,,TabItem,Models,モデル
+Penumbra,,,TabItem,Textures,テクスチャ
+Penumbra,,,TabItem,Shaders,シェーダー
+Penumbra,,,TabItem,Item Swap,アイテム置換
+Penumbra,,,TabItem,Deformers,デフォーマー
+Penumbra,,,ButtonEx,Refresh Data,データ更新
+Penumbra,,,ButtonEx,Add Paths,パスを追加
+Penumbra,,,ButtonEx,Remove Paths,パスを削除
+Penumbra,,,ButtonEx,Delete Selected Files,選択ファイルを削除
+Penumbra,,,ButtonEx,Apply Changes,変更を適用
+Penumbra,,,ButtonEx,Reload Files,ファイル再読み込み
+Penumbra,,,Checkbox/RenderText,Overview Mode,概要モード
+Penumbra,,,Checkbox/RenderText,Show Game Paths,ゲーム内パスを表示
+Penumbra,,,ButtonEx,Unselect All,すべて選択解除
+Penumbra,,,ButtonEx,Select Visible,表示中を選択
+Penumbra,,,ButtonEx,Select Unused,未使用を選択
+Penumbra,,,ButtonEx,Select Used Here,ここで使用中を選択
+Penumbra,,,ButtonEx,Select All,すべて選択
+Penumbra,,,ButtonEx,Invert Selection,選択を反転
+Penumbra,,,ButtonEx,Create New Mod,新しいMODを作成
+Penumbra,,,ButtonEx,Create New Option,新しいオプションを作成
+Penumbra,,,ButtonEx,Reset Changes,変更をリセット
+Penumbra,,,ButtonEx,Revert Changes,変更を元に戻す
+Penumbra,,,ButtonEx,Save to File,ファイルへ保存
+Penumbra,,,ButtonEx,Scan for Duplicates,重複を検索
+Penumbra,,,ButtonEx,Remove All Default-Values,既定値の項目をすべて削除
+Penumbra,,,Checkbox/RenderText,Include Shader Packs,シェーダーパックを含める
+Penumbra,,,Checkbox/RenderText,Redraw on Save,保存時に再描画
+Penumbra,,,Checkbox/RenderText,Use Entire Collection,コレクション全体を使用
+Penumbra,,,Checkbox/RenderText,Use File Swaps,ファイルスワップを使用
+Penumbra,,,Checkbox/RenderText,Swap Left Ring,左指輪を入れ替え
+Penumbra,,,Checkbox/RenderText,Swap Right Ring,右指輪を入れ替え
+Penumbra,,,BeginComboLabel/RenderText,Presets,プリセット
+Penumbra,,,TableSetupColumn,Option Group,オプショングループ
+Penumbra,,,TableSetupColumn,#Files,ファイル数
+Penumbra,,,TableSetupColumn,#Manips,メタデータ操作数
+Penumbra,,,TableSetupColumn,#Swaps,スワップ数
+Penumbra,,,TableSetupColumn,source,元
+Penumbra,,,TableSetupColumn,value,値
+Penumbra,,,TableSetupColumn,button,ボタン
+Penumbra,,,Text/RenderTextWrapped,No duplicates found.,重複は見つかりませんでした。
+Penumbra,,,Text/RenderTextWrapped,"The currently selected mod has no true options.
+
+This means that you can select an existing or new option to merge all its changes into in the target mod. On failure to merge into an existing option, all changes will be reverted.","現在選択中のMODには実体のあるオプションがありません。
+
+既存または新規オプションを選択し、このMODの変更を対象MODへ統合できます。既存オプションへの統合に失敗した場合、変更はすべて元に戻されます。"
+Penumbra,,,Text/RenderTextWrapped,Take this Hat,この頭装備を使用
+Penumbra,,,Text/RenderTextWrapped,Take this Necklace,この首飾りを使用
+Penumbra,,,Text/RenderTextWrapped,Take this Ring,この指輪を使用
+Penumbra,,,Text/RenderTextWrapped,Take this Tail Type,この尻尾タイプを使用
+Penumbra,,,Text/RenderTextWrapped,Take this Hairstyle,この髪型を使用
+Penumbra,,,Text/RenderTextWrapped,Take this Ear Type,この耳タイプを使用
+Penumbra,,,Text/RenderTextWrapped,Take these Earrings,これらの耳飾りを使用
+Penumbra,,,Text/RenderTextWrapped,Take these Bracelets,これらの腕輪を使用
+Penumbra,,,Text/RenderTextWrapped,Take these Gloves,これらの手装備を使用
+Penumbra,,,Text/RenderTextWrapped,Take these Pants,これらの脚装備を使用
+Penumbra,,,Text/RenderTextWrapped,Take these Shoes,これらの足装備を使用
