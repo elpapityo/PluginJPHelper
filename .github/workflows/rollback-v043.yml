@@ -1,0 +1,27 @@
+name: Roll back premature v0.4.3 release
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - ".github/workflows/rollback-v043.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  rollback:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete v0.4.3 release and tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if gh release view V0.4.3 --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release delete V0.4.3 --repo "$GITHUB_REPOSITORY" --yes --cleanup-tag
+            echo "Deleted V0.4.3 release and tag."
+          else
+            echo "V0.4.3 release does not exist."
+          fi
