@@ -6,7 +6,7 @@
     "Description": "Dalamudプラグインの表示文字列を日本語化する補助プラグインです。Plugin Installerの説明翻訳・日本語検索にも対応します。",
     "Changelog": "v0.4.2 ImGui/UI取得経路を拡張し、ImSharp/Luna系のButtonEx取得に対応。CSV削除後の再読み込み不整合を修正し、Penumbra辞書を更新。",
     "InternalName": "PluginJPHelper",
-    "AssemblyVersion": "0.4.3.0",
+    "AssemblyVersion": "0.4.2.0",
     "RepoUrl": "https://github.com/elpapityo/PluginJPHelper",
     "ApplicableVersion": "any",
     "Tags": [
@@ -17,9 +17,9 @@
     "LoadPriority": 0,
     "IconUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/assets/PluginJPHelper.png",
     "ImageUrls": [],
-    "DownloadLinkInstall": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.4.3/PluginJPHelper_v0.4.3.zip",
-    "DownloadLinkUpdate": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.4.3/PluginJPHelper_v0.4.3.zip",
-    "DownloadLinkTesting": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.4.3/PluginJPHelper_v0.4.3.zip",
+    "DownloadLinkInstall": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.4.2/PluginJPHelper_v0.4.2.zip",
+    "DownloadLinkUpdate": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.4.2/PluginJPHelper_v0.4.2.zip",
+    "DownloadLinkTesting": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.4.2/PluginJPHelper_v0.4.2.zip",
     "IsHide": false,
     "IsTestingExclusive": false
   }
