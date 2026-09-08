@@ -16,44 +16,45 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Recover tested v0.4.3 package
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Verify uploaded v0.4.3 package
         shell: bash
         run: |
           set -euo pipefail
-          gh api \
-            -H "Accept: application/vnd.github.raw" \
-            "/repos/elpapityo/PluginJPHelper/contents/upload/PluginJPHelper_v0.4.3.zip?ref=54c102bcf874cb71a2c3c538571876a8dcb29243" \
-            > /tmp/PluginJPHelper_v0.4.3.zip
-          test -s /tmp/PluginJPHelper_v0.4.3.zip
-          unzip -t /tmp/PluginJPHelper_v0.4.3.zip >/dev/null
-          unzip -Z1 /tmp/PluginJPHelper_v0.4.3.zip | grep -Fxq 'PluginJPHelper.dll'
-          unzip -Z1 /tmp/PluginJPHelper_v0.4.3.zip | grep -Fxq 'PluginJPHelper.json'
-          unzip -Z1 /tmp/PluginJPHelper_v0.4.3.zip | grep -Fxq 'images/icon.png'
-          unzip -p /tmp/PluginJPHelper_v0.4.3.zip PluginJPHelper.json > /tmp/PluginJPHelper.json
           python3 - <<'PY'
-          import json
-          with open('/tmp/PluginJPHelper.json', encoding='utf-8-sig') as f:
-              manifest = json.load(f)
-          actual = manifest.get('AssemblyVersion')
-          if actual != '0.4.3.0':
-              raise SystemExit(f'AssemblyVersion mismatch: {actual!r}')
-          print('Verified AssemblyVersion:', actual)
+          import json, zipfile
+          from pathlib import Path
+          zp = Path('upload/PluginJPHelper_v0.4.3.zip')
+          if not zp.is_file() or zp.stat().st_size == 0:
+              raise SystemExit('upload/PluginJPHelper_v0.4.3.zip がありません')
+          with zipfile.ZipFile(zp) as z:
+              bad = z.testzip()
+              if bad:
+                  raise SystemExit(f'ZIP破損: {bad}')
+              norm = {n.replace('\\','/'): n for n in z.namelist()}
+              for need in ('PluginJPHelper.dll','PluginJPHelper.json','PluginJPHelper.deps.json','images/icon.png'):
+                  if need not in norm:
+                      raise SystemExit(f'ZIP内に不足: {need}')
+              manifest = json.loads(z.read(norm['PluginJPHelper.json']).decode('utf-8-sig'))
+              if manifest.get('AssemblyVersion') != '0.4.3.0':
+                  raise SystemExit(f"AssemblyVersion不一致: {manifest.get('AssemblyVersion')}")
+              Path('/tmp/icon.png').write_bytes(z.read(norm['images/icon.png']))
+          print('v0.4.3 ZIP確認OK')
           PY
 
-      - name: Prepare public icon and pluginmaster
+      - name: Prepare icon and pluginmaster
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p images
-          unzip -p /tmp/PluginJPHelper_v0.4.3.zip images/icon.png > images/icon.png
+          cp /tmp/icon.png images/icon.png
           test -s images/icon.png
           python3 - <<'PY'
           import json
           from pathlib import Path
           path = Path('pluginmaster.json')
           data = json.loads(path.read_text(encoding='utf-8-sig'))
+          if not isinstance(data, list) or not data:
+              raise SystemExit('pluginmaster.json が不正です')
           entry = data[0]
           version = '0.4.3'
           url = f'https://github.com/elpapityo/PluginJPHelper/releases/download/V{version}/PluginJPHelper_v{version}.zip'
@@ -102,8 +103,8 @@ jobs:
           - 自動翻訳は辞書作成を補助するための下書き機能です。内容を確認・必要に応じて修正してから利用してください。
           EOF
           if gh release view V0.4.3 --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
-            gh release upload V0.4.3 /tmp/PluginJPHelper_v0.4.3.zip --clobber --repo "$GITHUB_REPOSITORY"
+            gh release upload V0.4.3 upload/PluginJPHelper_v0.4.3.zip --clobber --repo "$GITHUB_REPOSITORY"
             gh release edit V0.4.3 --repo "$GITHUB_REPOSITORY" --title "Plugin JP Helper v0.4.3" --notes-file /tmp/release-notes.md
           else
-            gh release create V0.4.3 /tmp/PluginJPHelper_v0.4.3.zip --repo "$GITHUB_REPOSITORY" --title "Plugin JP Helper v0.4.3" --notes-file /tmp/release-notes.md
+            gh release create V0.4.3 upload/PluginJPHelper_v0.4.3.zip --repo "$GITHUB_REPOSITORY" --title "Plugin JP Helper v0.4.3" --notes-file /tmp/release-notes.md
           fi
