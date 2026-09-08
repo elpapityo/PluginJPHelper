@@ -17,12 +17,15 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Recover tested v0.4.3 package
+        env:
+          GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           set -euo pipefail
-          curl -L --fail --retry 3 \
-            "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/54c102bcf874cb71a2c3c538571876a8dcb29243/upload/PluginJPHelper_v0.4.3.zip" \
-            -o /tmp/PluginJPHelper_v0.4.3.zip
+          gh api \
+            -H "Accept: application/vnd.github.raw" \
+            "/repos/elpapityo/PluginJPHelper/contents/upload/PluginJPHelper_v0.4.3.zip?ref=54c102bcf874cb71a2c3c538571876a8dcb29243" \
+            > /tmp/PluginJPHelper_v0.4.3.zip
           test -s /tmp/PluginJPHelper_v0.4.3.zip
           unzip -t /tmp/PluginJPHelper_v0.4.3.zip >/dev/null
           unzip -Z1 /tmp/PluginJPHelper_v0.4.3.zip | grep -Fxq 'PluginJPHelper.dll'
