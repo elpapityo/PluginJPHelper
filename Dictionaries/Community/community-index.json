@@ -9,6 +9,15 @@
       "sha": "2beecd690a8a274f60f327ad79849ee1411e8383",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/%E2%80%BBGatherBuddyReborn_v0.1.csv",
       "deleteKeyHash": "8acb6dc3cb0fbead037b79b63a676858b049356a457a7c763146c1640bde1ac1"
+    },
+    {
+      "fileName": "ExplorersIcebox_v0.1.csv",
+      "pluginName": "ExplorersIcebox",
+      "owner": "LiA",
+      "updated": "2026-09-09",
+      "sha": "00bfedbd0f4280e874720e3414ca7bba0dafb636",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/ExplorersIcebox_v0.1.csv",
+      "deleteKeyHash": "bb727a7d3f0ef7f10248b73a1bec76675726ffe0354f9f5254b10bb0bb320e8b"
     }
   ]
 }
