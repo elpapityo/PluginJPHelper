@@ -2,11 +2,6 @@ name: Publish Plugin JP Helper upload
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - '.github/workflows/publish-upload.yml'
 
 permissions:
   contents: write
@@ -35,38 +30,6 @@ jobs:
           echo "file=$FILE" >> "$GITHUB_OUTPUT"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
-
-      - name: Add v0.4.5 changelog entry
-        if: steps.pkg.outputs.version == '0.4.5'
-        shell: bash
-        run: |
-          set -euo pipefail
-          if grep -q '^## v0\.4\.5$' CHANGELOG.md; then
-            echo 'CHANGELOG.md already contains v0.4.5.'
-            exit 0
-          fi
-          cat > /tmp/v045.md <<'EOF'
-          # CHANGELOG
-
-          ## v0.4.5
-
-          ### 追加・改善
-
-          - Plugin Installerの更新履歴を日本語化する「更新履歴を翻訳」を追加。
-          - 更新履歴は未翻訳分を判定し、1回最大50件ずつ新しい順に翻訳。次回は翻訳済みを除外して続きから処理。
-          - 更新履歴翻訳中にGoogle翻訳がHTTP 429となった場合、Googleへ再送せずPJH中継サーバーへ1回だけ切り替えるよう改善。
-          - Plugin Installerに「コマンド説明を再取得」を追加。Dalamudに登録されているコマンド説明を再取得し、未翻訳分を翻訳待ちへ追加。
-          - コマンド説明の区切りとして `:` / `：` / `->` / `→` に対応し、コマンド本体を保持したまま説明文を翻訳。
-          - 起動時・差分チェック時には外部翻訳へ送信せず、ユーザー操作時だけ翻訳を実行する仕様を維持。
-
-          EOF
-          tail -n +2 CHANGELOG.md >> /tmp/v045.md
-          mv /tmp/v045.md CHANGELOG.md
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add CHANGELOG.md
-          git commit -m "Add v0.4.5 changelog"
-          git push
 
       - name: Verify package and version
         shell: bash
