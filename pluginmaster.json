@@ -6,7 +6,7 @@
     "Description": "Dalamudプラグインの表示文字列を日本語化する補助プラグインです。Plugin Installerの説明翻訳・日本語検索にも対応します。",
     "Changelog": "v0.4.4 自動翻訳を改善。Google翻訳とPJH中継サーバーの切替・フォールバック、実際の翻訳先表示、429時の安全停止、コマンド本体を保持した説明文翻訳に対応。",
     "InternalName": "PluginJPHelper",
-    "AssemblyVersion": "0.4.4.0",
+    "AssemblyVersion": "0.4.5.0",
     "RepoUrl": "https://github.com/elpapityo/PluginJPHelper",
     "ApplicableVersion": "any",
     "Tags": [
@@ -17,9 +17,9 @@
     "LoadPriority": 0,
     "IconUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/images/icon.png?v=0.4.4",
     "ImageUrls": [],
-    "DownloadLinkInstall": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.4.4/PluginJPHelper_v0.4.4.zip",
-    "DownloadLinkUpdate": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.4.4/PluginJPHelper_v0.4.4.zip",
-    "DownloadLinkTesting": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.4.4/PluginJPHelper_v0.4.4.zip",
+    "DownloadLinkInstall": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.4.5/PluginJPHelper_v0.4.5.zip",
+    "DownloadLinkUpdate": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.4.5/PluginJPHelper_v0.4.5.zip",
+    "DownloadLinkTesting": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.4.5/PluginJPHelper_v0.4.5.zip",
     "IsHide": false,
     "IsTestingExclusive": false
   }
