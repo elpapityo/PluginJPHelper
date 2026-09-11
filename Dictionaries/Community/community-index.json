@@ -18,6 +18,15 @@
       "sha": "00bfedbd0f4280e874720e3414ca7bba0dafb636",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/ExplorersIcebox_v0.1.csv",
       "deleteKeyHash": "bb727a7d3f0ef7f10248b73a1bec76675726ffe0354f9f5254b10bb0bb320e8b"
+    },
+    {
+      "fileName": "QuestAWAY.csv",
+      "pluginName": "QuestAWAY",
+      "owner": "colo",
+      "updated": "2026-09-11",
+      "sha": "67d7df4763ba02e64087bb81e72a57fffc487f10",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/QuestAWAY.csv",
+      "deleteKeyHash": "2c3772fc94c51b3ea407adfdf5a22213b8a14b249d395083349c2869721545ec"
     }
   ]
 }
