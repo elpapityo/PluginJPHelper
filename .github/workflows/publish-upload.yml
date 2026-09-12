@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - 'CHANGELOG.md'
+      - '.release-refresh'
 
 permissions:
   contents: write
