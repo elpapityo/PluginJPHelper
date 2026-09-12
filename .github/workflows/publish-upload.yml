@@ -2,6 +2,9 @@ name: Publish Plugin JP Helper upload
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - 'CHANGELOG.md'
 
 permissions:
   contents: write
