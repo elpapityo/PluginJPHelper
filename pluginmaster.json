@@ -6,7 +6,7 @@
     "Description": "Dalamudプラグインの表示文字列を日本語化する補助プラグインです。Plugin Installerの説明翻訳・日本語検索にも対応します。",
     "Changelog": "v0.4.11: ImDrawList.AddText(FontPtr)経由で、日本語グリフを持たないフォントへ日本語文字列を差し替えた際に文字化けする可能性への安全策を追加。非ASCII文字への置き換えが必要な場合は元の表示を維持するよう修正。",
     "InternalName": "PluginJPHelper",
-    "AssemblyVersion": "0.4.11.0",
+    "AssemblyVersion": "0.4.12.0",
     "RepoUrl": "https://github.com/elpapityo/PluginJPHelper",
     "ApplicableVersion": "any",
     "Tags": [
@@ -17,9 +17,9 @@
     "LoadPriority": 0,
     "IconUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/images/icon.png?v=0.4.11",
     "ImageUrls": [],
-    "DownloadLinkInstall": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.4.11/PluginJPHelper_v0.4.11.zip",
-    "DownloadLinkUpdate": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.4.11/PluginJPHelper_v0.4.11.zip",
-    "DownloadLinkTesting": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.4.11/PluginJPHelper_v0.4.11.zip",
+    "DownloadLinkInstall": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.4.12/PluginJPHelper_v0.4.12.zip",
+    "DownloadLinkUpdate": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.4.12/PluginJPHelper_v0.4.12.zip",
+    "DownloadLinkTesting": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.4.12/PluginJPHelper_v0.4.12.zip",
     "IsHide": false,
     "IsTestingExclusive": false
   }
