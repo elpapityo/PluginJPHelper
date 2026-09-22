@@ -91,13 +91,11 @@ public sealed class PluginDictionaryState
     public HashSet<string> DeletedKeys { get; set; } = new(StringComparer.Ordinal);
 }
 
-public sealed class DictionaryLocation : IEquatable<DictionaryLocation>
+// record が生成する Equals は EqualityComparer<string>.Default を使う。
+// これは string の序数比較なので、手書きしていた StringComparison.Ordinal と同じ。
+// 設定ファイルへは従来どおり Menu / Section の 2 プロパティとして保存される。
+public sealed record DictionaryLocation
 {
     public string Menu { get; set; } = string.Empty;
     public string Section { get; set; } = string.Empty;
-
-    public bool Equals(DictionaryLocation? other)
-        => other != null && string.Equals(Menu, other.Menu, StringComparison.Ordinal) && string.Equals(Section, other.Section, StringComparison.Ordinal);
-    public override bool Equals(object? obj) => obj is DictionaryLocation other && Equals(other);
-    public override int GetHashCode() => HashCode.Combine(Menu, Section);
 }
