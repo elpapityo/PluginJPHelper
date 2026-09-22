@@ -1,0 +1,801 @@
+﻿Plugin,Menu,Section,Type,English,Japanese
+DalamudACT,Captured,,Text/RenderTextWrapped,/dps,/dps
+DalamudACT,Captured,,Text/RenderTextWrapped,/dps dps,/dps dps
+DalamudACT,Captured,,Text/RenderTextWrapped,/dps help,/dps help
+DalamudACT,Captured,,Text/RenderTextWrapped,/dps settings,/dps settings
+DalamudACT,Captured,,Text/RenderTextWrapped,/dps skills,/dps skills
+DalamudACT,Captured,,Text/RenderTextWrapped,/dps status,/dps status
+DalamudACT,Captured,,Text/RenderTextWrapped,/dps time,/dps time
+DalamudACT,Captured,,Text/RenderTextWrapped,/dps timeline,/dps timeline
+DalamudACT,Captured,,Text/RenderTextWrapped,100px,100px
+DalamudACT,Captured,,Selectable,"115 ""准备集合放黄圈"" Timer { }",115「集合して黄円を置く準備」Timer { }
+DalamudACT,Captured,,Text/RenderTextWrapped,24px,24px
+DalamudACT,Captured,,Text/RenderTextWrapped,44px,44px
+DalamudACT,Captured,,Text/RenderTextWrapped,48px,48px
+DalamudACT,Captured,,Text/RenderTextWrapped,62px,62px
+DalamudACT,Captured,,Text/RenderTextWrapped,73px,73px
+DalamudACT,Captured,,Text/RenderTextWrapped,CD数字大小,CD数字サイズ
+DalamudACT,Captured,,Selectable,Classic（经典表格）,Classic（クラシック表）
+DalamudACT,Captured,,RenderTextWrapped,DPS,DPS
+DalamudACT,Captured,,RenderTextWrapped,DPS列,DPS列
+DalamudACT,Captured,,RenderTextWrapped,DPS統計,DPS統計
+DalamudACT,Captured,,Text/RenderTextWrapped,DPS统计刷新间隔,DPS統計更新間隔
+DalamudACT,Captured,,Text/RenderTextWrapped,DalamudACT,DalamudACT
+DalamudACT,Captured,,RenderTextWrapped,HPS,HPS
+DalamudACT,Captured,,Selectable,Ikegami,Ikegami
+DalamudACT,Captured,,Selectable,Minimal（极简样式）,Minimal（ミニマル）
+DalamudACT,Captured,,Text/RenderTextWrapped,NPC 队友识别名单,味方NPC識別リスト
+DalamudACT,Captured,,Text/RenderTextWrapped,TTS纠偏说明,TTS補正の説明
+DalamudACT,Captured,,Text/RenderTextWrapped,Timer 时间标记,Timer 時刻マーカー
+DalamudACT,Captured,,Text/RenderTextWrapped,"by Shiyuvi, Anmi","by Shiyuvi, Anmi"
+DalamudACT,Captured,,Text/RenderTextWrapped,release version,release version
+DalamudACT,Captured,,Text/RenderTextWrapped,“玩家 + 敌方 NPC” 模式下会隐藏友方 NPC，只保留玩家与敌方对象。,「プレイヤー + 敵NPC」モードでは味方NPCを非表示にし、プレイヤーと敵だけを表示します。
+DalamudACT,Captured,,RenderTextWrapped,上下中央,上下中央
+DalamudACT,Captured,,Text/RenderTextWrapped,不依赖任何游戏事件，纯按战斗时间显示的条目，播报归“播报应对方案”控制。,ゲームイベントに依存せず、戦闘時間だけで表示する項目です。読み上げは「対処方法を読み上げ」の設定に従います。
+DalamudACT,Captured,,Checkbox/RenderText,中间学派,ニュートラルセクト
+DalamudACT,Captured,,Checkbox/RenderText,义结金兰,桃園結義
+DalamudACT,Captured,,Checkbox/RenderText,介毒之术,毒盛の鎖
+DalamudACT,Captured,,Text/RenderTextWrapped,以上都是极简样式专属属性。,以上はすべてMinimalスタイル専用設定です。
+DalamudACT,Captured,,Checkbox/RenderText,伤害统计,ダメージ統計
+DalamudACT,Captured,,Text/RenderTextWrapped,伤害量列宽,ダメージ量の列幅
+DalamudACT,Captured,,Button,低延迟##refresh_preset_fast,低遅延##refresh_preset_fast
+DalamudACT,Captured,,Button,低负载##refresh_preset_low,低負荷##refresh_preset_low
+DalamudACT,Captured,,Checkbox/RenderText,光之心,ハート・オブ・ライト
+DalamudACT,Captured,,Checkbox/RenderText,光明神的最终乐章,光神のフィナーレ
+DalamudACT,Captured,,Checkbox/RenderText,全大赦,インドゥルゲンティア
+DalamudACT,Captured,,Text/RenderTextWrapped,关闭“高亮 NPC 行”后，NPC 会回退到普通条形配色与默认文本颜色。,「NPC行を強調」を無効にすると、NPCは通常のバー配色と既定の文字色に戻ります。
+DalamudACT,Captured,,Text/RenderTextWrapped,关闭后降低高特效战斗压力，但 DoT、野火等持续/延迟伤害会更不准。高性能模式会临时停用。,無効にすると高エフェクト戦闘時の負荷は下がりますが、DoTやワイルドファイアなどの継続／遅延ダメージ精度が低下します。高性能モードでは一時的に無効化されます。
+DalamudACT,Captured,,RadioButtonBool,减伤##cat_mit,軽減##cat_mit
+DalamudACT,Captured,,Text/RenderTextWrapped,切换 DPS 统计悬浮窗。,DPS統計フローティングウィンドウを切り替えます。
+DalamudACT,Captured,,Text/RenderTextWrapped,切换时间轴悬浮窗。,タイムラインのフローティングウィンドウを切り替えます。
+DalamudACT,Captured,,Text/RenderTextWrapped,切换状态监控窗口。,ステータス監視ウィンドウを切り替えます。
+DalamudACT,Captured,,Text/RenderTextWrapped,切换设置面板。,設定パネルを切り替えます。
+DalamudACT,Captured,,Text/RenderTextWrapped,切换队友技能监控悬浮窗。,PTメンバースキル監視のフローティングウィンドウを切り替えます。
+DalamudACT,Captured,,Checkbox/RenderText,刚玉之心,ハート・オブ・コランダム
+DalamudACT,Captured,,Text/RenderTextWrapped,刷新频率说明,更新頻度の説明
+DalamudACT,Captured,,Text/RenderTextWrapped,刷新频率预设,更新頻度プリセット
+DalamudACT,Captured,,RenderTextWrapped,剑术师,剣術士
+DalamudACT,Captured,,Checkbox/RenderText,匿名模式,匿名モード
+DalamudACT,Captured,,RenderText,単色###单色,単色###单色
+DalamudACT,Captured,,Checkbox/RenderText,占卜,ディヴィネーション
+DalamudACT,Captured,,RenderTextWrapped/Selectable,占星术士,占星術師
+DalamudACT,Captured,,Text/RenderTextWrapped,占比条内容,割合バーの内容
+DalamudACT,Captured,,Checkbox/RenderText,占比条显示伤害,割合バーにダメージを表示
+DalamudACT,Captured,,Checkbox/RenderText,占比条显示占比,割合バーに割合を表示
+DalamudACT,Captured,,Checkbox/RenderText,占比条显示死亡,割合バーに死亡数を表示
+DalamudACT,Captured,,Checkbox/RenderText,占比条显示玩家名,割合バーにプレイヤー名を表示
+DalamudACT,Captured,,Checkbox/RenderText,占比条显示职业,割合バーにジョブを表示
+DalamudACT,Captured,,Checkbox/RenderText,即兴表演,インプロビゼーション
+DalamudACT,Captured,,Text/RenderTextWrapped,历史文件: C:\Users\USER\AppData\Roaming\XIVLauncher\pluginConfigs\DalamudACT\history-records.json,履歴ファイル: C:\Users\USER\AppData\Roaming\XIVLauncher\pluginConfigs\DalamudACT\history-records.json
+DalamudACT,Captured,,RenderText,历史记录预览时长（秒）,履歴プレビュー時間（秒）
+DalamudACT,Captured,,Text/RenderTextWrapped,历史预览与状态,履歴プレビューと状態
+DalamudACT,Captured,,Checkbox/RenderText,原初的血气,原初の血気
+DalamudACT,Captured,,Text/RenderTextWrapped,原词,元の語句
+DalamudACT,Captured,,Text/RenderTextWrapped,友方 NPC 包括信赖/NPC 队友、Buddy、幻体等可识别的友方对象。,味方NPCには、フェイス／NPC同行者、バディ、分身など識別可能な味方オブジェクトが含まれます。
+DalamudACT,Captured,,RenderTextWrapped,双剑师,双剣士
+DalamudACT,Captured,,Text/RenderTextWrapped,只恢复指定样式的默认设置。,指定したスタイルだけ既定設定へ戻します。
+DalamudACT,Captured,,Text/RenderTextWrapped,只记录战斗开始/结束、死亡、头标、连线和场地特效，跳过伤害/治疗/状态等高频流水。,戦闘開始／終了、死亡、頭上マーカー、線、フィールドエフェクトのみ記録し、ダメージ／回復／ステータスなど高頻度ログは省略します。
+DalamudACT,Captured,,RenderTextWrapped/Selectable,召唤师,召喚士
+DalamudACT,Captured,,Checkbox/RenderText,叶隐,葉隠
+DalamudACT,Captured,,Text/RenderTextWrapped,同一个输入框可粘贴或暂存分享码。,同じ入力欄で共有コードの貼り付け・一時保存ができます。
+DalamudACT,Captured,,RenderTextWrapped/Selectable,吟游诗人,吟遊詩人
+DalamudACT,Captured,,Checkbox/RenderText,启用网络包增强模式,ネットワークパケット拡張モードを有効化
+DalamudACT,Captured,,Checkbox/RenderText,命运之轮,運命の輪
+DalamudACT,Captured,,RenderTextWrapped,咒术师,呪術士
+DalamudACT,Captured,,RenderTextWrapped,回復量,回復量
+DalamudACT,Captured,,RadioButtonBool,团辅##cat_buff,PT支援##cat_buff
+DalamudACT,Captured,,Text/RenderTextWrapped,团辅/减伤分组合并,PT支援／軽減グループを統合
+DalamudACT,Captured,,Checkbox/RenderText,图标下方显示ID,アイコン下にIDを表示
+DalamudACT,Captured,,Text/RenderTextWrapped,图标列间距,アイコン列間隔
+DalamudACT,Captured,,Text/RenderTextWrapped,图标大小,アイコンサイズ
+DalamudACT,Captured,,Checkbox/RenderText,圣光幕帘,ディヴァインヴェール
+DalamudACT,Captured,,Text/RenderTextWrapped,在游戏里直接查看队伍战斗统计。,ゲーム内でPT戦闘統計を直接確認します。
+DalamudACT,Captured,,Text/RenderTextWrapped,在线时间轴,オンラインタイムライン
+DalamudACT,Captured,,Checkbox/RenderText,地星,アーサリースター
+DalamudACT,Captured,,Checkbox/RenderText,坚角清汁,ケーラコレ
+DalamudACT,Captured,,Checkbox/RenderText,坦培拉涂层,テンペラコート
+DalamudACT,Captured,,Text/RenderTextWrapped,基础显示,基本表示
+DalamudACT,Captured,,Button,复制当前分享码,現在の共有コードをコピー
+DalamudACT,Captured,,Checkbox/RenderText,大地神,地神のミンネ
+DalamudACT,Captured,,Checkbox/RenderText,大宇宙,マクロコスモス
+DalamudACT,Captured,,Checkbox/RenderText,大星云,グレートネビュラ
+DalamudACT,Captured,,Checkbox/RenderText,天赐祝福,ベネディクション
+DalamudACT,Captured,,Text/RenderTextWrapped,字号缩放,文字サイズ倍率
+DalamudACT,Captured,,RenderTextWrapped/Selectable,学者,学者
+DalamudACT,Captured,,Text/RenderTextWrapped,完整设置 / v0.15.2.72,詳細設定 / v0.15.2.72
+DalamudACT,Captured,,Text/RenderTextWrapped,宏命令,マクロコマンド
+DalamudACT,Captured,,Text/RenderTextWrapped,尺寸与 CD 数字,サイズとCD数字
+DalamudACT,Captured,,Text/RenderTextWrapped,尺寸与字号,サイズと文字サイズ
+DalamudACT,Captured,,Checkbox/RenderText,展开战术,展開戦術
+DalamudACT,Captured,,Checkbox/RenderText,屠戮,ダムネーション
+DalamudACT,Captured,,Text/RenderTextWrapped,布局与显示规则,レイアウトと表示ルール
+DalamudACT,Captured,,Button,帮助##advanced_nav_Help,ヘルプ##advanced_nav_Help
+DalamudACT,Captured,,Checkbox/RenderText,干预,インターベンション
+DalamudACT,Captured,,RenderTextWrapped,幻术师,幻術士
+DalamudACT,Captured,,Checkbox/RenderText,庇护所,アサイラム
+DalamudACT,Captured,,Text/RenderTextWrapped,开启后按当前区域自动套用预设：主城/住宅=低负载，副本/野外=标准。关闭后使用下方手动间隔。,有効にすると現在エリアに応じて自動でプリセットを適用します。都市／ハウジング＝低負荷、コンテンツ／フィールド＝標準。無効時は下の手動間隔を使用します。
+DalamudACT,Captured,,Text/RenderTextWrapped,开始时间,開始時刻
+DalamudACT,Captured,,Checkbox/RenderText,弃明投暗,ダークマインド
+DalamudACT,Captured,,RenderTextWrapped,弓箭手,弓術士
+DalamudACT,Captured,,Text/RenderTextWrapped,强制加载说明,強制読み込みの説明
+DalamudACT,Captured,,Text/RenderTextWrapped,当前区域：野外,現在のエリア：フィールド
+DalamudACT,Captured,,Text/RenderTextWrapped,当前没有可显示的队伍成员。,現在表示できるPTメンバーはいません。
+DalamudACT,Captured,,Text/RenderTextWrapped,当前状态：调试日志已关闭，强化日志已关闭,現在の状態：デバッグログOFF、拡張ログOFF
+DalamudACT,Captured,,Text/RenderTextWrapped,当前队伍成员默认展开；收起后这里只显示人数。,現在のPTメンバーは既定で展開表示されます。折りたたむと人数のみ表示します。
+DalamudACT,Captured,,RenderTextWrapped/Selectable,忍者,忍者
+DalamudACT,Captured,,Text/RenderTextWrapped,总DPS条内容,総DPSバーの内容
+DalamudACT,Captured,,Button,恢复 Classic 默认,Classicを既定値に戻す
+DalamudACT,Captured,,Button,恢复 Ikegami 默认,Ikegamiを既定値に戻す
+DalamudACT,Captured,,Button,恢复 Minimal 默认,Minimalを既定値に戻す
+DalamudACT,Captured,,Checkbox/RenderText,意气冲天,意気衝天
+DalamudACT,Captured,,RenderTextWrapped/Selectable,战士,戦士
+DalamudACT,Captured,,Checkbox/RenderText,战斗之声,バトルボイス
+DalamudACT,Captured,,Checkbox/RenderText,战斗连祷,バトルリタニー
+DalamudACT,Captured,,Checkbox/RenderText,战栗,スリル・オブ・バトル
+DalamudACT,Captured,,RenderTextWrapped,戦闘終了判定,戦闘終了判定
+DalamudACT,Captured,,Button,打印当前BUFF,現在のBUFFを出力
+DalamudACT,Captured,,Checkbox/RenderText,技巧舞步结束,テクニカルフィニッシュ
+DalamudACT,Captured,,Text/RenderTextWrapped,技能 ID 需要与实际游戏数据核对,スキルIDは実際のゲームデータと照合してください
+DalamudACT,Captured,,Text/RenderTextWrapped,技能ID,スキルID
+DalamudACT,Captured,,Checkbox/RenderText,抗死,バマジク
+DalamudACT,Captured,,Button,按分享码标识导入,共有コード識別子でインポート
+DalamudACT,Captured,,Checkbox/RenderText,按区域自动刷新频率,エリア別に更新頻度を自動設定
+DalamudACT,Captured,,Text/RenderTextWrapped,按样式恢复默认,スタイル別に既定値へ戻す
+DalamudACT,Captured,,Checkbox/RenderText,摆脱,シェイクオフ
+DalamudACT,Captured,,Text/RenderTextWrapped,敌方 NPC 只有在最大生命值达到本地玩家最大生命值指定倍率后，才会进入悬浮统计。,敵NPCは最大HPがローカルプレイヤー最大HPの指定倍率以上の場合のみ、フローティング統計へ含めます。
+DalamudACT,Captured,,Button,数据##advanced_nav_Data,データ##advanced_nav_Data
+DalamudACT,Captured,,Checkbox/RenderText,整体论,ホーリズム
+DalamudACT,Captured,,RenderTextWrapped,斧术师,斧術士
+DalamudACT,Captured,,Button,新增纠偏,補正を追加
+DalamudACT,Captured,,Text/RenderTextWrapped,日志写入规则,ログ出力ルール
+DalamudACT,Captured,,Text/RenderTextWrapped,时长,時間
+DalamudACT,Captured,,Button,时间轴##advanced_nav_Timeline,タイムライン##advanced_nav_Timeline
+DalamudACT,Captured,,Text/RenderTextWrapped,时间轴刷新间隔,タイムライン更新間隔
+DalamudACT,Captured,,Text/RenderTextWrapped,时间轴文件: 未加载,タイムラインファイル：未読み込み
+DalamudACT,Captured,,RenderText,时间轴显示未来秒数,タイムライン先読み秒数
+DalamudACT,Captured,,RenderText,时间轴最大显示条数,タイムライン最大表示件数
+DalamudACT,Captured,,Checkbox/RenderText,昏乱,アドル
+DalamudACT,Captured,,Checkbox/RenderText,星位合图,エクザルテーション
+DalamudACT,Captured,,Checkbox/RenderText,星空构想,星天開門
+DalamudACT,Captured,,Checkbox/RenderText,显示伤害量列,ダメージ量列を表示
+DalamudACT,Captured,,Text/RenderTextWrapped,显示宏帮助。,マクロヘルプを表示します。
+DalamudACT,Captured,,Checkbox/RenderText,显示总DPS,総DPSを表示
+DalamudACT,Captured,,Checkbox/RenderText,显示总DPS行,総DPS行を表示
+DalamudACT,Captured,,Checkbox/RenderText,显示总伤害,総ダメージを表示
+DalamudACT,Captured,,Checkbox/RenderText,显示总死亡数,総死亡数を表示
+DalamudACT,Captured,,Checkbox/RenderText,显示时间,時間を表示
+DalamudACT,Captured,,Checkbox/RenderText,显示标题,タイトルを表示
+DalamudACT,Captured,,Text/RenderTextWrapped,显示范围、间距与语音,表示範囲・間隔・音声
+DalamudACT,Captured,,Checkbox/RenderText,显示表头,ヘッダーを表示
+DalamudACT,Captured,,Checkbox/RenderText,智慧之爱,フィロソフィア
+DalamudACT,Captured,,Checkbox/RenderText,暗影卫,シャドウヴィジル
+DalamudACT,Captured,,Checkbox/RenderText,暗黑布道,ダークミッショナリー
+DalamudACT,Captured,,RenderTextWrapped/Selectable,暗黑骑士,暗黒騎士
+DalamudACT,Captured,,RenderTextWrapped,有効,有効
+DalamudACT,Captured,,RenderText,有効###启用,有効###启用
+DalamudACT,Captured,,Text/RenderTextWrapped,本地事件采集 / ACTX 统计口径,ローカルイベント収集 / ACTX統計方式
+DalamudACT,Captured,,RenderTextWrapped/Selectable,机工士,機工士
+DalamudACT,Captured,,Text/RenderTextWrapped,极简样式参数,Minimalスタイル設定
+DalamudACT,Captured,,Text/RenderTextWrapped,极简样式固定隐藏页签与秒伤列。,MinimalスタイルではタブとDPS列を固定で非表示にします。
+DalamudACT,Captured,,Checkbox/RenderText,极致防御,ガーディアン
+DalamudACT,Captured,,RenderTextWrapped,枪术师,槍術士
+DalamudACT,Captured,,Button,标准##refresh_preset_balanced,標準##refresh_preset_balanced
+DalamudACT,Captured,,Text/RenderTextWrapped,标签页显示,タブ表示
+DalamudACT,Captured,,Text/RenderTextWrapped,样式分享码,スタイル共有コード
+DalamudACT,Captured,,Text/RenderTextWrapped,样式说明,スタイル説明
+DalamudACT,Captured,,RenderTextWrapped,格斗家,格闘士
+DalamudACT,Captured,,Text/RenderTextWrapped,桜 Sakura,桜 Sakura
+DalamudACT,Captured,,RenderTextWrapped/Selectable,武僧,モンク
+DalamudACT,Captured,,Selectable,武士,侍
+DalamudACT,Captured,,Checkbox/RenderText,武装戍卫,パッセージ・オブ・アームズ
+DalamudACT,Captured,,Checkbox/RenderText,武装解除,ウェポンブレイク
+DalamudACT,Captured,,Text/RenderTextWrapped,死亡列宽,死亡列の幅
+DalamudACT,Captured,,Checkbox/RenderText,死斗,ホルムギャング
+DalamudACT,Captured,,Checkbox/RenderText,残影,残影
+DalamudACT,Captured,,Checkbox/RenderText,水流幕,アクアヴェール
+DalamudACT,Captured,,Checkbox/RenderText,泛输血,パンハイマ
+DalamudACT,Captured,,Text/RenderTextWrapped,注：目前时间轴仅涵盖 7.x 版本内容。6.x 及更早版本暂不支持。,注：現在のタイムラインは7.xコンテンツのみ対応しています。6.x以前は現在未対応です。
+DalamudACT,Captured,,Checkbox/RenderText,活化,ゾーエ
+DalamudACT,Captured,,Button,测试TTS,TTSをテスト
+DalamudACT,Captured,,Checkbox/RenderText,消化,ペプシス
+DalamudACT,Captured,,Checkbox/RenderText,深谋远虑之策,深謀遠慮の策
+DalamudACT,Captured,,Text/RenderTextWrapped,添加自定义技能（当目录中缺少某个技能时使用）,カスタムスキルを追加（一覧にないスキル用）
+DalamudACT,Captured,,Button,清空分享码,共有コードをクリア
+DalamudACT,Captured,,Checkbox/RenderText,灼热之光,シアリングライト
+DalamudACT,Captured,,Checkbox/RenderText,炽天召唤,セラフィム召喚
+DalamudACT,Captured,,Checkbox/RenderText,炽天的幻光,セラフィックイルミネーション
+DalamudACT,Captured,,Checkbox/RenderText,炽天附体,セラフィズム
+DalamudACT,Captured,,Checkbox/RenderText,牵制,牽制
+DalamudACT,Captured,,Button,状态监控##advanced_nav_StatusObserver,ステータス監視##advanced_nav_StatusObserver
+DalamudACT,Captured,,Text/RenderTextWrapped,状态监控刷新间隔,ステータス監視更新間隔
+DalamudACT,Captured,,Checkbox/RenderText,献奉,オブレーション
+DalamudACT,Captured,,Text/RenderTextWrapped,玩家列宽,プレイヤー列の幅
+DalamudACT,Captured,,Checkbox/RenderText,生命回生法,生命回生法
+DalamudACT,Captured,,Text/RenderTextWrapped,生成后会自动复制到剪贴板。,生成後、自動的にクリップボードへコピーします。
+DalamudACT,Captured,,Button,生成并复制 Classic 分享码,Classic共有コードを生成してコピー
+DalamudACT,Captured,,Button,生成并复制 Ikegami 分享码,Ikegami共有コードを生成してコピー
+DalamudACT,Captured,,Button,生成并复制 Minimal 分享码,Minimal共有コードを生成してコピー
+DalamudACT,Captured,,Checkbox/RenderText,疾风怒涛之计,疾風怒濤の計
+DalamudACT,Captured,,Checkbox/RenderText,白牛清汁,タウロコレ
+DalamudACT,Captured,,RenderTextWrapped/Selectable,白魔法师,白魔道士
+DalamudACT,Captured,,Checkbox/RenderText,监控减伤,軽減を監視
+DalamudACT,Captured,,Checkbox/RenderText,监控团辅,PT支援を監視
+DalamudACT,Captured,,Text/RenderTextWrapped,监控模块,監視モジュール
+DalamudACT,Captured,,Checkbox/RenderText,监控食物,食事を監視
+DalamudACT,Captured,,Text/RenderTextWrapped,目标职业,対象ジョブ
+DalamudACT,Captured,,Checkbox/RenderText,盾阵,シェルトロン
+DalamudACT,Captured,,Checkbox/RenderText,礼仪之铃,リタージー・オブ・ベル
+DalamudACT,Captured,,Checkbox/RenderText,神圣领域,インビンシブル
+DalamudACT,Captured,,Checkbox/RenderText,神祝祷,ディヴァインベニゾン
+DalamudACT,Captured,,Checkbox/RenderText,神秘环,アルケインサークル
+DalamudACT,Captured,,Checkbox/RenderText,神秘纹,アルケインクレスト
+DalamudACT,Captured,,RenderTextWrapped,秘术师,巴術士
+DalamudACT,Captured,,Checkbox/RenderText,秘策,秘策
+DalamudACT,Captured,,Button,窗口##advanced_nav_Window,ウィンドウ##advanced_nav_Window
+DalamudACT,Captured,,Checkbox/RenderText,策动,タクティシャン
+DalamudACT,Captured,,Text/RenderTextWrapped,纠偏词,補正語句
+DalamudACT,Captured,,Text/RenderTextWrapped,结束时间,終了時刻
+DalamudACT,Captured,,Selectable,绘灵法师,ピクトマンサー
+DalamudACT,Captured,,RenderTextWrapped/Selectable,绝枪战士,ガンブレイカー
+DalamudACT,Captured,,Button,统计##advanced_nav_Stats,統計##advanced_nav_Stats
+DalamudACT,Captured,,Text/RenderTextWrapped,网络包增强模式,ネットワークパケット拡張モード
+DalamudACT,Captured,,Button,职能单色,ロール単色
+DalamudACT,Captured,,Text,背景默认颜色,背景の既定色
+DalamudACT,Captured,,Checkbox/RenderText,自生,ピュシスII
+DalamudACT,Captured,,Checkbox/RenderText,至黑之夜,ブラックナイト
+DalamudACT,Captured,,RenderTextWrapped/Selectable,舞者,踊り子
+DalamudACT,Captured,,Checkbox/RenderText,节制,テンパランス
+DalamudACT,Captured,,Checkbox/RenderText,蛇灵气,蛇の霊気
+DalamudACT,Captured,,Selectable,蝰蛇剑士,ヴァイパー
+DalamudACT,Captured,,Checkbox/RenderText,行吟,トルバドゥール
+DalamudACT,Captured,,Checkbox/RenderText,行尸走肉,リビングデッド
+DalamudACT,Captured,,RenderTextWrapped,行間隔,行間隔
+DalamudACT,Captured,,RenderTextWrapped,表示,表示
+DalamudACT,Captured,,RenderTextWrapped,表示人数,表示人数
+DalamudACT,Captured,,RenderTextWrapped,表示数制限,表示数制限
+DalamudACT,Captured,,Text/RenderTextWrapped,规则 1,ルール 1
+DalamudACT,Captured,,Text/RenderTextWrapped,规则 10,ルール 10
+DalamudACT,Captured,,Text/RenderTextWrapped,规则 11,ルール 11
+DalamudACT,Captured,,Text/RenderTextWrapped,规则 12,ルール 12
+DalamudACT,Captured,,Text/RenderTextWrapped,规则 13,ルール 13
+DalamudACT,Captured,,Text/RenderTextWrapped,规则 2,ルール 2
+DalamudACT,Captured,,Text/RenderTextWrapped,规则 3,ルール 3
+DalamudACT,Captured,,Text/RenderTextWrapped,规则 4,ルール 4
+DalamudACT,Captured,,Text/RenderTextWrapped,规则 5,ルール 5
+DalamudACT,Captured,,Text/RenderTextWrapped,规则 6,ルール 6
+DalamudACT,Captured,,Text/RenderTextWrapped,规则 7,ルール 7
+DalamudACT,Captured,,Text/RenderTextWrapped,规则 8,ルール 8
+DalamudACT,Captured,,Text/RenderTextWrapped,规则 9,ルール 9
+DalamudACT,Captured,,Text/RenderTextWrapped,调试日志分组,デバッグログ分類
+DalamudACT,Captured,,RenderTextWrapped/Selectable,贤者,賢者
+DalamudACT,Captured,,Selectable,赤魔法师,赤魔道士
+DalamudACT,Captured,,Text/RenderTextWrapped,起效增强强度,発動時強調の強度
+DalamudACT,Captured,,Text/RenderTextWrapped,起效增强样式,発動時強調スタイル
+DalamudACT,Captured,,Checkbox/RenderText,超火流星,ボーライド
+DalamudACT,Captured,,Checkbox/RenderText,输血,ハイマ
+DalamudACT,Captured,,Checkbox/RenderText,进攻之探戈,攻めのタンゴ
+DalamudACT,Captured,,Checkbox/RenderText,连环计,連環計
+DalamudACT,Captured,,Checkbox/RenderText,配置/设置,設定／構成
+DalamudACT,Captured,,Checkbox/RenderText,野战治疗阵,野戦治療の陣
+DalamudACT,Captured,,Selectable,钐镰客,リーパー
+DalamudACT,Captured,,Checkbox/RenderText,铁壁,ランパート
+DalamudACT,Captured,,Text/RenderTextWrapped,队友使用死斗、神圣领域、死而不僵、超火流星时播报技能名；PvP 区域不播报。需要先开启 DailyRoutines TTS。,PTメンバーがホルムギャング、インビンシブル、リビングデッド、ボーライドを使用した際にスキル名を読み上げます。PvPエリアでは読み上げません。事前にDailyRoutines TTSを有効にしてください。
+DalamudACT,Captured,,Button,队友监控##advanced_nav_PartyMonitor,PTメンバー監視##advanced_nav_PartyMonitor
+DalamudACT,Captured,,Text/RenderTextWrapped,队友监控刷新间隔,PTメンバー監視更新間隔
+DalamudACT,Captured,,Checkbox/RenderText,防守之桑巴,守りのサンバ
+DalamudACT,Captured,,Checkbox/RenderText,隐藏永久状态,永続ステータスを非表示
+DalamudACT,Captured,,Checkbox/RenderText,雪仇,リプライザル
+DalamudACT,Captured,,Text/RenderTextWrapped,预览规则说明,プレビュールールの説明
+DalamudACT,Captured,,Text/RenderTextWrapped,食物到期提醒阈值,食事効果終了の通知しきい値
+DalamudACT,Captured,,RenderTextWrapped/Selectable,骑士,ナイト
+DalamudACT,Captured,,Checkbox/RenderText,高亮 NPC 行,NPC行を強調
+DalamudACT,Captured,,Text/RenderTextWrapped,高度自动适配条目数,表示件数に合わせて高さを自動調整
+DalamudACT,Captured,,Checkbox/RenderText,魂灵风息,プネウマ
+DalamudACT,Captured,,RenderTextWrapped/Selectable,黑魔法师,黒魔道士
+DalamudACT,Captured,,Text/RenderTextWrapped,默认先收起职业颜色列表；需要微调单职业 RGB 时再展开。,ジョブ色一覧は既定で折りたたみます。ジョブごとのRGBを調整するときだけ展開してください。
+DalamudACT,Captured,,Text/RenderTextWrapped,默认先收起规则说明；需要核对 NPC 纳入规则时再展开。,ルール説明は既定で折りたたみます。NPCの対象条件を確認するときだけ展開してください。
+DalamudACT,Captured,,Text/RenderTextWrapped,默认先收起路径与状态详情；需要排查时再展开查看。,パスと状態の詳細は既定で折りたたみます。問題調査時に展開してください。
+DalamudACT,Captured,,RenderText,默认收包 opcode 过滤,既定の受信パケットopcodeフィルター
+DalamudACT,Captured,,RenderText,默认收包预览字节,既定の受信パケットプレビューBytes
+DalamudACT,Captured,,Text/RenderTextWrapped,默认立即结束,既定：即時終了
+DalamudACT,Captured,,Checkbox/RenderText,鼓励,エンボルデン
+DalamudACT,Captured,,RenderTextWrapped/Selectable,龙骑士,竜騎士
+DalamudACT,Captured,PartyMonitor,Text/RenderTextWrapped,职业技能列表,ジョブスキル一覧
+DalamudACT,CapturedExact,,,      帮助##advanced_nav_Help,      ヘルプ##advanced_nav_Help
+DalamudACT,CapturedExact,,,      数据##advanced_nav_Data,      データ##advanced_nav_Data
+DalamudACT,CapturedExact,,,      时间轴##advanced_nav_Timeline,      タイムライン##advanced_nav_Timeline
+DalamudACT,CapturedExact,,,      状态监控##advanced_nav_StatusObserver,      ステータス監視##advanced_nav_StatusObserver
+DalamudACT,CapturedExact,,,      窗口##advanced_nav_Window,      ウィンドウ##advanced_nav_Window
+DalamudACT,CapturedExact,,,      统计##advanced_nav_Stats,      統計##advanced_nav_Stats
+DalamudACT,CapturedExact,,,      队友监控##advanced_nav_PartyMonitor,      PTメンバー監視##advanced_nav_PartyMonitor
+DalamudACT,CapturedExact,,," by Shiyuvi, Anmi"," by Shiyuvi, Anmi"
+DalamudACT,CapturedExact,,,DPS統計更新間隔,DPS統計更新間隔
+DalamudACT,CapturedExact,,,关闭后降低高特效战斗压力，但 DoT、野火等持续/延迟伤害会更不准。高性能模式会临时停用。 ,無効にすると高エフェクト戦闘時の負荷は下がりますが、DoTやワイルドファイアなどの継続／遅延ダメージ精度が低下します。高性能モードでは一時的に無効化されます。 
+DalamudACT,CapturedExact,,,只记录战斗开始/结束、死亡、头标、连线和场地特效，跳过伤害/治疗/状态等高频流水。 ,戦闘開始／終了、死亡、頭上マーカー、線、フィールドエフェクトのみ記録し、ダメージ／回復／ステータスなど高頻度ログは省略します。 
+DalamudACT,CapturedExact,,,"在游戏里直接查看队伍战斗统计。
+Local ACTX-style combat stats directly inside the game.","ゲーム内でPT戦闘統計を直接確認します。
+ローカルACTX方式の戦闘統計をゲーム内に直接表示します。"
+DalamudACT,CapturedExact,,,夜樱 Sakura Night,夜桜 Sakura Night
+DalamudACT,CapturedExact,,,开启后按当前区域自动套用预设：主城/住宅=低负载，副本/野外=标准。关闭后使用下方手动间隔。 ,有効にすると現在エリアに応じて自動でプリセットを適用します。都市／ハウジング＝低負荷、コンテンツ／フィールド＝標準。無効時は下の手動間隔を使用します。 
+DalamudACT,CapturedExact,,,当前没有队伍成员。,現在PTメンバーはいません。
+DalamudACT,CapturedExact,,,打开配置目录,設定フォルダーを開く
+DalamudACT,CapturedExact,,,推荐默认值。兼顾实时性和性能，适合大多数副本和日常使用。DPS统计 250ms，队友监控 500ms，状态监控 500ms，时间轴 500ms。 ,推奨の既定値です。リアルタイム性と性能のバランスを取り、多くのコンテンツや日常利用に適しています。DPS統計 250ms、PTメンバー監視 500ms、ステータス監視 500ms、タイムライン 500ms。 
+DalamudACT,CapturedExact,,,既定：即時終了,既定：即時終了
+DalamudACT,CapturedExact,,,显示时间轴窗口,タイムラインウィンドウを表示
+DalamudACT,CapturedExact,,,显示统计面板,統計パネルを表示
+DalamudACT,CapturedExact,,,显示队友监控,PTメンバー監視を表示
+DalamudACT,CapturedExact,,,状态监控窗口透明度,ステータス監視ウィンドウ透明度
+DalamudACT,CapturedExact,,,窗口与悬浮面板,ウィンドウとフローティングパネル
+DalamudACT,CapturedExact,,,自动适配,自動調整
+DalamudACT,CapturedExact,,,補正語句,補正語句
+DalamudACT,CapturedExact,,,設定／構成###配置/设置,設定／構成###配置/设置
+DalamudACT,CapturedExact,,,詳細設定 / v0.15.2.72,詳細設定 / v0.15.2.72
+DalamudACT,CapturedExact,,,重载时间轴,タイムラインを再読み込み
+DalamudACT,CapturedExact,,,锁定后不可拖动或缩放。,固定するとドラッグやサイズ変更はできません。
+DalamudACT,CapturedExact,,,锁定统计窗口,統計ウィンドウを固定
+DalamudACT,CapturedExact,,,锁定队友监控,PTメンバー監視を固定
+DalamudACT,CapturedExact,,,队友监控窗口透明度,PTメンバー監視ウィンドウ透明度
+DalamudACT,CapturedExact,,,高度自适应条目数,表示件数に合わせて高さを自動調整
+DalamudACT,CombatLog,Body,Text,当前筛选条件下暂无战斗流水。,現在の絞り込み条件に一致する戦闘ログはありません。
+DalamudACT,CombatLog,Body,Text,"战斗流水记录已停止。勾选""开始记录""后才会写入新事件；关闭不会清空已有流水。",戦闘ログの記録は停止中です。「記録開始」を有効にすると新しいイベントを記録します。停止しても既存ログは消去されません。
+DalamudACT,CombatLog,Body,Text,暂无战斗流水。进入战斗后，这里会开始记录关键事件。,戦闘ログはまだありません。戦闘開始後、ここに主要イベントが記録されます。
+DalamudACT,CombatLog,Content,Checkbox,减伤分析,軽減分析
+DalamudACT,CombatLog,Content,Checkbox,场地特效,フィールドエフェクト
+DalamudACT,CombatLog,Content,Checkbox,头顶标记,頭上マーカー
+DalamudACT,CombatLog,Content,Checkbox,治疗,回復
+DalamudACT,CombatLog,Content,Checkbox,读条,詠唱
+DalamudACT,CombatLog,Content,Checkbox,输出,出力
+DalamudACT,CombatLog,Content,Checkbox,进出战,戦闘開始／終了
+DalamudACT,CombatLog,Content,Checkbox,连线,線
+DalamudACT,CombatLog,Controls,Button,取消选中,選択解除
+DalamudACT,CombatLog,Controls,Button,复制当前显示,現在の表示をコピー
+DalamudACT,CombatLog,Controls,Tooltip,复制当前筛选结果。,現在の絞り込み結果をコピーします。
+DalamudACT,CombatLog,Controls,Text,已停止,停止中
+DalamudACT,CombatLog,Controls,Text,已复制,コピーしました
+DalamudACT,CombatLog,Controls,Text,已清空,消去しました
+DalamudACT,CombatLog,Controls,Tooltip,开启后会写入新的战斗流水；关闭后保留已有流水，方便复制或排查。开关状态会保存到配置。,有効にすると新しい戦闘ログを記録します。無効にしても既存ログは残るため、コピーや確認に利用できます。設定は保存されます。
+DalamudACT,CombatLog,Controls,Checkbox,开始记录,記録開始
+DalamudACT,CombatLog,Controls,Button,清空流水,ログを消去
+DalamudACT,CombatLog,Controls,Checkbox,自动滚动到最新事件,最新イベントへ自動スクロール
+DalamudACT,CombatLog,Controls,Text,记录中,記録中
+DalamudACT,CombatLog,Filters,Text,保留条数：,保持件数：
+DalamudACT,CombatLog,Filters,Selectable,全部,すべて
+DalamudACT,CombatLog,Filters,Checkbox,原始时间,実時刻
+DalamudACT,CombatLog,Filters,Tooltip,开启后会把 MapEffect 场地特效写入新的战斗流水；关闭不会移除已有记录。 ,有効にするとMapEffectのフィールドエフェクトを新しい戦闘ログへ記録します。無効にしても既存記録は削除しません。 
+DalamudACT,CombatLog,Filters,Checkbox,战斗时间,戦闘時間
+DalamudACT,CombatLog,Filters,Text,技能/全文搜索：,スキル／全文検索：
+DalamudACT,CombatLog,Filters,Text,时间显示：,時間表示：
+DalamudACT,CombatLog,Filters,Checkbox,显示场地特效,フィールドエフェクトを表示
+DalamudACT,CombatLog,Filters,Checkbox,显示头顶标记,頭上マーカーを表示
+DalamudACT,CombatLog,Filters,Checkbox,显示连线,線を表示
+DalamudACT,CombatLog,Filters,Button,清空筛选,絞り込み解除
+DalamudACT,CombatLog,Filters,Text,角色：,対象：
+DalamudACT,CombatLog,Window,Text,战斗流水,戦闘ログ
+DalamudACT,Main,Columns,Text,伤害量,ダメージ量
+DalamudACT,Main,Columns,Text,总DPS,総DPS
+DalamudACT,Main,Columns,Text,承伤量,被ダメージ量
+DalamudACT,Main,Columns,Text,显示人数,表示人数
+DalamudACT,Main,Columns,Text,死亡,死亡
+DalamudACT,Main,Columns,Text,治疗量,回復量
+DalamudACT,Main,Columns,Text,玩家,プレイヤー
+DalamudACT,Main,Columns,Text,秒伤,DPS
+DalamudACT,Main,Columns,Text,秒承伤,被ダメージ/秒
+DalamudACT,Main,Columns,Text,秒疗,HPS
+DalamudACT,Main,Columns,Text,职业,ジョブ
+DalamudACT,Main,Quick,Text,常用入口集中在这里，可快速打开设置页、战斗流水窗口，或显示/隐藏悬浮统计面板。,よく使う機能をここにまとめています。設定、戦闘ログ画面、フローティング統計パネルの表示／非表示を素早く操作できます。
+DalamudACT,Main,Quick,Text,快速操作,クイック操作
+DalamudACT,Main,Quick,Button,打开悬浮DPS统计面板,フローティングDPS統計を表示
+DalamudACT,Main,Quick,Button,打开战斗流水,戦闘ログを開く
+DalamudACT,Main,Quick,Button,打开设置,設定を開く
+DalamudACT,Main,Quick,Button,隐藏悬浮DPS统计面板,フローティングDPS統計を非表示
+DalamudACT,Main,Status,Text,NPC高亮关,NPC強調表示 OFF
+DalamudACT,Main,Status,Text,NPC高亮开,NPC強調表示 ON
+DalamudACT,Main,Status,Text,仅玩家,プレイヤーのみ
+DalamudACT,Main,Status,Text,全队脱战（PartyList）,PT全員が非戦闘状態（PartyList）
+DalamudACT,Main,Status,Text,可拖动,ドラッグ可能
+DalamudACT,Main,Status,Text,已关闭,無効
+DalamudACT,Main,Status,Text,已开启,有効
+DalamudACT,Main,Status,Text,已锁定,ロック済み
+DalamudACT,Main,Status,Text,当前状态,現在の状態
+DalamudACT,Main,Status,Text,当前状态：,現在の状態：
+DalamudACT,Main,Status,Text,悬浮对象,表示対象
+DalamudACT,Main,Status,Text,悬浮面板,フローティングパネル
+DalamudACT,Main,Status,Text,战斗结束判定,戦闘終了判定
+DalamudACT,Main,Status,Text,智能（多人仅玩家 / 单人可含友方 NPC）,自動（PT時はプレイヤーのみ / ソロ時は味方NPCを含める場合あり）
+DalamudACT,Main,Status,Text,查看当前本地统计的数据来源、插件状态和战斗结束判定。,現在のローカル統計のデータ元、プラグイン状態、戦闘終了判定を確認します。
+DalamudACT,Main,Status,Text,模式,モード
+DalamudACT,Main,Status,Text,版本,バージョン
+DalamudACT,Main,Status,Text,独立运行 / 本地采集,単独動作 / ローカル収集
+DalamudACT,Main,Status,Text,玩家 + 友方 NPC,プレイヤー + 味方NPC
+DalamudACT,Main,Status,Text,玩家 + 敌方 NPC,プレイヤー + 敵NPC
+DalamudACT,Main,Status,Text,等待战斗数据...,戦闘データ待機中...
+DalamudACT,Main,Status,Text,统计来源,統計データ元
+DalamudACT,Main,Status,Text,运行状态,動作状態
+DalamudACT,Main,Summary,Text,主界面透明度,メイン画面の透明度
+DalamudACT,Main,Summary,Text,共享列显示,共有列表示
+DalamudACT,Main,Summary,Text,历史页列宽记忆,履歴ページの列幅保存
+DalamudACT,Main,Summary,Text,悬浮面板透明度,フローティングパネルの透明度
+DalamudACT,Main,Summary,Text,查看当前面板显示、页签显示、共享列显示以及列宽记忆状态。,現在のパネル表示、タブ表示、共有列、列幅保存状態を確認します。
+DalamudACT,Main,Summary,Text,界面与列配置摘要,画面・列設定の概要
+DalamudACT,Main,Summary,Text,统计页列宽记忆,統計ページの列幅保存
+DalamudACT,Main,Summary,Text,页签显示,タブ表示
+DalamudACT,Main,Tabs,Text,全部隐藏,すべて非表示
+DalamudACT,Main,Tabs,Text,历史记录,履歴
+DalamudACT,Main,Tabs,Text,承伤,被ダメ
+DalamudACT,Main,Tabs,Text,概览,概要
+DalamudACT,Main,Window,Text,ACTX 风格本地统计,ACTX風ローカル統計
+DalamudACT,Main,Window,Text,DPS统计,DPS統計
+DalamudACT,Main,Window,Text,当前版本直接在 Dalamud 内采集战斗事件，并使用 ACTX / NotACT 的统计口径生成本地战斗快照，不再依赖外部 MiniParse。,現在のバージョンはDalamud内で戦闘イベントを直接収集し、ACTX / NotACT方式でローカル戦闘スナップショットを生成します。外部MiniParseには依存しません。
+DalamudACT,Main,Window,Text,未知版本,不明なバージョン
+DalamudACT,Settings,AdvancedWindow,Checkbox,DEBUG,DEBUG
+DalamudACT,Settings,AdvancedWindow,Text,时间轴窗口,タイムラインウィンドウ
+DalamudACT,Settings,AdvancedWindow,Checkbox,显示状态监控,ステータス監視を表示
+DalamudACT,Settings,AdvancedWindow,Button,重置位置,位置をリセット
+DalamudACT,Settings,AdvancedWindow,Checkbox,锁定悬浮窗口,フローティングウィンドウを固定
+DalamudACT,Settings,AdvancedWindow,Checkbox,锁定时间轴窗口,タイムラインウィンドウを固定
+DalamudACT,Settings,AdvancedWindow,Checkbox,锁定状态监控,ステータス監視を固定
+DalamudACT,Settings,AdvancedWindow,Slider,队友监控透明度,PTメンバー監視透明度
+DalamudACT,Settings,AdvancedWindow,Checkbox,高亮自己条目数,自分の行を強調表示
+DalamudACT,Settings,AdvancedWindow,Checkbox,高亮自身,自分を強調表示
+DalamudACT,Settings,Appearance,Slider,DPS统计面板透明度,DPS統計パネル透明度
+DalamudACT,Settings,Appearance,Combo,展示模式,表示モード
+DalamudACT,Settings,Appearance,Slider,技能监控窗口透明度,スキル監視ウィンドウ透明度
+DalamudACT,Settings,Appearance,Slider,时间轴窗口透明度,タイムラインウィンドウ透明度
+DalamudACT,Settings,Appearance,Slider,状态监控透明度,ステータス監視透明度
+DalamudACT,Settings,Appearance,Text,透明度与样式,透明度と表示スタイル
+DalamudACT,Settings,Data,Checkbox,DoT,DoT
+DalamudACT,Settings,Data,Checkbox,DoT／ワイルドファイアの帰属を集計,DoT／ワイルドファイアの帰属を集計
+DalamudACT,Settings,Data,Header,NPC 友方识别,味方NPC識別
+DalamudACT,Settings,Data,Checkbox,伤害,ダメージ
+DalamudACT,Settings,Data,Text,刷新频率,更新頻度
+DalamudACT,Settings,Data,Checkbox,命令/聊天,コマンド／チャット
+DalamudACT,Settings,Data,Button,导入历史记录,履歴をインポート
+DalamudACT,Settings,Data,Button,导入测试数据,テストデータをインポート
+DalamudACT,Settings,Data,Button,导出历史记录,履歴をエクスポート
+DalamudACT,Settings,Data,Text,当前区域：,現在のエリア：
+DalamudACT,Settings,Data,Text,当前没有可显示的友方成员。,現在表示できる味方メンバーはいません。
+DalamudACT,Settings,Data,Text,当前队伍成员,現在のPTメンバー
+DalamudACT,Settings,Data,Button,恢复默认,既定値に戻す
+DalamudACT,Settings,Data,Button,打开当前BUFF,現在のBUFFを開く
+DalamudACT,Settings,Data,Checkbox,扩展日志,拡張ログ
+DalamudACT,Settings,Data,Checkbox,按区域自动刷新,エリアごとに自動更新
+DalamudACT,Settings,Data,Checkbox,插件/Hook,プラグイン／Hook
+DalamudACT,Settings,Data,Header,数据与日志,データとログ
+DalamudACT,Settings,Data,Header,数据操作,データ操作
+DalamudACT,Settings,Data,Header,日志与调试,ログとデバッグ
+DalamudACT,Settings,Data,Header,日志分类,ログ分類
+DalamudACT,Settings,Data,Button,清空历史,履歴を消去
+DalamudACT,Settings,Data,Checkbox,状态监视,ステータス監視
+DalamudACT,Settings,Data,Checkbox,调试日志,デバッグログ
+DalamudACT,Settings,Data,Checkbox,轻量战斗日志,軽量戦闘ログ
+DalamudACT,Settings,Data,Checkbox,配置/界面,設定／画面
+DalamudACT,Settings,Data,Text,高性能模式说明,高性能モードの説明
+DalamudACT,Settings,FloatingStyle,Slider,固定列宽,固定列幅
+DalamudACT,Settings,FloatingStyle,Help,如果后续为该样式补专属参数，也会放在这里。,このスタイル専用設定が追加された場合も、ここに表示されます。
+DalamudACT,Settings,FloatingStyle,Help,当前样式不再使用旧表格参数。,現在のスタイルでは旧式テーブル設定を使用しません。
+DalamudACT,Settings,FloatingStyle,Help,当前样式说明,現在のスタイル説明
+DalamudACT,Settings,FloatingStyle,Help,把玩家列最小宽度或表格行高拖到 0，会回退到自动布局。,プレイヤー列の最小幅または行高を0にすると自動レイアウトへ戻ります。
+DalamudACT,Settings,FloatingStyle,Help,玩家列宽 / 行高设为 0 时自动取值。,プレイヤー列幅／行高を0にすると自動設定になります。
+DalamudACT,Settings,FloatingStyle,Slider,玩家列最小宽度,プレイヤー列の最小幅
+DalamudACT,Settings,FloatingStyle,Text,经典表格样式参数,クラシックテーブル設定
+DalamudACT,Settings,FloatingStyle,Slider,表格行高,テーブル行高
+DalamudACT,Settings,Header,Button,关闭窗口,ウィンドウを閉じる
+DalamudACT,Settings,Header,Text,完整设置,詳細設定
+DalamudACT,Settings,Header,Text,已启用,有効
+DalamudACT,Settings,Header,Button,简易设置,簡易設定
+DalamudACT,Settings,Header,Text,设置,設定
+DalamudACT,Settings,Navigation,Text,帮助,ヘルプ
+DalamudACT,Settings,Navigation,Text,数据,データ
+DalamudACT,Settings,Navigation,Text,时间轴,タイムライン
+DalamudACT,Settings,Navigation,Text,状态监控,ステータス監視
+DalamudACT,Settings,Navigation,Text,窗口,ウィンドウ
+DalamudACT,Settings,Navigation,Text,统计,統計
+DalamudACT,Settings,Navigation,Text,队友监控,PTメンバー監視
+DalamudACT,Settings,PartyMonitor,Text,CD中技能,リキャスト中スキル
+DalamudACT,Settings,PartyMonitor,Text,CD数字位置,CD数字の位置
+DalamudACT,Settings,PartyMonitor,Text,CD数字颜色,CD数字の色
+DalamudACT,Settings,PartyMonitor,Button,一键关闭所有团辅技能,全PT支援スキルを一括OFF
+DalamudACT,Settings,PartyMonitor,Button,一键开启所有团辅技能,全PT支援スキルを一括ON
+DalamudACT,Settings,PartyMonitor,Input,冷却(秒),リキャスト（秒）
+DalamudACT,Settings,PartyMonitor,Slider,列间距,列間隔
+DalamudACT,Settings,PartyMonitor,Help,列间距控制技能图标之间的水平间隔,列間隔はスキルアイコン同士の横方向の間隔を調整します。
+DalamudACT,Settings,PartyMonitor,Button,删除,削除
+DalamudACT,Settings,PartyMonitor,Checkbox,启用,有効
+DalamudACT,Settings,PartyMonitor,Checkbox,垂直居中,上下中央
+DalamudACT,Settings,PartyMonitor,Text,姓名/职业列,名前／ジョブ列
+DalamudACT,Settings,PartyMonitor,Tooltip,展开各职业，勾选你想在监控窗口内显示的减伤和团辅技能。,各ジョブを展開し、監視ウィンドウに表示したい軽減・PT支援スキルを選択します。
+DalamudACT,Settings,PartyMonitor,Header,布局与显示,レイアウトと表示
+DalamudACT,Settings,PartyMonitor,Tooltip,恢复所有职业的默认勾选状态。若已点击“设当前为默认”，会使用你保存的默认；否则使用插件内置默认。不会删除自定义技能。 ,全ジョブのチェック状態を既定値へ戻します。「現在設定を既定にする」を保存済みならその設定へ、未保存ならプラグイン既定値へ戻します。カスタムスキルは削除しません。 
+DalamudACT,Settings,PartyMonitor,Input,技能 ID,スキルID
+DalamudACT,Settings,PartyMonitor,Input,技能名称,スキル名
+DalamudACT,Settings,PartyMonitor,Tooltip,把当前所有职业的团辅/减伤勾选状态保存为你的默认。之后点击“重置监控技能”会恢复到这套勾选。 ,現在の全ジョブのPT支援／軽減チェック状態を既定値として保存します。以後「監視スキルをリセット」でこの状態へ戻ります。 
+DalamudACT,Settings,PartyMonitor,Header,按职业管理技能,ジョブ別スキル管理
+DalamudACT,Settings,PartyMonitor,CollapsingHeader,按职业选择监控技能,ジョブ別に監視スキルを選択
+DalamudACT,Settings,PartyMonitor,Button,添加,追加
+DalamudACT,Settings,PartyMonitor,Header,添加自定义技能（当前目录缺少某个技能=使用）,カスタムスキルを追加（現在の一覧にないスキル用）
+DalamudACT,Settings,PartyMonitor,Color,背景颜色,背景色
+DalamudACT,Settings,PartyMonitor,Slider,行间距,行間隔
+DalamudACT,Settings,PartyMonitor,Button,设当前为默认,現在設定を既定にする
+DalamudACT,Settings,PartyMonitor,Text,起效显示样式,発動時の表示スタイル
+DalamudACT,Settings,PartyMonitor,Slider,起效显示透明度,発動時表示の透明度
+DalamudACT,Settings,PartyMonitor,Header,起效高亮与背景,発動時の強調表示と背景
+DalamudACT,Settings,PartyMonitor,Tooltip,这是一个切换按钮：当前有团辅启用时点击会全部关闭；全部关闭后再点击会开启所有团辅。不会影响减伤技能和食物监控。 ,切替ボタンです。PT支援が1つでも有効なら全OFF、すべてOFFなら全ONにします。軽減スキルと食事監視には影響しません。 
+DalamudACT,Settings,PartyMonitor,Button,重置监控技能,監視スキルをリセット
+DalamudACT,Settings,PartyMonitor,Help,默认白色数字、垂直居中。,既定では白い数字を上下中央に表示します。
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNodeVisible,01/21 骑士,01/21 ナイト
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNode/CollapsingHeader,01/21 骑士###job_skills_19,01/21 ナイト###job_skills_19
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNodeVisible,02/21 战士,02/21 戦士
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNode/CollapsingHeader,02/21 战士###job_skills_21,02/21 戦士###job_skills_21
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNodeVisible,03/21 暗黑骑士,03/21 暗黒騎士
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNode/CollapsingHeader,03/21 暗黑骑士###job_skills_32,03/21 暗黒騎士###job_skills_32
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNodeVisible,04/21 绝枪战士,04/21 ガンブレイカー
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNode/CollapsingHeader,04/21 绝枪战士###job_skills_37,04/21 ガンブレイカー###job_skills_37
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNodeVisible,05/21 白魔法师,05/21 白魔道士
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNode/CollapsingHeader,05/21 白魔法师###job_skills_24,05/21 白魔道士###job_skills_24
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNodeVisible,06/21 学者,06/21 学者
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNode/CollapsingHeader,06/21 学者###job_skills_28,06/21 学者###job_skills_28
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNodeVisible,07/21 占星术士,07/21 占星術師
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNode/CollapsingHeader,07/21 占星术士###job_skills_33,07/21 占星術師###job_skills_33
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNodeVisible,08/21 贤者,08/21 賢者
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNode/CollapsingHeader,08/21 贤者###job_skills_40,08/21 賢者###job_skills_40
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNodeVisible,09/21 武僧,09/21 モンク
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNode/CollapsingHeader,09/21 武僧###job_skills_20,09/21 モンク###job_skills_20
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNodeVisible,10/21 龙骑士,10/21 竜騎士
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNode/CollapsingHeader,10/21 龙骑士###job_skills_22,10/21 竜騎士###job_skills_22
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNodeVisible,11/21 忍者,11/21 忍者
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNode/CollapsingHeader,11/21 忍者###job_skills_30,11/21 忍者###job_skills_30
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNodeVisible,12/21 武士,12/21 侍
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNode/CollapsingHeader,12/21 武士###job_skills_34,12/21 侍###job_skills_34
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNodeVisible,13/21 钐镰客,13/21 リーパー
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNode/CollapsingHeader,13/21 钐镰客###job_skills_39,13/21 リーパー###job_skills_39
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNodeVisible,14/21 蝰蛇剑士,14/21 ヴァイパー
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNode/CollapsingHeader,14/21 蝰蛇剑士###job_skills_41,14/21 ヴァイパー###job_skills_41
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNodeVisible,15/21 吟游诗人,15/21 吟遊詩人
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNode/CollapsingHeader,15/21 吟游诗人###job_skills_23,15/21 吟遊詩人###job_skills_23
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNodeVisible,16/21 机工士,16/21 機工士
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNode/CollapsingHeader,16/21 机工士###job_skills_31,16/21 機工士###job_skills_31
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNodeVisible,17/21 舞者,17/21 踊り子
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNode/CollapsingHeader,17/21 舞者###job_skills_38,17/21 踊り子###job_skills_38
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNodeVisible,18/21 黑魔法师,18/21 黒魔道士
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNode/CollapsingHeader,18/21 黑魔法师###job_skills_25,18/21 黒魔道士###job_skills_25
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNodeVisible,19/21 召唤师,19/21 召喚士
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNode/CollapsingHeader,19/21 召唤师###job_skills_27,19/21 召喚士###job_skills_27
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNodeVisible,20/21 赤魔法师,20/21 赤魔道士
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNode/CollapsingHeader,20/21 赤魔法师###job_skills_35,20/21 赤魔道士###job_skills_35
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNodeVisible,21/21 绘灵法师,21/21 ピクトマンサー
+DalamudACT,Settings,PartyMonitor/JobSkills,TreeNode/CollapsingHeader,21/21 绘灵法师###job_skills_42,21/21 ピクトマンサー###job_skills_42
+DalamudACT,Settings,Performance,Text,保留主要 DPS/HPS，可能漏记 DoT、友方 NPC 与流水细节,主要なDPS/HPSは維持しますが、DoT・味方NPC・戦闘ログ詳細が欠落する場合があります。
+DalamudACT,Settings,Performance,Text,关闭后降低压力，但 DoT、野火等持续/延迟伤害会更不准。,無効にすると負荷は下がりますが、DoTやワイルドファイアなどの継続／遅延ダメージ精度が低下します。
+DalamudACT,Settings,Performance,Text,只记录战斗开始/结束、死亡、头标、连线和场地特效。,戦闘開始／終了、死亡、頭割りマーカー、線、フィールドエフェクトのみ記録します。
+DalamudACT,Settings,Performance,Checkbox,统计 DoT/野火归属,DoT／ワイルドファイアの帰属を集計
+DalamudACT,Settings,Performance,Checkbox,轻量战斗流水,軽量戦闘ログ
+DalamudACT,Settings,Performance,Text,适合绝境、战场和高特效场景,高難度・PvP・高エフェクト環境向け
+DalamudACT,Settings,Performance,Checkbox,高性能模式,高性能モード
+DalamudACT,Settings,Performance,Text,高性能模式会临时停用 DoT/野火归属和详细战斗流水。,高性能モードではDoT／ワイルドファイア帰属と詳細戦闘ログを一時的に無効化します。
+DalamudACT,Settings,QuickNav,Text,TTS,TTS
+DalamudACT,Settings,QuickNav,Text,基础,基本
+DalamudACT,Settings,QuickNav,Text,外观,外観
+DalamudACT,Settings,QuickNav,Text,性能,パフォーマンス
+DalamudACT,Settings,QuickNav,Text,状态,ステータス
+DalamudACT,Settings,Stats,Checkbox,伤害列,ダメージ列
+DalamudACT,Settings,Stats,Checkbox,死亡列,死亡列
+DalamudACT,Settings,Stats,Checkbox,玩家列,プレイヤー列
+DalamudACT,Settings,Stats,Checkbox,秒伤列,DPS列
+DalamudACT,Settings,Stats,Checkbox,职业列,ジョブ列
+DalamudACT,Settings,Stats,Text,页面列显示,ページ列表示
+DalamudACT,Settings,StatsPanel,Slider,X（秒）,X（秒）
+DalamudACT,Settings,StatsPanel,Tooltip,下表说明同一组共享设置在 DPS / HPS / 承伤 中分别对应的实际列含义。,同じ共有設定がDPS / HPS / 被ダメ各ページでどの列に対応するかを示します。
+DalamudACT,Settings,StatsPanel,Radio,主题色,テーマ色
+DalamudACT,Settings,StatsPanel,Help,主题色模式按职业使用各自颜色。,テーマ色モードではジョブごとの色を使用します。
+DalamudACT,Settings,StatsPanel,Header,主题色调色板,テーマカラーパレット
+DalamudACT,Settings,StatsPanel,Slider,主题色透明度,テーマ色の透明度
+DalamudACT,Settings,StatsPanel,Help,主题色透明度只影响统一 Alpha。,テーマ色透明度は共通のAlpha値だけに影響します。
+DalamudACT,Settings,StatsPanel,Help,以下设置同时作用于 DPS / HPS / 承伤。,以下の設定はDPS / HPS / 被ダメの3ページに共通で適用されます。
+DalamudACT,Settings,StatsPanel,Help,全队脱战后，额外等待 X 秒再视为战斗结束。,PT全員が非戦闘状態になった後、さらにX秒待ってから戦闘終了と判定します。
+DalamudACT,Settings,StatsPanel,Radio,全队脱战（PartyList）即为战斗结束,PT全員が非戦闘状態になったら戦闘終了
+DalamudACT,Settings,StatsPanel,Radio,全队脱战，且延迟 X 秒为战斗结束,PT全員が非戦闘状態になり、さらにX秒後に戦闘終了
+DalamudACT,Settings,StatsPanel,Card,共享列开关,共有列の表示切替
+DalamudACT,Settings,StatsPanel,Help,切回主题色后会恢复下面的职业配色。,テーマ色へ戻すと、下のジョブ別配色が再び使用されます。
+DalamudACT,Settings,StatsPanel,Tooltip,切换悬浮统计的展示样式；后续如果继续新增样式，也会从这里扩展。,フローティング統計の表示スタイルを切り替えます。今後追加されるスタイルもここから選択します。
+DalamudACT,Settings,StatsPanel,Card,列宽记忆,列幅の保存
+DalamudACT,Settings,StatsPanel,Card,列语义映射,列の対応関係
+DalamudACT,Settings,StatsPanel,Radio,单色,単色
+DalamudACT,Settings,StatsPanel,Color,单色条颜色,単色バーの色
+DalamudACT,Settings,StatsPanel,Help,单色模式会忽略职业主题色。,単色モードではジョブテーマ色を使用しません。
+DalamudACT,Settings,StatsPanel,Text,占比列与历史记录页的区域列保持自动拉伸，不参与固定宽度记忆。,割合列と履歴ページのエリア列は自動伸縮のため、固定列幅の保存対象外です。
+DalamudACT,Settings,StatsPanel,Header,占比条配色,割合バーの配色
+DalamudACT,Settings,StatsPanel,Card,占比条颜色模式,割合バーのカラーモード
+DalamudACT,Settings,StatsPanel,Help,历史页列宽记忆仍然有效。,履歴ページの列幅保存は引き続き有効です。
+DalamudACT,Settings,StatsPanel,Help,可在下方调色板里自定义。,下のカラーパレットで変更できます。
+DalamudACT,Settings,StatsPanel,Tooltip,可在主题色和单色之间切换；单色模式下所有职业共用同一种颜色。,ジョブテーマ色と単色を切り替えられます。単色では全ジョブで同じ色を使用します。
+DalamudACT,Settings,StatsPanel,Tooltip,可统一调整主题色透明度，并分别调整每个职业的 RGB 颜色；主题色模式下，占比条会使用这里的配置。,テーマ色の透明度を一括調整し、各ジョブのRGB色も個別に変更できます。テーマ色モードではここで設定した色を割合バーに使用します。
+DalamudACT,Settings,StatsPanel,Text,同时作用于三页,3ページ共通
+DalamudACT,Settings,StatsPanel,Help,延迟结束,遅延終了
+DalamudACT,Settings,StatsPanel,Help,当前样式不使用统计页列宽记忆。,現在のスタイルでは統計ページの列幅保存を使用しません。
+DalamudACT,Settings,StatsPanel,Button,恢复默认主题色,既定のテーマ色に戻す
+DalamudACT,Settings,StatsPanel,Card,悬浮对象显示,フローティング表示対象
+DalamudACT,Settings,StatsPanel,Card,悬浮窗展示模式,フローティング表示モード
+DalamudACT,Settings,StatsPanel,Header,战斗结束设置,戦闘終了設定
+DalamudACT,Settings,StatsPanel,Tooltip,控制 DPS / HPS / 承伤 三个页面的共享列显示与显示人数。,DPS / HPS / 被ダメの3ページで共通する列と表示人数を設定します。
+DalamudACT,Settings,StatsPanel,Tooltip,控制悬浮窗统计列表中显示玩家、友方 NPC 与敌方 NPC 的组合。,フローティング統計一覧に表示するプレイヤー・味方NPC・敵NPCの組み合わせを設定します。
+DalamudACT,Settings,StatsPanel,Tooltip,控制本地统计何时把当前战斗视为结束，并决定何时生成战斗快照。,現在の戦闘をいつ終了扱いにするか、また戦闘スナップショットをいつ生成するかを設定します。
+DalamudACT,Settings,StatsPanel,Slider,敌方 NPC 最低血量倍率,敵NPCの最低HP倍率
+DalamudACT,Settings,StatsPanel,Checkbox,显示 DPS,DPSを表示
+DalamudACT,Settings,StatsPanel,Checkbox,显示 HPS,HPSを表示
+DalamudACT,Settings,StatsPanel,Checkbox,显示 历史记录,履歴を表示
+DalamudACT,Settings,StatsPanel,Checkbox,显示 承伤,被ダメを表示
+DalamudACT,Settings,StatsPanel,Checkbox,显示 概览,概要を表示
+DalamudACT,Settings,StatsPanel,Checkbox,显示伤害列,ダメージ列を表示
+DalamudACT,Settings,StatsPanel,Checkbox,显示死亡列,死亡列を表示
+DalamudACT,Settings,StatsPanel,Checkbox,显示玩家列,プレイヤー列を表示
+DalamudACT,Settings,StatsPanel,Checkbox,显示秒伤列,DPS列を表示
+DalamudACT,Settings,StatsPanel,Checkbox,显示职业列,ジョブ列を表示
+DalamudACT,Settings,StatsPanel,Radio,智能：多人仅玩家，单人可含友方 NPC,自動：PT時はプレイヤーのみ、ソロ時は味方NPCを含める
+DalamudACT,Settings,StatsPanel,Header,查看列语义映射,列の対応関係を表示
+DalamudACT,Settings,StatsPanel,Header,查看当前列宽记忆,現在保存されている列幅を表示
+DalamudACT,Settings,StatsPanel,Tooltip,统计页与历史记录页的可拖拽列宽会自动写入配置，并在下次打开插件时恢复。,統計ページと履歴ページで変更した列幅は自動保存され、次回起動時に復元されます。
+DalamudACT,Settings,StatsPanel,Card,职业主题色调色板,ジョブテーマカラーパレット
+DalamudACT,Settings,StatsPanel,Text,至少保留一个页签,少なくとも1つのタブを残してください
+DalamudACT,Settings,StatsPanel,Table,设置项,設定項目
+DalamudACT,Settings,StatsPanel,Help,这里只改共享列；三页会一起生效。,ここでは共有列のみ変更し、3ページすべてに反映されます。
+DalamudACT,Settings,StatsPanel,Help,这里统一控制所有职业主题色的透明度；下方单职业颜色编辑只调整 RGB。,ここで全ジョブの透明度を一括設定し、下のジョブ別設定ではRGBのみ変更します。
+DalamudACT,Settings,StatsPanel,Button,重置历史页列宽记忆,履歴ページの列幅保存をリセット
+DalamudACT,Settings,StatsPanel,Button,重置统计页列宽记忆,統計ページの列幅保存をリセット
+DalamudACT,Settings,StatsPanel,Table,限制显示条目数,表示件数を制限
+DalamudACT,Settings,StatsPanel,Text,默认先收起当前列宽数值；需要核对保存结果时再展开查看。,現在保存されている列幅は既定で折りたたまれています。保存結果を確認するときに展開してください。
+DalamudACT,Settings,StatsPanel,Text,默认先收起这张对照表；只有在核对 DPS / HPS / 承伤 列含义时再展开。,この対応表は既定で折りたたまれています。DPS / HPS / 被ダメの列内容を確認するときだけ展開してください。
+DalamudACT,Settings,Status,Button,保存当前UI为默认,現在のUIを既定として保存
+DalamudACT,Settings,Status,Text,否,いいえ
+DalamudACT,Settings,Status,Checkbox,启用调试日志,デバッグログを有効化
+DalamudACT,Settings,Status,Checkbox,回顾模式,リプレイモード
+DalamudACT,Settings,Status,Text,定义:,定義：
+DalamudACT,Settings,Status,Text,已加载,読み込み済み
+DalamudACT,Settings,Status,Button,已有时间轴,保存済みタイムライン
+DalamudACT,Settings,Status,Tooltip,开启后输出慢帧性能日志，用于定位卡顿来源。日志频道固定为 Debug。 ,有効にすると低速フレームの性能ログを出力し、カクつきの原因調査に使用します。ログチャンネルはDebug固定です。
+DalamudACT,Settings,Status,Tooltip,开启后，战斗回顾播放会按真实战斗进入统计、战斗流水和时间轴。与完整设置里的回顾模式相同。,有効にすると、コンテンツリプレイ再生を実戦として統計・戦闘ログ・タイムラインへ反映します。詳細設定のリプレイモードと同じです。
+DalamudACT,Settings,Status,Checkbox,强化日志,拡張ログ
+DalamudACT,Settings,Status,Text,快捷入口,クイックアクセス
+DalamudACT,Settings,Status,Text,时间轴:,タイムライン：
+DalamudACT,Settings,Status,Text,是,はい
+DalamudACT,Settings,Status,Text,未加载,未読み込み
+DalamudACT,Settings,Status,Text,自动下载:,自動ダウンロード：
+DalamudACT,Settings,Status,Text,运行:,実行：
+DalamudACT,Settings,Status,Button,还原默认UI,既定UIに戻す
+DalamudACT,Settings,StatusObserver,Header,内容,内容
+DalamudACT,Settings,StatusObserver,Radio,图标模式,アイコンモード
+DalamudACT,Settings,StatusObserver,Tooltip,实时查看自身和当前目标身上的状态，用于确认 Buff/Debuff 的 StatusId。右键状态行可复制或关注。,自分と現在のターゲットに付いているステータスをリアルタイム表示し、Buff/DebuffのStatusId確認に使います。ステータス行を右クリックするとコピーや監視登録ができます。
+DalamudACT,Settings,StatusObserver,Text,当前：图标模式,現在：アイコンモード
+DalamudACT,Settings,StatusObserver,Text,当前：文字模式,現在：テキストモード
+DalamudACT,Settings,StatusObserver,Header,数量限制,表示数制限
+DalamudACT,Settings,StatusObserver,Radio,文字模式,テキストモード
+DalamudACT,Settings,StatusObserver,Checkbox,显示下方状态ID,下部にステータスIDを表示
+DalamudACT,Settings,StatusObserver,Checkbox,显示减益状态,デバフを表示
+DalamudACT,Settings,StatusObserver,Checkbox,显示来源信息,付与元情報を表示
+DalamudACT,Settings,StatusObserver,Text,显示模式,表示モード
+DalamudACT,Settings,StatusObserver,Checkbox,显示状态监控窗口,ステータス監視ウィンドウを表示
+DalamudACT,Settings,StatusObserver,Checkbox,显示目标状态,ターゲットのステータスを表示
+DalamudACT,Settings,StatusObserver,Checkbox,显示自身状态,自分のステータスを表示
+DalamudACT,Settings,StatusObserver,Card,状态ID监控,ステータスID監視
+DalamudACT,Settings,StatusObserver,Slider,目标状态最大显示数量,ターゲットのステータス最大表示数
+DalamudACT,Settings,StatusObserver,Slider,自身状态最大显示数量,自分のステータス最大表示数
+DalamudACT,Settings,StatusObserver,Help,锁定后自动适配内容大小,固定時は内容に合わせて自動サイズ調整
+DalamudACT,Settings,StatusObserver,Checkbox,锁定状态监控窗口,ステータス監視ウィンドウを固定
+DalamudACT,Settings,StatusObserver,Help,锁定状态监控窗口时，窗口不可拖动或缩放，并会根据当前显示内容自动调整大小。未锁定时可手动拖动和调整尺寸。右键状态监控悬浮窗可开关设置窗口。 ,固定中はウィンドウを移動・リサイズできず、内容に合わせて自動調整されます。固定解除時は手動で移動・サイズ変更できます。ステータス監視ウィンドウを右クリックすると設定画面を開閉できます。
+DalamudACT,Settings,TTS,Text,AOE / 死刑等分类提示,AOE／タンク強攻撃などの分類を読み上げ
+DalamudACT,Settings,TTS,Slider,TTS 提前秒数,TTS先読み秒数
+DalamudACT,Settings,TTS,Text,TTS 播报,TTS読み上げ
+DalamudACT,Settings,TTS,Checkbox,启用时间轴 TTS,タイムラインTTSを有効化
+DalamudACT,Settings,TTS,Checkbox,播报应对方案,対処方法を読み上げ
+DalamudACT,Settings,TTS,Checkbox,播报技能名,スキル名を読み上げ
+DalamudACT,Settings,TTS,Checkbox,播报机制,ギミックを読み上げ
+DalamudACT,Settings,TTS,Checkbox,播报队友无敌技能,PTメンバーの無敵スキルを読み上げ
+DalamudACT,Settings,TTS,Text,机制名之外额外播报技能名称,ギミック名に加えてスキル名も読み上げ
+DalamudACT,Settings,TTS,Text,读条ID 即时播，结算ID 到达时播,詠唱IDは即時、解決IDは到達時に読み上げ
+DalamudACT,Settings,TTS,Text,队友使用死斗、神圣领域、死而不僵、超火流星时播报技能名；PvP 区域不播报,PTメンバーがホルムギャング、インビンシブル、リビングデッド、ボーライドを使用した際にスキル名を読み上げます。PvPエリアでは読み上げません。
+DalamudACT,Settings,TTS,Text,需要 DailyRoutines 文本转语音,DailyRoutinesのテキスト読み上げ機能が必要です
+DalamudACT,Settings,Theme,Text,主题配色,テーマカラー
+DalamudACT,Settings,Theme,Text,预览,プレビュー
+DalamudACT,Settings,Timeline,Checkbox,DailyRoutines TTS,DailyRoutines TTS
+DalamudACT,Settings,Timeline,Checkbox,PTメンバーの無敵スキルを読み上げ,PTメンバーの無敵スキルを読み上げ
+DalamudACT,Settings,Timeline,Slider,TTS提前秒数,TTS先読み秒数
+DalamudACT,Settings,Timeline,Status,下载中...,ダウンロード中...
+DalamudACT,Settings,Timeline,Button,刷新当前副本时间轴,現在のコンテンツのタイムラインを更新
+DalamudACT,Settings,Timeline,Button,取消强制加载,強制読み込みを解除
+DalamudACT,Settings,Timeline,Text,同一区域每小时最多下载一次,同一エリアでは1時間に最大1回だけダウンロード
+DalamudACT,Settings,Timeline,Text,在副本内,コンテンツ内
+DalamudACT,Settings,Timeline,Status,在线时间轴操作超时，请稍后重试。,オンラインタイムライン操作がタイムアウトしました。しばらくしてから再試行してください。
+DalamudACT,Settings,Timeline,Text,在线时间轴说明,オンラインタイムラインの説明
+DalamudACT,Settings,Timeline,Text,尚未加载时间轴。,タイムラインはまだ読み込まれていません。
+DalamudACT,Settings,Timeline,Button,强制加载时间轴,タイムラインを強制読み込み
+DalamudACT,Settings,Timeline,Text,当前下载状态,現在のダウンロード状態
+DalamudACT,Settings,Timeline,Text,当前：强制加载中,現在：強制読み込み中
+DalamudACT,Settings,Timeline,Checkbox,技能名を読み上げ,スキル名を読み上げ
+DalamudACT,Settings,Timeline,Checkbox,播报机制（AOE/死刑分类）,ギミックを読み上げ（AOE／タンク強攻撃分類）
+DalamudACT,Settings,Timeline,Checkbox,效果方法を読み上げ,対処方法を読み上げ
+DalamudACT,Settings,Timeline,Slider,时间条间隔,タイムライン行間隔
+DalamudACT,Settings,Timeline,Header,时间轴控制,タイムライン操作
+DalamudACT,Settings,Timeline,Text,时间轴文件,タイムラインファイル
+DalamudACT,Settings,Timeline,Text,时间轴服务未初始化。,タイムラインサービスが初期化されていません。
+DalamudACT,Settings,Timeline,Slider,时间轴行间隔,タイムライン行間隔
+DalamudACT,Settings,Timeline,Button,显示已有时间轴,保存済みタイムラインを表示
+DalamudACT,Settings,Timeline,Slider,显示未来秒数,先の表示秒数
+DalamudACT,Settings,Timeline,Header,显示范围、距离与声音,表示範囲・距離・音声
+DalamudACT,Settings,Timeline,Button,更新时间轴,タイムラインを更新
+DalamudACT,Settings,Timeline,Slider,最大显示条数,最大表示件数
+DalamudACT,Settings,Timeline,Slider,未来显示秒数,先の表示秒数
+DalamudACT,Settings,Timeline,Text,未知,不明
+DalamudACT,Settings,Timeline,Text,目前时间轴仅涵盖 7.x 版本内容。,現在のタイムラインは7.xコンテンツのみ対応しています。
+DalamudACT,Settings,Timeline,Text,自动下载时间轴,タイムライン自動ダウンロード
+DalamudACT,Settings,Timeline,Checkbox,进入副本时自动下载时间轴,コンテンツ突入時にタイムラインを自動ダウンロード
+DalamudACT,Settings,Window,Text,DPS / HPS / 承伤统计,DPS / HPS / 被ダメ統計
+DalamudACT,Settings,Window,Text,DPS统计 设置,DPS統計 設定
+DalamudACT,Settings,Window,Text,团辅、减伤、食物、自定义技能,PT支援、軽減、食事、カスタムスキル
+DalamudACT,Settings,Window,Text,当前副本机制倒计时,現在のコンテンツギミックのカウントダウン
+DalamudACT,Settings,Window,Text,技能监控,スキル監視
+DalamudACT,Settings,Window,Checkbox,显示,表示
+DalamudACT,Settings,Window,Text,目标、自身、触发状态排查,対象・自身・トリガー状態の確認
+DalamudACT,Settings,Window,Text,窗口控制,ウィンドウ制御
+DalamudACT,Settings,Window,Text,统计面板,統計パネル
+DalamudACT,Settings,Window,Checkbox,锁定,固定
+DalamudACT,,,,      TTS##quick_nav_Tts,      TTS##quick_nav_Tts
+DalamudACT,,,,      基础##quick_nav_Basic,      基本##quick_nav_Basic
+DalamudACT,,,,      外观##quick_nav_Appearance,      外観##quick_nav_Appearance
+DalamudACT,,,,      性能##quick_nav_Performance,      パフォーマンス##quick_nav_Performance
+DalamudACT,,,,      时间轴##quick_nav_Timeline,      タイムライン##quick_nav_Timeline
+DalamudACT,,,,      状态##quick_nav_Status,      ステータス##quick_nav_Status
+DalamudACT,,,,固定###锁定##lock_技能监控,固定###锁定##lock_技能监控
+DalamudACT,,,,固定###锁定##lock_时间轴,固定###锁定##lock_时间轴
+DalamudACT,,,,固定###锁定##lock_状态监控,固定###锁定##lock_状态监控
+DalamudACT,,,,固定###锁定##lock_统计面板,固定###锁定##lock_统计面板
+DalamudACT,,,,定义: 时间轴,定義: タイムライン
+DalamudACT,,,,时间轴: 未加载,タイムライン: 未読み込み
+DalamudACT,,,,暮 Sunset Glow,夕暮れ Sunset Glow
+DalamudACT,,,,最大表示件数,最大表示件数
+DalamudACT,,,,极简 Monochrome,ミニマル Monochrome
+DalamudACT,,,,森 Forest Canopy,森 Forest Canopy
+DalamudACT,,,,海 Ocean Breeze,海 Ocean Breeze
+DalamudACT,,,,深海 Ocean Night,深海 Ocean Night
+DalamudACT,,,,版本: 0.15.2.72,バージョン: 0.15.2.72
+DalamudACT,,,,紫 Royal Purple,紫 Royal Purple
+DalamudACT,,,,自动下载: ,自動ダウンロード: 
+DalamudACT,,,,設定 / v0.15.2.72,設定 / v0.15.2.72
+DalamudACT,,,,设置 / v0.15.2.72,設定 / v0.15.2.72
+DalamudACT,,,,赛博 Cyberpunk,サイバー Cyberpunk
+DalamudACT,,,,运行: 否,実行中: いいえ
+DalamudACT,PartyMonitor,ShortJobName,DrawListAddText,龙骑,竜騎士
+DalamudACT,PartyMonitor,ShortJobName,DrawListAddText,诗人,吟遊詩人
+DalamudACT,PartyMonitor,ShortJobName,DrawListAddText,白魔,白魔道士
+DalamudACT,PartyMonitor,ShortJobName,DrawListAddText,黑魔,黒魔道士
+DalamudACT,PartyMonitor,ShortJobName,DrawListAddText,召唤,召喚士
+DalamudACT,PartyMonitor,ShortJobName,DrawListAddText,机工,機工士
+DalamudACT,PartyMonitor,ShortJobName,DrawListAddText,暗骑,暗黒騎士
+DalamudACT,PartyMonitor,ShortJobName,DrawListAddText,占星,占星術師
+DalamudACT,PartyMonitor,ShortJobName,DrawListAddText,赤魔,赤魔道士
+DalamudACT,PartyMonitor,ShortJobName,DrawListAddText,绝枪,ガンブレイカー
+DalamudACT,PartyMonitor,ShortJobName,DrawListAddText,镰刀,リーパー
+DalamudACT,PartyMonitor,ShortJobName,DrawListAddText,蝰蛇,ヴァイパー
+DalamudACT,PartyMonitor,ShortJobName,DrawListAddText,绘灵,ピクトマンサー
+DalamudACT,,,,就绪,準備完了
+DalamudACT,,,,左键展开技能监控,左クリックでスキル監視を展開
+DalamudACT,,,,左键展开状态监控,左クリックでステータス監視を展開
+DalamudACT,,,,左键折叠技能监控,左クリックでスキル監視を折りたたむ
+DalamudACT,,,,左键折叠状态监控,左クリックでステータス監視を折りたたむ
+DalamudACT,,,,非战斗中，已暂停刷新。点击立即刷新一次。,非戦闘中のため更新を一時停止しています。クリックすると今すぐ1回更新します。
+DalamudACT,,,,无目标或目标没有可显示状态。,対象がいないか、表示できるステータスがありません。
+DalamudACT,,,,没有可显示状态。 ,表示できるステータスがありません。 
+DalamudACT,,,,目标状态,対象のステータス
+DalamudACT,,,,自身状态,自身のステータス
+DalamudACT,,,,Param：30,パラメータ：30
+DalamudACT,,,,保留与筛选###combat_timeline_tools,保持とフィルター###combat_timeline_tools
+DalamudACT,,,,共 0 条,合計 0 件
+DalamudACT,,,,剩余：30.0s,残り：30.0秒
+DalamudACT,,,,层数：30,スタック数：30
+DalamudACT,,,,悬浮窗样式,フローティングウィンドウ表示
+DalamudACT,,,,暂停,一時停止
+DalamudACT,,,,未检测到食物效果,食事効果を検出できません
+DalamudACT,,,,来源：E0000000,発生元：E0000000
+DalamudACT,,,,準備完了,準備完了
+DalamudACT,,,,窗口设置,ウィンドウ設定
+DalamudACT,,,,自動調整###自动适配,自動調整###自动适配
+DalamudACT,,,,記録中,記録中
+DalamudACT,,,,記録開始###开始记录,記録開始###开始记录

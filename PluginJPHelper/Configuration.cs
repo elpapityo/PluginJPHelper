@@ -1,4 +1,6 @@
-using Dalamud.Configuration;
+﻿using Dalamud.Configuration;
+using PluginJPHelper.Plugins.Behaviors;
+using PluginJPHelper.Plugins.Profiles;
 
 namespace PluginJPHelper;
 
@@ -37,27 +39,33 @@ public sealed class Configuration : IPluginConfiguration
         // 既に登録済みの設定にも不足キーワードだけを補完し、ユーザー設定は消さない。
         foreach (var (pluginName, artisanState) in Plugins)
         {
-            if (artisanState == null || !string.Equals(pluginName, "Artisan", StringComparison.OrdinalIgnoreCase)) continue;
+            if (artisanState == null || !ArtisanBehavior.MatchesPluginName(pluginName)) continue;
 
             var keywords = (artisanState.WindowKeyword ?? string.Empty)
                 .Split('|', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
                 .ToList();
-            foreach (var required in new[] { "Artisan", "List Editor", "Processing List" })
-                if (!keywords.Contains(required, StringComparer.OrdinalIgnoreCase)) keywords.Add(required);
+            ArtisanBehavior.EnsureWindowKeywords(keywords);
             artisanState.WindowKeyword = string.Join("|", keywords);
         }
 
-        foreach (var name in new[] { "RSR", "BMR", "BM" })
+        foreach (var name in new[] { RsrProfile.PluginName, BossModRebornProfile.PluginName, BossModProfile.PluginName })
         {
             if (!Plugins.TryGetValue(name, out var state) || state == null)
             {
-                state = new PluginDictionaryState { Enabled = name == "RSR", TranslationTarget = true, WindowKeyword = name switch { "RSR" => "Rotation Solver", "BMR" => "BossModReborn", "BM" => "BossMod", _ => string.Empty } };
+                state = new PluginDictionaryState
+                {
+                    Enabled = name == RsrProfile.PluginName,
+                    TranslationTarget = true,
+                    WindowKeyword = PluginProfileRegistry.Find(name)?.DefaultWindowKeyword ?? string.Empty,
+                };
                 Plugins[name] = state;
             }
             state.UserOverrides ??= new Dictionary<string, string>(StringComparer.Ordinal);
             state.OfficialOverrides ??= new Dictionary<string, string>(StringComparer.Ordinal);
             state.Locations ??= new Dictionary<string, DictionaryLocation>(StringComparer.Ordinal);
             state.DeletedKeys ??= new HashSet<string>(StringComparer.Ordinal);
+            state.DictionaryWindowKeywordSources ??= new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            state.SuppressedDictionaryWindowKeywords ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         }
     }
 }
@@ -67,6 +75,14 @@ public sealed class PluginDictionaryState
     public bool Enabled { get; set; }
     public bool TranslationTarget { get; set; }
     public string WindowKeyword { get; set; } = string.Empty;
+
+    // 辞書ファイルに埋め込まれた別ウィンドウ関連付け。
+    // Key=WindowKeyword / Value=由来（公式辞書・コミュニティ辞書・CSV等）。
+    public Dictionary<string, string> DictionaryWindowKeywordSources { get; set; } = new(StringComparer.OrdinalIgnoreCase);
+
+    // 辞書由来の関連付けをユーザーが手動で削除した場合、
+    // 辞書再読込のたびに勝手に復活させないための抑止リスト。
+    public HashSet<string> SuppressedDictionaryWindowKeywords { get; set; } = new(StringComparer.OrdinalIgnoreCase);
     public string LastCsvPath { get; set; } = string.Empty;
     public string OpenCommand { get; set; } = string.Empty;
     public Dictionary<string, string> UserOverrides { get; set; } = new(StringComparer.Ordinal);
@@ -75,13 +91,11 @@ public sealed class PluginDictionaryState
     public HashSet<string> DeletedKeys { get; set; } = new(StringComparer.Ordinal);
 }
 
-public sealed class DictionaryLocation : IEquatable<DictionaryLocation>
+// record が生成する Equals は EqualityComparer<string>.Default を使う。
+// これは string の序数比較なので、手書きしていた StringComparison.Ordinal と同じ。
+// 設定ファイルへは従来どおり Menu / Section の 2 プロパティとして保存される。
+public sealed record DictionaryLocation
 {
     public string Menu { get; set; } = string.Empty;
     public string Section { get; set; } = string.Empty;
-
-    public bool Equals(DictionaryLocation? other)
-        => other != null && string.Equals(Menu, other.Menu, StringComparison.Ordinal) && string.Equals(Section, other.Section, StringComparison.Ordinal);
-    public override bool Equals(object? obj) => obj is DictionaryLocation other && Equals(other);
-    public override int GetHashCode() => HashCode.Combine(Menu, Section);
 }

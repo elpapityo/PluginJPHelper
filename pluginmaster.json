@@ -1,10 +1,10 @@
-[
+﻿[
   {
     "Author": "Elpa",
     "Name": "Plugin JP Helper",
     "Punchline": "Dalamudプラグインの固定辞書日本語化支援",
     "Description": "Dalamudプラグインの表示文字列を日本語化する補助プラグインです。Plugin Installerの説明翻訳・日本語検索にも対応します。",
-    "Changelog": "v0.4.12: Plugin Installerのリポジトリ読込中は翻訳処理を開始せず、PluginsReady / ReposReady確認後さらに2.5秒待機してから処理する安全待機を追加。再読込時は待機状態へ戻るよう改善。あわせてInventoryTools同梱CSVの自動取込時にDLL配置パスを取得できない環境で発生していた The path is empty. を修正し、安全にスキップして起動継続するよう変更。",
+    "Changelog": "v0.4.12: Plugin Installerのリポジトリ読み込み中はPJHのInstaller翻訳を停止し、Dalamud側のPluginsReady/ReposReady確認後さらに2.5秒待ってから翻訳を開始する安全策を追加。v0.4.11のFontPtr文字化け安全策も維持。",
     "InternalName": "PluginJPHelper",
     "AssemblyVersion": "0.4.12.0",
     "RepoUrl": "https://github.com/elpapityo/PluginJPHelper",
