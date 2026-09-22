@@ -527,12 +527,19 @@ public sealed unsafe class Plugin : IDalamudPlugin
         {
             Interlocked.Increment(ref translatedCount);
             // igTextWrapped は printf 形式のAPI。Dalamud の安全ラッパーと同様、% はリテラル扱いにする。
-            var safe = translated.Replace("%", "%%", StringComparison.Ordinal);
-            var bytes = Encoding.UTF8.GetBytes(safe + "\0");
+            var bytes = Encoding.UTF8.GetBytes(EscapeFormatLiteral(translated) + "\0");
             fixed (byte* p = bytes) { textWrappedHook!.Original(p); return; }
         }
         textWrappedHook!.Original(text);
     }
+
+    // igTextWrapped / igTextV / igTextColoredV / igTextDisabledV は printf 形式のAPI。
+    // IsSafeFixedTextFormat が見るのは「原文」に % が無いことだけなので、訳文側の % は素通りする。
+    // 例: 同梱の Pawprint 辞書には原文に % が無く訳文に "50%未満" を含む行が実在する。
+    // これをそのまま書式文字列として渡すと %未 が不正な変換指定子となり、
+    // vsnprintf の挙動は未定義（表示化け〜可変長引数の読み違いによるクラッシュ）になる。
+    private static string EscapeFormatLiteral(string text)
+        => text.Replace("%", "%%", StringComparison.Ordinal);
 
     private static bool IsSafeFixedTextFormat(byte* fmt)
     {
@@ -551,7 +558,8 @@ public sealed unsafe class Plugin : IDalamudPlugin
         if (!drawingOwnUi && IsSafeFixedTextFormat(fmt) && TryTranslatePointer(fmt, null, false, out var translated))
         {
             Interlocked.Increment(ref translatedCount);
-            var bytes = Encoding.UTF8.GetBytes(translated + "\0");
+            // igTextV は printf 形式のAPI。TextWrapped と同様、訳文の % はリテラル扱いにする。
+            var bytes = Encoding.UTF8.GetBytes(EscapeFormatLiteral(translated) + "\0");
             fixed (byte* p = bytes) { textVHook!.Original(p, args); return; }
         }
         textVHook!.Original(fmt, args);
@@ -563,7 +571,8 @@ public sealed unsafe class Plugin : IDalamudPlugin
         if (!drawingOwnUi && IsSafeFixedTextFormat(fmt) && TryTranslatePointer(fmt, null, false, out var translated))
         {
             Interlocked.Increment(ref translatedCount);
-            var bytes = Encoding.UTF8.GetBytes(translated + "\0");
+            // igTextColoredV は printf 形式のAPI。訳文の % はリテラル扱いにする。
+            var bytes = Encoding.UTF8.GetBytes(EscapeFormatLiteral(translated) + "\0");
             fixed (byte* p = bytes) { textColoredVHook!.Original(col, p, args); return; }
         }
         textColoredVHook!.Original(col, fmt, args);
@@ -575,7 +584,8 @@ public sealed unsafe class Plugin : IDalamudPlugin
         if (!drawingOwnUi && IsSafeFixedTextFormat(fmt) && TryTranslatePointer(fmt, null, false, out var translated))
         {
             Interlocked.Increment(ref translatedCount);
-            var bytes = Encoding.UTF8.GetBytes(translated + "\0");
+            // igTextDisabledV は printf 形式のAPI。訳文の % はリテラル扱いにする。
+            var bytes = Encoding.UTF8.GetBytes(EscapeFormatLiteral(translated) + "\0");
             fixed (byte* p = bytes) { textDisabledVHook!.Original(p, args); return; }
         }
         textDisabledVHook!.Original(fmt, args);
