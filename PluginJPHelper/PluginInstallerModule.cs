@@ -19,6 +19,21 @@ internal sealed class PluginInstallerModule : IDisposable
         private const string DictionaryFileName = "plugin-installer-translations.json";
     private const string TerminologyFileName = "plugin-installer-terminology.json";
 
+    // Dalamud アセンブリはコンパイル時参照から直接取得する。
+    //
+    // AppDomain.CurrentDomain.GetAssemblies() で全アセンブリを列挙して Assembly.GetName() を
+    // 呼ぶ方式は使わない。他プラグインの reload / アンロード中は解体中の collectible な
+    // AssemblyLoadContext が混ざっており、そのアセンブリに GetName() を呼んだ瞬間に
+    // ExecutionEngineException (exit 0x80131506) で CLR が即死する。
+    // これは致命的ランタイムエラーで try/catch では捕捉できない。
+    //
+    // Tick() は毎フレーム走るため、PluginManager を解決できるまでの間は毎フレーム列挙が発生し、
+    // ちょうど Plugin Installer で他プラグインを有効化／無効化した瞬間に窓が開く。
+    // コンパイル時参照なら列挙も GetName() も起きないので、この窓自体が消える。
+    private static readonly Assembly DalamudAssembly = typeof(IDalamudPluginInterface).Assembly;
+
+    private const string ServiceGenericTypeName = "Dalamud.Service`1";
+
     private readonly IDalamudPluginInterface pluginInterface;
     private readonly ICommandManager commandManager;
     private readonly IPluginLog log;
@@ -34,13 +49,21 @@ internal sealed class PluginInstallerModule : IDisposable
     private readonly ConcurrentQueue<CommandTranslationResult> completedCommandTranslations = new();
     private readonly Dictionary<string, CommandTranslationWork> pendingCommandWork = new(StringComparer.Ordinal);
     private readonly HashSet<string> queuedCommandWork = new(StringComparer.Ordinal);
-    private readonly Dictionary<string, CommandTranslationEntry> commandDictionary = new(StringComparer.Ordinal);
+    // dictionary / commandDictionary / terminology は翻訳ワーカー（Task.Run）と
+    // Tick()（描画スレッド）の両方から触られる。
+    // 書き込みは lock(sync) の中にあったが、読み取り側がロックを取っていないため
+    // ロックとして機能していなかった。Dictionary<,> は読み取りも並行安全ではなく、
+    // 挿入によるリサイズと TryGetValue が重なると壊れる。
+    // Tick() は ReapplyDictionaryToCurrentRemoteManifests を 2 秒ごとに呼んで
+    // dictionary を読むため、ワーカーが辞書へ追記している間はいつでも当たりうる。
+    // 読み側を全部ロックで囲うより取りこぼしがないので ConcurrentDictionary にする。
+    private readonly ConcurrentDictionary<string, CommandTranslationEntry> commandDictionary = new(StringComparer.Ordinal);
     // 差分検出はバックグラウンドで行ってよいが、翻訳サービスへの送信はユーザー操作時だけに限定する。
     private readonly Dictionary<string, TranslationWork> pendingGoogleWork = new(StringComparer.Ordinal);
     private readonly HashSet<string> queuedWork = new(StringComparer.Ordinal);
     private readonly Dictionary<object, OriginalManifest> originals = new(ReferenceEqualityComparer.Instance);
-    private readonly Dictionary<string, TranslationDictionaryEntry> dictionary = new(StringComparer.OrdinalIgnoreCase);
-    private readonly Dictionary<string, string> terminology = new(StringComparer.OrdinalIgnoreCase);
+    private readonly ConcurrentDictionary<string, TranslationDictionaryEntry> dictionary = new(StringComparer.OrdinalIgnoreCase);
+    private readonly ConcurrentDictionary<string, string> terminology = new(StringComparer.OrdinalIgnoreCase);
     private readonly object sync = new();
     private string dictionaryPath;
     private string terminologyPath;
@@ -712,13 +735,8 @@ internal sealed class PluginInstallerModule : IDisposable
         }
 
         manager = null!;
-        var dalamudAssembly = AppDomain.CurrentDomain.GetAssemblies()
-            .FirstOrDefault(a => string.Equals(a.GetName().Name, "Dalamud", StringComparison.Ordinal));
-        if (dalamudAssembly == null) return false;
-
-        this.serviceGenericType ??= dalamudAssembly.GetTypes()
-            .FirstOrDefault(t => t.IsGenericTypeDefinition && t.Name == "Service`1" && t.Namespace == "Dalamud");
-        this.pluginManagerType ??= dalamudAssembly.GetType("Dalamud.Plugin.Internal.PluginManager");
+        this.serviceGenericType ??= DalamudAssembly.GetType(ServiceGenericTypeName);
+        this.pluginManagerType ??= DalamudAssembly.GetType("Dalamud.Plugin.Internal.PluginManager");
         if (this.serviceGenericType == null || this.pluginManagerType == null) return false;
 
         var serviceType = this.serviceGenericType.MakeGenericType(this.pluginManagerType);
@@ -2212,15 +2230,8 @@ internal sealed class PluginInstallerModule : IDisposable
         }
 
         installer = null!;
-        var dalamudAssembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(a => string.Equals(a.GetName().Name, "Dalamud", StringComparison.Ordinal));
-        if (dalamudAssembly == null)
-        {
-            this.reflectionStatus = "Dalamud.dllを取得できません";
-            return false;
-        }
-
-        this.serviceGenericType ??= dalamudAssembly.GetTypes().FirstOrDefault(t => t.IsGenericTypeDefinition && t.Name == "Service`1" && t.Namespace == "Dalamud");
-        var dalamudInterfaceType = dalamudAssembly.GetType("Dalamud.Interface.Internal.DalamudInterface");
+        this.serviceGenericType ??= DalamudAssembly.GetType(ServiceGenericTypeName);
+        var dalamudInterfaceType = DalamudAssembly.GetType("Dalamud.Interface.Internal.DalamudInterface");
         if (this.serviceGenericType == null || dalamudInterfaceType == null)
         {
             this.reflectionStatus = "Dalamud内部Serviceを取得できません";

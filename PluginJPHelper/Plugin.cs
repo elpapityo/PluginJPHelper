@@ -31,6 +31,30 @@ public sealed unsafe class Plugin : IDalamudPlugin
     // Protect structural changes/enumeration of config.Plugins from overlapping async/UI work.
     private readonly object pluginConfigSync = new();
 
+    // 辞書と設定への書き込みは描画スレッドへ集約する。
+    //
+    // 翻訳フックは描画スレッドから、画面に出る文字列すべてに対して毎フレーム
+    // config.Plugins / UserOverrides / OfficialOverrides / DeletedKeys / Locations と
+    // dictionaryCatalogCache を読む。これらは Dictionary<,> でスレッドセーフではない。
+    // 一方でダウンロード処理は Task.Run の中から同じ辞書を Clear() して数千件を
+    // 挿入し直していたため、リサイズと読み取りが重なると
+    // IndexOutOfRangeException / NullReferenceException / 無限ループになりうる。
+    // lock を足す方式は読み側が 30 箇所以上あって取りこぼしやすいので、
+    // 「書き込みスレッドを 1 本に固定する」方式にする。
+    // 背景側はダウンロードとパースだけを行い、適用はこのキュー経由で描画スレッドが行う。
+    private readonly ConcurrentQueue<Action> mainThreadWork = new();
+
+    private void RunOnMainThread(Action work) => mainThreadWork.Enqueue(work);
+
+    private void DrainMainThreadWork()
+    {
+        while (mainThreadWork.TryDequeue(out var work))
+        {
+            try { work(); }
+            catch (Exception ex) { log.Error(ex, "[PluginJPHelper] 描画スレッドへ委譲した処理で例外"); }
+        }
+    }
+
     private const string Command = "/pjph";
     private readonly IDalamudPluginInterface pluginInterface;
     private readonly ICommandManager commandManager;
@@ -419,6 +443,9 @@ public sealed unsafe class Plugin : IDalamudPlugin
         _ = RefreshCommunityDictionariesAsync(false);
 
         commandManager.AddHandler(Command, new CommandInfo(OnCommand) { HelpMessage = "Plugin JP Helper を開きます。" });
+        // 背景処理から委譲された適用処理を毎フレーム最初に流し込む。
+        // windowSystem.Draw より前に登録し、UI が参照する前に反映されるようにする。
+        pluginInterface.UiBuilder.Draw += DrainMainThreadWork;
         pluginInterface.UiBuilder.Draw += windowSystem.Draw;
         pluginInterface.UiBuilder.Draw += pluginInstallerModule.Tick;
         pluginInterface.UiBuilder.OpenConfigUi += OpenUi;
@@ -527,12 +554,19 @@ public sealed unsafe class Plugin : IDalamudPlugin
         {
             Interlocked.Increment(ref translatedCount);
             // igTextWrapped は printf 形式のAPI。Dalamud の安全ラッパーと同様、% はリテラル扱いにする。
-            var safe = translated.Replace("%", "%%", StringComparison.Ordinal);
-            var bytes = Encoding.UTF8.GetBytes(safe + "\0");
+            var bytes = Encoding.UTF8.GetBytes(EscapeFormatLiteral(translated) + "\0");
             fixed (byte* p = bytes) { textWrappedHook!.Original(p); return; }
         }
         textWrappedHook!.Original(text);
     }
+
+    // igTextWrapped / igTextV / igTextColoredV / igTextDisabledV は printf 形式のAPI。
+    // IsSafeFixedTextFormat が見るのは「原文」に % が無いことだけなので、訳文側の % は素通りする。
+    // 例: 同梱の Pawprint 辞書には原文に % が無く訳文に "50%未満" を含む行が実在する。
+    // これをそのまま書式文字列として渡すと %未 が不正な変換指定子となり、
+    // vsnprintf の挙動は未定義（表示化け〜可変長引数の読み違いによるクラッシュ）になる。
+    private static string EscapeFormatLiteral(string text)
+        => text.Replace("%", "%%", StringComparison.Ordinal);
 
     private static bool IsSafeFixedTextFormat(byte* fmt)
     {
@@ -551,7 +585,8 @@ public sealed unsafe class Plugin : IDalamudPlugin
         if (!drawingOwnUi && IsSafeFixedTextFormat(fmt) && TryTranslatePointer(fmt, null, false, out var translated))
         {
             Interlocked.Increment(ref translatedCount);
-            var bytes = Encoding.UTF8.GetBytes(translated + "\0");
+            // igTextV は printf 形式のAPI。TextWrapped と同様、訳文の % はリテラル扱いにする。
+            var bytes = Encoding.UTF8.GetBytes(EscapeFormatLiteral(translated) + "\0");
             fixed (byte* p = bytes) { textVHook!.Original(p, args); return; }
         }
         textVHook!.Original(fmt, args);
@@ -563,7 +598,8 @@ public sealed unsafe class Plugin : IDalamudPlugin
         if (!drawingOwnUi && IsSafeFixedTextFormat(fmt) && TryTranslatePointer(fmt, null, false, out var translated))
         {
             Interlocked.Increment(ref translatedCount);
-            var bytes = Encoding.UTF8.GetBytes(translated + "\0");
+            // igTextColoredV は printf 形式のAPI。訳文の % はリテラル扱いにする。
+            var bytes = Encoding.UTF8.GetBytes(EscapeFormatLiteral(translated) + "\0");
             fixed (byte* p = bytes) { textColoredVHook!.Original(col, p, args); return; }
         }
         textColoredVHook!.Original(col, fmt, args);
@@ -575,7 +611,8 @@ public sealed unsafe class Plugin : IDalamudPlugin
         if (!drawingOwnUi && IsSafeFixedTextFormat(fmt) && TryTranslatePointer(fmt, null, false, out var translated))
         {
             Interlocked.Increment(ref translatedCount);
-            var bytes = Encoding.UTF8.GetBytes(translated + "\0");
+            // igTextDisabledV は printf 形式のAPI。訳文の % はリテラル扱いにする。
+            var bytes = Encoding.UTF8.GetBytes(EscapeFormatLiteral(translated) + "\0");
             fixed (byte* p = bytes) { textDisabledVHook!.Original(p, args); return; }
         }
         textDisabledVHook!.Original(fmt, args);
@@ -665,6 +702,20 @@ public sealed unsafe class Plugin : IDalamudPlugin
     }
 
     private bool TryTranslateSelectableLabel(byte* label, out string displayOnly)
+    {
+        try
+        {
+            return TryTranslateSelectableLabelCore(label, out displayOnly);
+        }
+        catch (Exception ex)
+        {
+            displayOnly = string.Empty;
+            LogDetourFailure(nameof(TryTranslateSelectableLabel), ex);
+            return false;
+        }
+    }
+
+    private bool TryTranslateSelectableLabelCore(byte* label, out string displayOnly)
     {
         displayOnly = string.Empty;
         if (label == null) return false;
@@ -1042,14 +1093,42 @@ public sealed unsafe class Plugin : IDalamudPlugin
         bulletTextHook!.Original(text);
     }
 
+    // detour はネイティブ cimgui から呼ばれる。例外がここを抜けると
+    // マネージド→ネイティブ境界を巻き戻すことになり、ゲームごと落ちる。
+    // 翻訳に失敗したときは「原文のまま描画する」だけの劣化に留める。
+    // 失敗の記録は毎フレーム出ないよう間隔を空ける。
+    private long lastDetourFailureLogTick;
+    private const long DetourFailureLogIntervalMs = 5_000;
+
+    private void LogDetourFailure(string where, Exception ex)
+    {
+        try
+        {
+            var now = Environment.TickCount64;
+            if (lastDetourFailureLogTick != 0 && now - lastDetourFailureLogTick < DetourFailureLogIntervalMs) return;
+            lastDetourFailureLogTick = now;
+            log.Error(ex, "[PluginJPHelper] {Where} で例外。原文表示にフォールバックします。", where);
+        }
+        catch { }
+    }
+
     private bool TryGetTranslationForPlugin(string pluginName, string source, out string translated)
     {
         translated = string.Empty;
-        if (!config.Plugins.TryGetValue(pluginName, out var state) || !state.Enabled) return false;
-        if (state.DeletedKeys.Contains(source)) return false;
-        if (state.UserOverrides.TryGetValue(source, out translated!) && !string.IsNullOrWhiteSpace(translated)) return true;
-        if (state.OfficialOverrides.TryGetValue(source, out translated!) && !string.IsNullOrWhiteSpace(translated)) return true;
-        return GetActiveStandardDictionary(pluginName).TryGetValue(source, out translated!);
+        try
+        {
+            if (!config.Plugins.TryGetValue(pluginName, out var state) || !state.Enabled) return false;
+            if (state.DeletedKeys.Contains(source)) return false;
+            if (state.UserOverrides.TryGetValue(source, out translated!) && !string.IsNullOrWhiteSpace(translated)) return true;
+            if (state.OfficialOverrides.TryGetValue(source, out translated!) && !string.IsNullOrWhiteSpace(translated)) return true;
+            return GetActiveStandardDictionary(pluginName).TryGetValue(source, out translated!);
+        }
+        catch (Exception ex)
+        {
+            translated = string.Empty;
+            LogDetourFailure(nameof(TryGetTranslationForPlugin), ex);
+            return false;
+        }
     }
 
     // v0.4.9:
@@ -1059,11 +1138,20 @@ public sealed unsafe class Plugin : IDalamudPlugin
     private bool TryGetSharedTranslationForPlugin(string pluginName, string source, out string translated)
     {
         translated = string.Empty;
-        if (!config.Plugins.TryGetValue(pluginName, out var state) || !state.TranslationTarget) return false;
-        if (state.DeletedKeys.Contains(source)) return false;
-        if (state.UserOverrides.TryGetValue(source, out translated!) && !string.IsNullOrWhiteSpace(translated)) return true;
-        if (state.OfficialOverrides.TryGetValue(source, out translated!) && !string.IsNullOrWhiteSpace(translated)) return true;
-        return GetActiveStandardDictionary(pluginName).TryGetValue(source, out translated!);
+        try
+        {
+            if (!config.Plugins.TryGetValue(pluginName, out var state) || !state.TranslationTarget) return false;
+            if (state.DeletedKeys.Contains(source)) return false;
+            if (state.UserOverrides.TryGetValue(source, out translated!) && !string.IsNullOrWhiteSpace(translated)) return true;
+            if (state.OfficialOverrides.TryGetValue(source, out translated!) && !string.IsNullOrWhiteSpace(translated)) return true;
+            return GetActiveStandardDictionary(pluginName).TryGetValue(source, out translated!);
+        }
+        catch (Exception ex)
+        {
+            translated = string.Empty;
+            LogDetourFailure(nameof(TryGetSharedTranslationForPlugin), ex);
+            return false;
+        }
     }
 
     // v0.4.9:
@@ -1147,6 +1235,21 @@ public sealed unsafe class Plugin : IDalamudPlugin
     // v0.0.66: RenderText系は「現在のウィンドウがどの対象プラグインか」を確定してから、
     // そのプラグインの辞書だけを参照する。設定値・ImGui ID・入力状態には触れない。
     private bool TryTranslateRenderPointerForCurrentWindow(byte* begin, byte* end, out string translated, out string pluginName)
+    {
+        try
+        {
+            return TryTranslateRenderPointerForCurrentWindowCore(begin, end, out translated, out pluginName);
+        }
+        catch (Exception ex)
+        {
+            translated = string.Empty;
+            pluginName = string.Empty;
+            LogDetourFailure(nameof(TryTranslateRenderPointerForCurrentWindow), ex);
+            return false;
+        }
+    }
+
+    private bool TryTranslateRenderPointerForCurrentWindowCore(byte* begin, byte* end, out string translated, out string pluginName)
     {
         translated = string.Empty;
         pluginName = string.Empty;
@@ -1411,6 +1514,17 @@ public sealed unsafe class Plugin : IDalamudPlugin
     // 辞書全走査や部分一致は行わず、文字列完全一致1回だけの軽量判定。
     private void DetectInventoryToolsConfigurationOwner(byte* label)
     {
+        // BeginMenuDetour から igBeginMenu の前に呼ばれる。ここで例外を出すと
+        // igBeginMenu が呼ばれないまま抜け、呼び出し側の EndMenu と対応しなくなる。
+        try
+        {
+            DetectInventoryToolsConfigurationOwnerCore(label);
+        }
+        catch (Exception ex) { LogDetourFailure(nameof(DetectInventoryToolsConfigurationOwner), ex); }
+    }
+
+    private void DetectInventoryToolsConfigurationOwnerCore(byte* label)
+    {
         if (drawingOwnUi || label == null) return;
         if (!InventoryToolsBehavior.IsConfigurationWindow(CurrentWindowName)) return;
         if (!config.Plugins.TryGetValue(InventoryToolsBehavior.PluginName, out var state) || !state.Enabled) return;
@@ -1496,43 +1610,62 @@ public sealed unsafe class Plugin : IDalamudPlugin
         windowStack ??= new Stack<string>();
         windowOwnerStack ??= new Stack<string>();
 
-        // 所有者判定は必ず「原文のウィンドウ名」で行う。
-        // Dalamud Plugin Installer は専用翻訳系統のため、通常プラグイン所有者を割り当てない。
-        var isDalamudPluginInstaller = IsDalamudPluginInstallerWindow(windowName);
-        var owner = isDalamudPluginInstaller ? string.Empty : ResolveWindowOwner(windowName);
-
-        // Child Window は親の所有者を継承。
-        if (string.IsNullOrWhiteSpace(owner) && windowOwnerStack.Count > 0)
-            owner = windowOwnerStack.Peek();
-
-        if (IsTransientImGuiWindow(windowName))
+        // 所有者判定とタイトル翻訳は失敗しても描画を止めない。
+        // ここで例外を外へ出すと igBegin が呼ばれないまま抜けるが、呼び出し側は必ず
+        // End() を呼ぶため、ImGui のウィンドウスタックと PJH 側スタックの両方が破綻する。
+        var owner = string.Empty;
+        string? translatedWindowName = null;
+        try
         {
-            if (string.IsNullOrWhiteSpace(owner) &&
-                !string.IsNullOrWhiteSpace(lastExplicitWindowOwner) &&
-                Environment.TickCount64 - lastExplicitWindowOwnerTick <= 150)
+            // 所有者判定は必ず「原文のウィンドウ名」で行う。
+            // Dalamud Plugin Installer は専用翻訳系統のため、通常プラグイン所有者を割り当てない。
+            var isDalamudPluginInstaller = IsDalamudPluginInstallerWindow(windowName);
+            owner = isDalamudPluginInstaller ? string.Empty : ResolveWindowOwner(windowName);
+
+            // Child Window は親の所有者を継承。
+            if (string.IsNullOrWhiteSpace(owner) && windowOwnerStack.Count > 0)
+                owner = windowOwnerStack.Peek();
+
+            if (IsTransientImGuiWindow(windowName))
             {
-                owner = lastExplicitWindowOwner;
+                if (string.IsNullOrWhiteSpace(owner) &&
+                    !string.IsNullOrWhiteSpace(lastExplicitWindowOwner) &&
+                    Environment.TickCount64 - lastExplicitWindowOwnerTick <= 150)
+                {
+                    owner = lastExplicitWindowOwner;
+                }
+            }
+            else if (!string.IsNullOrWhiteSpace(owner))
+            {
+                lastExplicitWindowOwner = owner;
+                lastExplicitWindowOwnerTick = Environment.TickCount64;
+            }
+
+            // v0.4.9:
+            // igBegin の name は「ウィンドウタイトル」そのもの。
+            // これまでは Original() を先に呼んでいたため、内容が翻訳できても
+            // `节点设置###ArenaNodeEditor` のタイトルだけ中国語のまま残っていた。
+            // 関連付け済みの所有者が分かる場合は、辞書でタイトルも翻訳してから Begin() へ渡す。
+            if (!drawingOwnUi
+                && !isDalamudPluginInstaller
+                && !string.IsNullOrWhiteSpace(owner)
+                && !string.IsNullOrWhiteSpace(windowName)
+                && TryGetTranslationForPlugin(owner, windowName, out var translated)
+                && !string.IsNullOrWhiteSpace(translated)
+                && !string.Equals(windowName, translated, StringComparison.Ordinal))
+            {
+                translatedWindowName = translated;
             }
         }
-        else if (!string.IsNullOrWhiteSpace(owner))
+        catch (Exception ex)
         {
-            lastExplicitWindowOwner = owner;
-            lastExplicitWindowOwnerTick = Environment.TickCount64;
+            owner = string.Empty;
+            translatedWindowName = null;
+            LogDetourFailure(nameof(BeginDetour), ex);
         }
 
-        // v0.4.9:
-        // igBegin の name は「ウィンドウタイトル」そのもの。
-        // これまでは Original() を先に呼んでいたため、内容が翻訳できても
-        // `节点设置###ArenaNodeEditor` のタイトルだけ中国語のまま残っていた。
-        // 関連付け済みの所有者が分かる場合は、辞書でタイトルも翻訳してから Begin() へ渡す。
         byte result;
-        if (!drawingOwnUi
-            && !isDalamudPluginInstaller
-            && !string.IsNullOrWhiteSpace(owner)
-            && !string.IsNullOrWhiteSpace(windowName)
-            && TryGetTranslationForPlugin(owner, windowName, out var translatedWindowName)
-            && !string.IsNullOrWhiteSpace(translatedWindowName)
-            && !string.Equals(windowName, translatedWindowName, StringComparison.Ordinal))
+        if (translatedWindowName != null)
         {
             var bytes = Encoding.UTF8.GetBytes(translatedWindowName + "\0");
             fixed (byte* translatedName = bytes)
@@ -1577,9 +1710,19 @@ public sealed unsafe class Plugin : IDalamudPlugin
 
     private void PushPopupOwnerFrame(bool opened, byte* namePtr, string inheritedOwner)
     {
-        popupOwnerFrameStack ??= new Stack<bool>();
-        popupOwnerFrameStack.Push(opened);
+        // ImGui は BeginPopup* が false を返したとき EndPopup() を呼ばない。
+        // 開かなかった分まで push すると対応する pop が来ないため、
+        // 閉じている popup を描画するたびに 1 要素ずつ積み上がり続ける。
+        //
+        // さらに、開いている popup の内側で別の BeginPopup が false を返すと、
+        // 外側の EndPopup がその false を pop してしまい、windowStack /
+        // windowOwnerStack が戻らないまま所有者判定がずれる。
+        //
+        // 開いたときだけ積む。これで EndPopup と 1 対 1 に対応する。
         if (!opened) return;
+
+        popupOwnerFrameStack ??= new Stack<bool>();
+        popupOwnerFrameStack.Push(true);
 
         string popupName = string.Empty;
         try
@@ -1588,9 +1731,16 @@ public sealed unsafe class Plugin : IDalamudPlugin
         }
         catch { }
 
-        var owner = !string.IsNullOrWhiteSpace(inheritedOwner)
-            ? inheritedOwner
-            : ResolveWindowOwner(popupName);
+        // 所有者解決が失敗しても popup 自体の描画は止めない。
+        // ここで例外を出すと下の Push が行われず、EndPopup 側でスタックがずれる。
+        var owner = string.Empty;
+        try
+        {
+            owner = !string.IsNullOrWhiteSpace(inheritedOwner)
+                ? inheritedOwner
+                : ResolveWindowOwner(popupName);
+        }
+        catch (Exception ex) { LogDetourFailure(nameof(PushPopupOwnerFrame), ex); }
 
         // If parent ownership is known, that always wins for the popup. This is the key
         // difference from guessing ownership from translated/Chinese popup titles.
@@ -1774,6 +1924,20 @@ public sealed unsafe class Plugin : IDalamudPlugin
     // 定型部分で安全に翻訳する。数値・アイテム名・ImGui ID は変更しない。
     private bool TryTranslatePointer(byte* begin, byte* end, bool preserveImGuiId, out string translated)
     {
+        try
+        {
+            return TryTranslatePointerCore(begin, end, preserveImGuiId, out translated);
+        }
+        catch (Exception ex)
+        {
+            translated = string.Empty;
+            LogDetourFailure(nameof(TryTranslatePointer), ex);
+            return false;
+        }
+    }
+
+    private bool TryTranslatePointerCore(byte* begin, byte* end, bool preserveImGuiId, out string translated)
+    {
         translated = string.Empty;
         if (begin == null) return false;
         if (IsCurrentWindowTranslationExplicitlyDisabled()) return false;
@@ -1874,6 +2038,20 @@ public sealed unsafe class Plugin : IDalamudPlugin
     }
 
     private bool TryTranslate(string source, out string translated)
+    {
+        try
+        {
+            return TryTranslateCore(source, out translated);
+        }
+        catch (Exception ex)
+        {
+            translated = string.Empty;
+            LogDetourFailure(nameof(TryTranslate), ex);
+            return false;
+        }
+    }
+
+    private bool TryTranslateCore(string source, out string translated)
     {
         if (IsCurrentWindowTranslationExplicitlyDisabled())
         {
@@ -2230,9 +2408,13 @@ public sealed unsafe class Plugin : IDalamudPlugin
                 {
                     communityListLoaded = true;
                     communityStatus = $"コミュニティ辞書 {entries.Count}件を確認しました。";
-                    config.LastAcknowledgedCommunityIndexSha = indexSha;
                     communityNoticePending = false;
-                    SaveConfig();
+                    // SaveConfig() は UI キャッシュを Clear() するため描画スレッドで行う。
+                    RunOnMainThread(() =>
+                    {
+                        config.LastAcknowledgedCommunityIndexSha = indexSha;
+                        SaveConfig();
+                    });
                 }
             }
             catch (Exception ex)
@@ -2277,42 +2459,46 @@ public sealed unsafe class Plugin : IDalamudPlugin
                     File.WriteAllText(CommunityCsvPath(item.FileName), text, new UTF8Encoding(true));
                     File.WriteAllText(CommunityShaPath(item.FileName), item.Sha, Encoding.UTF8);
 
-                    // コミュニティ辞書に @Window メタ情報があれば、ダウンロード時点で自動適用。
+                    // パースまでは背景スレッドで行う（共有状態に触れないため）。
                     var rows = ParseCsvRecords(text);
                     var metadataPluginName = rows.Skip(1)
                         .FirstOrDefault(r => r.Count >= 6 && !string.IsNullOrWhiteSpace(r[0]))?[0]?.Trim();
                     if (string.IsNullOrWhiteSpace(metadataPluginName))
                         metadataPluginName = item.PluginName;
 
+                    // 設定への反映は描画スレッドで行う。
                     if (!string.IsNullOrWhiteSpace(metadataPluginName))
                     {
-                        if (!config.Plugins.TryGetValue(metadataPluginName, out var metadataState) || metadataState == null)
-                        {
-                            metadataState = new PluginDictionaryState
-                            {
-                                Enabled = true,
-                                TranslationTarget = true,
-                                WindowKeyword = metadataPluginName
-                            };
-                            lock (pluginConfigSync)
-                                config.Plugins[metadataPluginName] = metadataState;
-                            EnsureCaptureDictionary(metadataPluginName);
-                        }
-
+                        var applyPluginName = metadataPluginName;
                         var communityWindows = ExtractDictionaryWindowKeywords(rows);
+                        RunOnMainThread(() =>
+                        {
+                            if (!config.Plugins.TryGetValue(applyPluginName, out var metadataState) || metadataState == null)
+                            {
+                                metadataState = new PluginDictionaryState
+                                {
+                                    Enabled = true,
+                                    TranslationTarget = true,
+                                    WindowKeyword = applyPluginName
+                                };
+                                lock (pluginConfigSync)
+                                    config.Plugins[applyPluginName] = metadataState;
+                                EnsureCaptureDictionary(applyPluginName);
+                            }
 
-                        // 明示的なダウンロード/更新操作なので、辞書側に記載された @Window は
-                        // 過去の抑止より優先して再適用する。
-                        metadataState.SuppressedDictionaryWindowKeywords ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-                        foreach (var keyword in communityWindows)
-                            metadataState.SuppressedDictionaryWindowKeywords.Remove(keyword);
+                            // 明示的なダウンロード/更新操作なので、辞書側に記載された @Window は
+                            // 過去の抑止より優先して再適用する。
+                            metadataState.SuppressedDictionaryWindowKeywords ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                            foreach (var keyword in communityWindows)
+                                metadataState.SuppressedDictionaryWindowKeywords.Remove(keyword);
 
-                        ApplyDictionaryWindowMetadata(metadataPluginName, metadataState, communityWindows, "コミュニティ辞書");
+                            ApplyDictionaryWindowMetadata(applyPluginName, metadataState, communityWindows, "コミュニティ辞書");
+                        });
                     }
 
                     completed++;
                 }
-                SaveConfig();
+                RunOnMainThread(SaveConfig);
                 communityStatus = $"選択したコミュニティ辞書 {completed}件をダウンロード／更新しました。別ウィンドウ設定が含まれる辞書は自動適用しました。";
             }
             catch (Exception ex)
@@ -3274,11 +3460,15 @@ public sealed unsafe class Plugin : IDalamudPlugin
                 var folderSignatureToAcknowledge = officialNoticeSha?.Trim() ?? string.Empty;
                 if (!string.IsNullOrWhiteSpace(folderSignatureToAcknowledge))
                 {
-                    // Officialフォルダー内CSVの構成署名を確認済みとして保存する。
-                    config.LastAcknowledgedOfficialNotice = noticeToAcknowledge;
-                    config.LastAcknowledgedOfficialNoticeSha = folderSignatureToAcknowledge;
                     officialNoticeText = string.Empty;
-                    SaveConfig();
+                    // SaveConfig() は UI キャッシュを Clear() するため描画スレッドで行う。
+                    RunOnMainThread(() =>
+                    {
+                        // Officialフォルダー内CSVの構成署名を確認済みとして保存する。
+                        config.LastAcknowledgedOfficialNotice = noticeToAcknowledge;
+                        config.LastAcknowledgedOfficialNoticeSha = folderSignatureToAcknowledge;
+                        SaveConfig();
+                    });
                 }
             }
             catch (Exception ex)
@@ -3324,26 +3514,39 @@ public sealed unsafe class Plugin : IDalamudPlugin
                     File.WriteAllText(path, text, new UTF8Encoding(true));
                     File.WriteAllText(OfficialShaPath(item.Name), item.Sha, Encoding.UTF8);
 
-                    // 公式辞書の明示ダウンロード/更新時は、その辞書に含まれる @Window の
-                    // 抑止を解除してから読み込む。起動時の自動読込では抑止を維持する。
+                    // CSV のパースまでは背景スレッドで行ってよい（共有状態に触れないため）。
+                    List<List<string>>? downloadedRows = null;
+                    string? downloadedPluginName = null;
                     try
                     {
-                        var downloadedRows = ParseCsvRecords(text);
-                        var downloadedPluginName = downloadedRows.Skip(1)
+                        downloadedRows = ParseCsvRecords(text);
+                        downloadedPluginName = downloadedRows.Skip(1)
                             .FirstOrDefault(r => r.Count >= 6 && !string.IsNullOrWhiteSpace(r[0]))?[0]?.Trim();
-                        if (!string.IsNullOrWhiteSpace(downloadedPluginName)
-                            && config.Plugins.TryGetValue(downloadedPluginName, out var downloadedState)
-                            && downloadedState != null)
-                        {
-                            downloadedState.SuppressedDictionaryWindowKeywords ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-                            foreach (var keyword in ExtractDictionaryWindowKeywords(downloadedRows))
-                                downloadedState.SuppressedDictionaryWindowKeywords.Remove(keyword);
-                        }
                     }
                     catch { }
 
-                    // 公式辞書は保存直後に読み込み、@Windowメタ情報も自動適用。
-                    LoadOfficialDictionaryFile(path);
+                    // 設定と辞書への適用は描画スレッドで行う。
+                    // ここで直接 OfficialOverrides を Clear() すると、翻訳フックが
+                    // 同じ辞書を読んでいる最中に作り替えることになる。
+                    var applyRows = downloadedRows;
+                    var applyPluginName = downloadedPluginName;
+                    RunOnMainThread(() =>
+                    {
+                        // 公式辞書の明示ダウンロード/更新時は、その辞書に含まれる @Window の
+                        // 抑止を解除してから読み込む。起動時の自動読込では抑止を維持する。
+                        if (applyRows != null
+                            && !string.IsNullOrWhiteSpace(applyPluginName)
+                            && config.Plugins.TryGetValue(applyPluginName, out var downloadedState)
+                            && downloadedState != null)
+                        {
+                            downloadedState.SuppressedDictionaryWindowKeywords ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                            foreach (var keyword in ExtractDictionaryWindowKeywords(applyRows))
+                                downloadedState.SuppressedDictionaryWindowKeywords.Remove(keyword);
+                        }
+
+                        // 公式辞書は保存直後に読み込み、@Windowメタ情報も自動適用。
+                        LoadOfficialDictionaryFile(path);
+                    });
                     completed++;
                 }
                 officialDictionaryStatus = $"選択した公式辞書 {completed}件をダウンロード／更新し、辞書と別ウィンドウ設定を自動適用しました。";
@@ -4500,8 +4703,24 @@ public sealed unsafe class Plugin : IDalamudPlugin
                         var protectedNames = GetDictionaryProtectedNames(translatePlugin);
                         dictionaryAutoTranslateCts?.Dispose();
                         dictionaryAutoTranslateCts = new CancellationTokenSource();
-                        dictionaryAutoTranslateTask = pluginInstallerModule.TranslateDictionaryBatchAsync(
-                            translatePlugin, texts, text => GetDictionaryAutoTranslateSkipReason(text, translatePlugin), protectedNames, AddDictionaryAutoTranslateLog, dictionaryAutoTranslateCts.Token);
+                        var token = dictionaryAutoTranslateCts.Token;
+                        // TranslateDictionaryBatchAsync は async だが、最初の await に到達するまでは
+                        // 呼び出し元スレッド（＝描画スレッド）で同期実行される。
+                        // 先頭から連続してスキップ判定される項目が続く間は await に到達しないため、
+                        // そのまま呼ぶと未翻訳の件数ぶんだけゲームが固まる。
+                        // スキップ判定は1件あたり正規表現を9本回すので、件数が多いと無視できない。
+                        // Task.Run で最初からワーカースレッドへ逃がす。
+                        dictionaryAutoTranslateTask = Task.Run(
+                            () => pluginInstallerModule.TranslateDictionaryBatchAsync(
+                                translatePlugin,
+                                texts,
+                                // Dalamud API (InstalledPlugins) をワーカースレッドから触らないよう、
+                                // 固有名詞は描画スレッドで確定済みの protectedNames を渡す。
+                                text => GetDictionaryAutoTranslateSkipReason(text, translatePlugin, protectedNames),
+                                protectedNames,
+                                AddDictionaryAutoTranslateLog,
+                                token),
+                            token);
                     }
                     if (translateDisabled) ImGui.EndDisabled();
                     ImGui.SameLine();
@@ -4660,7 +4879,10 @@ public sealed unsafe class Plugin : IDalamudPlugin
     private bool IsDictionaryAutoTranslateCandidate(string text)
         => GetDictionaryAutoTranslateSkipReason(text, capturePlugin) == null;
 
-    private string? GetDictionaryAutoTranslateSkipReason(string text, string pluginName)
+    // protectedNames を渡すと GetDictionaryProtectedNames() を呼ばない。
+    // 自動翻訳はワーカースレッドで走るため、そこから Dalamud の InstalledPlugins を
+    // 触らないよう、描画スレッドで確定させた値を渡せるようにしている。
+    private string? GetDictionaryAutoTranslateSkipReason(string text, string pluginName, IReadOnlyCollection<string>? protectedNames = null)
     {
         if (string.IsNullOrWhiteSpace(text)) return "空文字";
         var value = text.Trim();
@@ -4678,7 +4900,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
         if (Regex.IsMatch(value, @"(?:^|[\\/])(?:common|chara|ui|bgcommon|vfx|shader|sound)/", RegexOptions.IgnoreCase)) return "FFXIV内部ファイルパス";
         if (Regex.IsMatch(value, @"^(?:by|author|created by|developer|maintainer)\s*[:\-]?\s*.+$", RegexOptions.IgnoreCase)) return "作者・クレジット表記";
 
-        foreach (var protectedName in GetDictionaryProtectedNames(pluginName))
+        foreach (var protectedName in protectedNames ?? GetDictionaryProtectedNames(pluginName))
             if (string.Equals(value, protectedName, StringComparison.OrdinalIgnoreCase)) return "プラグイン名・固有名詞";
 
         return value.Any(char.IsLetter) ? null : "翻訳対象となる文字がない";
@@ -5613,7 +5835,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
     {
         captureEnabled = false; baselineCaptureEnabled = false;
         contextMenu.OnMenuOpened -= OnContextMenuOpened;
-        pluginInterface.UiBuilder.Draw -= pluginInstallerModule.Tick; pluginInterface.UiBuilder.Draw -= windowSystem.Draw; pluginInterface.UiBuilder.OpenConfigUi -= OpenUi; pluginInterface.UiBuilder.OpenMainUi -= OpenUi; commandManager.RemoveHandler(Command);
+        pluginInterface.UiBuilder.Draw -= pluginInstallerModule.Tick; pluginInterface.UiBuilder.Draw -= windowSystem.Draw; pluginInterface.UiBuilder.Draw -= DrainMainThreadWork; pluginInterface.UiBuilder.OpenConfigUi -= OpenUi; pluginInterface.UiBuilder.OpenMainUi -= OpenUi; commandManager.RemoveHandler(Command);
         windowSystem.RemoveAllWindows();
         pluginInstallerModule.Dispose();
         officialDictionaryHttp.Dispose();
