@@ -19,6 +19,21 @@ internal sealed class PluginInstallerModule : IDisposable
         private const string DictionaryFileName = "plugin-installer-translations.json";
     private const string TerminologyFileName = "plugin-installer-terminology.json";
 
+    // Dalamud アセンブリはコンパイル時参照から直接取得する。
+    //
+    // AppDomain.CurrentDomain.GetAssemblies() で全アセンブリを列挙して Assembly.GetName() を
+    // 呼ぶ方式は使わない。他プラグインの reload / アンロード中は解体中の collectible な
+    // AssemblyLoadContext が混ざっており、そのアセンブリに GetName() を呼んだ瞬間に
+    // ExecutionEngineException (exit 0x80131506) で CLR が即死する。
+    // これは致命的ランタイムエラーで try/catch では捕捉できない。
+    //
+    // Tick() は毎フレーム走るため、PluginManager を解決できるまでの間は毎フレーム列挙が発生し、
+    // ちょうど Plugin Installer で他プラグインを有効化／無効化した瞬間に窓が開く。
+    // コンパイル時参照なら列挙も GetName() も起きないので、この窓自体が消える。
+    private static readonly Assembly DalamudAssembly = typeof(IDalamudPluginInterface).Assembly;
+
+    private const string ServiceGenericTypeName = "Dalamud.Service`1";
+
     private readonly IDalamudPluginInterface pluginInterface;
     private readonly ICommandManager commandManager;
     private readonly IPluginLog log;
@@ -712,13 +727,8 @@ internal sealed class PluginInstallerModule : IDisposable
         }
 
         manager = null!;
-        var dalamudAssembly = AppDomain.CurrentDomain.GetAssemblies()
-            .FirstOrDefault(a => string.Equals(a.GetName().Name, "Dalamud", StringComparison.Ordinal));
-        if (dalamudAssembly == null) return false;
-
-        this.serviceGenericType ??= dalamudAssembly.GetTypes()
-            .FirstOrDefault(t => t.IsGenericTypeDefinition && t.Name == "Service`1" && t.Namespace == "Dalamud");
-        this.pluginManagerType ??= dalamudAssembly.GetType("Dalamud.Plugin.Internal.PluginManager");
+        this.serviceGenericType ??= DalamudAssembly.GetType(ServiceGenericTypeName);
+        this.pluginManagerType ??= DalamudAssembly.GetType("Dalamud.Plugin.Internal.PluginManager");
         if (this.serviceGenericType == null || this.pluginManagerType == null) return false;
 
         var serviceType = this.serviceGenericType.MakeGenericType(this.pluginManagerType);
@@ -2212,15 +2222,8 @@ internal sealed class PluginInstallerModule : IDisposable
         }
 
         installer = null!;
-        var dalamudAssembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(a => string.Equals(a.GetName().Name, "Dalamud", StringComparison.Ordinal));
-        if (dalamudAssembly == null)
-        {
-            this.reflectionStatus = "Dalamud.dllを取得できません";
-            return false;
-        }
-
-        this.serviceGenericType ??= dalamudAssembly.GetTypes().FirstOrDefault(t => t.IsGenericTypeDefinition && t.Name == "Service`1" && t.Namespace == "Dalamud");
-        var dalamudInterfaceType = dalamudAssembly.GetType("Dalamud.Interface.Internal.DalamudInterface");
+        this.serviceGenericType ??= DalamudAssembly.GetType(ServiceGenericTypeName);
+        var dalamudInterfaceType = DalamudAssembly.GetType("Dalamud.Interface.Internal.DalamudInterface");
         if (this.serviceGenericType == null || dalamudInterfaceType == null)
         {
             this.reflectionStatus = "Dalamud内部Serviceを取得できません";
