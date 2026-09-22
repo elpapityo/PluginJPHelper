@@ -4520,8 +4520,24 @@ public sealed unsafe class Plugin : IDalamudPlugin
                         var protectedNames = GetDictionaryProtectedNames(translatePlugin);
                         dictionaryAutoTranslateCts?.Dispose();
                         dictionaryAutoTranslateCts = new CancellationTokenSource();
-                        dictionaryAutoTranslateTask = pluginInstallerModule.TranslateDictionaryBatchAsync(
-                            translatePlugin, texts, text => GetDictionaryAutoTranslateSkipReason(text, translatePlugin), protectedNames, AddDictionaryAutoTranslateLog, dictionaryAutoTranslateCts.Token);
+                        var token = dictionaryAutoTranslateCts.Token;
+                        // TranslateDictionaryBatchAsync は async だが、最初の await に到達するまでは
+                        // 呼び出し元スレッド（＝描画スレッド）で同期実行される。
+                        // 先頭から連続してスキップ判定される項目が続く間は await に到達しないため、
+                        // そのまま呼ぶと未翻訳の件数ぶんだけゲームが固まる。
+                        // スキップ判定は1件あたり正規表現を9本回すので、件数が多いと無視できない。
+                        // Task.Run で最初からワーカースレッドへ逃がす。
+                        dictionaryAutoTranslateTask = Task.Run(
+                            () => pluginInstallerModule.TranslateDictionaryBatchAsync(
+                                translatePlugin,
+                                texts,
+                                // Dalamud API (InstalledPlugins) をワーカースレッドから触らないよう、
+                                // 固有名詞は描画スレッドで確定済みの protectedNames を渡す。
+                                text => GetDictionaryAutoTranslateSkipReason(text, translatePlugin, protectedNames),
+                                protectedNames,
+                                AddDictionaryAutoTranslateLog,
+                                token),
+                            token);
                     }
                     if (translateDisabled) ImGui.EndDisabled();
                     ImGui.SameLine();
@@ -4680,7 +4696,10 @@ public sealed unsafe class Plugin : IDalamudPlugin
     private bool IsDictionaryAutoTranslateCandidate(string text)
         => GetDictionaryAutoTranslateSkipReason(text, capturePlugin) == null;
 
-    private string? GetDictionaryAutoTranslateSkipReason(string text, string pluginName)
+    // protectedNames を渡すと GetDictionaryProtectedNames() を呼ばない。
+    // 自動翻訳はワーカースレッドで走るため、そこから Dalamud の InstalledPlugins を
+    // 触らないよう、描画スレッドで確定させた値を渡せるようにしている。
+    private string? GetDictionaryAutoTranslateSkipReason(string text, string pluginName, IReadOnlyCollection<string>? protectedNames = null)
     {
         if (string.IsNullOrWhiteSpace(text)) return "空文字";
         var value = text.Trim();
@@ -4698,7 +4717,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
         if (Regex.IsMatch(value, @"(?:^|[\\/])(?:common|chara|ui|bgcommon|vfx|shader|sound)/", RegexOptions.IgnoreCase)) return "FFXIV内部ファイルパス";
         if (Regex.IsMatch(value, @"^(?:by|author|created by|developer|maintainer)\s*[:\-]?\s*.+$", RegexOptions.IgnoreCase)) return "作者・クレジット表記";
 
-        foreach (var protectedName in GetDictionaryProtectedNames(pluginName))
+        foreach (var protectedName in protectedNames ?? GetDictionaryProtectedNames(pluginName))
             if (string.Equals(value, protectedName, StringComparison.OrdinalIgnoreCase)) return "プラグイン名・固有名詞";
 
         return value.Any(char.IsLetter) ? null : "翻訳対象となる文字がない";
