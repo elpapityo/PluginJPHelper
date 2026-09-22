@@ -49,13 +49,21 @@ internal sealed class PluginInstallerModule : IDisposable
     private readonly ConcurrentQueue<CommandTranslationResult> completedCommandTranslations = new();
     private readonly Dictionary<string, CommandTranslationWork> pendingCommandWork = new(StringComparer.Ordinal);
     private readonly HashSet<string> queuedCommandWork = new(StringComparer.Ordinal);
-    private readonly Dictionary<string, CommandTranslationEntry> commandDictionary = new(StringComparer.Ordinal);
+    // dictionary / commandDictionary / terminology は翻訳ワーカー（Task.Run）と
+    // Tick()（描画スレッド）の両方から触られる。
+    // 書き込みは lock(sync) の中にあったが、読み取り側がロックを取っていないため
+    // ロックとして機能していなかった。Dictionary<,> は読み取りも並行安全ではなく、
+    // 挿入によるリサイズと TryGetValue が重なると壊れる。
+    // Tick() は ReapplyDictionaryToCurrentRemoteManifests を 2 秒ごとに呼んで
+    // dictionary を読むため、ワーカーが辞書へ追記している間はいつでも当たりうる。
+    // 読み側を全部ロックで囲うより取りこぼしがないので ConcurrentDictionary にする。
+    private readonly ConcurrentDictionary<string, CommandTranslationEntry> commandDictionary = new(StringComparer.Ordinal);
     // 差分検出はバックグラウンドで行ってよいが、翻訳サービスへの送信はユーザー操作時だけに限定する。
     private readonly Dictionary<string, TranslationWork> pendingGoogleWork = new(StringComparer.Ordinal);
     private readonly HashSet<string> queuedWork = new(StringComparer.Ordinal);
     private readonly Dictionary<object, OriginalManifest> originals = new(ReferenceEqualityComparer.Instance);
-    private readonly Dictionary<string, TranslationDictionaryEntry> dictionary = new(StringComparer.OrdinalIgnoreCase);
-    private readonly Dictionary<string, string> terminology = new(StringComparer.OrdinalIgnoreCase);
+    private readonly ConcurrentDictionary<string, TranslationDictionaryEntry> dictionary = new(StringComparer.OrdinalIgnoreCase);
+    private readonly ConcurrentDictionary<string, string> terminology = new(StringComparer.OrdinalIgnoreCase);
     private readonly object sync = new();
     private string dictionaryPath;
     private string terminologyPath;

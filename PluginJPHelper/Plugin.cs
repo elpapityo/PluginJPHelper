@@ -31,6 +31,30 @@ public sealed unsafe class Plugin : IDalamudPlugin
     // Protect structural changes/enumeration of config.Plugins from overlapping async/UI work.
     private readonly object pluginConfigSync = new();
 
+    // 辞書と設定への書き込みは描画スレッドへ集約する。
+    //
+    // 翻訳フックは描画スレッドから、画面に出る文字列すべてに対して毎フレーム
+    // config.Plugins / UserOverrides / OfficialOverrides / DeletedKeys / Locations と
+    // dictionaryCatalogCache を読む。これらは Dictionary<,> でスレッドセーフではない。
+    // 一方でダウンロード処理は Task.Run の中から同じ辞書を Clear() して数千件を
+    // 挿入し直していたため、リサイズと読み取りが重なると
+    // IndexOutOfRangeException / NullReferenceException / 無限ループになりうる。
+    // lock を足す方式は読み側が 30 箇所以上あって取りこぼしやすいので、
+    // 「書き込みスレッドを 1 本に固定する」方式にする。
+    // 背景側はダウンロードとパースだけを行い、適用はこのキュー経由で描画スレッドが行う。
+    private readonly ConcurrentQueue<Action> mainThreadWork = new();
+
+    private void RunOnMainThread(Action work) => mainThreadWork.Enqueue(work);
+
+    private void DrainMainThreadWork()
+    {
+        while (mainThreadWork.TryDequeue(out var work))
+        {
+            try { work(); }
+            catch (Exception ex) { log.Error(ex, "[PluginJPHelper] 描画スレッドへ委譲した処理で例外"); }
+        }
+    }
+
     private const string Command = "/pjph";
     private readonly IDalamudPluginInterface pluginInterface;
     private readonly ICommandManager commandManager;
@@ -419,6 +443,9 @@ public sealed unsafe class Plugin : IDalamudPlugin
         _ = RefreshCommunityDictionariesAsync(false);
 
         commandManager.AddHandler(Command, new CommandInfo(OnCommand) { HelpMessage = "Plugin JP Helper を開きます。" });
+        // 背景処理から委譲された適用処理を毎フレーム最初に流し込む。
+        // windowSystem.Draw より前に登録し、UI が参照する前に反映されるようにする。
+        pluginInterface.UiBuilder.Draw += DrainMainThreadWork;
         pluginInterface.UiBuilder.Draw += windowSystem.Draw;
         pluginInterface.UiBuilder.Draw += pluginInstallerModule.Tick;
         pluginInterface.UiBuilder.OpenConfigUi += OpenUi;
@@ -2381,9 +2408,13 @@ public sealed unsafe class Plugin : IDalamudPlugin
                 {
                     communityListLoaded = true;
                     communityStatus = $"コミュニティ辞書 {entries.Count}件を確認しました。";
-                    config.LastAcknowledgedCommunityIndexSha = indexSha;
                     communityNoticePending = false;
-                    SaveConfig();
+                    // SaveConfig() は UI キャッシュを Clear() するため描画スレッドで行う。
+                    RunOnMainThread(() =>
+                    {
+                        config.LastAcknowledgedCommunityIndexSha = indexSha;
+                        SaveConfig();
+                    });
                 }
             }
             catch (Exception ex)
@@ -2428,42 +2459,46 @@ public sealed unsafe class Plugin : IDalamudPlugin
                     File.WriteAllText(CommunityCsvPath(item.FileName), text, new UTF8Encoding(true));
                     File.WriteAllText(CommunityShaPath(item.FileName), item.Sha, Encoding.UTF8);
 
-                    // コミュニティ辞書に @Window メタ情報があれば、ダウンロード時点で自動適用。
+                    // パースまでは背景スレッドで行う（共有状態に触れないため）。
                     var rows = ParseCsvRecords(text);
                     var metadataPluginName = rows.Skip(1)
                         .FirstOrDefault(r => r.Count >= 6 && !string.IsNullOrWhiteSpace(r[0]))?[0]?.Trim();
                     if (string.IsNullOrWhiteSpace(metadataPluginName))
                         metadataPluginName = item.PluginName;
 
+                    // 設定への反映は描画スレッドで行う。
                     if (!string.IsNullOrWhiteSpace(metadataPluginName))
                     {
-                        if (!config.Plugins.TryGetValue(metadataPluginName, out var metadataState) || metadataState == null)
-                        {
-                            metadataState = new PluginDictionaryState
-                            {
-                                Enabled = true,
-                                TranslationTarget = true,
-                                WindowKeyword = metadataPluginName
-                            };
-                            lock (pluginConfigSync)
-                                config.Plugins[metadataPluginName] = metadataState;
-                            EnsureCaptureDictionary(metadataPluginName);
-                        }
-
+                        var applyPluginName = metadataPluginName;
                         var communityWindows = ExtractDictionaryWindowKeywords(rows);
+                        RunOnMainThread(() =>
+                        {
+                            if (!config.Plugins.TryGetValue(applyPluginName, out var metadataState) || metadataState == null)
+                            {
+                                metadataState = new PluginDictionaryState
+                                {
+                                    Enabled = true,
+                                    TranslationTarget = true,
+                                    WindowKeyword = applyPluginName
+                                };
+                                lock (pluginConfigSync)
+                                    config.Plugins[applyPluginName] = metadataState;
+                                EnsureCaptureDictionary(applyPluginName);
+                            }
 
-                        // 明示的なダウンロード/更新操作なので、辞書側に記載された @Window は
-                        // 過去の抑止より優先して再適用する。
-                        metadataState.SuppressedDictionaryWindowKeywords ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-                        foreach (var keyword in communityWindows)
-                            metadataState.SuppressedDictionaryWindowKeywords.Remove(keyword);
+                            // 明示的なダウンロード/更新操作なので、辞書側に記載された @Window は
+                            // 過去の抑止より優先して再適用する。
+                            metadataState.SuppressedDictionaryWindowKeywords ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                            foreach (var keyword in communityWindows)
+                                metadataState.SuppressedDictionaryWindowKeywords.Remove(keyword);
 
-                        ApplyDictionaryWindowMetadata(metadataPluginName, metadataState, communityWindows, "コミュニティ辞書");
+                            ApplyDictionaryWindowMetadata(applyPluginName, metadataState, communityWindows, "コミュニティ辞書");
+                        });
                     }
 
                     completed++;
                 }
-                SaveConfig();
+                RunOnMainThread(SaveConfig);
                 communityStatus = $"選択したコミュニティ辞書 {completed}件をダウンロード／更新しました。別ウィンドウ設定が含まれる辞書は自動適用しました。";
             }
             catch (Exception ex)
@@ -3425,11 +3460,15 @@ public sealed unsafe class Plugin : IDalamudPlugin
                 var folderSignatureToAcknowledge = officialNoticeSha?.Trim() ?? string.Empty;
                 if (!string.IsNullOrWhiteSpace(folderSignatureToAcknowledge))
                 {
-                    // Officialフォルダー内CSVの構成署名を確認済みとして保存する。
-                    config.LastAcknowledgedOfficialNotice = noticeToAcknowledge;
-                    config.LastAcknowledgedOfficialNoticeSha = folderSignatureToAcknowledge;
                     officialNoticeText = string.Empty;
-                    SaveConfig();
+                    // SaveConfig() は UI キャッシュを Clear() するため描画スレッドで行う。
+                    RunOnMainThread(() =>
+                    {
+                        // Officialフォルダー内CSVの構成署名を確認済みとして保存する。
+                        config.LastAcknowledgedOfficialNotice = noticeToAcknowledge;
+                        config.LastAcknowledgedOfficialNoticeSha = folderSignatureToAcknowledge;
+                        SaveConfig();
+                    });
                 }
             }
             catch (Exception ex)
@@ -3475,26 +3514,39 @@ public sealed unsafe class Plugin : IDalamudPlugin
                     File.WriteAllText(path, text, new UTF8Encoding(true));
                     File.WriteAllText(OfficialShaPath(item.Name), item.Sha, Encoding.UTF8);
 
-                    // 公式辞書の明示ダウンロード/更新時は、その辞書に含まれる @Window の
-                    // 抑止を解除してから読み込む。起動時の自動読込では抑止を維持する。
+                    // CSV のパースまでは背景スレッドで行ってよい（共有状態に触れないため）。
+                    List<List<string>>? downloadedRows = null;
+                    string? downloadedPluginName = null;
                     try
                     {
-                        var downloadedRows = ParseCsvRecords(text);
-                        var downloadedPluginName = downloadedRows.Skip(1)
+                        downloadedRows = ParseCsvRecords(text);
+                        downloadedPluginName = downloadedRows.Skip(1)
                             .FirstOrDefault(r => r.Count >= 6 && !string.IsNullOrWhiteSpace(r[0]))?[0]?.Trim();
-                        if (!string.IsNullOrWhiteSpace(downloadedPluginName)
-                            && config.Plugins.TryGetValue(downloadedPluginName, out var downloadedState)
-                            && downloadedState != null)
-                        {
-                            downloadedState.SuppressedDictionaryWindowKeywords ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-                            foreach (var keyword in ExtractDictionaryWindowKeywords(downloadedRows))
-                                downloadedState.SuppressedDictionaryWindowKeywords.Remove(keyword);
-                        }
                     }
                     catch { }
 
-                    // 公式辞書は保存直後に読み込み、@Windowメタ情報も自動適用。
-                    LoadOfficialDictionaryFile(path);
+                    // 設定と辞書への適用は描画スレッドで行う。
+                    // ここで直接 OfficialOverrides を Clear() すると、翻訳フックが
+                    // 同じ辞書を読んでいる最中に作り替えることになる。
+                    var applyRows = downloadedRows;
+                    var applyPluginName = downloadedPluginName;
+                    RunOnMainThread(() =>
+                    {
+                        // 公式辞書の明示ダウンロード/更新時は、その辞書に含まれる @Window の
+                        // 抑止を解除してから読み込む。起動時の自動読込では抑止を維持する。
+                        if (applyRows != null
+                            && !string.IsNullOrWhiteSpace(applyPluginName)
+                            && config.Plugins.TryGetValue(applyPluginName, out var downloadedState)
+                            && downloadedState != null)
+                        {
+                            downloadedState.SuppressedDictionaryWindowKeywords ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                            foreach (var keyword in ExtractDictionaryWindowKeywords(applyRows))
+                                downloadedState.SuppressedDictionaryWindowKeywords.Remove(keyword);
+                        }
+
+                        // 公式辞書は保存直後に読み込み、@Windowメタ情報も自動適用。
+                        LoadOfficialDictionaryFile(path);
+                    });
                     completed++;
                 }
                 officialDictionaryStatus = $"選択した公式辞書 {completed}件をダウンロード／更新し、辞書と別ウィンドウ設定を自動適用しました。";
@@ -5783,7 +5835,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
     {
         captureEnabled = false; baselineCaptureEnabled = false;
         contextMenu.OnMenuOpened -= OnContextMenuOpened;
-        pluginInterface.UiBuilder.Draw -= pluginInstallerModule.Tick; pluginInterface.UiBuilder.Draw -= windowSystem.Draw; pluginInterface.UiBuilder.OpenConfigUi -= OpenUi; pluginInterface.UiBuilder.OpenMainUi -= OpenUi; commandManager.RemoveHandler(Command);
+        pluginInterface.UiBuilder.Draw -= pluginInstallerModule.Tick; pluginInterface.UiBuilder.Draw -= windowSystem.Draw; pluginInterface.UiBuilder.Draw -= DrainMainThreadWork; pluginInterface.UiBuilder.OpenConfigUi -= OpenUi; pluginInterface.UiBuilder.OpenMainUi -= OpenUi; commandManager.RemoveHandler(Command);
         windowSystem.RemoveAllWindows();
         pluginInstallerModule.Dispose();
         officialDictionaryHttp.Dispose();
