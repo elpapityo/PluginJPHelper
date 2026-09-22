@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using System.Reflection;
 using PluginJPHelper.Data;
+using PluginJPHelper.Plugins.Profiles;
 using Dalamud.Bindings.ImGui;
 using Dalamud.Configuration;
 using Dalamud.Game.Command;
@@ -1716,55 +1717,8 @@ public sealed unsafe class Plugin : IDalamudPlugin
     {
         if (string.IsNullOrWhiteSpace(windowName)) return false;
 
-        var w = windowName.Trim();
-        return pluginName switch
-        {
-            "RSR" => w.Contains("Rotation Solver Reborn", StringComparison.OrdinalIgnoreCase)
-                  || w.Contains("RotationSolverReborn", StringComparison.OrdinalIgnoreCase)
-                  || w.Contains("Rotation Solver", StringComparison.OrdinalIgnoreCase),
-
-            "BMR" => w.Contains("BossMod Reborn", StringComparison.OrdinalIgnoreCase)
-                  || w.Contains("Boss Mod Reborn", StringComparison.OrdinalIgnoreCase)
-                  || w.Contains("BossModReborn", StringComparison.OrdinalIgnoreCase),
-
-            "BM" => (w.Contains("BossMod", StringComparison.OrdinalIgnoreCase)
-                  || w.Contains("Boss Mod", StringComparison.OrdinalIgnoreCase))
-                  && !w.Contains("Reborn", StringComparison.OrdinalIgnoreCase),
-
-            "DalamudACT" => w.Contains("DalamudACT", StringComparison.OrdinalIgnoreCase)
-                         || w.Contains("CombatTimelineWindow", StringComparison.OrdinalIgnoreCase)
-                         || w.Contains("StatusObserverWindow", StringComparison.OrdinalIgnoreCase)
-                         || w.Contains("PartyMonitorWindow", StringComparison.OrdinalIgnoreCase)
-                         || w.Contains("StatsPanelWindow", StringComparison.OrdinalIgnoreCase)
-                         || w.Contains("SkillMonitorWindow", StringComparison.OrdinalIgnoreCase)
-                         || w.Contains("SettingsWindow", StringComparison.OrdinalIgnoreCase),
-
-            // v0.4.9: PureTimeline系の編集画面は
-            // ウィンドウ名にプラグイン名を含まず、中国語タイトルを使う。
-            // 実機で確認できた名前だけを所有判定へ追加する。
-            "PromeRotation" => w.Contains("PromeRotation", StringComparison.OrdinalIgnoreCase)
-                            || w.Contains("PureTimeline", StringComparison.OrdinalIgnoreCase)
-                            || w.Contains("时间轴编辑器", StringComparison.Ordinal)
-                            || w.Contains("触发轴编辑器", StringComparison.Ordinal)
-                            // v0.4.9: PureTimeline系の未保存確認は
-                            // 独立したモーダルウィンドウとして描画され、親所有者を継承しない。
-                            // 実機で確認できたタイトル語だけを PromeRotation 所有として扱う。
-                            || (w.Contains("未保存", StringComparison.Ordinal)
-                                && (w.Contains("放弃", StringComparison.Ordinal)
-                                    || w.Contains("修改", StringComparison.Ordinal))),
-
-            "ExplorersIcebox" or "ICE" => w.Contains("Explorer's Icebox", StringComparison.OrdinalIgnoreCase)
-                              || w.Contains("ExplorersIceboxMainWindow", StringComparison.OrdinalIgnoreCase),
-
-            _ =>
-                // 通常のプラグインは、まずプラグイン名そのものを含むWindowを本体Windowとして扱う。
-                // 例: "Pawprint###BeastmasterMain"
-                w.Contains(pluginName, StringComparison.OrdinalIgnoreCase)
-                || (config.Plugins.TryGetValue(pluginName, out var custom)
-                    && !string.IsNullOrWhiteSpace(custom.WindowKeyword)
-                    && custom.WindowKeyword.Split('|', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
-                        .Any(keyword => w.Contains(keyword, StringComparison.OrdinalIgnoreCase))),
-        };
+        var customWindowKeyword = config.Plugins.TryGetValue(pluginName, out var state) ? state.WindowKeyword : null;
+        return PluginProfileRegistry.MatchesWindow(pluginName, windowName.Trim(), customWindowKeyword);
     }
 
     private void UpdateRsrNavigationContext(byte* label, bool selected)
@@ -5080,7 +5034,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
         if (!pluginCaptured.ContainsKey(name)) pluginCaptured[name] = new ConcurrentDictionary<string, CapturedItem>(StringComparer.Ordinal);
     }
 
-    private static int PluginSortKey(string name) => name switch { "RSR" => 0, "BMR" => 1, "BM" => 2, _ => 10 };
+    private static int PluginSortKey(string name) => PluginProfileRegistry.SortKey(name);
 
     private bool IsTranslatedShadowKey(string pluginName, string key)
     {
