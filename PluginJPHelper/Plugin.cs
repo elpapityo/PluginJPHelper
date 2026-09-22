@@ -134,6 +134,15 @@ public sealed unsafe class Plugin : IDalamudPlugin
     private readonly ConcurrentQueue<string> dictionaryAutoTranslateLogs = new();
     private const int MaxDictionaryAutoTranslateLogs = 500;
     private string hookStatus = "未初期化";
+    // フック結果を UI から確認できるようにするための内訳。
+    // hookStatus はこれまで代入されるだけで一度も表示されず、cimgui のエクスポート名が
+    // ImGui のバージョンで変わってフックが外れていても、Dalamudログを開かない限り気づけなかった。
+    private string[] hookInstalledNames = [];
+    private string[] hookFailedNames = [];
+    // 診断ログの記録は既定で停止しておく。BeginCombo / SliderInt / TableSetupColumn の
+    // detour は毎フレーム走るため、誰も見ないデータのために
+    // Marshal.PtrToStringUTF8 とレコード確保を常時通したくない。
+    private bool hookDiagnosticsRecording;
     private string selectedPlugin = "RSR";
     private string capturePlugin = "RSR";
     private string communityPosterNameBuffer = string.Empty;
@@ -561,6 +570,8 @@ public sealed unsafe class Plugin : IDalamudPlugin
         try { drawListAddTextFontPtrHook = interop.HookFromSymbol<DrawListAddTextFontPtrDelegate>("cimgui.dll", "ImDrawList_AddText_FontPtr", DrawListAddTextFontPtrDetour); drawListAddTextFontPtrHook.Enable(); installed.Add("DrawListAddTextFont"); }
         catch (Exception ex) { failed.Add("DrawListAddTextFont"); log.Warning(ex, "[PluginJPHelper] ImDrawList_AddText_FontPtr hook failed"); }
         hookStatus = installed.Count == 0 ? "フック失敗（Dalamudログを確認）" : $"有効: {string.Join(", ", installed)}" + (failed.Count > 0 ? $" / 失敗: {string.Join(", ", failed)}" : string.Empty);
+        hookInstalledNames = [.. installed];
+        hookFailedNames = [.. failed];
     }
 
     private void TextUnformattedDetour(byte* text, byte* textEnd)
@@ -876,13 +887,15 @@ public sealed unsafe class Plugin : IDalamudPlugin
     private byte ComboFnPtrDetour(byte* label, int* currentItem, nint getter, void* userData, int itemsCount, int popupMaxHeightInItems)
     {
         // まず実機でこの経路を使っているかだけ確認する。getter差し替えは誤動作リスクがあるためまだ行わない。
-        Interlocked.Increment(ref comboFnCalls);
+        if (!drawingOwnUi) Interlocked.Increment(ref comboFnCalls);
         return comboFnPtrHook!.Original(label, currentItem, getter, userData, itemsCount, popupMaxHeightInItems);
     }
 
     private void RecordHookDiagnostic(string hookKind, byte* textPtr)
     {
-        if (drawingOwnUi || textPtr == null) return;
+        // 記録がOFFのときは文字列化すら行わない。毎フレーム通る経路なので、
+        // ここで抜けないと誰も見ないログのために確保コストを払い続けることになる。
+        if (!hookDiagnosticsRecording || drawingOwnUi || textPtr == null) return;
         try
         {
             var text = Marshal.PtrToStringUTF8((nint)textPtr) ?? string.Empty;
@@ -902,7 +915,8 @@ public sealed unsafe class Plugin : IDalamudPlugin
 
     private byte BeginComboDetour(byte* label, byte* previewValue, int flags)
     {
-        Interlocked.Increment(ref beginComboCalls);
+        // 自前UIぶんを数えると、診断画面を開いているだけで件数が伸びて実態が読めなくなる。
+        if (!drawingOwnUi) Interlocked.Increment(ref beginComboCalls);
         RecordHookDiagnostic("BeginComboLabel", label);
         if (previewValue != null) RecordHookDiagnostic("BeginComboPreview", previewValue);
 
@@ -969,7 +983,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
 
     private byte SliderIntDetour(byte* label, int* value, int min, int max, byte* format, int flags)
     {
-        Interlocked.Increment(ref sliderIntCalls);
+        if (!drawingOwnUi) Interlocked.Increment(ref sliderIntCalls);
         RecordHookDiagnostic("SliderInt", label);
         try { if (!drawingOwnUi && (captureEnabled || baselineCaptureEnabled)) CapturePointer(label, null, "SliderInt"); } catch { }
 
@@ -989,7 +1003,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
 
     private void TableSetupColumnDetour(byte* label, int flags, float initWidthOrWeight, uint userId)
     {
-        Interlocked.Increment(ref tableSetupColumnCalls);
+        if (!drawingOwnUi) Interlocked.Increment(ref tableSetupColumnCalls);
         RecordHookDiagnostic("TableSetupColumn", label);
         try { if (!drawingOwnUi && (captureEnabled || baselineCaptureEnabled)) CapturePointer(label, null, "TableSetupColumn"); } catch { }
 
@@ -3792,6 +3806,139 @@ public sealed unsafe class Plugin : IDalamudPlugin
             ImGui.TextWrapped("更新がある場合はタイトルバーに【公式辞書に更新があります。】【コミュニティ辞書に更新があります。】のように表示されます。");
             ImGui.TextWrapped("各辞書タブで「一覧を取得」が成功すると、その時点を確認済みとして通知が消えます。");
         }
+
+        DrawDiagnosticsSection();
+    }
+
+    // 日本語化されないときに最初に見る場所。フックが張れているか、翻訳が走っているかを
+    // Dalamudログを開かずに確認できるようにする。
+    private void DrawDiagnosticsSection()
+    {
+        if (!ImGui.CollapsingHeader("動作診断（日本語化されないとき・不具合報告用）")) return;
+
+        ImGui.TextWrapped("Plugin JP HelperはImGuiの描画関数をフックして文字列を差し替えます。日本語化されない場合は、まずフックが有効かどうかを確認してください。");
+        ImGui.Spacing();
+
+        var installedCount = hookInstalledNames.Length;
+        var failedCount = hookFailedNames.Length;
+        if (installedCount == 0)
+            TextColoredUnformatted(DiagnosticErrorColor, "フック: すべて失敗しています。日本語化は動作しません。");
+        else if (failedCount == 0)
+            TextColoredUnformatted(DiagnosticOkColor, $"フック: {installedCount}件すべて有効");
+        else
+            TextColoredUnformatted(DiagnosticWarnColor, $"フック: 有効 {installedCount}件 / 失敗 {failedCount}件");
+
+        if (failedCount > 0)
+        {
+            TextColoredUnformatted(DiagnosticErrorColor, $"失敗: {string.Join(", ", hookFailedNames)}");
+            ImGui.TextWrapped("ImGuiのバージョンによっては存在しない関数があり、一部の失敗は正常です（例: SeparatorText）。多数が失敗している場合はDalamudのバージョンを確認してください。");
+        }
+
+        if (installedCount > 0 && ImGui.TreeNode("有効なフック一覧"))
+        {
+            // フック名は固定の識別子だが、書式指定APIの TextWrapped ではなく
+            // 素通しの TextUnformatted で出す。
+            ImGui.TextUnformatted(string.Join(", ", hookInstalledNames));
+            ImGui.TreePop();
+        }
+
+        ImGui.Spacing();
+        ImGui.Separator();
+        ImGui.TextUnformatted("【カウンター】自分のウィンドウぶんは数えません。");
+        if (ImGui.BeginTable("pjhDiagnosticCounters", 2, ImGuiTableFlags.Borders | ImGuiTableFlags.RowBg | ImGuiTableFlags.SizingFixedFit))
+        {
+            ImGui.TableSetupColumn("項目");
+            ImGui.TableSetupColumn("回数");
+            ImGui.TableHeadersRow();
+            DrawDiagnosticCounterRow("翻訳を差し替えた回数", Interlocked.Read(ref translatedCount));
+            DrawDiagnosticCounterRow("Combo(配列) 呼び出し", Interlocked.Read(ref comboHookCalls));
+            DrawDiagnosticCounterRow("Combo(NUL区切り) 呼び出し", Interlocked.Read(ref comboStrCalls));
+            DrawDiagnosticCounterRow("Combo(コールバック) 呼び出し", Interlocked.Read(ref comboFnCalls));
+            DrawDiagnosticCounterRow("BeginCombo 呼び出し", Interlocked.Read(ref beginComboCalls));
+            DrawDiagnosticCounterRow("Combo内Selectable 呼び出し", Interlocked.Read(ref comboSelectableCalls));
+            DrawDiagnosticCounterRow("Combo内で差し替えた項目", Interlocked.Read(ref comboTranslatedItems));
+            DrawDiagnosticCounterRow("SliderInt 呼び出し", Interlocked.Read(ref sliderIntCalls));
+            DrawDiagnosticCounterRow("TableSetupColumn 呼び出し", Interlocked.Read(ref tableSetupColumnCalls));
+            ImGui.EndTable();
+        }
+
+        ImGui.Spacing();
+        if (ActionButton("診断情報をコピー", ButtonRole.Primary))
+            ImGui.SetClipboardText(BuildDiagnosticsReport());
+        ImGui.SameLine();
+        ImGui.TextDisabled("不具合報告に貼り付けてください。");
+
+        ImGui.Spacing();
+        ImGui.Separator();
+        var recording = hookDiagnosticsRecording;
+        if (ImGui.Checkbox("フック通過ログを記録する", ref recording))
+        {
+            hookDiagnosticsRecording = recording;
+            // OFFにしたら溜まったぶんも捨てる。次にONにしたとき古い記録と混ざらないようにする。
+            if (!recording) while (hookDiagnosticEntries.TryDequeue(out _)) { }
+        }
+        ImGui.TextDisabled($"ONの間だけ、直近{MaxHookDiagnosticEntries}件の通過内容を記録します。常時ONにする必要はありません。");
+
+        var entries = hookDiagnosticEntries.ToArray();
+        if (entries.Length == 0)
+        {
+            ImGui.TextDisabled(hookDiagnosticsRecording ? "まだ記録がありません。対象プラグインの画面を開いてください。" : "記録は停止中です。");
+            return;
+        }
+
+        if (ImGui.BeginTable("pjhDiagnosticEntries", 5, ImGuiTableFlags.Borders | ImGuiTableFlags.RowBg | ImGuiTableFlags.ScrollY | ImGuiTableFlags.ScrollX | ImGuiTableFlags.Resizable | ImGuiTableFlags.SizingFixedFit | ImGuiTableFlags.NoKeepColumnsVisible, new Vector2(0, 200)))
+        {
+            ImGui.TableSetupColumn("時刻");
+            ImGui.TableSetupColumn("種別");
+            ImGui.TableSetupColumn("文字列");
+            ImGui.TableSetupColumn("ウィンドウ");
+            ImGui.TableSetupColumn("判定プラグイン");
+            ImGui.TableHeadersRow();
+            for (var i = entries.Length - 1; i >= 0; i--)
+            {
+                var entry = entries[i];
+                ImGui.TableNextRow();
+                ImGui.TableNextColumn(); ImGui.TextUnformatted(entry.Time);
+                ImGui.TableNextColumn(); ImGui.TextUnformatted(entry.Kind);
+                ImGui.TableNextColumn(); ImGui.TextUnformatted(entry.Text);
+                ImGui.TableNextColumn(); ImGui.TextUnformatted(entry.Window);
+                ImGui.TableNextColumn(); ImGui.TextUnformatted(entry.Owner);
+            }
+            ImGui.EndTable();
+        }
+    }
+
+    private static readonly Vector4 DiagnosticOkColor = new(0.40f, 0.82f, 0.48f, 1.00f);
+    private static readonly Vector4 DiagnosticWarnColor = new(0.95f, 0.66f, 0.25f, 1.00f);
+    private static readonly Vector4 DiagnosticErrorColor = new(0.92f, 0.42f, 0.42f, 1.00f);
+
+    // ImGui.TextColored は内部で書式指定を解釈するため、変数を含む文字列には使わない。
+    private static void TextColoredUnformatted(Vector4 color, string text)
+    {
+        ImGui.PushStyleColor(ImGuiCol.Text, color);
+        ImGui.TextUnformatted(text);
+        ImGui.PopStyleColor();
+    }
+
+    private static void DrawDiagnosticCounterRow(string label, long value)
+    {
+        ImGui.TableNextRow();
+        ImGui.TableNextColumn(); ImGui.TextUnformatted(label);
+        ImGui.TableNextColumn(); ImGui.TextUnformatted(value.ToString("N0"));
+    }
+
+    private string BuildDiagnosticsReport()
+    {
+        var builder = new StringBuilder();
+        builder.AppendLine($"PluginJPHelper 診断情報 ({DateTime.Now:yyyy-MM-dd HH:mm:ss})");
+        builder.AppendLine($"有効フック({hookInstalledNames.Length}): {string.Join(", ", hookInstalledNames)}");
+        builder.AppendLine($"失敗フック({hookFailedNames.Length}): {(hookFailedNames.Length == 0 ? "なし" : string.Join(", ", hookFailedNames))}");
+        builder.AppendLine($"翻訳差し替え: {Interlocked.Read(ref translatedCount)}");
+        builder.AppendLine($"Combo配列={Interlocked.Read(ref comboHookCalls)} ComboNUL={Interlocked.Read(ref comboStrCalls)} Comboコールバック={Interlocked.Read(ref comboFnCalls)}");
+        builder.AppendLine($"BeginCombo={Interlocked.Read(ref beginComboCalls)} Combo内Selectable={Interlocked.Read(ref comboSelectableCalls)} Combo内差し替え={Interlocked.Read(ref comboTranslatedItems)}");
+        builder.AppendLine($"SliderInt={Interlocked.Read(ref sliderIntCalls)} TableSetupColumn={Interlocked.Read(ref tableSetupColumnCalls)}");
+        builder.AppendLine($"選択中プラグイン: {selectedPlugin} / 取得対象: {capturePlugin} / 取得中: {captureEnabled}");
+        return builder.ToString();
     }
 
     private void DrawDictionaryStatusColumnControls(string idSuffix)
