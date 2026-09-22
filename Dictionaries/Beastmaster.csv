@@ -1,0 +1,855 @@
+﻿Plugin,Menu,Section,Type,English,Japanese
+Beastmaster,Captured,,,驯兽师助手,魔獣使いヘルパー
+Beastmaster,Captured,,,驯兽师任务链,魔獣使いクエスト
+Beastmaster,Captured,,,魔兽图鉴,魔獣図鑑
+Beastmaster,Captured,,,斗兽奇弈,闘獣盤
+Beastmaster,Captured,,,推荐装备,おすすめ装備
+Beastmaster,Captured,,,推荐组合,おすすめ編成
+Beastmaster,Captured,,,技能序列,スキルシーケンス
+Beastmaster,Captured,,,规则模式,ルールモード
+Beastmaster,Captured,,,快捷指令,コマンド
+Beastmaster,Captured,,,自动输出,自動戦闘
+Beastmaster,Captured,,,设置,設定
+Beastmaster,Captured,,,前往斗兽塔,闘獣塔へ移動
+Beastmaster,Captured,,,内容,コンテンツ
+Beastmaster,Captured,,,工具,ツール
+Beastmaster,Captured,,,反馈与建议,フィードバック
+Beastmaster,Captured,,,导航,ナビゲーション
+Beastmaster,Captured,,,停止导航,ナビ停止
+Beastmaster,Captured,,,自动导航至黑衣森林中央林区的斗兽塔入口位置。,黒衣森：中央森林の闘獣塔入口まで自動で移動します。
+Beastmaster,Captured,,,类型：当前位置,種別：現在地
+Beastmaster,Captured,,,区域：黑衣森林中央林区,エリア：黒衣森：中央森林
+Beastmaster,Captured,,,"世界坐标：X=24.238, Y=-6.003, Z=65.809","ワールド座標：X=24.238, Y=-6.003, Z=65.809"
+Beastmaster,Captured,,,需要 vnavmesh；跨区需要 Lifestream,vnavmesh が必要です。エリア移動には Lifestream が必要です。
+Beastmaster,Captured,,,驯兽ACR,獣使いACR
+Beastmaster,Captured,,,关闭,OFF
+Beastmaster,Captured,,,暂停,一時停止
+Beastmaster,Captured,,,自动,自動
+Beastmaster,Captured,,,捕获,捕獲
+Beastmaster,Captured,,,主动,先制攻撃
+Beastmaster,Captured,,,捕获阈值,捕獲HPしきい値
+Beastmaster,Captured,,,基础技能（1→2→3）,基本コンボ（1→2→3）
+Beastmaster,Captured,,,高级技能候选,上位スキル候補
+Beastmaster,Captured,,,中止技能序列,スキルシーケンス中止
+Beastmaster,Captured,,,下一个技能：,次のスキル：
+Beastmaster,Captured,,,原因：,理由：
+Beastmaster,Captured,,,当前魔兽：,現在の魔獣：
+Beastmaster,Captured,,,未召唤,未召喚
+Beastmaster,Captured,,,技力,技力
+Beastmaster,Captured,,,兽力,獣力
+Beastmaster,Captured,,,御兽之心：,御獣の心：
+Beastmaster,Captured,,,兽灵之心：,獣霊の心：
+Beastmaster,Captured,,,当前目标,現在のターゲット
+Beastmaster,Captured,,,无有效目标,有効なターゲットなし
+Beastmaster,Captured,,,属性：,属性：
+Beastmaster,Captured,,,手动释放大招,必殺技を手動実行
+Beastmaster,Captured,,,开关已关闭,無効
+Beastmaster,Captured,,,释放：运行时调整技能,「はなつ」：実行時にスキルを自動調整
+Beastmaster,Captured,,,开启,ON
+Beastmaster,Captured,,,捕获血量阈值：目标血量小于或等于此百分比时释放捕获,捕獲HPしきい値：対象のHPがこの割合以下になると捕獲を使用します。
+Beastmaster,Captured,,,请先在自动输出栏目开启自动输出,先に「自動戦闘」で自動戦闘を有効にしてください。
+Beastmaster,Captured,,,点击恢复自动输出,クリックで自動戦闘を再開
+Beastmaster,Captured,,,点击暂停自动输出,クリックで自動戦闘を一時停止
+Beastmaster,Captured,,,强制捕获：无视目标捕获BUFF，但仍受血量阈值限制；点击关闭捕获,強制捕獲：捕獲BUFFを無視しますが、HPしきい値は適用されます。クリックで捕獲をOFFにします。
+Beastmaster,Captured,,,尝试捕获：按血量和捕获BUFF判断；点击切换为强制捕获,通常捕獲：HPと捕獲BUFFで判定します。クリックで強制捕獲へ切り替えます。
+Beastmaster,Captured,,,捕获未开启；点击开启尝试捕获,捕獲OFF：クリックで通常捕獲を有効にします。
+Beastmaster,Captured,,,奇盘编队,闘獣盤編成
+Beastmaster,Captured,,,当前编队,現在の編成
+Beastmaster,Captured,,,应用中...,適用中...
+Beastmaster,Captured,,,应用,適用
+Beastmaster,Captured,,,新建,新規
+Beastmaster,Captured,,,复制,複製
+Beastmaster,Captured,,,删除,削除
+Beastmaster,Captured,,,已新建编队预设。,編成プリセットを作成しました。
+Beastmaster,Captured,,,已复制当前预设。,現在のプリセットを複製しました。
+Beastmaster,Captured,,,按客户端任务状态显示进度，并前往未完成任务的接取位置。,ゲーム内のクエスト状態から進行状況を表示し、未完了クエストの受注場所へ移動できます。
+Beastmaster,Captured,,,隐藏已完成任务,完了済みを非表示
+Beastmaster,Captured,,,已完成,完了
+Beastmaster,Captured,,,进行中,進行中
+Beastmaster,Captured,,,未接取,未受注
+Beastmaster,Captured,,,前置任务：,前提クエスト：
+Beastmaster,Captured,,,未完成,未完了
+Beastmaster,Captured,,,开始 NPC：,開始NPC：
+Beastmaster,Captured,,,开始 NPC：客户端未提供有效接取坐标,開始NPC：ゲームデータから有効な受注座標を取得できません。
+Beastmaster,Captured,,,导航到开始 NPC,開始NPCへ移動
+Beastmaster,Captured,,,导航到任务目标,クエスト目的地へ移動
+Beastmaster,Captured,,,当前任务序列的目标,現在のクエスト目標
+Beastmaster,Captured,,,同步说明 (?),同期について (?)
+Beastmaster,Captured,,,同步已解锁魔兽,はなつ済み魔獣を同期
+Beastmaster,Captured,,,同步兽级经验,魔獣Lv/経験値を同期
+Beastmaster,Captured,,,复制图鉴诊断,図鑑診断をコピー
+Beastmaster,Captured,,,复制等级诊断,レベル診断をコピー
+Beastmaster,Captured,,,按地图排序,エリア順
+Beastmaster,Captured,,,按捕获等级排序,捕獲Lv順
+Beastmaster,Captured,,,按兽级排序,魔獣Lv順
+Beastmaster,Captured,,,兽级逆序,魔獣Lv降順
+Beastmaster,Captured,,,隐藏已捕获魔兽,捕獲済みを非表示
+Beastmaster,Captured,,,完成,完了
+Beastmaster,Captured,,,编号 / 魔兽,番号 / 魔獣
+Beastmaster,Captured,,,属性,属性
+Beastmaster,Captured,,,技能,スキル
+Beastmaster,Captured,,,捕获等级,捕獲Lv
+Beastmaster,Captured,,,兽级,魔獣Lv
+Beastmaster,Captured,,,经验,経験値
+Beastmaster,Captured,,,区域 / 副本,エリア / コンテンツ
+Beastmaster,Captured,,,坐标,座標
+Beastmaster,Captured,,,副本,コンテンツ
+Beastmaster,Captured,,,最近同步：,最終同期：
+Beastmaster,Captured,,,先找劳妲对话打开原生魔兽图鉴，再点击同步。,先にラウダへ話しかけてゲーム標準の魔獣図鑑を開き、その後に同期してください。
+Beastmaster,Captured,,,装备方案,装備セット
+Beastmaster,Captured,,,开荒装,初期装備
+Beastmaster,Captured,,,部位,部位
+Beastmaster,Captured,,,装备,装備
+Beastmaster,Captured,,,分类,分類
+Beastmaster,Captured,,,持有,所持
+Beastmaster,Captured,,,无装备,装備なし
+Beastmaster,Captured,,,点击访问 Wiki 装备详情,クリックでWikiの装備詳細を開きます。
+Beastmaster,Captured,,,已装备,装備中
+Beastmaster,Captured,,,背包 有,所持品 あり
+Beastmaster,Captured,,,背包 无,所持品 なし
+Beastmaster,Captured,,,兵装库 有,アーマリーチェスト あり
+Beastmaster,Captured,,,兵装库 无,アーマリーチェスト なし
+Beastmaster,Captured,,,开荒装：优先考虑获取难度和快速成型。,初期装備：入手しやすさと早期完成を優先します。
+Beastmaster,Captured,,,BIS：优先考虑 50 级最终战斗属性。 ,BIS：Lv50時点の最終戦闘性能を優先します。
+Beastmaster,Captured,,,斗兽成就,闘獣実績
+Beastmaster,Captured,,,斗兽攻略,闘獣攻略
+Beastmaster,Captured,,,挑战笔记,攻略手帳
+Beastmaster,Captured,,,按角色保存，打开页签自动同步完成情况。,キャラクターごとに保存し、このタブを開くと達成状況を自動同期します。
+Beastmaster,Captured,,,复制同步诊断,同期診断をコピー
+Beastmaster,Captured,,,隐藏已完成,完了済みを非表示
+Beastmaster,Captured,,,传说级驯兽师分数线,伝説級獣使いの必要ポイント
+Beastmaster,Captured,,,称号：,称号：
+Beastmaster,Captured,,,打开时同步「斗兽奇弈」相关挑战的完成情况。,開いた時に「闘獣盤」関連の攻略手帳達成状況を同期します。
+Beastmaster,Captured,,,未找到「斗兽奇弈」相关的挑战笔记条目。,「闘獣盤」に関連する攻略手帳項目が見つかりません。
+Beastmaster,Captured,,,挑战笔记数据尚未加载，请先在游戏内打开一次挑战笔记。,攻略手帳のデータが未読込です。ゲーム内で一度攻略手帳を開いてください。
+Beastmaster,Captured,,,第一盘,第1戦
+Beastmaster,Captured,,,第二盘,第2戦
+Beastmaster,Captured,,,第三盘,第3戦
+Beastmaster,Captured,,,高段第一盘,上級 第1戦
+Beastmaster,Captured,,,高段第二盘,上級 第2戦
+Beastmaster,Captured,,,该层攻略资料待补充。,この階層の攻略情報は未登録です。
+Beastmaster,Captured,,,黄色为 BOSS，灰色为小怪，红色为重点技能。,黄色はBOSS、灰色は雑魚、赤色は要注意スキルです。
+Beastmaster,Captured,,,作者：,作者：
+Beastmaster,Captured,,,小怪：,雑魚：
+Beastmaster,Captured,,,重点：,要点：
+Beastmaster,Captured,,,机制：,ギミック：
+Beastmaster,Captured,,,偷偷说：,メモ：
+Beastmaster,Captured,,,编辑倒计时和战斗步骤；序列不会自动执行，除非在自动输出中启用。,カウントダウンと戦闘手順を編集します。「自動戦闘」で有効にしない限り自動実行されません。
+Beastmaster,Captured,,,当前序列,現在のシーケンス
+Beastmaster,Captured,,,序列诊断,シーケンス診断
+Beastmaster,Captured,,,名称,名前
+Beastmaster,Captured,,,说明,説明
+Beastmaster,Captured,,,未命名序列,名称未設定
+Beastmaster,Captured,,,新建序列,新規シーケンス
+Beastmaster,Captured,,,复制序列,シーケンス複製
+Beastmaster,Captured,,,删除序列,シーケンス削除
+Beastmaster,Captured,,,恢复虫队模版,虫編成テンプレートへ戻す
+Beastmaster,Captured,,,倒计时,カウントダウン
+Beastmaster,Captured,,,进入战斗,戦闘開始
+Beastmaster,Captured,,,复制导出文本,エクスポート文字列をコピー
+Beastmaster,Captured,,,从剪贴板导入,クリップボードからインポート
+Beastmaster,Captured,,,未知技能,不明なスキル
+Beastmaster,Captured,,,时间,時間
+Beastmaster,Captured,,,上移,上へ
+Beastmaster,Captured,,,下移,下へ
+Beastmaster,Captured,,,添加倒计时步骤,カウントダウン手順を追加
+Beastmaster,Captured,,,添加进入战斗步骤,戦闘手順を追加
+Beastmaster,Captured,,,规则仅在战斗中运行；优先级低于技能序列、高于普通 ACR，并按显示顺序检查第一条命中项。,ルールは戦闘中のみ動作します。優先度はスキルシーケンスより低く、通常ACRより高く、上から順に最初に成立したルールを実行します。
+Beastmaster,Captured,,,启用规则模式,ルールモードを有効化
+Beastmaster,Captured,,,规则诊断,ルール診断
+Beastmaster,Captured,,,规则集,ルールセット
+Beastmaster,Captured,,,新建规则集,新規ルールセット
+Beastmaster,Captured,,,复制规则集,ルールセット複製
+Beastmaster,Captured,,,删除规则集,ルールセット削除
+Beastmaster,Captured,,,启用当前规则集,現在のルールセットを有効化
+Beastmaster,Captured,,,未命名规则集,名称未設定ルールセット
+Beastmaster,Captured,,,区域限制,エリア制限
+Beastmaster,Captured,,,所有区域,すべてのエリア
+Beastmaster,Captured,,,仅指定区域,指定エリアのみ
+Beastmaster,Captured,,,排除指定区域,指定エリアを除外
+Beastmaster,Captured,,,新增区域 ID,エリアID追加
+Beastmaster,Captured,,,添加区域,エリア追加
+Beastmaster,Captured,,,规则诊断级别,ルール診断レベル
+Beastmaster,Captured,,,仅失败,失敗のみ
+Beastmaster,Captured,,,完整,すべて
+Beastmaster,Captured,,,当前规则集已复制到剪贴板。,現在のルールセットをクリップボードへコピーしました。
+Beastmaster,Captured,,,上移规则集,ルールセットを上へ
+Beastmaster,Captured,,,下移规则集,ルールセットを下へ
+Beastmaster,Captured,,,规则名称,ルール名
+Beastmaster,Captured,,,条件关系,条件の組み合わせ
+Beastmaster,Captured,,,全部满足（AND）,すべて満たす（AND）
+Beastmaster,Captured,,,任意满足（OR）,いずれかを満たす（OR）
+Beastmaster,Captured,,,条件,条件
+Beastmaster,Captured,,,删除条件,条件削除
+Beastmaster,Captured,,,新增条件,条件追加
+Beastmaster,Captured,,,执行方式,実行方法
+Beastmaster,Captured,,,奇弈道具,闘獣アイテム
+Beastmaster,Captured,,,选择技能,スキル選択
+Beastmaster,Captured,,,检测类型,判定種別
+Beastmaster,Captured,,,自身 BUFF,自身BUFF
+Beastmaster,Captured,,,目标 BUFF,対象BUFF
+Beastmaster,Captured,,,DataID BUFF,DataID BUFF
+Beastmaster,Captured,,,DataID 读条,DataID 詠唱
+Beastmaster,Captured,,,目标读条,対象詠唱
+Beastmaster,Captured,,,目标 DATAID,対象DataID
+Beastmaster,Captured,,,自身血量,自身HP
+Beastmaster,Captured,,,目标血量,対象HP
+Beastmaster,Captured,,,目标为 BOSS（IsBoss）,対象がBOSS（IsBoss）
+Beastmaster,Captured,,,BUFF 条件,BUFF条件
+Beastmaster,Captured,,,存在,あり
+Beastmaster,Captured,,,缺失,なし
+Beastmaster,Captured,,,血量条件,HP条件
+Beastmaster,Captured,,,大于,より大きい
+Beastmaster,Captured,,,小于,より小さい
+Beastmaster,Captured,,,血量阈值,HPしきい値
+Beastmaster,Captured,,,读条 ID,詠唱ID
+Beastmaster,Captured,,,最近诊断,直近の診断
+Beastmaster,Captured,,,尚无运行记录,実行履歴なし
+Beastmaster,Captured,,,打开驯兽师助手；子命令：输出、暂停、恢复、关闭、倒计时 [秒数]、取消倒计时。,魔獣使いヘルパーを開きます。サブコマンド：出力、一時停止、再開、OFF、カウントダウン [秒数]、カウントダウン取消。
+Beastmaster,Captured,,,[驯兽师助手] 自动输出已暂停。,[魔獣使いヘルパー] 自動戦闘を一時停止しました。
+Beastmaster,Captured,,,[驯兽师助手] 自动输出已恢复。,[魔獣使いヘルパー] 自動戦闘を再開しました。
+Beastmaster,Captured,,,[驯兽师助手] 自动输出尚未开启，请先使用 /驯兽师 输出。,[魔獣使いヘルパー] 自動戦闘が有効になっていません。先に /驯兽师 输出 を使用してください。
+Beastmaster,Captured,,,Beastmaster Progress Hub,魔獣使い進行管理
+Beastmaster,Captured,,Text,  称号：Ash Kin,  称号：Ash Kin
+Beastmaster,Captured,,Text,  称号：Beast Kin,  称号：Beast Kin
+Beastmaster,Captured,,Text,  称号：Cloud Kin,  称号：Cloud Kin
+Beastmaster,Captured,,Text,  称号：Dangerous Gamer,  称号：Dangerous Gamer
+Beastmaster,Captured,,Text,  称号：King of the Crucible,  称号：King of the Crucible
+Beastmaster,Captured,,Text,  称号：Knight of the Crucible,  称号：Knight of the Crucible
+Beastmaster,Captured,,Text,  称号：Master of the Menagerie,  称号：Master of the Menagerie
+Beastmaster,Captured,,Text,  称号：Scale Kin,  称号：Scale Kin
+Beastmaster,Captured,,Text,  称号：Seed Kin,  称号：Seed Kin
+Beastmaster,Captured,,Text,  称号：Soul Kin,  称号：Soul Kin
+Beastmaster,Captured,,Text,  称号：the Unbroken,  称号：the Unbroken
+Beastmaster,Captured,,Text,  称号：Vile Kin,  称号：Vile Kin
+Beastmaster,Captured,,Text,  称号：Wave Kin,  称号：Wave Kin
+Beastmaster,Captured,,Text/RenderTextWrapped, by Anmi, by Anmi
+Beastmaster,Captured,,BeginComboPreview,-- 空位 --,-- 空き --
+Beastmaster,Captured,,Selectable,01 [停用] 持续吸引  |  自身缺少 BUFF 2413 -> 吸引注意##rule-0,01 [無効] ヘイト維持  |  自身にBUFF 2413なし -> 注意を引く##rule-0
+Beastmaster,Captured,,Selectable,01 [启用] 默认规则集##rule-set-0,01 [有効] デフォルトルールセット##rule-set-0
+Beastmaster,Captured,,Selectable,02 [停用] 持续挑衅  |  自身缺少 BUFF 5586 -> 挑衅##rule-1,02 [無効] 挑発維持  |  自身にBUFF 5586なし -> 挑発##rule-1
+Beastmaster,Captured,,Selectable,03 [启用] 最终爆发-1层  |  目标DataID 19344 -> 道具 各种牙##rule-2,03 [有効] 最終バースト-1層  |  対象DataID 19344 -> アイテム 各種の牙##rule-2
+Beastmaster,Captured,,Text/RenderTextWrapped,1 笛召唤蝾螈，施加魔法易伤,壱の呼び笛でサラマンダー種を召喚し、魔法被ダメージ上昇を付与
+Beastmaster,Captured,,Text/RenderTextWrapped,1 笛召唤螳螂，施加物理易伤,壱の呼び笛でマンティス種を召喚し、物理被ダメージ上昇を付与
+Beastmaster,Captured,,Text/RenderTextWrapped,1. 库西,1. 库西
+Beastmaster,Captured,,BeginComboPreview,10 个,10体
+Beastmaster,Captured,,Text/RenderTextWrapped,10. 胡蜂,10. 胡蜂
+Beastmaster,Captured,,BeginComboPreview,10栏位编队,10枠編成
+Beastmaster,Captured,,Text/RenderTextWrapped,11. 兀鹫,11. 兀鹫
+Beastmaster,Captured,,Text/RenderTextWrapped,12. 蔓德拉,12. 蔓德拉
+Beastmaster,Captured,,Text/RenderTextWrapped,13. 死魂,13. 死魂
+Beastmaster,Captured,,Text/RenderTextWrapped,14. 跳蜥,14. 跳蜥
+Beastmaster,Captured,,Text/RenderTextWrapped,15. 壳蟹,15. 壳蟹
+Beastmaster,Captured,,Text/RenderTextWrapped,16. 螳螂,16. 螳螂
+Beastmaster,Captured,,Text/RenderTextWrapped,17. 粘液怪,17. 粘液怪
+Beastmaster,Captured,,Text/RenderTextWrapped,18. 无头骑士,18. 无头骑士
+Beastmaster,Captured,,Text/RenderTextWrapped,19. 蝙蝠,19. 蝙蝠
+Beastmaster,Captured,,Text/RenderTextWrapped,2 笛召唤巨型陆蟹，施加水属性易伤,弐の呼び笛でメガロクラブ種を召喚し、水属性耐性低下を付与
+Beastmaster,Captured,,Text/RenderTextWrapped,2 笛召唤胡蜂，使用,弐の呼び笛でヴェスパ種を召喚して使用
+Beastmaster,Captured,,Text/RenderTextWrapped,2 笛召唤蜂鸟，使用,弐の呼び笛でハミングバード種を召喚して使用
+Beastmaster,Captured,,Text/RenderTextWrapped,2 笛宝宝血量小于等于该阈值时使用最后一击，范围 1%~100%。,弐の呼び笛の魔獣HPがこの値以下になったら「さいごのいちげき」を使用します。設定範囲：1～100%。
+Beastmaster,Captured,,Text/RenderTextWrapped,2. 松鼠,2. 松鼠
+Beastmaster,Captured,,Text/RenderTextWrapped,20. 陷阱草,20. 陷阱草
+Beastmaster,Captured,,Text/RenderTextWrapped,21. 席兹,21. 席兹
+Beastmaster,Captured,,Text/RenderTextWrapped,22. 仙人刺,22. 仙人刺
+Beastmaster,Captured,,Text/RenderTextWrapped,23. 巨像,23. 巨像
+Beastmaster,Captured,,Text/RenderTextWrapped,24. 碧企鹅,24. 碧企鹅
+Beastmaster,Captured,,Text/RenderTextWrapped,25. 精金龟,25. 精金龟
+Beastmaster,Captured,,Text/RenderTextWrapped,26. 大水牛,26. 大水牛
+Beastmaster,Captured,,Text/RenderTextWrapped,27. 乌菊石,27. 乌菊石
+Beastmaster,Captured,,Text/RenderTextWrapped,28. 巨虫,28. 巨虫
+Beastmaster,Captured,,Text/RenderTextWrapped,29. 魔石精,29. 魔石精
+Beastmaster,Captured,,Text/RenderTextWrapped,3 笛召唤壳蟹,参の呼び笛でシェルクラブ種を召喚
+Beastmaster,Captured,,Text/RenderTextWrapped,3 笛召唤库西，使用,参の呼び笛でクーシー種を召喚して使用
+Beastmaster,Captured,,Text/RenderTextWrapped,3 笛召唤碧企鹅,参の呼び笛でアプカル種を召喚
+Beastmaster,Captured,,Text/RenderTextWrapped,3 笛召唤胡蜂，等到 BOSS 血量低于 25% 时使用,参の呼び笛召唤胡蜂，等到 BOSS HP低于 25% 时使用
+Beastmaster,Captured,,Text/RenderTextWrapped,3. 迷途羊羔,3. 迷途羊羔
+Beastmaster,Captured,,Text/RenderTextWrapped,30. 古菩猩猩,30. 古菩猩猩
+Beastmaster,Captured,,Text/RenderTextWrapped,31. 巨蟾蜍,31. 巨蟾蜍
+Beastmaster,Captured,,Text/RenderTextWrapped,32. 蜂鸟,32. 蜂鸟
+Beastmaster,Captured,,Text/RenderTextWrapped,33. 长须豹,33. 长须豹
+Beastmaster,Captured,,Text/RenderTextWrapped,34. 盗龙,34. 盗龙
+Beastmaster,Captured,,Text/RenderTextWrapped,35. 烈阳火蛟,35. 烈阳火蛟
+Beastmaster,Captured,,Text/RenderTextWrapped,36. 树精,36. 树精
+Beastmaster,Captured,,Text/RenderTextWrapped,37. 灵蚁,37. アントリング種
+Beastmaster,Captured,,Text/RenderTextWrapped,38. 奇美拉,38. キマイラ種
+Beastmaster,Captured,,Text/RenderTextWrapped,39. 魔界花,39. モルボル種
+Beastmaster,Captured,,Text/RenderTextWrapped,4. 陆鱼,4. 陆鱼
+Beastmaster,Captured,,Text/RenderTextWrapped,40. 妖魂,40. ゴースト種
+Beastmaster,Captured,,Text/RenderTextWrapped,41. 蝾螈,41. サラマンダー種
+Beastmaster,Captured,,Text/RenderTextWrapped,42. 眼镜蛇,42. コブラ種
+Beastmaster,Captured,,Text/RenderTextWrapped,43. 海德拉,43. ハイドラ種
+Beastmaster,Captured,,Text/RenderTextWrapped,44. 灯心蜻蛉,44. ダムゼルフライ種
+Beastmaster,Captured,,Text/RenderTextWrapped,45. 腐坏古菩猩猩,45. ロッティンググゥーブー種
+Beastmaster,Captured,,Text/RenderTextWrapped,46. 祖,46. ズー種
+Beastmaster,Captured,,Text/RenderTextWrapped,47. 寒冰巨像,47. アイスゴーレム種
+Beastmaster,Captured,,Text/RenderTextWrapped,48. 真红龙虾,48. カーラボス種
+Beastmaster,Captured,,Text/RenderTextWrapped,49. 大王花,49. ラフレシア種
+Beastmaster,Captured,,Text/RenderTextWrapped,5. 奥猴,5. 奥猴
+Beastmaster,Captured,,Text/RenderTextWrapped,50. 贝希摩斯,50. ベヒーモス種
+Beastmaster,Captured,,Text/RenderTextWrapped,6. 渡渡鸟,6. 渡渡鸟
+Beastmaster,Captured,,Text/RenderTextWrapped,7. 矿爬虫,7. 矿爬虫
+Beastmaster,Captured,,Text/RenderTextWrapped,8. 凶蛛蝎,8. 凶蛛蝎
+Beastmaster,Captured,,Text/RenderTextWrapped,9. 巨型陆蟹,9. 巨型陆蟹
+Beastmaster,Captured,,Text/RenderTextWrapped,ActionId 扫描: 空闲,ActionId スキャン：待機中
+Beastmaster,Captured,,Text,ActionId：44890 · 等级：18 · 射程：0 · 范围：0,ActionId：44890 · Lv：18 · 射程：0 · 範囲：0
+Beastmaster,Captured,,Text/RenderTextWrapped,ActionId：44935 · 等级：0 · 射程：5 · 范围：6,ActionId：44935 · Lv：0 · 射程：5 · 範囲：6
+Beastmaster,Captured,,Text/RenderTextWrapped,ActionId：44936 · 等级：0 · 射程：5 · 范围：0,ActionId：44936 · Lv：0 · 射程：5 · 範囲：0
+Beastmaster,Captured,,Text/RenderTextWrapped,ActionId：44937 · 等级：0 · 射程：2 · 范围：8,ActionId：44937 · Lv：0 · 射程：2 · 範囲：8
+Beastmaster,Captured,,Text/RenderTextWrapped,ActionId：44938 · 等级：0 · 射程：0 · 范围：20,ActionId：44938 · Lv：0 · 射程：0 · 範囲：20
+Beastmaster,Captured,,Text/RenderTextWrapped,ActionId：44945 · 等级：0 · 射程：4 · 范围：5,ActionId：44945 · Lv：0 · 射程：4 · 範囲：5
+Beastmaster,Captured,,Text/RenderTextWrapped,ActionId：44946 · 等级：0 · 射程：0 · 范围：20,ActionId：44946 · Lv：0 · 射程：0 · 範囲：20
+Beastmaster,Captured,,Text/RenderTextWrapped,ActionId：44947 · 等级：0 · 射程：25 · 范围：0,ActionId：44947 · Lv：0 · 射程：25 · 範囲：0
+Beastmaster,Captured,,Text/RenderTextWrapped,ActionId：44948 · 等级：0 · 射程：0 · 范围：20,ActionId：44948 · Lv：0 · 射程：0 · 範囲：20
+Beastmaster,Captured,,Text,ActionId：44959 · 等级：0 · 射程：25 · 范围：8,ActionId：44959 · Lv：0 · 射程：25 · 範囲：8
+Beastmaster,Captured,,Text,ActionId：44960 · 等级：0 · 射程：0 · 范围：20,ActionId：44960 · Lv：0 · 射程：0 · 範囲：20
+Beastmaster,Captured,,Text/RenderTextWrapped,ActionId：44979 · 等级：0 · 射程：11 · 范围：12,ActionId：44979 · Lv：0 · 射程：11 · 範囲：12
+Beastmaster,Captured,,Text/RenderTextWrapped,ActionId：44980 · 等级：0 · 射程：7 · 范围：8,ActionId：44980 · Lv：0 · 射程：7 · 範囲：8
+Beastmaster,Captured,,Text/RenderTextWrapped,ActionId：44987 · 等级：0 · 射程：7 · 范围：8,ActionId：44987 · Lv：0 · 射程：7 · 範囲：8
+Beastmaster,Captured,,Text/RenderTextWrapped,ActionId：44988 · 等级：0 · 射程：5 · 范围：6,ActionId：44988 · Lv：0 · 射程：5 · 範囲：6
+Beastmaster,Captured,,BeginComboLabel/RenderText,BUFF 条件##condition-0,BUFF条件##condition-0
+Beastmaster,Captured,,RenderTextWrapped,BUFFID,BUFF ID
+Beastmaster,Captured,,Text/RenderTextWrapped,Map.RowId: 4,Map.RowId: 4
+Beastmaster,Captured,,Text/RenderTextWrapped,TerritoryType: 148,TerritoryType: 148
+Beastmaster,Captured,,Text/RenderTextWrapped,"TerritoryType：1339, 1340, 1341, 1342, 1343","TerritoryType：1339, 1340, 1341, 1342, 1343"
+Beastmaster,Captured,,Button,WIKI,WIKI
+Beastmaster,Captured,,Button,WIKI##quest-wiki,WIKI##quest-wiki
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:13.5, Y:22.3","X:13.5, Y:22.3"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:15.2, Y:37.5","X:15.2, Y:37.5"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:15.3, Y:14.3","X:15.3, Y:14.3"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:15.3, Y:14.7","X:15.3, Y:14.7"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:16, Y:12.5","X:16, Y:12.5"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:16.5, Y:16.5","X:16.5, Y:16.5"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:16.8, Y:14.5","X:16.8, Y:14.5"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:17.4, Y:23.7","X:17.4, Y:23.7"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:18.5, Y:17.5","X:18.5, Y:17.5"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:18.5, Y:28.3","X:18.5, Y:28.3"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:19, Y:19","X:19, Y:19"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:20.3, Y:19.6","X:20.3, Y:19.6"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:20.3, Y:28.6","X:20.3, Y:28.6"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:20.5, Y:18.5","X:20.5, Y:18.5"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:21, Y:23","X:21, Y:23"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:21, Y:26","X:21, Y:26"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:21.4, Y:16.3","X:21.4, Y:16.3"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:22, Y:22","X:22, Y:22"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:22, Y:30","X:22, Y:30"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:23, Y:26","X:23, Y:26"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:23.1, Y:17","X:23.1, Y:17"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:23.8, Y:25.6","X:23.8, Y:25.6"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:24, Y:12.3","X:24, Y:12.3"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:24.1, Y:23.6","X:24.1, Y:23.6"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:24.6, Y:23","X:24.6, Y:23"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:25, Y:39","X:25, Y:39"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:25.2, Y:24.5","X:25.2, Y:24.5"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:26.3, Y:12.9","X:26.3, Y:12.9"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:26.5, Y:15.9","X:26.5, Y:15.9"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:26.5, Y:18.9","X:26.5, Y:18.9"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:27, Y:25","X:27, Y:25"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:28.5, Y:24.3","X:28.5, Y:24.3"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:28.7, Y:19.3","X:28.7, Y:19.3"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:28.8, Y:36.7","X:28.8, Y:36.7"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:30.6, Y:24","X:30.6, Y:24"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:30.9, Y:18.2","X:30.9, Y:18.2"
+Beastmaster,Captured,,Text/RenderTextWrapped,"X:31.2, Y:20.3","X:31.2, Y:20.3"
+Beastmaster,Captured,,Text/RenderTextWrapped,[已完成],[完了]
+Beastmaster,Captured,,Text/RenderTextWrapped,[最后一击],[さいごのいちげき]
+Beastmaster,Captured,,Text/RenderTextWrapped,[未完成],[未完了]
+Beastmaster,Captured,,Text/RenderTextWrapped,[释放],[はなつ]
+Beastmaster,Captured,,Text/RenderTextWrapped,「六连踹」（单体），再使用,「シックスキック」（単体）を使ってから、続けて使用
+Beastmaster,Captured,,BeginComboPreview,一号兽笛,壱の呼び笛
+Beastmaster,Captured,,Checkbox/RenderText,万象流转（物理）,万象流転（物理）
+Beastmaster,Captured,,Checkbox/RenderText,万象流转（魔法）,万象流転（魔法）
+Beastmaster,Captured,,BeginComboPreview,三号兽笛,参の呼び笛
+Beastmaster,Captured,,Text,不足为奇,不足为奇
+Beastmaster,Captured,,Text/RenderTextWrapped,与魔兽心意相通  [已完成],与魔獣心意相通  [完了]
+Beastmaster,Captured,,Text/RenderTextWrapped,东拉诺西亚,東ラノシア
+Beastmaster,Captured,,Text/RenderTextWrapped,中拉诺西亚,中央ラノシア
+Beastmaster,Captured,,Text/RenderTextWrapped,中萨纳兰,中央ザナラーン
+Beastmaster,Captured,,Checkbox/RenderText,主动攻击,先制攻撃
+Beastmaster,Captured,,Text/RenderTextWrapped,主手,主武器
+Beastmaster,Captured,,BeginComboPreview,二号兽笛,弐の呼び笛
+Beastmaster,Captured,,Text/RenderTextWrapped,仅在斗兽奇弈战斗中生效；自身血量低于阈值时按恢复药套装 → 4/3/2/1级恢复药 → 3/2/1级药粉 → 魔兽吸血药 → 吸血鬼之牙优先级使用奇弈恢复道具。吸血鬼之牙需要当前敌对目标，成功使用后间隔 2 秒。默认关闭。,闘獣練の戦闘中のみ有効です。自身のHPがしきい値を下回ると、回復薬セット → ランク4/3/2/1回復薬 → ランク3/2/1薬粉 → 魔獣吸血薬 → 吸血鬼の牙の順で回復アイテムを使用します。吸血鬼の牙には敵ターゲットが必要で、使用成功後は2秒の間隔を置きます。初期設定はOFFです。
+Beastmaster,Captured,,Text/RenderTextWrapped,仅对当前手动选择的敌对目标生效；无捕获状态时优先捕获，再执行 1→2→3 连击。,仅对現在手动选择的敌对対象生效；无捕獲状态时优先捕獲，再执行 1→2→3 连击。
+Beastmaster,Captured,,Text,令当前召唤兽对目标使用对应的释放技能；实际技能会根据当前召唤兽调整。,現在召喚中の魔獣に、対象へ対応する「はなつ」を使用させます。実際に使用するアクションは現在の魔獣に応じて自動調整されます。
+Beastmaster,Captured,,Text/RenderTextWrapped,以太之光耳坠,以太之光耳坠
+Beastmaster,Captured,,Text/RenderTextWrapped,任务页只显示未完成的驯兽师任务。,クエスト页只表示未完了的魔獣使いクエスト。
+Beastmaster,Captured,,Text/RenderTextWrapped,优先级：技能序列 → 恢复药 → 规则模式 → 协作二段 → 释放 → 最后一击 → 鼓劲 → 声援 → 万象流转 → 协作一段 → 安全盾牌 → 捕获 → 基础技能,優先度：スキルシーケンス → 回復アイテム → ルールモード → 協力技2段目 → はなつ → さいごのいちげき → きあい → おうえん → 万象流転 → 協力技1段目 → 防御用シールド → 捕獲 → 基本スキル
+Beastmaster,Captured,,BeginComboLabel/RenderText,位置 01##party-member-0,位置 01##party-member-0
+Beastmaster,Captured,,BeginComboLabel/RenderText,位置 02##party-member-1,位置 02##party-member-1
+Beastmaster,Captured,,BeginComboLabel/RenderText,位置 03##party-member-2,位置03##party-member-2
+Beastmaster,Captured,,BeginComboLabel/RenderText,位置 04##party-member-3,位置04##party-member-3
+Beastmaster,Captured,,BeginComboLabel/RenderText,位置 05##party-member-4,位置05##party-member-4
+Beastmaster,Captured,,BeginComboLabel/RenderText,位置 06##party-member-5,位置06##party-member-5
+Beastmaster,Captured,,BeginComboLabel/RenderText,位置 07##party-member-6,位置07##party-member-6
+Beastmaster,Captured,,BeginComboLabel/RenderText,位置 08##party-member-7,位置08##party-member-7
+Beastmaster,Captured,,BeginComboLabel/RenderText,位置 09##party-member-8,位置09##party-member-8
+Beastmaster,Captured,,BeginComboLabel/RenderText,位置 10##party-member-9,位置10##party-member-9
+Beastmaster,Captured,,Checkbox/RenderText,低血量自动使用恢复药,低HP時に回復アイテムを自動使用
+Beastmaster,Captured,,Checkbox/RenderText,使用 GetAdjustedActionId,GetAdjustedActionId を使用
+Beastmaster,Captured,,Text/RenderTextWrapped,依赖插件,必要プラグイン
+Beastmaster,Captured,,CollapsingHeaderPtr,倒计时步骤##sequence-倒计时,倒计时步骤##sequence-倒计时
+Beastmaster,Captured,,BeginComboPreview,借用,かりる
+Beastmaster,Captured,,Checkbox/RenderText,借用##AutoBorrowEnabled,かりる##AutoBorrowEnabled
+Beastmaster,Captured,,Button,停止导航##catalog-stop-navigation,停止ナビ##catalog-stop-navigation
+Beastmaster,Captured,,Text/RenderTextWrapped,允许 vnavmesh 使用飞行路径。,vnavmesh の飛行経路を使用します。
+Beastmaster,Captured,,Text/RenderTextWrapped,先做主线，拿到补正装备以后刷级会轻松很多！！！,まずメインクエストを進めて補正装備を入手すると、レベル上げがかなり楽になります！
+Beastmaster,Captured,,Text,全盘综合,総合評価
+Beastmaster,Captured,,Text/RenderTextWrapped,关键词查询,キーワード検索
+Beastmaster,Captured,,Text/RenderTextWrapped,关闭后，未进战时不攻击、捕获或使用斗兽塔技能,OFFにすると、非戦闘時は攻撃・捕獲・闘獣練用スキルを使用しません。
+Beastmaster,Captured,,Text/RenderTextWrapped,兵装库 有 (1),アーマリーチェスト あり (1)
+Beastmaster,Captured,,Text/RenderTextWrapped,兽主手斧,獣使い専用斧
+Beastmaster,Captured,,Text/RenderTextWrapped,兽主青铜重盾,獣使い専用盾
+Beastmaster,Captured,,Checkbox/RenderText,兽灵协作（蓝豆）,獣霊協力（青）
+Beastmaster,Captured,,Text/RenderTextWrapped,凛冽洞天披雪大冰壁,氷結潜窟 スノークローク大氷壁
+Beastmaster,Captured,,Text/RenderTextWrapped,出奇制胜,奇策で勝利
+Beastmaster,Captured,,Button,分享,共有
+Beastmaster,Captured,,Text/RenderTextWrapped,初始,初始
+Beastmaster,Captured,,Text/RenderTextWrapped,初始自带,初始自带
+Beastmaster,Captured,,Text/RenderTextWrapped,初学者戒指,初学者戒指
+Beastmaster,Captured,,Button,删除规则,ルール削除
+Beastmaster,Captured,,Button,前往斗兽塔##section-arena-navigation,前往斗兽塔##section-arena-navigation
+Beastmaster,Captured,,Text,前置任务：同門対決、第二盤,前置クエスト：同門対決、第二盤
+Beastmaster,Captured,,Text/RenderTextWrapped,副手,副武器
+Beastmaster,Captured,,Text/RenderTextWrapped,南萨纳兰,南ザナラーン
+Beastmaster,Captured,,Text/RenderTextWrapped,只读显示当前驯兽师量谱状态；数据来自 JobGaugeManager.CurrentGauge。,只读表示現在獣使い量谱状态；数据来自 JobGaugeManager.CurrentGauge。
+Beastmaster,Captured,,Text/RenderTextWrapped,可用,利用可能
+Beastmaster,Captured,,Text/RenderTextWrapped,同地图路径规划与移动,同一マップ内の経路探索と移動
+Beastmaster,Captured,,Text/RenderTextWrapped,同步完成：已完成 7/44，更新 7 项。,同期完了：已完了 7/44，更新 7 项。
+Beastmaster,Captured,,Text/RenderTextWrapped,同门较量  [已完成],同门较量  [完了]
+Beastmaster,Captured,,Text/RenderTextWrapped,向师姐学习哥布！  [已完成],向师姐学习哥布！  [完了]
+Beastmaster,Captured,,Checkbox/RenderText,启用技能序列,スキルシーケンスを有効化
+Beastmaster,Captured,,Checkbox/RenderText,启用自动输出诊断##AutoOutputDiagnosticsEnabled,自動戦闘診断を有効化##AutoOutputDiagnosticsEnabled
+Beastmaster,Captured,,BeginComboPreview,吸引注意 (46751),吸引注意 (46751)
+Beastmaster,Captured,,Text/RenderTextWrapped,吸血 /,吸血 /
+Beastmaster,Captured,,Text/RenderTextWrapped,呢绒包头巾,呢绒包头巾
+Beastmaster,Captured,,Text/RenderTextWrapped,呢绒垮裤,呢绒垮裤
+Beastmaster,Captured,,Text/RenderTextWrapped,呢绒衬衫,呢绒衬衫
+Beastmaster,Captured,,Text/RenderTextWrapped,呪風 /,呪風 /
+Beastmaster,Captured,,Text/RenderTextWrapped,在聊天栏显示导航开始和失败信息。,チャットへナビ開始・失敗情報を表示します。
+Beastmaster,Captured,,BeginComboPreview,声援,おうえん
+Beastmaster,Captured,,Checkbox/RenderText,声援##AutoCheerEnabled,おうえん##AutoCheerEnabled
+Beastmaster,Captured,,Button,复制所选战斗日志,選択した戦闘ログをコピー
+Beastmaster,Captured,,Button,复制规则,ルール複製
+Beastmaster,Captured,,Text/RenderTextWrapped,头部,頭
+Beastmaster,Captured,,Text/RenderTextWrapped,奇盘上的战斗  [已完成],奇盘上的戦闘  [完了]
+Beastmaster,Captured,,Text/RenderTextWrapped,奇盘上的王者：高段第二盘  [未接取],奇盘上的王者：高段第二盘  [未受注]
+Beastmaster,Captured,,Text,奇高一着,奇高一着
+Beastmaster,Captured,,Button,导入,インポート
+Beastmaster,Captured,,Button,导航到任务目标##target-71026,ナビ到クエスト対象##target-71026
+Beastmaster,Captured,,Button,导航到任务目标##target-71027,ナビ到クエスト対象##target-71027
+Beastmaster,Captured,,Button,导航到任务目标##target-71028,ナビ到クエスト対象##target-71028
+Beastmaster,Captured,,Button,导航到任务目标##target-71029,ナビ到クエスト対象##target-71029
+Beastmaster,Captured,,Button,导航到任务目标##target-71030,ナビ到クエスト対象##target-71030
+Beastmaster,Captured,,Button,导航到任务目标##target-71031,ナビ到クエスト対象##target-71031
+Beastmaster,Captured,,Button,导航到任务目标##target-71032,ナビ到クエスト対象##target-71032
+Beastmaster,Captured,,Button,导航到任务目标##target-71033,ナビ到クエスト対象##target-71033
+Beastmaster,Captured,,Button,导航到任务目标##target-71034,ナビ到クエスト対象##target-71034
+Beastmaster,Captured,,Button,导航到任务目标##target-71035,ナビ到クエスト対象##target-71035
+Beastmaster,Captured,,Button,导航到任务目标##target-71036,ナビ到クエスト対象##target-71036
+Beastmaster,Captured,,Button,导航到任务目标##target-71037,ナビ到クエスト対象##target-71037
+Beastmaster,Captured,,Button,导航到任务目标##target-71045,ナビ到クエスト対象##target-71045
+Beastmaster,Captured,,Button,导航到开始 NPC##issuer-71026,ナビ到開始 NPC##issuer-71026
+Beastmaster,Captured,,Button,导航到开始 NPC##issuer-71027,ナビ到開始 NPC##issuer-71027
+Beastmaster,Captured,,Button,导航到开始 NPC##issuer-71028,ナビ到開始 NPC##issuer-71028
+Beastmaster,Captured,,Button,导航到开始 NPC##issuer-71029,ナビ到開始 NPC##issuer-71029
+Beastmaster,Captured,,Button,导航到开始 NPC##issuer-71030,ナビ到開始 NPC##issuer-71030
+Beastmaster,Captured,,Button,导航到开始 NPC##issuer-71031,ナビ到開始 NPC##issuer-71031
+Beastmaster,Captured,,Button,导航到开始 NPC##issuer-71032,ナビ到開始 NPC##issuer-71032
+Beastmaster,Captured,,Button,导航到开始 NPC##issuer-71033,ナビ到開始 NPC##issuer-71033
+Beastmaster,Captured,,Button,导航到开始 NPC##issuer-71034,ナビ到開始 NPC##issuer-71034
+Beastmaster,Captured,,Button,导航到开始 NPC##issuer-71035,ナビ到開始 NPC##issuer-71035
+Beastmaster,Captured,,Button,导航到开始 NPC##issuer-71036,ナビ到開始 NPC##issuer-71036
+Beastmaster,Captured,,Button,导航到开始 NPC##issuer-71037,ナビ到開始 NPC##issuer-71037
+Beastmaster,Captured,,Button,导航到开始 NPC##issuer-71045,ナビ到開始 NPC##issuer-71045
+Beastmaster,Captured,,Text/RenderTextWrapped,导航设置,ナビゲーション設定
+Beastmaster,Captured,,Text/RenderTextWrapped,封锁坑道铜铃铜山,封鎖坑道 カッパーベル銅山
+Beastmaster,Captured,,Text/RenderTextWrapped,将悬浮窗高级技能按钮排列为三列。默认关闭。,オーバーレイの上位スキルボタンを3列で表示します。初期設定はOFFです。
+Beastmaster,Captured,,Text/RenderTextWrapped,将驯兽之路登峰造极  [未接取],将驯兽之路登峰造极  [未受注]
+Beastmaster,Captured,,Text/RenderTextWrapped,尝试捕获开启时，无视目标捕获BUFF，但仍受血量阈值限制,通常捕獲が有効な場合でも、捕獲BUFFを無視します。ただしHPしきい値は適用されます。
+Beastmaster,Captured,,Text/RenderTextWrapped,巴哈姆特大迷宫入侵之章1,大迷宮バハムート：侵攻編1
+Beastmaster,Captured,,Text/RenderTextWrapped,常用设置,基本設定
+Beastmaster,Captured,,Button,应用编队,編成を適用
+Beastmaster,Captured,,Text/RenderTextWrapped,开启后可在悬浮窗中切换“尝试捕获”，右键悬浮窗可打开设置。,ONにすると可在オーバーレイ中切换“尝试捕獲”，右键オーバーレイ可打开設定。
+Beastmaster,Captured,,Text/RenderTextWrapped,开启后，仅当当前魔兽的释放技能不可用时，才会使用最后一击；不要求开启自动释放。,ONにすると、現在の魔獣の「はなつ」が使用できない場合にのみ「さいごのいちげき」を使用します。「はなつ」の自動使用をONにする必要はありません。
+Beastmaster,Captured,,Button,开始奇弈点击捕获##StartCapture,闘獣開始後にクリック捕獲##StartCapture
+Beastmaster,Captured,,Text/RenderTextWrapped,开战前先切 3 笛准备壳蟹的借用；水栖波尽量打在易伤 Buff 内，也可驱散敌方增益。,開戦前に参の呼び笛へ切り替え、シェルクラブ種の「かりる」を準備します。「クエリングウェーブ」は耐性低下中に合わせ、敵の強化解除にも使えます。
+Beastmaster,Captured,,Text/RenderTextWrapped,开战前先切 3 笛准备碧企鹅的借用；陆蟹无需等待完整连携。,開戦前に参の呼び笛へ切り替え、アプカル種の「かりる」を準備します。メガロクラブ種はコンボ完走を待たずに切り替えて構いません。
+Beastmaster,Captured,,Checkbox/RenderText,强制捕获,強制捕獲
+Beastmaster,Captured,,Text/RenderTextWrapped,当前任务序列的目标坐标尚未采集。 ,現在のクエスト的対象坐标尚未采集。 
+Beastmaster,Captured,,BeginComboLabel/RenderText,当前序列##settings-sequence-selector,現在シーケンス##settings-sequence-selector
+Beastmaster,Captured,,Text/RenderTextWrapped,当前序列：虫队模版序列,現在のシーケンス：虫队模版シーケンス
+Beastmaster,Captured,,Text/RenderTextWrapped,当前模式,現在のモード
+Beastmaster,Captured,,Text/RenderTextWrapped,当前职业不是驯兽师,現在のジョブは獣使いではありません
+Beastmaster,Captured,,Text/RenderTextWrapped,当前角色：Mico Reed@Yojimbo,現在のキャラクター：Mico Reed@Yojimbo
+Beastmaster,Captured,,Text/RenderTextWrapped,当前量谱,現在のジョブゲージ
+Beastmaster,Captured,,Checkbox/RenderText,御兽协作（黄豆）,御獣協力（黄）
+Beastmaster,Captured,,Button,快捷指令##section-commands,コマンド##section-commands
+Beastmaster,Captured,,Checkbox/RenderText,悬浮窗三列模式##OverlayThreeColumnMode,オーバーレイ3列表示##OverlayThreeColumnMode
+Beastmaster,Captured,,Text/RenderTextWrapped,戒指 1,指輪1
+Beastmaster,Captured,,Text/RenderTextWrapped,戒指 2,指輪2
+Beastmaster,Captured,,Text/RenderTextWrapped,所有诊断模块的状态或原因发生变化时输出一次汇总，并记录到战斗日志。,各診断モジュールの状態または理由が変化した時に一度だけ概要を出力し、戦闘ログにも記録します。
+Beastmaster,Captured,,Text/RenderTextWrapped,手部,手
+Beastmaster,Captured,,Text/RenderTextWrapped,手镯,腕輪
+Beastmaster,Captured,,Button,打开 Bilibili 参考视频##recommended-combination-bilibili,Bilibili参考動画を開く##recommended-combination-bilibili
+Beastmaster,Captured,,Button,扫描0号槽 ActionId 46959~46980##StartUseActionScan,スロット0のActionId 46959～46980をスキャン##StartUseActionScan
+Beastmaster,Captured,,CollapsingHeaderPtr,技能序列##BeastmasterSequenceSettings,スキルシーケンス##BeastmasterSequenceSettings
+Beastmaster,Captured,,Button,技能序列##section-sequences,スキルシーケンス##section-sequences
+Beastmaster,Captured,,Text/RenderTextWrapped,技能状态,スキル状態
+Beastmaster,Captured,,Text/RenderTextWrapped,投稿与来源,投稿・出典
+Beastmaster,Captured,,Text/RenderTextWrapped,投稿来源：网友 大三元,投稿元：大三元さん
+Beastmaster,Captured,,Text/RenderTextWrapped,拉诺西亚低地,低地ラノシア
+Beastmaster,Captured,,Text/RenderTextWrapped,拉诺西亚外地,外地ラノシア
+Beastmaster,Captured,,Checkbox/RenderText,捕获消息自动记录##AutoCompleteCatalogFromChat,捕獲メッセージを自動記録##AutoCompleteCatalogFromChat
+Beastmaster,Captured,,RenderTextWrapped,捕获血量阈值,捕獲HPしきい値
+Beastmaster,Captured,,Text,排名,排名
+Beastmaster,Captured,,Button,推荐组合##section-combinations,おすすめ編成##section-combinations
+Beastmaster,Captured,,Button,推荐装备##section-equipment,おすすめ装備##section-equipment
+Beastmaster,Captured,,Text/RenderTextWrapped,推荐阵容：螳螂 + 胡蜂 + 库西,おすすめ編成：マンティス種 + ヴェスパ種 + クーシー種
+Beastmaster,Captured,,Text/RenderTextWrapped,推荐阵容：螳螂 + 蜂鸟 + 胡蜂,おすすめ編成：マンティス種 + ハミングバード種 + ヴェスパ種
+Beastmaster,Captured,,Text/RenderTextWrapped,摩杜纳,モードゥナ
+Beastmaster,Captured,,Text/RenderTextWrapped,收到成功结识消息时自动标记图鉴完成。,捕獲成功メッセージを受信したら図鑑を自動で完了扱いにします。
+Beastmaster,Captured,,Text/RenderTextWrapped,改良型加隆德强攻指环,改良型加隆德强攻指环
+Beastmaster,Captured,,Text/RenderTextWrapped,斗兽争奇,闘獣練
+Beastmaster,Captured,,Button,斗兽奇弈##section-party,闘獣盤##section-party
+Beastmaster,Captured,,Checkbox/RenderText,显示导航日志##ShowNavigationLogs,ナビゲーションログを表示##ShowNavigationLogs
+Beastmaster,Captured,,Text/RenderTextWrapped,显示悬浮窗中的原因、捕获状态、当前魔兽、量谱和高级技能候选等详细信息。默认关闭。,表示オーバーレイ中的原因、捕獲状态、現在魔獣、量谱和高级スキル候选等详细信息。初期設定はOFF。
+Beastmaster,Captured,,Text/RenderTextWrapped,暂停时保留自动输出总开关，但不执行任何动作,一時停止中も自動戦闘のメインスイッチは維持しますが、動作は行いません。
+Beastmaster,Captured,,Text/RenderTextWrapped,暂无战斗日志,戦闘ログなし
+Beastmaster,Captured,,Text/RenderTextWrapped,最初的搭档  [已完成],最初的搭档  [完了]
+Beastmaster,Captured,,BeginComboPreview,最后一击,さいごのいちげき
+Beastmaster,Captured,,Checkbox/RenderText,最后一击 · 1 笛##AutoFinalStrikeWhistleOneEnabled,さいごのいちげき・壱の呼び笛##AutoFinalStrikeWhistleOneEnabled
+Beastmaster,Captured,,Checkbox/RenderText,最后一击 · 2 笛##AutoFinalStrikeWhistleTwoEnabled,さいごのいちげき・弐の呼び笛##AutoFinalStrikeWhistleTwoEnabled
+Beastmaster,Captured,,Checkbox/RenderText,最后一击 · 3 笛##AutoFinalStrikeWhistleThreeEnabled,さいごのいちげき・参の呼び笛##AutoFinalStrikeWhistleThreeEnabled
+Beastmaster,Captured,,Checkbox/RenderText,最后一击 · 等待释放,さいごのいちげき・「はなつ」待ち
+Beastmaster,Captured,,Text/RenderTextWrapped,最简单、最无脑的速刷阵容。核心难点是保证螳螂的增益技能不要落空。,最简单、最无脑的速刷阵容。核心难点是保证螳螂的增益スキル不要落空。
+Beastmaster,Captured,,Text/RenderTextWrapped,未开启,OFF
+Beastmaster,Captured,,Text/RenderTextWrapped,条件 1,条件1
+Beastmaster,Captured,,Button,查询##DebugActionStatus,照会##DebugActionStatus
+Beastmaster,Captured,,Button,查询##DebugSearch,検索##DebugSearch
+Beastmaster,Captured,,Text/RenderTextWrapped,核心思路是由蝾螈和巨型陆蟹分别提供魔法易伤与水属性易伤，三号位壳蟹负责主要输出。,サラマンダー種で魔法被ダメージ上昇、メガロクラブ種で水属性耐性低下を入れ、参の呼び笛のシェルクラブ種を主力にする構成です。
+Beastmaster,Captured,,BeginComboLabel/RenderText,检测类型##condition-0,判定種別##condition-0
+Beastmaster,Captured,,Text/RenderTextWrapped,正在读取当前角色的成就完成情况…,正在読み込み現在角色的成就完了情况…
+Beastmaster,Captured,,Text/RenderTextWrapped,武器,武器
+Beastmaster,Captured,,Text/RenderTextWrapped,水晶塔古代人迷宫,クリスタルタワー：古代の民の迷宮
+Beastmaster,Captured,,Text/RenderTextWrapped,水队 · 1、2层速刷变体,水編成・第1/2戦 高速周回バリエーション
+Beastmaster,Captured,,Text/RenderTextWrapped,水队 · 参考阵容,水編成・参考パーティ
+Beastmaster,Captured,,Text/RenderTextWrapped,水队参考视频：夜风,水編成 参考動画：夜風
+Beastmaster,Captured,,Text/RenderTextWrapped,流沙迷宫樵鸣洞,流砂迷宮 カッターズクライ
+Beastmaster,Captured,,Text/RenderTextWrapped,海德拉讨伐战,ハイドラ討伐戦
+Beastmaster,Captured,,Button,添加规则,ルール追加
+Beastmaster,Captured,,Button,清空战斗日志,戦闘ログを消去
+Beastmaster,Captured,,Text/RenderTextWrapped,点击后使用系统浏览器打开,クリックすると既定のブラウザで開きます。
+Beastmaster,Captured,,Text/RenderTextWrapped,点击导航时同步设置游戏地图 Flag。,移動開始時にゲーム内マップへFlagも設定します。
+Beastmaster,Captured,,Text/RenderTextWrapped,点击按钮读取客户端资料。,ボタンを押してクライアントデータを読み込みます。
+Beastmaster,Captured,,Text/RenderTextWrapped,牢不可破的牵绊  [未接取],牢不可破的牵绊  [未受注]
+Beastmaster,Captured,,Text/RenderTextWrapped,状态：未启用,状態：無効
+Beastmaster,Captured,,Text/RenderTextWrapped,猛者的试炼：高段第一盘  [未接取],猛者的试炼：高段第一盘  [未受注]
+Beastmaster,Captured,,BeginComboPreview,百兽肤,ビーストスキン
+Beastmaster,Captured,,Text,盘评价,盤面評価
+Beastmaster,Captured,,Text/RenderTextWrapped,目标低于此血量时释放捕获,対象HPがこの値以下の時に捕獲を使用
+Beastmaster,Captured,,Text/RenderTextWrapped,目标技能始终对当前手动目标释放；DataID 对象只负责触发。技能失败后回退 ACR。,アクションは常に現在手動で選択しているターゲットへ使用します。DataID対象は発動条件の判定にのみ使います。実行に失敗した場合は通常ACRへ戻ります。
+Beastmaster,Captured,,Text/RenderTextWrapped,盾牌,盾
+Beastmaster,Captured,,BeginComboPreview,盾牌冲击,シールドチャージ
+Beastmaster,Captured,,BeginComboPreview,碎击斩,スマッシュ
+Beastmaster,Captured,,BeginComboPreview,碎咬斧,アクスバイト
+Beastmaster,Captured,,Text/RenderTextWrapped,第一盘 17500 · 第二盘 17500 · 第三盘 17500 · 高段第一盘 18750 · 高段第二盘 18500,第一盘 17500 · 第二盘 17500 · 第三盘 17500 · 高段第一盘 18750 · 高段第二盘 18500
+Beastmaster,Captured,,Text/RenderTextWrapped,等待成就数据加载…,等待成就数据加载…
+Beastmaster,Captured,,Text/RenderTextWrapped,编辑第 1 条规则,ルール1を編集
+Beastmaster,Captured,,BeginComboLabel/RenderText,编队预设,編成プリセット
+Beastmaster,Captured,,Text/RenderTextWrapped,耳饰,耳飾り
+Beastmaster,Captured,,Text/RenderTextWrapped,职业证,ジョブクリスタル
+Beastmaster,Captured,,Text/RenderTextWrapped,脚部,足
+Beastmaster,Captured,,Text/RenderTextWrapped,腐坏遗迹无限城市街古迹,腐敗遺跡 古アムダプール市街
+Beastmaster,Captured,,Text/RenderTextWrapped,腿部,脚
+Beastmaster,Captured,,Checkbox/RenderText,自动兽笛,獣笛を自動使用
+Beastmaster,Captured,,Button,自动输出##section-auto-output,自動戦闘##section-auto-output
+Beastmaster,Captured,,CollapsingHeaderPtr,自动输出诊断##AutoOutputDiagnostics,自動戦闘診断##AutoOutputDiagnostics
+Beastmaster,Captured,,Text/RenderTextWrapped,虫队 · 1、2层速刷,虫編成・第1/2戦 高速周回
+Beastmaster,Captured,,Text/RenderTextWrapped,虫队 · 高1层速刷,虫編成・上級第1戦 高速周回
+Beastmaster,Captured,,BeginComboPreview,虫队模版序列,虫編成テンプレート
+Beastmaster,Captured,,Text/RenderTextWrapped,蝾螈 + 巨型陆蟹 + 壳蟹,蝾螈 + 巨型陆蟹 + 壳蟹
+Beastmaster,Captured,,Text/RenderTextWrapped,蝾螈 + 巨型陆蟹 + 碧企鹅,蝾螈 + 巨型陆蟹 + 碧企鹅
+Beastmaster,Captured,,BeginComboPreview,裂盾劈,シールドスプリッター
+Beastmaster,Captured,,Text/RenderTextWrapped,西拉诺西亚,西ラノシア
+Beastmaster,Captured,,Text/RenderTextWrapped,西萨纳兰,西ザナラーン
+Beastmaster,Captured,,Button,规则模式##section-rules,ルールモード##section-rules
+Beastmaster,Captured,,Text/RenderTextWrapped,规则模式未启用,ルールモードは無効です
+Beastmaster,Captured,,Text/RenderTextWrapped,规则（3/100）,ルール（3/100）
+Beastmaster,Captured,,Text,训练有素,训练有素
+Beastmaster,Captured,,Checkbox/RenderText,设置地图标记##SetFlagOnNavigation,マップFlagを設定##SetFlagOnNavigation
+Beastmaster,Captured,,Checkbox/RenderText,详细模式##ShowGaugeInOverlay,詳細表示##ShowGaugeInOverlay
+Beastmaster,Captured,,Button,读取##DebugCurrentState,読み込み##DebugCurrentState
+Beastmaster,Captured,,Button,读取##DebugProjectData,読み込み##DebugProjectData
+Beastmaster,Captured,,Text,贪食无厌加特勒  [已完成],贪食无厌加特勒  [完了]
+Beastmaster,Captured,,Text,赎罪的驯兽师  [已完成],赎罪的獣使い  [完了]
+Beastmaster,Captured,,Text/RenderTextWrapped,跨地图传送,エリア間テレポ
+Beastmaster,Captured,,Text/RenderTextWrapped,身体,胴
+Beastmaster,Captured,,CollapsingHeaderPtr,进入战斗步骤##sequence-进入战斗,戦闘手順##sequence-进入战斗
+Beastmaster,Captured,,Text/RenderTextWrapped,进行自爆。,进行自爆。
+Beastmaster,Captured,,Text/RenderTextWrapped,逆转要害沙斯塔夏溶洞,逆襲要害 サスタシャ浸食洞
+Beastmaster,Captured,,Text/RenderTextWrapped,选择资料类型后读取；读取结果会自动复制到剪贴板。,データ種別を選んで読み込みます。結果は自動でクリップボードへコピーされます。
+Beastmaster,Captured,,Text/RenderTextWrapped,配置自动捕获和自动攻击行为。,自動捕獲と自動攻撃の動作を設定します。
+Beastmaster,Captured,,BeginComboPreview/Checkbox/RenderText,释放,はなつ
+Beastmaster,Captured,,Checkbox/RenderText,释放 · 1 笛##AutoReleaseWhistleOneEnabled,はなつ・壱の呼び笛##AutoReleaseWhistleOneEnabled
+Beastmaster,Captured,,Checkbox/RenderText,释放 · 2 笛##AutoReleaseWhistleTwoEnabled,はなつ・弐の呼び笛##AutoReleaseWhistleTwoEnabled
+Beastmaster,Captured,,Checkbox/RenderText,释放 · 3 笛##AutoReleaseWhistleThreeEnabled,はなつ・参の呼び笛##AutoReleaseWhistleThreeEnabled
+Beastmaster,Captured,,Checkbox/RenderText,释放 · 只打BOSS,はなつ・BOSSのみ
+Beastmaster,Captured,,Text/RenderTextWrapped,释放：硬質化,はなつ：硬質化
+Beastmaster,Captured,,Text/RenderTextWrapped,防具,防具
+Beastmaster,Captured,,Checkbox/RenderText,隐藏已完成任务##HideCompletedQuests,完了済みクエストを非表示##HideCompletedQuests
+Beastmaster,Captured,,Text/RenderTextWrapped,露流派的驯兽术  [已完成],コルナゴ派の獣使い術  [完了]
+Beastmaster,Captured,,Text/RenderTextWrapped,静态攻略，不接入自动输出,固定の攻略メモです。自動戦闘とは連動しません。
+Beastmaster,Captured,,Text/RenderTextWrapped,项目资料,プロジェクト情報
+Beastmaster,Captured,,Text/RenderTextWrapped,项链,首飾り
+Beastmaster,Captured,,RenderText,预设名称,プリセット名
+Beastmaster,Captured,,Text/RenderTextWrapped,预设成员：0/10,プリセットメンバー：0/10
+Beastmaster,Captured,,BeginComboLabel/RenderText,预设栏位,プリセット枠
+Beastmaster,Captured,,Text/RenderTextWrapped,预设栏位可选 10/12/14/15；应用时按当前游戏编队栏位数量截断或保留空余。,预设栏位可选 10/12/14/15；应用时按現在游戏编队栏位数量截断或保留空余。
+Beastmaster,Captured,,Text/RenderTextWrapped,领航明灯天狼星灯塔,怪鳥巨塔 シリウス大灯台
+Beastmaster,Captured,,Checkbox/RenderText,飞行导航##UseFlightNavigation,飛行ナビ##UseFlightNavigation
+Beastmaster,Captured,,Text/RenderTextWrapped,饰品,アクセサリ
+Beastmaster,Captured,,Text/RenderTextWrapped,驯养魔兽之人  [已完成],魔獣を使役する者  [完了]
+Beastmaster,Captured,,BeginComboPreview,驯养魔兽之人任务,「魔獣を使役する者」クエスト
+Beastmaster,Captured,,Text/RenderTextWrapped,驯兽师 50 级开荒装和 BIS 配置。,獣使い 50 级开荒装和 BIS 配置。
+Beastmaster,Captured,,Text/RenderTextWrapped,驯兽师之证,獣使いの証
+Beastmaster,Captured,,Button,驯兽师任务链##section-quests,魔獣使いクエスト##section-quests
+Beastmaster,Captured,,BeginComboPreview,驯兽师量谱原始数据,獣使い量谱原始数据
+Beastmaster,Captured,,Button,驯兽师魔兽-中,獣使い魔獣-中
+Beastmaster,Captured,,Button,驯兽师魔兽-大,獣使い魔獣-大
+Beastmaster,Captured,,Button,驯兽师魔兽-小,獣使い魔獣-小
+Beastmaster,Captured,,Text,高段奖励,上級報酬
+Beastmaster,Captured,,Text,高段评价,上級評価
+Beastmaster,Captured,,CollapsingHeaderPtr,高级技能##BeastmasterAdvancedActions,上位スキル##BeastmasterAdvancedActions
+Beastmaster,Captured,,Button,魔兽图鉴##section-catalog,魔獣図鑑##section-catalog
+Beastmaster,Captured,,Checkbox/RenderText,魔兽技##AutoBeastSkillEnabled,魔獣スキル##AutoBeastSkillEnabled
+Beastmaster,Captured,,Text/RenderTextWrapped,魔兽率舞,魔獣率舞
+Beastmaster,Captured,,Text/RenderTextWrapped,魔兽领域日影地修炼所,魔獣領域 ハラタリ修練所
+Beastmaster,Captured,,Text/RenderTextWrapped,黑衣森林中央林区,黒衣森：中央森林
+Beastmaster,Captured,,Text/RenderTextWrapped,黑衣森林北部林区,黒衣森：北部森林
+Beastmaster,Captured,,BeginComboPreview,鼓劲,きあい
+Beastmaster,Captured,,Checkbox/RenderText,鼓劲##AutoDrumEnabled,きあい##AutoDrumEnabled
+Beastmaster,Captured,,Text/RenderTextWrapped,龙神强攻项环,龙神强攻项环
+Beastmaster,Captured,,Text/RenderTextWrapped,龙神强袭手套,龙神强袭手套
+Beastmaster,Captured,,Text/RenderTextWrapped,龙神强袭筒靴,龙神强袭筒靴
+Beastmaster,Captured,,Text/RenderTextWrapped,，再使用,、続けて使用
+Beastmaster,Captured,,Text/RenderTextWrapped,，打一套连携后使用,、一連のコンボ後に使用
+Beastmaster,Captured,,Text/RenderTextWrapped,，无需等待完整连携，直接使用,、コンボ完走を待たずにそのまま使用
+Beastmaster,Captured,,Text/RenderTextWrapped,，正常输出。,、そのまま通常攻撃を続けます。
+Beastmaster,ScreenshotFix,,,兽使いヘルパー,魔獣使いヘルパー
+Beastmaster,ScreenshotFix,,,兽使い進行管理,魔獣使い進行管理
+Beastmaster,ScreenshotFix,,,ゲーム内のクエスト状態から進行状況を表示し、未完了クエストの受注場所へ移動できます。,ゲーム内のクエスト進行状況を表示し、未完了クエストの受注場所へ移動できます。
+Beastmaster,ScreenshotFix,,,黑衣森林：中央森林,黒衣森：中央森林
+Beastmaster,ScreenshotFix,,,エリア順,エリア順
+Beastmaster,ScreenshotFix,,,捕获Lv順,捕獲Lv順
+Beastmaster,ScreenshotFix,,,魔兽Lv順,魔獣Lv順
+Beastmaster,ScreenshotFix,,,捕獲済み魔獣を非表示,捕獲済みを非表示
+Beastmaster,ScreenshotFix,,,魔兽Lv/経験値を同期,魔獣Lv/経験値を同期
+Beastmaster,ScreenshotFix,,,魔兽Lv,魔獣Lv
+Beastmaster,ScreenshotFix,,,魔兽図鑑,魔獣図鑑
+Beastmaster,ScreenshotFix,,,兽使い 50 級开荒装和 BIS 配置。,魔獣使いLv50向けの初期装備とBIS構成です。
+Beastmaster,ScreenshotFix,,,初期装備：入手しやすさと早期完成を優先します。,初期装備：入手しやすさと早く揃えられることを優先します。
+Beastmaster,ScreenshotFix,,,アーマリーチェスト あり (1),アーマリーチェスト：あり (1)
+Beastmaster,ScreenshotFix,,,アーマリーチェスト なし,アーマリーチェスト：なし
+Beastmaster,ScreenshotFix,,,所持品 なし,所持品：なし
+Beastmaster,ScreenshotFix,,,所持品 あり (1),所持品：あり (1)
+Beastmaster,ScreenshotFix,,,まずメインクエストを進めて補正装備を入手すると、レベル上げがかなり楽になります！,まずメインクエストを進めて補正装備を入手すると、レベル上げがかなり楽になります！
+Beastmaster,ScreenshotFix,,,倒计时步骤,カウントダウン手順
+Beastmaster,ScreenshotFix,,,进入战斗步骤,戦闘手順
+Beastmaster,ScreenshotFix,,,自动战斗,自動戦闘
+Beastmaster,ScreenshotFix,,,自动战斗と自動攻撃の動作を設定します。,自動戦闘と自動攻撃の動作を設定します。
+Beastmaster,ScreenshotFix,,,一時停止,一時停止
+Beastmaster,ScreenshotFix,,,先制攻撃,先制攻撃
+Beastmaster,ScreenshotFix,,,強制捕獲,強制捕獲
+Beastmaster,ScreenshotFix,,,詳細表示,詳細表示
+Beastmaster,ScreenshotFix,,,自動戦闘診断,自動戦闘診断
+Beastmaster,ScreenshotFix,,,自動戦闘診断を有効化,自動戦闘診断を有効化
+Beastmaster,ScreenshotFix,,,戦闘ログなし,戦闘ログなし
+Beastmaster,ScreenshotFix,,,オーバーレイ3列表示,オーバーレイ3列表示
+Beastmaster,ScreenshotFix,,,上位スキル,上位スキル
+Beastmaster,ScreenshotFix,,,魔兽技,魔獣スキル
+Beastmaster,ScreenshotFix,,,斗兽盘,闘獣盤
+Beastmaster,ScreenshotFix,,,斗兽盘编成,闘獣盤編成
+Beastmaster,ScreenshotFix,,,攻略手册,攻略メモ
+Beastmaster,ScreenshotFix,,,二一位可二 10/12/14/15，二用二按二在二二一位数二截断或保留空余。,編成枠は10/12/14/15から選択できます。適用時は現在の編成枠数に合わせて切り詰め、余りは空欄のままにします。
+Beastmaster,ScreenshotFix,,,新规,新規
+Beastmaster,ScreenshotFix,,,共享,共有
+Beastmaster,ScreenshotFix,,,二二二,適用
+Beastmaster,ScreenshotFix,,,10栏位编成,10枠編成
+Beastmaster,ScreenshotFix,,,编成预设,編成プリセット
+Beastmaster,ScreenshotFix,,,-- 空き --,-- 空き --
+Beastmaster,ScreenshotFix,,,位置 01,位置01
+Beastmaster,ScreenshotFix,,,位置 02,位置02
+Beastmaster,ScreenshotFix,,,兽使いLv50二二荒装和 BIS 配置。,魔獣使いLv50向けの初期装備とBIS構成です。
+Beastmaster,ScreenshotFix,,,初期装備,初期装備
+Beastmaster,ScreenshotFix,,,装備セット,装備セット
+Beastmaster,ScreenshotFix,,,头,頭
+Beastmaster,ScreenshotFix,,,胴,胴
+Beastmaster,ScreenshotFix,,,手,手
+Beastmaster,ScreenshotFix,,,脚,脚
+Beastmaster,ScreenshotFix,,,足,足
+Beastmaster,ScreenshotFix,,,耳飾り,耳飾り
+Beastmaster,ScreenshotFix,,,首飾り,首飾り
+Beastmaster,ScreenshotFix,,,腕輪,腕輪
+Beastmaster,ScreenshotFix,,,指輪1,指輪1
+Beastmaster,ScreenshotFix,,,指輪2,指輪2
+Beastmaster,ScreenshotFix,,,ジョブクリスタル,ジョブクリスタル
+Beastmaster,ScreenshotFix,,,盾,盾
+Beastmaster,ScreenshotFix,,,アクセサリ,アクセサリ
+Beastmaster,ScreenshotFix,,,ジョブ,ジョブ
+Beastmaster,ScreenshotFix,,,おすすめ編成 固定攻略情報です。自動戦闘とは連動しません。,おすすめ編成　固定攻略情報です。自動戦闘とは連動しません。
+Beastmaster,ScreenshotFix,,,虫編成・第1/2戦 高速周回,虫編成・第1/2戦 高速周回
+Beastmaster,ScreenshotFix,,,虫編成・上級第1戦 高速周回,虫編成・上級第1戦 高速周回
+Beastmaster,ScreenshotFix,,,水編成・参考パーティ,水編成・参考パーティ
+Beastmaster,ScreenshotFix,,,水編成・第1/2戦 高速周回バリエーション,水編成・第1/2戦 高速周回バリエーション
+Beastmaster,ScreenshotFix,,,推荐阵容：,おすすめ編成：
+Beastmaster,ScreenshotFix,,,投稿・出典,投稿・出典
+Beastmaster,ScreenshotFix,,,Bilibili参考视频を開く,Bilibili参考動画を開く
+Beastmaster,ScreenshotFix,,,カウントダウンと戦闘手順を編集します。「自動戦闘」で有効にしない限り自動実行されません。,カウントダウンと戦闘手順を編集します。「自動戦闘」で有効にしない限り自動実行されません。
+Beastmaster,ScreenshotFix,,,虫队模版,虫編成テンプレート
+Beastmaster,ScreenshotFix,,,当前のシーケンス,現在のシーケンス
+Beastmaster,ScreenshotFix,,,虫隊模版序列,虫編成テンプレート
+Beastmaster,ScreenshotFix,,,新規シーケンス,新規シーケンス
+Beastmaster,ScreenshotFix,,,シーケンス複製,シーケンス複製
+Beastmaster,ScreenshotFix,,,シーケンス削除,シーケンス削除
+Beastmaster,ScreenshotFix,,,虫編成テンプレートへ戻す,虫編成テンプレートへ戻す
+Beastmaster,ScreenshotFix,,,カウントダウン手順,カウントダウン手順
+Beastmaster,ScreenshotFix,,,戦闘手順,戦闘手順
+Beastmaster,ScreenshotFix,,,時間,時間
+Beastmaster,ScreenshotFix,,,スキル,スキル
+Beastmaster,ScreenshotFix,,,上へ,上へ
+Beastmaster,ScreenshotFix,,,下へ,下へ
+Beastmaster,ScreenshotFix,,,削除,削除
+Beastmaster,ScreenshotFix,,,カウントダウン手順を追加,カウントダウン手順を追加
+Beastmaster,ScreenshotFix,,,戦闘手順を追加,戦闘手順を追加
+Beastmaster,ScreenshotFix,,,自動战斗,自動戦闘
+Beastmaster,ScreenshotFix,,,自动戦闘と自動攻撃の動作を設定します。,自動戦闘と自動攻撃の動作を設定します。
+Beastmaster,ScreenshotFix,,,自动戦闘,自動戦闘
+Beastmaster,ScreenshotFix,,,二現手三二的二対敵生效；无捕获状态二二先捕获，再二行 1→2→3 二二。,現在手動選択中の敵だけを対象にします。未捕獲なら捕獲を優先し、その後1→2→3コンボを実行します。
+Beastmaster,ScreenshotFix,,,捕獲HPしきい値,捕獲HPしきい値
+Beastmaster,ScreenshotFix,,,御兽协力（黄）,御獣協力（黄）
+Beastmaster,ScreenshotFix,,,兽灵协力（青）,獣霊協力（青）
+Beastmaster,ScreenshotFix,,,兽笛を自動使用,獣笛を自動使用
+Beastmaster,ScreenshotFix,,,魔兽スキル,魔獣スキル
+Beastmaster,ScreenshotFix,,,鼓舞,きあい
+Beastmaster,ScreenshotFix,,,獣使いヘルパー,魔獣使いヘルパー
+Beastmaster,ScreenshotFix,,,獣使い進行管理,魔獣使い進行管理
+Beastmaster,ScreenshotFix,,,闘獣盤,闘獣盤
+Beastmaster,ScreenshotFix,,,おすすめ装備,おすすめ装備
+Beastmaster,ScreenshotFix,,,おすすめ編成,おすすめ編成
+Beastmaster,ScreenshotFix,,,ルールモード,ルールモード
+Beastmaster,ScreenshotFix,,,コマンド,コマンド
+Beastmaster,ScreenshotFix,,,自動戦闘,自動戦闘
+Beastmaster,ScreenshotFix,,,フィードバック,フィードバック
+Beastmaster,ScreenshotFix,,,闘獣塔へ移動,闘獣塔へ移動
+Beastmaster,UntranslatedFix,,,3 笛召唤胡蜂，等到 BOSS HP低于 25% 时使用,参の呼び笛でホーネットを召喚し、BOSSのHPが25%未満になったら使用
+Beastmaster,UntranslatedFix,,,3 笛宝宝血量小于等于该阈值时使用最后一击，范围 1%~100%。,参の呼び笛の魔獣HPがこのしきい値以下になったら「さいごのいちげき」を使用します。範囲：1%～100%。
+Beastmaster,UntranslatedFix,,,BUFF条件##condition-0###BUFF 条件##condition-0,BUFF条件##condition-0###BUFF条件##condition-0
+Beastmaster,UntranslatedFix,,,万象流転（物理）###万象流转（物理）,万象流転（物理）###万象流転（物理）
+Beastmaster,UntranslatedFix,,,万象流転（魔法）###万象流转（魔法）,万象流転（魔法）###万象流転（魔法）
+Beastmaster,UntranslatedFix,,,仅对現在手动选择的敌对対象生效；无捕獲状态时优先捕獲，再执行 1→2→3 连击。,現在手動で選択している敵だけを対象にします。未捕獲なら捕獲を優先し、その後1→2→3コンボを実行します。
+Beastmaster,UntranslatedFix,,,奇盘上的王者：高段第二盘  [未受注],闘獣盤の王者：上級第2戦  [未受注]
+Beastmaster,UntranslatedFix,,,将驯兽之路登峰造极  [未受注],獣使いの道を極める  [未受注]
+Beastmaster,UntranslatedFix,,,御獣協力（黄）###御兽协作（黄豆）,御獣協力（黄）###御獣協力（黄）
+Beastmaster,UntranslatedFix,,,牢不可破的牵绊  [未受注],壊れぬ絆  [未受注]
+Beastmaster,UntranslatedFix,,,猛者的试炼：高段第一盘  [未受注],猛者の試練：上級第1戦  [未受注]
+Beastmaster,UntranslatedFix,,,獣霊協力（青）###兽灵协作（蓝豆）,獣霊協力（青）###獣霊協力（青）
+Beastmaster,UntranslatedFix,,,解放###释放,はなつ###はなつ
+Beastmaster,UntranslatedFix,,,预设栏位可选 10/12/14/15；应用时按現在游戏编队栏位数量截断或保留空余。,プリセット枠は10/12/14/15から選択できます。適用時は現在の編成枠数に合わせて切り詰め、余りは空欄のままにします。
+Beastmaster,UntranslatedFix,,,魔獣Lv順###按兽级排序,魔獣Lv順###魔獣Lv順
+Beastmaster,UntranslatedFix,,,捕獲Lv順###按捕获等级排序,捕獲Lv順###捕獲Lv順
+Beastmaster,UntranslatedFix,,,判定種別##condition-0###检测类型##condition-0,判定種別##condition-0###判定種別##condition-0
+Beastmaster,UntranslatedFix,,,位置 03##party-member-2###位置 03##party-member-2,位置03##party-member-2###位置03##party-member-2
+Beastmaster,UntranslatedFix,,,位置 04##party-member-3###位置 04##party-member-3,位置04##party-member-3###位置04##party-member-3
+Beastmaster,UntranslatedFix,,,位置 05##party-member-4###位置 05##party-member-4,位置05##party-member-4###位置05##party-member-4
+Beastmaster,UntranslatedFix,,,位置 06##party-member-5###位置 06##party-member-5,位置06##party-member-5###位置06##party-member-5
+Beastmaster,UntranslatedFix,,,位置 07##party-member-6###位置 07##party-member-6,位置07##party-member-6###位置07##party-member-6
+Beastmaster,UntranslatedFix,,,位置 08##party-member-7###位置 08##party-member-7,位置08##party-member-7###位置08##party-member-7
+Beastmaster,UntranslatedFix,,,位置 09##party-member-8###位置 09##party-member-8,位置09##party-member-8###位置09##party-member-8
+Beastmaster,UntranslatedFix,,,位置 10##party-member-9###位置 10##party-member-9,位置10##party-member-9###位置10##party-member-9
+Beastmaster,UntranslatedFix,,,最后一击 · 1 笛##AutoFinalStrikeWhistleOneEnabled###最后一击 · 1 笛##AutoFinalStrikeWhistleOneEnabled,さいごのいちげき・壱の呼び笛##AutoFinalStrikeWhistleOneEnabled###さいごのいちげき・壱の呼び笛##AutoFinalStrikeWhistleOneEnabled
+Beastmaster,UntranslatedFix,,,释放 · 1 笛##AutoReleaseWhistleOneEnabled###释放 · 1 笛##AutoReleaseWhistleOneEnabled,はなつ・壱の呼び笛##AutoReleaseWhistleOneEnabled###はなつ・壱の呼び笛##AutoReleaseWhistleOneEnabled
+Beastmaster,UntranslatedFix,,,最后一击 · 2 笛##AutoFinalStrikeWhistleTwoEnabled###最后一击 · 2 笛##AutoFinalStrikeWhistleTwoEnabled,さいごのいちげき・弐の呼び笛##AutoFinalStrikeWhistleTwoEnabled###さいごのいちげき・弐の呼び笛##AutoFinalStrikeWhistleTwoEnabled
+Beastmaster,UntranslatedFix,,,释放 · 2 笛##AutoReleaseWhistleTwoEnabled###释放 · 2 笛##AutoReleaseWhistleTwoEnabled,はなつ・弐の呼び笛##AutoReleaseWhistleTwoEnabled###はなつ・弐の呼び笛##AutoReleaseWhistleTwoEnabled
+Beastmaster,UntranslatedFix,,,最后一击 · 3 笛##AutoFinalStrikeWhistleThreeEnabled###最后一击 · 3 笛##AutoFinalStrikeWhistleThreeEnabled,さいごのいちげき・参の呼び笛##AutoFinalStrikeWhistleThreeEnabled###さいごのいちげき・参の呼び笛##AutoFinalStrikeWhistleThreeEnabled
+Beastmaster,UntranslatedFix,,,释放 · 3 笛##AutoReleaseWhistleThreeEnabled###释放 · 3 笛##AutoReleaseWhistleThreeEnabled,はなつ・参の呼び笛##AutoReleaseWhistleThreeEnabled###はなつ・参の呼び笛##AutoReleaseWhistleThreeEnabled
+Beastmaster,SourceReviewed,,,[獣使いヘルパー] 自動戦闘が有効になっていません。先に /驯兽师 输出 を使用してください。,[魔獣使いヘルパー] 自動戦闘が有効になっていません。先に /獣使い 出力 を使用してください。
+Beastmaster,SourceReviewed,,,兽主独角冠+4,獣使い専用頭装備+4
+Beastmaster,SourceReviewed,,,兽主裘皮衣+4,獣使い専用胴装備+4
+Beastmaster,SourceReviewed,,,兽主护臂+4,獣使い専用手装備+4
+Beastmaster,SourceReviewed,,,兽主工作裤+4,獣使い専用脚装備+4
+Beastmaster,SourceReviewed,,,兽主靴+4,獣使い専用足装備+4
+Beastmaster,SourceReviewed,,,兽主耳环,獣使い専用耳飾り
+Beastmaster,SourceReviewed,,,炖剑山芋,ヤムシチュー
+Beastmaster,SourceReviewed,,,食品,食事
+Beastmaster,SourceReviewed,,,兽使い 50 级开荒装和 BIS 配置。,魔獣使いLv50向けの初期装備とBIS構成です。
+Beastmaster,SourceReviewed,,,第一步,第1ルート
+Beastmaster,SourceReviewed,,,第二步,第2ルート
+Beastmaster,SourceReviewed,,,岔路一左,分岐1・左
+Beastmaster,SourceReviewed,,,岔路一右,分岐1・右
+Beastmaster,SourceReviewed,,,第五步,第5ルート
+Beastmaster,SourceReviewed,,,第六步,第6ルート
+Beastmaster,SourceReviewed,,,抽牌抽牌,カードマス
+Beastmaster,SourceReviewed,,,最终BOSS,最終BOSS
+Beastmaster,SourceReviewed,,,奇子·游侠骑士,キャバリアー・ピース
+Beastmaster,SourceReviewed,,,奇子·主教,ビショップ・ピース
+Beastmaster,SourceReviewed,,,奇子·尤弥尔,ユミール・ピース
+Beastmaster,SourceReviewed,,,奇子·鱼人,サハギン・ピース
+Beastmaster,SourceReviewed,,,奇子·祖,ズー・ピース
+Beastmaster,SourceReviewed,,,奇子·卡托布莱帕斯,カトブレパス・ピース
+Beastmaster,SourceReviewed,,,奇子·巨像,ゴーレム・ピース
+Beastmaster,SourceReviewed,,,奇子·塞壬,セイレーン・ピース
+Beastmaster,SourceReviewed,,,奇子·勇士,ウォリアー・ピース
+Beastmaster,SourceReviewed,,,奇子·仙人刺,サボテンダー・ピース
+Beastmaster,SourceReviewed,,,奇子·士兵,ソルジャー・ピース
+Beastmaster,SourceReviewed,,,奇子·守卫,ガード・ピース
+Beastmaster,SourceReviewed,,,奇子·塔纳托斯,タナトス・ピース
+Beastmaster,SourceReviewed,,,贪食无厌 加特勒,貪食のガトラー
+Beastmaster,SourceReviewed,,,骑士会不断召唤小怪，击杀小怪时请保证每次骑士读条「幻影生成」时可连线的球不超过四个。生成的幻影在场内为超大钢铁，在场边为直线。,騎士は雑魚を継続的に召喚します。騎士が「幻影生成」を詠唱する時、線で結ばれる球が4個を超えないよう雑魚を処理します。生成された幻影が場内なら巨大円範囲、外周なら直線範囲になります。
+Beastmaster,SourceReviewed,,,输出够可尝试在鱼人读条「麻痹尖刺」前将鱼人击杀，读完后鱼人会有反伤；输出不够则先打碎壳子、然后使用止步宝宝对尤弥尔进行输出。鱼人「恐慌洗礼」会附加恐慌（宝宝可以帮吃）。大海啸的击退距离很长，记得跑路。,火力が足りるなら、サハギンが「パライズスパイク」を詠唱する前に倒します。詠唱後は反撃効果が付くため注意。火力が足りない場合はユミールの殻を壊し、バインド役の魔獣で足止めして攻撃します。「恐慌洗礼」は恐慌を付与します。大海嘯はノックバック距離が長いので、早めに移動してください。
+Beastmaster,SourceReviewed,,,吃机制时注意不要打碎蛋，正常孵化的就杀掉。「前方/后方乱流」注意刀的方向就行。,ギミック処理中は卵を壊さないよう注意し、正常に孵化した雑魚だけ倒します。「前方／後方乱流」は攻撃方向を見て回避します。
+Beastmaster,SourceReviewed,,,召唤出的魔球有环就是月环没环就是钢铁，有眼睛的球炸的时候要背对。,召喚された魔球は、輪があればドーナツ範囲、輪がなければ円範囲です。目の付いた球が爆発する時は背を向けます。
+Beastmaster,SourceReviewed,,,尽快击杀小怪，「沙尘暴」的使命可以让宝宝吃（真伙伴哈哈）。「大地摇动」是扇形攻击，要和宝宝离得远一点哦。,雑魚は早めに処理します。「砂塵暴」は魔獣に受けさせることもできます。「大地の揺動」は扇範囲なので、魔獣と距離を取って処理します。
+Beastmaster,SourceReviewed,,,「混乱之歌」场边无范围提示扇形，记得挑衅，宝宝也不能吃这个。远离在地上爬的小怪。「亡者之歌」钢铁范围很大月环范围很小。「诱导之歌」有长距离强制移动+场边扇形。,「混乱の歌」は外周から来る予兆なしの扇範囲です。ターゲット維持を忘れずに。魔獣で受けることはできません。地面を這う雑魚から離れます。「亡者の歌」は円範囲が大きく、ドーナツ範囲の安地は狭めです。「誘導の歌」は長距離の強制移動＋外周扇範囲です。
+Beastmaster,SourceReviewed,,,AOE 杀 AOE 杀 麻将顺序为钢铁顺序，先打骑士。,範囲攻撃で雑魚を処理します。AoEの順番を確認し、騎士タイプを優先して倒します。
+Beastmaster,SourceReviewed,,,这个一句话怕是说不完哦。留意宝宝位置，小心吃平A。,一言では説明しきれない最終戦です。魔獣の位置を確認し、オートアタックを余計に受けないよう注意してください。
+Beastmaster,Species,,,灵蚁,アントリング種
+Beastmaster,Species,,,奇美拉,キマイラ種
+Beastmaster,Species,,,魔界花,モルボル種
+Beastmaster,Species,,,妖魂,ゴースト種
+Beastmaster,Species,,,蝾螈,サラマンダー種
+Beastmaster,Species,,,眼镜蛇,コブラ種
+Beastmaster,Species,,,海德拉,ハイドラ種
+Beastmaster,Species,,,灯心蜻蛉,ダムゼルフライ種
+Beastmaster,Species,,,腐坏古菩猩猩,ロッティンググゥーブー種
+Beastmaster,Species,,,祖,ズー種
+Beastmaster,Species,,,寒冰巨像,アイスゴーレム種
+Beastmaster,Species,,,真红龙虾,カーラボス種
+Beastmaster,Species,,,大王花,ラフレシア種
+Beastmaster,Species,,,贝希摩斯,ベヒーモス種
+Beastmaster,Species,,,库西,クーシー種
+Beastmaster,Species,,,松鼠,スクウィレル種
+Beastmaster,Species,,,迷途羊羔,シープ種
+Beastmaster,Species,,,陆鱼,プギル種
+Beastmaster,Species,,,奥猴,オポオポ種
+Beastmaster,Species,,,渡渡鸟,ドードー種
+Beastmaster,Species,,,矿爬虫,コブラン種
+Beastmaster,Species,,,凶蛛蝎,ダイアマイト種
+Beastmaster,Species,,,巨型陆蟹,メガロクラブ種
+Beastmaster,Species,,,胡蜂,ヴェスパ種
+Beastmaster,Species,,,蔓德拉,マンドラゴラ種
+Beastmaster,Species,,,死魂,ゲシュンペスト種
+Beastmaster,Species,,,粘液怪,スライム種
+Beastmaster,Species,,,陷阱草,トラップ種
+Beastmaster,Species,,,席兹,ジズ種
+Beastmaster,Species,,,魔石精,スプリガン種
+Beastmaster,Species,,,古菩猩猩,グゥーブー種
+Beastmaster,Species,,,巨蟾蜍,ギガントード種
+Beastmaster,Species,,,长须豹,クァール種
+Beastmaster,OfficialActions,,,百虫肤,ヴァイルスキン
+Beastmaster,OfficialActions,,,有翼飞掠,クラウドスキム
+Beastmaster,OfficialActions,,,草木播种,シードサワー
+Beastmaster,OfficialActions,,,水栖波,クェリングウェーブ
+Beastmaster,OfficialActions,,,甲鳞肤,スケイルスキン
+Beastmaster,OfficialActions,,,咒具碎魂,ソウルクラッシュ
+Beastmaster,OfficialActions,,,死尸净化,アッシュクレンズ
+Beastmaster,OfficialActions,,,释放：硬质化,はなつ：硬質化

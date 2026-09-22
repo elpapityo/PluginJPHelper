@@ -1,0 +1,273 @@
+﻿Plugin,Menu,Section,Type,English,Japanese
+Automaton,Captured,,Text, by croizat, by croizat
+Automaton,Captured,,TableSetupColumn,Checkbox,有効
+Automaton,Captured,,Text,GitHub,GitHub
+Automaton,Captured,,Text,Ko-fi,Ko-fi
+Automaton,Captured,,Text,v69.218,v69.218
+Automaton,Captured,,Selectable, [#25199] Discontinued Crafters' Scrip, [#25199] 旧クラフタースクリップ
+Automaton,Captured,,Selectable, [#25200] Discontinued Gatherers' Scrip, [#25200] 旧ギャザラースクリップ
+Automaton,Captured,,Selectable, [#33913] Levelling Crafters' Scrip, [#33913] レベリング用クラフタースクリップ
+Automaton,Captured,,Selectable, [#33914] Levelling Gatherers' Scrip, [#33914] レベリング用ギャザラースクリップ
+Automaton,Captured,,Selectable, [#41784] Capstone Crafters' Scrip, [#41784] カンスト帯クラフタースクリップ
+Automaton,Captured,,Selectable, [#41785] Capstone Gatherers' Scrip, [#41785] カンスト帯ギャザラースクリップ
+Automaton,Captured,,Selectable, [#47] Discontinued Tomestone, [#47] 旧アラガントームストーン
+Automaton,Captured,,Selectable, [#48] Unlimited Tomestone, [#48] 週制限なしトームストーン
+Automaton,Captured,,Selectable, [#49] Limited Tomestone, [#49] 週制限ありトームストーン
+Automaton,Captured,,RenderTextWrapped,#FFFFFFFF,#FFFFFFFF
+Automaton,Captured,,Text/RenderTextWrapped,/autofollow,/autofollow
+Automaton,Captured,,Checkbox/RenderText,/desynth##Input,/desynth##Input
+Automaton,Captured,,Checkbox/RenderText,/equip##Input,/equip##Input
+Automaton,Captured,,Checkbox/RenderText,/gotoflag##Input,/gotoflag##Input
+Automaton,Captured,,Checkbox/RenderText,/item##Input,/item##Input
+Automaton,Captured,,Checkbox/RenderText,/killflag##Input,/killflag##Input
+Automaton,Captured,,Checkbox/RenderText,/lowerquality##Input,/lowerquality##Input
+Automaton,Captured,,Checkbox/RenderText,/norender##Input,/norender##Input
+Automaton,Captured,,Checkbox/RenderText,/tpf##Input,/tpf##Input
+Automaton,Captured,,Checkbox/RenderText,/travel##Input,/travel##Input
+Automaton,Captured,,Text/RenderTextWrapped,Achievement Tracker,実績トラッカー
+Automaton,Captured,,Selectable,Achievement Tracker##Selectable_Achievement Tracker,実績トラッカー##Selectable_Achievement Tracker
+Automaton,Captured,,Button,Add Currency,通貨を追加
+Automaton,Captured,,Button,Add Item,アイテムを追加
+Automaton,Captured,,Button,Add Sort Criteria,並び替え条件を追加
+Automaton,Captured,,Text/RenderTextWrapped,Additional options when logging in.,ログイン時の追加設定です。
+Automaton,Captured,,Text/RenderTextWrapped,Adds a context menu item that will retrieve all materia from an item.,アイテムの右クリックメニューに、装着済みマテリアをすべて回収する項目を追加します。
+Automaton,Captured,,Text/RenderTextWrapped,Adds a context menu to items to loop through attaching and removing materia for the Getting Too Attached achievement,「マテリア装着」系実績向けに、アイテムへマテリア装着と回収を繰り返す右クリックメニューを追加します。
+Automaton,Captured,,Text/RenderTextWrapped,Adds a DTR element and commands to switch to the prev/next character in AutoRetainer.,DTR表示とコマンドを追加し、AutoRetainerの前／次キャラクターへ切り替えられるようにします。
+Automaton,Captured,,Text/RenderTextWrapped,Adds an achievement tracker,実績トラッカーを追加します。
+Automaton,Captured,,Text/RenderTextWrapped,Adds CharacterName@World to the window title.,ゲームウィンドウのタイトルに「キャラクター名@ワールド名」を表示します。
+Automaton,Captured,,Checkbox/RenderText,Allow partial world matching,ワールド名の部分一致を許可
+Automaton,Captured,,Text/RenderTextWrapped,Anti-AFK,離席防止
+Automaton,Captured,,Selectable,Anti-AFK##Selectable_Anti-AFK,離席防止##Selectable_Anti-AFK
+Automaton,Captured,,Text/RenderTextWrapped,Appends a clickable icon to messages with a MapLinkPayload to relay them to other channels.,マップリンク付きメッセージにクリック可能なアイコンを追加し、別チャンネルへ中継できるようにします。
+Automaton,Captured,,Checkbox/RenderText,AreaMap Click##Input,エリアマップをクリック##Input
+Automaton,Captured,,Checkbox/RenderText,Assume blank worlds are local,ワールド名が空欄なら同一ワールドとして扱う
+Automaton,Captured,,Text/RenderTextWrapped,Auto Busy,自動ビジー
+Automaton,Captured,,Selectable,Auto Busy##Selectable_Auto Busy,自動ビジー##Selectable_Auto Busy
+Automaton,Captured,,Text/RenderTextWrapped,Auto Equip Exp Items,経験値装備を自動装備
+Automaton,Captured,,Selectable,Auto Equip Exp Items##Selectable_Auto Equip Exp Items,経験値装備を自動装備##Selectable_Auto Equip Exp Items
+Automaton,Captured,,Text/RenderTextWrapped,Auto Follow,自動追従
+Automaton,Captured,,Text/RenderTextWrapped,Auto Follow Name,追従対象名
+Automaton,Captured,,Selectable,Auto Follow##Selectable_Auto Follow,自動追従##Selectable_Auto Follow
+Automaton,Captured,,Text/RenderTextWrapped,Auto invite people to your party based on a chat message.,チャットメッセージを条件に、対象プレイヤーを自動でパーティへ招待します。
+Automaton,Captured,,Text/RenderTextWrapped,Auto Inviter,自動招待
+Automaton,Captured,,Selectable,Auto Inviter##Selectable_Auto Inviter,自動招待##Selectable_Auto Inviter
+Automaton,Captured,,Checkbox/RenderText,Auto Leave##End,自動退出##End
+Automaton,Captured,,Text/RenderTextWrapped,Auto Merge,自動スタック統合
+Automaton,Captured,,Selectable,Auto Merge##Selectable_Auto Merge,自動スタック統合##Selectable_Auto Merge
+Automaton,Captured,,Text/RenderTextWrapped,Auto Pillion,自動相乗り
+Automaton,Captured,,Selectable,Auto Pillion##Selectable_Auto Pillion,自動相乗り##Selectable_Auto Pillion
+Automaton,Captured,,Text/RenderTextWrapped,Auto Queue,自動申請
+Automaton,Captured,,Text/RenderTextWrapped,Auto queue into a pre-checked duty (on zone change).,Auto queue into a pre-checked duty (on zone change).
+Automaton,Captured,,Selectable,Auto Queue##Selectable_Auto Queue,自動申請##Selectable_Auto Queue
+Automaton,Captured,,Checkbox/RenderText,Auto Remove Completed##Input,完了済みを自動削除##Input
+Automaton,Captured,,Text/RenderTextWrapped,Automatically completes snipe quests.,狙撃系クエストを自動で処理します。
+Automaton,Captured,,Text/RenderTextWrapped,Automatically equips any exp boosting item on level change.,レベル変化時に、経験値ボーナス付き装備を自動で装備します。
+Automaton,Captured,,Text/RenderTextWrapped,Automatically execute certain actions when the duty starts or ends.,コンテンツ開始・終了時に指定した処理を自動実行します。
+Automaton,Captured,,Text/RenderTextWrapped,Automatically hop in to other peoples' mounts when you are near them.,近くにいる他プレイヤーの相乗り可能マウントへ自動で乗ります。
+Automaton,Captured,,Text/RenderTextWrapped,AutoRetainer Character Switcher,AutoRetainer キャラクター切替
+Automaton,Captured,,Selectable,AutoRetainer Character Switcher##Selectable_AutoRetainer Character Switcher,AutoRetainer キャラクター切替##Selectable_AutoRetainer Character Switcher
+Automaton,Captured,,Text/RenderTextWrapped,AutoRetainer x Questionable,AutoRetainer × Questionable
+Automaton,Captured,,Selectable,AutoRetainer x Questionable##Selectable_AutoRetainer x Questionable,AutoRetainer × Questionable##Selectable_AutoRetainer x Questionable
+Automaton,Captured,,Text/RenderTextWrapped,Available Commands,利用可能なコマンド
+Automaton,Captured,,Text/RenderTextWrapped,"Available tokens: {Level}, {Name}, {Id}, {Progress}, {TimeRemaining}, {Distance}, {State}","使用可能なトークン：{Level}, {Name}, {Id}, {Progress}, {TimeRemaining}, {Distance}, {State}"
+Automaton,Captured,,Text/RenderTextWrapped,Bar Colour,バーの色
+Automaton,Captured,,Text/RenderTextWrapped,Blacklisted Rules,除外ルール
+Automaton,Captured,,Text/RenderTextWrapped,CC Error Requeue,クリコン申請エラー時に再申請
+Automaton,Captured,,Selectable,CC Error Requeue##Selectable_CC Error Requeue,クリコン申請エラー時に再申請##Selectable_CC Error Requeue
+Automaton,Captured,,Text/RenderTextWrapped,Channels,チャンネル
+Automaton,Captured,,Checkbox/RenderText,Chase,追跡
+Automaton,Captured,,Text/RenderTextWrapped,Chat Channels,チャットチャンネル
+Automaton,Captured,,Text/RenderTextWrapped,Chat Message Pattern,チャットメッセージのパターン
+Automaton,Captured,,Text/RenderTextWrapped,Click on a WT duty to open the duty finder to it. Ctrl+click to queue into the duty semi-smartly.,クロの空想帳の対象コンテンツをクリックすると、そのコンテンツをコンテンツファインダーで開きます。Ctrl+クリックで簡易自動申請します。
+Automaton,Captured,,Text/RenderTextWrapped,Click to Move,クリック移動
+Automaton,Captured,,Selectable,Click to Move##Selectable_Click to Move,クリック移動##Selectable_Click to Move
+Automaton,Captured,,Text/RenderTextWrapped,Collectable Reward Tooltip,収集品報酬ツールチップ
+Automaton,Captured,,Selectable,Collectable Reward Tooltip##Selectable_Collectable Reward Tooltip,収集品報酬ツールチップ##Selectable_Collectable Reward Tooltip
+Automaton,Captured,,Checkbox/RenderText,ConcertedWorks,共同作業
+Automaton,Captured,,Text/RenderTextWrapped,CrossLinkShell1,クロスワールドリンクシェル1
+Automaton,Captured,,Checkbox/RenderText,CrossLinkShell1##CrossLinkShell1,クロスワールドリンクシェル1##CrossLinkShell1
+Automaton,Captured,,Text/RenderTextWrapped,CrossLinkShell2,クロスワールドリンクシェル2
+Automaton,Captured,,Checkbox/RenderText,CrossLinkShell2##CrossLinkShell2,クロスワールドリンクシェル2##CrossLinkShell2
+Automaton,Captured,,Text/RenderTextWrapped,CrossLinkShell3,クロスワールドリンクシェル3
+Automaton,Captured,,Checkbox/RenderText,CrossLinkShell3##CrossLinkShell3,クロスワールドリンクシェル3##CrossLinkShell3
+Automaton,Captured,,Text/RenderTextWrapped,CrossLinkShell4,クロスワールドリンクシェル4
+Automaton,Captured,,Checkbox/RenderText,CrossLinkShell4##CrossLinkShell4,クロスワールドリンクシェル4##CrossLinkShell4
+Automaton,Captured,,Text/RenderTextWrapped,CrossLinkShell5,クロスワールドリンクシェル5
+Automaton,Captured,,Checkbox/RenderText,CrossLinkShell5##CrossLinkShell5,クロスワールドリンクシェル5##CrossLinkShell5
+Automaton,Captured,,Text/RenderTextWrapped,CrossLinkShell6,クロスワールドリンクシェル6
+Automaton,Captured,,Checkbox/RenderText,CrossLinkShell6##CrossLinkShell6,クロスワールドリンクシェル6##CrossLinkShell6
+Automaton,Captured,,Text/RenderTextWrapped,CrossLinkShell7,クロスワールドリンクシェル7
+Automaton,Captured,,Checkbox/RenderText,CrossLinkShell7##CrossLinkShell7,クロスワールドリンクシェル7##CrossLinkShell7
+Automaton,Captured,,Text/RenderTextWrapped,CrossLinkShell8,クロスワールドリンクシェル8
+Automaton,Captured,,Checkbox/RenderText,CrossLinkShell8##CrossLinkShell8,クロスワールドリンクシェル8##CrossLinkShell8
+Automaton,Captured,,Checkbox/RenderText,CrossParty##CrossParty,クロスパーティ##CrossParty
+Automaton,Captured,,Selectable,Ctrl,Ctrl
+Automaton,Captured,,Checkbox/RenderText,Defend,防衛
+Automaton,Captured,,Text/RenderTextWrapped,Delay Ms,遅延（ms）
+Automaton,Captured,,Text/RenderTextWrapped,Descending (highest first),降順（高い順）
+Automaton,Captured,,Text/RenderTextWrapped,Desynth an item by ID,指定IDのアイテムを分解します。
+Automaton,Captured,,BeginComboPreview/Selectable,Direct,直接
+Automaton,Captured,,Text/RenderTextWrapped,Disable If Further Than,この距離を超えたら無効化
+Automaton,Captured,,Text/RenderTextWrapped,Display Name Format,表示名の形式
+Automaton,Captured,,BeginComboPreview/Selectable,Distance,距離
+Automaton,Captured,,Text/RenderTextWrapped,Distance To Keep,維持する距離
+Automaton,Captured,,Text/RenderTextWrapped,Doesn't apply to grind modes,周回モードには適用されません。
+Automaton,Captured,,Checkbox/RenderText,Don't repeat relays,同じ中継を繰り返さない
+Automaton,Captured,,Text/RenderTextWrapped,Duty End Options,コンテンツ終了時の設定
+Automaton,Captured,,Text/RenderTextWrapped,Duty Start Options,コンテンツ開始時の設定
+Automaton,Captured,,Text/RenderTextWrapped,Enable AutoFollow,自動追従を有効化
+Automaton,Captured,,Text/RenderTextWrapped,Enhanced Duty Start/End,コンテンツ開始・終了拡張
+Automaton,Captured,,Selectable,Enhanced Duty Start/End##Selectable_Enhanced Duty Start/End,コンテンツ開始・終了拡張##Selectable_Enhanced Duty Start/End
+Automaton,Captured,,Text/RenderTextWrapped,Enhanced Login,ログイン拡張
+Automaton,Captured,,Selectable,Enhanced Login##Selectable_Enhanced Login,ログイン拡張##Selectable_Enhanced Login
+Automaton,Captured,,Text/RenderTextWrapped,Equip an item by ID,指定IDのアイテムを装備します。
+Automaton,Captured,,Checkbox/RenderText,Escort,護衛
+Automaton,Captured,,Checkbox/RenderText,EventFate,イベントFATE
+Automaton,Captured,,Checkbox/RenderText,Exclude Combat##Input,戦闘中を除外##Input
+Automaton,Captured,,Text/RenderTextWrapped,Execute Commands,コマンドを実行
+Automaton,Captured,,Text/RenderTextWrapped,Faster Npc Repair All,NPC一括修理を高速化
+Automaton,Captured,,Selectable,Faster Npc Repair All##Selectable_Faster Npc Repair All,NPC一括修理を高速化##Selectable_Faster Npc Repair All
+Automaton,Captured,,Text/RenderTextWrapped,FATE,FATE
+Automaton,Captured,,Text/RenderTextWrapped,Fate Tool Kit (Date With Destiny),FATEツールキット（Date With Destiny）
+Automaton,Captured,,Selectable,Fate Tool Kit (Date With Destiny)##Selectable_Fate Tool Kit (Date With Destiny),FATEツールキット（Date With Destiny）##Selectable_Fate Tool Kit (Date With Destiny)
+Automaton,Captured,,Text/RenderTextWrapped,Fate tracker with additional fate automations.,FATE追跡に加えて、各種FATE自動化機能を提供します。
+Automaton,Captured,,Checkbox/RenderText,Fete,フェトゥ
+Automaton,Captured,,Text/RenderTextWrapped,Format: ,形式：
+Automaton,Captured,,Text/RenderTextWrapped,FreeCompany,フリーカンパニー
+Automaton,Captured,,Checkbox/RenderText,FreeCompany##FreeCompany,フリーカンパニー##FreeCompany
+Automaton,Captured,,Text/RenderTextWrapped,Getting Too Attached,マテリア装着実績支援
+Automaton,Captured,,Selectable,Getting Too Attached##Selectable_Getting Too Attached,マテリア装着実績支援##Selectable_Getting Too Attached
+Automaton,Captured,,Text/RenderTextWrapped,GM Alert,GM警告
+Automaton,Captured,,Selectable,GM Alert##Selectable_GM Alert,GM警告##Selectable_GM Alert
+Automaton,Captured,,Text/RenderTextWrapped,Goes to flag location,マップフラッグの場所へ移動します。
+Automaton,Captured,,Text/RenderTextWrapped,"Goes to flag, kills hunt mob at destination.",マップフラッグへ移動し、到着地点のモブハント対象を討伐します。
+Automaton,Captured,,BeginComboPreview/Selectable,HasBonus,ボーナスあり
+Automaton,Captured,,BeginComboPreview/Selectable,HasBonusWithTwist,特殊ボーナスあり
+Automaton,Captured,,Text/RenderTextWrapped,Heuristics: ,判定条件：
+Automaton,Captured,,Text/RenderTextWrapped,https://github.com/NightmareXIV/MyDalamudPlugins/raw/main/pluginmaster.json,https://github.com/NightmareXIV/MyDalamudPlugins/raw/main/pluginmaster.json
+Automaton,Captured,,Text/RenderTextWrapped,Hunt Relay Helper,モブハント連携ヘルパー
+Automaton,Captured,,Selectable,Hunt Relay Helper##Selectable_Hunt Relay Helper,モブハント連携ヘルパー##Selectable_Hunt Relay Helper
+Automaton,Captured,,Checkbox/RenderText,In-World Click##Input,ワールド内クリック##Input
+Automaton,Captured,,Text/RenderTextWrapped,Instant Logout,即時ログアウト
+Automaton,Captured,,Selectable,Instant Logout##Selectable_Instant Logout,即時ログアウト##Selectable_Instant Logout
+Automaton,Captured,,Text/RenderTextWrapped,Instantly repair all inventories when repairing at an npc.,NPC修理を行う際、すべての所持品を即座に一括修理します。
+Automaton,Captured,,Text/RenderTextWrapped,Invoke world travel. Still have to be in a starting city.,ワールド間テレポを実行します。開始都市にいる必要があります。
+Automaton,Captured,,Checkbox/RenderText,Is Regex##Input,正規表現##Input
+Automaton,Captured,,Selectable,Keep Tooltips Alive##Selectable_Keep Tooltips Alive,ツールチップを維持##Selectable_Keep Tooltips Alive
+Automaton,Captured,,Checkbox/RenderText,Kill Game,ゲームを終了
+Automaton,Captured,,Selectable,Lalachievements Lookup##Selectable_Lalachievements Lookup,Lalachievements検索##Selectable_Lalachievements Lookup
+Automaton,Captured,,Text/RenderTextWrapped,Leave if specific players are not present.,指定したプレイヤーがいない場合に退出します。
+Automaton,Captured,,Text/RenderTextWrapped,Like those other games. Supports clicking on the map.,他ゲームのようなクリック移動です。マップ上のクリックにも対応します。
+Automaton,Captured,,Text/RenderTextWrapped,Login Commands,ログイン時コマンド
+Automaton,Captured,,Text/RenderTextWrapped,"Lower the quality of an item by ID, or pass all",指定IDのアイテムをNQ化します。allを指定すると全対象へ実行します。
+Automaton,Captured,,Text/RenderTextWrapped,Ls1,LS1
+Automaton,Captured,,Checkbox/RenderText,Ls1##Ls1,LS1##Ls1
+Automaton,Captured,,Text/RenderTextWrapped,Ls2,LS2
+Automaton,Captured,,Checkbox/RenderText,Ls2##Ls2,LS2##Ls2
+Automaton,Captured,,Text/RenderTextWrapped,Ls3,LS3
+Automaton,Captured,,Checkbox/RenderText,Ls3##Ls3,LS3##Ls3
+Automaton,Captured,,Text/RenderTextWrapped,Ls4,LS4
+Automaton,Captured,,Checkbox/RenderText,Ls4##Ls4,LS4##Ls4
+Automaton,Captured,,Text/RenderTextWrapped,Ls5,LS5
+Automaton,Captured,,Checkbox/RenderText,Ls5##Ls5,LS5##Ls5
+Automaton,Captured,,Text/RenderTextWrapped,Ls6,LS6
+Automaton,Captured,,Checkbox/RenderText,Ls6##Ls6,LS6##Ls6
+Automaton,Captured,,Text/RenderTextWrapped,Ls7,LS7
+Automaton,Captured,,Checkbox/RenderText,Ls7##Ls7,LS7##Ls7
+Automaton,Captured,,Text/RenderTextWrapped,Ls8,LS8
+Automaton,Captured,,Checkbox/RenderText,Ls8##Ls8,LS8##Ls8
+Automaton,Captured,,Text/RenderTextWrapped,"Mark channel as ""local""",このチャンネルを「ローカル」として扱う
+Automaton,Captured,,Text/RenderTextWrapped,Max Duration,最大経過時間
+Automaton,Captured,,Text/RenderTextWrapped,Max Progress,最大進行度
+Automaton,Captured,,Text/RenderTextWrapped,Merge incomplete stacks upon opening your inventory.,所持品を開いた時に、分かれている同一アイテムのスタックを自動でまとめます。
+Automaton,Captured,,Text/RenderTextWrapped,Min Level,最低レベル
+Automaton,Captured,,Text/RenderTextWrapped,Min Time Remaining,最低残り時間
+Automaton,Captured,,Text/RenderTextWrapped,Minions,ミニオン
+Automaton,Captured,,Text/RenderTextWrapped,Miscellanous commands,その他のコマンド
+Automaton,Captured,,Text/RenderTextWrapped,Missing 1 of the required plugins for this feature to work:,この機能に必要なプラグインが1つ不足しています：
+Automaton,Captured,,Text/RenderTextWrapped,Modifier Key,修飾キー
+Automaton,Captured,,Text/RenderTextWrapped,Movement Type,移動方式
+Automaton,Captured,,Text/RenderTextWrapped,No alerts configured,アラートは設定されていません
+Automaton,Captured,,TableSetupColumn/Text/RenderTextWrapped,Normal Items,通常アイテム
+Automaton,Captured,,Text/RenderTextWrapped,NoviceNetwork,ビギナーチャンネル
+Automaton,Captured,,Checkbox/RenderText,NoviceNetwork##NoviceNetwork,ビギナーチャンネル##NoviceNetwork
+Automaton,Captured,,Text/RenderTextWrapped,"On CharacterPostProcess, do any seasonal quests that are available.",キャラクター処理後、受注可能なシーズナルクエストを自動で処理します。
+Automaton,Captured,,Checkbox/RenderText,Only In Duty##Input,コンテンツ内のみ##Input
+Automaton,Captured,,Checkbox/RenderText,Only send local hunts to local channels,ローカルのモブ情報だけをローカルチャンネルへ送信
+Automaton,Captured,,Text/RenderTextWrapped,Order used when selecting the next FATE to complete.,次に処理するFATEを選ぶ際の優先順位です。
+Automaton,Captured,,Text/RenderTextWrapped,Pattern,パターン
+Automaton,Captured,,RadioButtonBool/RenderText,Player Current World,プレイヤーの現在ワールド
+Automaton,Captured,,RadioButtonBool/RenderText,Player Home World,プレイヤーのホームワールド
+Automaton,Captured,,Selectable,Prevent Confirm Targeting Chat##Selectable_Prevent Confirm Targeting Chat,チャット中の決定キーによるターゲット変更を防止##Selectable_Prevent Confirm Targeting Chat
+Automaton,Captured,,Text/RenderTextWrapped,Prevents being kicked for being AFK.,長時間操作しないことによる自動ログアウトを防ぎます。
+Automaton,Captured,,Text/RenderTextWrapped,Priority Order,優先順位
+Automaton,Captured,,Text/RenderTextWrapped,Probably won't reset your config every update. Triggers on zone change.,アップデートのたびに設定を初期化しないようにします。エリア移動時に動作します。
+Automaton,Captured,,BeginComboPreview/Selectable,Progress,進行度
+Automaton,Captured,,Checkbox/RenderText,PvPTeam##PvPTeam,PvPチーム##PvPTeam
+Automaton,Captured,,Text/RenderTextWrapped,Relay Type Configuration,中継タイプ設定
+Automaton,Captured,,Checkbox/RenderText,Remove <world> tags for Novice Network relays,ビギナーチャンネルへの中継時に <world> タグを削除
+Automaton,Captured,,Text/RenderTextWrapped,Remove this sort criteria,この並び替え条件を削除
+Automaton,Captured,,Text/RenderTextWrapped,Requeues for Crystalline Conflict when your registration was cancelled due to a map change.,エリア移動などでクリスタルコンフリクトの申請が解除された場合に再申請します。
+Automaton,Captured,,Text/RenderTextWrapped,Required Dependencies,必要な依存プラグイン
+Automaton,Captured,,Text/RenderTextWrapped,Retrieve All Materia,マテリアをすべて回収
+Automaton,Captured,,Selectable,Retrieve All Materia##Selectable_Retrieve All Materia,マテリアをすべて回収##Selectable_Retrieve All Materia
+Automaton,Captured,,Checkbox/RenderText,Return Home##Input,ホームワールドへ戻る##Input
+Automaton,Captured,,TableSetupColumn/Text/RenderTextWrapped,Rotating Currencies,ローテーション通貨
+Automaton,Captured,,Checkbox/RenderText,Run Commands if AutoRetainer is active,AutoRetainer動作中でもコマンドを実行
+Automaton,Captured,,Text/RenderTextWrapped,S Rank,Sモブ
+Automaton,Captured,,Text/RenderTextWrapped,Search:,検索：
+Automaton,Captured,,Checkbox/RenderText,Send Chat Alert,チャット通知
+Automaton,Captured,,Checkbox/RenderText,Send Sound Alert,サウンド通知
+Automaton,Captured,,Checkbox/RenderText,Send Toast Alert,トースト通知
+Automaton,Captured,,RadioButtonBool/RenderText,Sender Home World,送信者のホームワールド
+Automaton,Captured,,Text/RenderTextWrapped,Sends a party chat message when the duty ends.,コンテンツ終了時にパーティチャットへメッセージを送信します。
+Automaton,Captured,,Text/RenderTextWrapped,Sends a party chat message when the duty starts.,コンテンツ開始時にパーティチャットへメッセージを送信します。
+Automaton,Captured,,Checkbox/RenderText,Shout##Shout,シャウト##Shout
+Automaton,Captured,,Text/RenderTextWrapped,Shows the scrip rewards next to the collectability rating on item tooltips.,アイテムツールチップの収集価値の横に、獲得できるスクリップ数を表示します。
+Automaton,Captured,,Text/RenderTextWrapped,Simple Currency Alert,通貨上限アラート
+Automaton,Captured,,Selectable,Simple Currency Alert##Selectable_Simple Currency Alert,通貨上限アラート##Selectable_Simple Currency Alert
+Automaton,Captured,,Text/RenderTextWrapped,Skips the 20 second countdown when logging out outside of a sanctuary. Skips inside duties.,レストエリア外でログアウトする際の20秒カウントを省略します。コンテンツ内でも省略します。
+Automaton,Captured,,Text/RenderTextWrapped,Sniper no sniping,狙撃任務を自動処理
+Automaton,Captured,,Selectable,Sniper no sniping##Selectable_Sniper no sniping,狙撃任務を自動処理##Selectable_Sniper no sniping
+Automaton,Captured,,Checkbox/RenderText,Swap Zones##Input,エリアを切り替える##Input
+Automaton,Captured,,Text/RenderTextWrapped,Teleport to the aetheryte nearest your flag,マップフラッグに最も近いエーテライトへテレポします。
+Automaton,Captured,,Checkbox/RenderText,TellIncoming##TellIncoming,Tell受信##TellIncoming
+Automaton,Captured,,Text/RenderTextWrapped,TextAdvance:,TextAdvance:
+Automaton,Captured,,BeginComboPreview/Selectable,TimeRemaining,残り時間
+Automaton,Captured,,BeginComboPreview/Selectable,TimeRemainingUrgent,残り時間（緊急）
+Automaton,Captured,,Text/RenderTextWrapped,Timezone Translator,タイムゾーン変換
+Automaton,Captured,,Selectable,Timezone Translator##Selectable_Timezone Translator,タイムゾーン変換##Selectable_Timezone Translator
+Automaton,Captured,,Text/RenderTextWrapped,Toggle 3D rendering,3D描画のON/OFFを切り替えます。
+Automaton,Captured,,Text/RenderTextWrapped,Toggles busy while you're teleporting.,テレポ中だけビジー状態を自動で切り替えます。
+Automaton,Captured,,Text/RenderTextWrapped,Train,連戦ツアー
+Automaton,Captured,,Text/RenderTextWrapped,Translates system message timestamps in chat to your time zone,チャットのシステムメッセージ時刻を自分のタイムゾーンへ変換します。
+Automaton,Captured,,Text/RenderTextWrapped,True Auto Follow. Trigger with command while targeting someone. Use it with no target to wipe the current master.,True Auto Follow. Trigger with command while targeting someone. Use it with no target to wipe the current master.
+Automaton,Captured,,Checkbox/RenderText,Turn Off Once Full##Input,上限到達でOFF##Input
+Automaton,Captured,,Text/RenderTextWrapped,Update Frequency,更新間隔
+Automaton,Captured,,Text/RenderTextWrapped,Upon GM Appearance,GM出現時
+Automaton,Captured,,Text/RenderTextWrapped,Use an item by ID,指定IDのアイテムを使用します。
+Automaton,Captured,,Text/RenderTextWrapped,Various alerts for when a GM is nearby.,近くにGMがいる場合に各種通知を出します。
+Automaton,Captured,,Text/RenderTextWrapped,Window Character Name,ウィンドウにキャラクター名を表示
+Automaton,Captured,,Selectable,Window Character Name##Selectable_Window Character Name,ウィンドウにキャラクター名を表示##Selectable_Window Character Name
+Automaton,Captured,,Text/RenderTextWrapped,Wondrous Tails Click To Open,クロの空想帳をクリックで開く
+Automaton,Captured,,Selectable,Wondrous Tails Click To Open##Selectable_Wondrous Tails Click To Open,クロの空想帳をクリックで開く##Selectable_Wondrous Tails Click To Open
+Automaton,Captured,,Checkbox/RenderText,Yell##Yell,Yell##Yell
+Automaton,Captured,,RenderTextWrapped,全体,全体
+Automaton,Captured,,RenderText,標準###Normal,標準###Normal
+Automaton,Captured,,RenderTextWrapped,無効,無効
+Automaton,Captured,,Button,##Reset,##Reset
+Automaton,Currency,,,Discontinued Tomestone,旧アラガントームストーン
+Automaton,Currency,,,Unlimited Tomestone,週制限なしトームストーン
+Automaton,Currency,,,Limited Tomestone,週制限ありトームストーン
+Automaton,Currency,,,Discontinued Crafters' Scrip,旧クラフタースクリップ
+Automaton,Currency,,,Discontinued Gatherers' Scrip,旧ギャザラースクリップ
+Automaton,Currency,,,Levelling Crafters' Scrip,レベリング用クラフタースクリップ
+Automaton,Currency,,,Levelling Gatherers' Scrip,レベリング用ギャザラースクリップ
+Automaton,Currency,,,Capstone Crafters' Scrip,カンスト帯クラフタースクリップ
+Automaton,Currency,,,Capstone Gatherers' Scrip,カンスト帯ギャザラースクリップ
+Automaton,AutoFollow,,,"True Auto Follow. Trigger with command while targeting someone. Use it with no target to wipe the current master.
+If multiboxing, you can send ""autofollow"" to chat and anyone in the party with this feature enabled will follow.
+You can also add a number argument to specify the distance to keep, or add the off argument to clear the current master.","実際に対象を追従する自動追従機能です。
+対象をターゲットした状態でコマンドを実行すると追従を開始し、ターゲットなしで実行すると現在の追従対象を解除します。
+多重起動時はチャットに「autofollow」と送ることで、この機能を有効にしているパーティメンバーが追従します。
+数値を付けると維持距離を指定でき、「off」を付けると追従対象を解除できます。"

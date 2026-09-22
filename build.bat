@@ -2,107 +2,196 @@
 setlocal EnableExtensions EnableDelayedExpansion
 cd /d "%~dp0"
 
-set "VERSION=0.3.1"
+title Plugin JP Helper Build
+
+set "PLUGIN=PluginJPHelper"
+set "VERSION=0.4.12"
+set "CONFIG=Release"
 set "PROJECT=%~dp0PluginJPHelper\PluginJPHelper.csproj"
-set "MANIFEST=%~dp0PluginJPHelper\PluginJPHelper.json"
+set "SOURCEICON=%~dp0images\icon.png"
+set "SOURCEDICT=%~dp0Dictionaries"
 set "OUTDIR=%~dp0PluginJPHelper\bin\x64\Release"
-set "TESTDIR=Z:\PluginJPHelper\Current"
-set "RELEASEDIR=%~dp0release\PluginJPHelper"
+set "BUILDDLL=%OUTDIR%\PluginJPHelper.dll"
+set "LOCAL=Z:\PluginJPHelper\Current"
+set "RELEASE=%~dp0release\PluginJPHelper"
 set "ZIPFILE=%~dp0release\PluginJPHelper_v%VERSION%.zip"
 
 echo ================================================
-echo Plugin JP Helper v%VERSION% LOCAL TEST + RELEASE PACKAGE BUILD
+echo Plugin JP Helper v%VERSION% Build
 echo ================================================
 echo.
-echo Test deploy target:
-echo %TESTDIR%
+
+echo [1/5] Restoring...
+dotnet restore "%PROJECT%"
+if errorlevel 1 goto :fail
+
 echo.
-echo Release ZIP:
-echo %ZIPFILE%
-echo.
+echo [2/5] Building...
+dotnet build "%PROJECT%" -c %CONFIG% --no-restore -p:Platform=x64
+if errorlevel 1 goto :fail
 
-findstr /C:"\"AssemblyVersion\": \"0.3.1.0\"" "%MANIFEST%" >nul
-if errorlevel 1 goto :manifest_failed
-
-dotnet build "%PROJECT%" -c Release -p:Platform=x64
-if errorlevel 1 goto :build_failed
-
-set "BUILDDIR="
-for /r "%OUTDIR%" %%F in (PluginJPHelper.dll) do (
-    set "BUILDDIR=%%~dpF"
-    goto :build_dir_found
+if not exist "%BUILDDLL%" (
+    set "BUILDDLL="
+    for /f "delims=" %%F in ('dir /b /s "%~dp0PluginJPHelper\bin\%CONFIG%\PluginJPHelper.dll" 2^>nul') do (
+        if not defined BUILDDLL set "BUILDDLL=%%~fF"
+    )
 )
 
-:build_dir_found
-if not defined BUILDDIR goto :build_failed
-if not exist "Z:\" goto :z_failed
+if not defined BUILDDLL (
+    echo [ERROR] PluginJPHelper.dll was not found.
+    goto :fail
+)
+if not exist "!BUILDDLL!" (
+    echo [ERROR] Built DLL does not exist.
+    goto :fail
+)
 
-rem ===== Local test deployment =====
-if exist "%TESTDIR%" rmdir /s /q "%TESTDIR%"
-mkdir "%TESTDIR%"
-call :copy_plugin_files "%TESTDIR%"
+for %%F in ("!BUILDDLL!") do set "BUILDDIR=%%~dpF"
+echo [OK] DLL: !BUILDDLL!
 
-rem ===== Release package =====
-if exist "%RELEASEDIR%" rmdir /s /q "%RELEASEDIR%"
-mkdir "%RELEASEDIR%"
-call :copy_plugin_files "%RELEASEDIR%"
+if not exist "%SOURCEICON%" (
+    echo [ERROR] images\icon.png was not found.
+    goto :fail
+)
+echo [OK] Icon: %SOURCEICON%
 
+echo.
+echo [3/5] Preparing release folder...
+if exist "%RELEASE%" rmdir /s /q "%RELEASE%"
+mkdir "%RELEASE%" >nul 2>nul
+if errorlevel 1 goto :fail
+
+copy /Y "!BUILDDLL!" "%RELEASE%\PluginJPHelper.dll" >nul
+if errorlevel 1 (
+    echo [ERROR] Failed to copy PluginJPHelper.dll.
+    goto :fail
+)
+
+for %%F in (PluginJPHelper.deps.json Microsoft.Windows.SDK.NET.dll WinRT.Runtime.dll) do (
+    if not exist "!BUILDDIR!%%F" (
+        echo [ERROR] Required build file is missing: %%F
+        goto :fail
+    )
+    copy /Y "!BUILDDIR!%%F" "%RELEASE%\%%F" >nul
+    if errorlevel 1 (
+        echo [ERROR] Failed to copy: %%F
+        goto :fail
+    )
+)
+
+if not exist "%RELEASE%\images" mkdir "%RELEASE%\images" >nul 2>nul
+copy /Y "%SOURCEICON%" "%RELEASE%\images\icon.png" >nul
+if errorlevel 1 (
+    echo [ERROR] Failed to copy icon.
+    goto :fail
+)
+
+if exist "%SOURCEDICT%" (
+    if exist "%RELEASE%\Dictionaries" rmdir /s /q "%RELEASE%\Dictionaries"
+    xcopy "%SOURCEDICT%\*" "%RELEASE%\Dictionaries\" /E /I /Y /Q >nul
+    if errorlevel 1 (
+        echo [ERROR] Failed to copy Dictionaries.
+        goto :fail
+    )
+)
+
+if not exist "%RELEASE%\PluginJPHelper.dll" (
+    echo [ERROR] Release DLL is missing.
+    goto :fail
+)
+if not exist "%RELEASE%\PluginJPHelper.json" (
+    copy /Y "%~dp0PluginJPHelper\PluginJPHelper.json" "%RELEASE%\PluginJPHelper.json" >nul
+)
+if not exist "%RELEASE%\PluginJPHelper.json" (
+    echo [ERROR] Release JSON is missing.
+    goto :fail
+)
+if not exist "%RELEASE%\images\icon.png" (
+    echo [ERROR] Release icon is missing.
+    goto :fail
+)
+
+echo [OK] Release DLL: %RELEASE%\PluginJPHelper.dll
+echo [OK] Release icon: %RELEASE%\images\icon.png
+
+echo.
+echo [4/5] Copying to local test folder...
+if not exist "Z:\" (
+    echo [ERROR] Z: drive was not found.
+    echo Target: %LOCAL%
+    goto :fail
+)
+
+if exist "%LOCAL%" rmdir /s /q "%LOCAL%"
+mkdir "%LOCAL%" >nul 2>nul
+xcopy "%RELEASE%\*" "%LOCAL%\" /E /I /Y /Q >nul
+if errorlevel 1 (
+    echo [ERROR] Failed to copy to Z: drive.
+    goto :fail
+)
+
+if not exist "%LOCAL%\PluginJPHelper.dll" (
+    echo [ERROR] Local DLL is missing.
+    goto :fail
+)
+if not exist "%LOCAL%\images\icon.png" (
+    echo [ERROR] Local icon is missing.
+    goto :fail
+)
+
+echo [OK] Local DLL: %LOCAL%\PluginJPHelper.dll
+echo [OK] Local icon: %LOCAL%\images\icon.png
+
+echo.
+echo [5/5] Creating GitHub upload ZIP...
+if not exist "%~dp0release" mkdir "%~dp0release" >nul 2>nul
 if exist "%ZIPFILE%" del /q "%ZIPFILE%"
-powershell -NoProfile -ExecutionPolicy Bypass -Command "Compress-Archive -Path '%RELEASEDIR%\*' -DestinationPath '%ZIPFILE%' -CompressionLevel Optimal -Force"
-if errorlevel 1 goto :zip_failed
 
-if not exist "%ZIPFILE%" goto :zip_failed
+powershell -NoProfile -ExecutionPolicy Bypass -Command "Compress-Archive -Path '%RELEASE%\*' -DestinationPath '%ZIPFILE%' -CompressionLevel Optimal -Force"
+if errorlevel 1 (
+    echo [ERROR] Failed to create ZIP.
+    goto :fail
+)
+
+if not exist "%ZIPFILE%" (
+    echo [ERROR] ZIP file was not created.
+    goto :fail
+)
+
+for %%F in ("%ZIPFILE%") do set "ZIPSIZE=%%~zF"
+if "!ZIPSIZE!"=="0" (
+    echo [ERROR] ZIP file is empty.
+    goto :fail
+)
+
+echo [OK] Release ZIP: %ZIPFILE%
+echo [OK] ZIP size: !ZIPSIZE! bytes
 
 echo.
 echo ================================================
-echo BUILD OK
+echo Build completed successfully
 echo ================================================
 echo.
 echo Local test:
-echo %TESTDIR%
+echo   %LOCAL%\PluginJPHelper.dll
+echo   %LOCAL%\PluginJPHelper.json
+echo   %LOCAL%\images\icon.png
 echo.
-echo Release upload ZIP:
-echo %ZIPFILE%
+echo GitHub upload:
+echo   %ZIPFILE%
 echo.
-echo ZIP contents are directly under the archive root.
+echo This BAT does not upload or publish to GitHub.
 echo.
 pause
 exit /b 0
 
-:copy_plugin_files
-set "DEST=%~1"
-copy /y "%BUILDDIR%PluginJPHelper.dll" "%DEST%\PluginJPHelper.dll" >nul
-if exist "%BUILDDIR%PluginJPHelper.deps.json" copy /y "%BUILDDIR%PluginJPHelper.deps.json" "%DEST%\PluginJPHelper.deps.json" >nul
-if exist "%BUILDDIR%PluginJPHelper.runtimeconfig.json" copy /y "%BUILDDIR%PluginJPHelper.runtimeconfig.json" "%DEST%\PluginJPHelper.runtimeconfig.json" >nul
-copy /y "%MANIFEST%" "%DEST%\PluginJPHelper.json" >nul
-if exist "%BUILDDIR%Microsoft.Windows.SDK.NET.dll" copy /y "%BUILDDIR%Microsoft.Windows.SDK.NET.dll" "%DEST%\Microsoft.Windows.SDK.NET.dll" >nul
-if exist "%BUILDDIR%WinRT.Runtime.dll" copy /y "%BUILDDIR%WinRT.Runtime.dll" "%DEST%\WinRT.Runtime.dll" >nul
-if exist "%~dp0Dictionaries" (
-    mkdir "%DEST%\Dictionaries" >nul 2>&1
-    xcopy /e /i /y "%~dp0Dictionaries\*" "%DEST%\Dictionaries\" >nul
-)
-exit /b 0
-
-:manifest_failed
+:fail
 echo.
-echo MANIFEST ERROR: AssemblyVersion 0.3.1.0 not found.
-pause
-exit /b 1
-
-:build_failed
+echo ================================================
+echo Build or deployment failed
+echo ================================================
 echo.
-echo BUILD FAILED
-pause
-exit /b 1
-
-:zip_failed
+echo Please send the full contents of this window.
 echo.
-echo ZIP PACKAGE FAILED
-pause
-exit /b 1
-
-:z_failed
-echo.
-echo Z DRIVE NOT FOUND
 pause
 exit /b 1

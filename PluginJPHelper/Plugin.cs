@@ -1,12 +1,23 @@
+﻿using System.Collections;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.Json;
+using System.Text.RegularExpressions;
+using System.Net.Http;
+using System.Security.Cryptography;
+using System.Reflection;
 using Dalamud.Bindings.ImGui;
 using Dalamud.Configuration;
 using Dalamud.Game.Command;
+using Dalamud.Game.Gui.ContextMenu;
+using Dalamud.Game.Text;
+using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.Hooking;
+using Dalamud.Interface;
+using Dalamud.Interface.Windowing;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 
@@ -14,40 +25,138 @@ namespace PluginJPHelper;
 
 public sealed unsafe class Plugin : IDalamudPlugin
 {
+    // Protect structural changes/enumeration of config.Plugins from overlapping async/UI work.
+    private readonly object pluginConfigSync = new();
+
     private const string Command = "/pjph";
     private readonly IDalamudPluginInterface pluginInterface;
     private readonly ICommandManager commandManager;
     private readonly IGameInteropProvider interop;
     private readonly IPluginLog log;
+    private readonly IContextMenu contextMenu;
     private readonly Configuration config;
 
     private readonly ConcurrentDictionary<string, CapturedItem> backgroundCaptured = new(StringComparer.Ordinal);
         private readonly Dictionary<string, ConcurrentDictionary<string, CapturedItem>> pluginCaptured = new(StringComparer.Ordinal);
     private volatile bool baselineCaptureEnabled;
     private readonly Dictionary<string, string> editBuffers = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, string> openCommandBuffers = new(StringComparer.Ordinal);
+    private readonly HttpClient officialDictionaryHttp = new() { Timeout = TimeSpan.FromSeconds(15) };
+    private readonly object officialDictionaryLock = new();
+    private List<OfficialDictionaryEntry> officialDictionaryEntries = new();
+    private readonly HashSet<string> selectedOfficialDictionaries = new(StringComparer.Ordinal);
+    private volatile bool officialDictionaryBusy;
+    private string officialDictionaryStatus = "未取得";
+    private volatile bool officialNoticeBusy;
+    private string officialNoticeText = string.Empty;
+    private string officialNoticeSha = string.Empty;
+    private long officialNoticeLastAttemptTick;
+    private long communityLastAttemptTick;
+    private const long UpdateCheckIntervalMs = 3_600_000; // 起動時 + 1時間ごとに確認
+    private const string OfficialDictionaryApiUrl = "https://api.github.com/repos/elpapityo/PluginJPHelper/contents/Dictionaries/Official?ref=main";
+    private const string OfficialNoticeUrl = "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/notice.txt";
+    private const string OfficialNoticeApiUrl = "https://api.github.com/repos/elpapityo/PluginJPHelper/contents/Dictionaries/notice.txt?ref=main";
+
+    // 辞書CSVの予約メタ行。
+    // Plugin,Menu,Section,Type,English,Japanese
+    // Pawprint,,,@Window,ArenaNodeEditor,
+    private const string DictionaryWindowMetaType = "@Window";
     // v0.0.66: 辞書画面の全カタログ再構築を毎フレーム行わない。
     private readonly Dictionary<string, KeyValuePair<string, string>[]> dictionaryCatalogCache = new(StringComparer.Ordinal);
     private readonly Dictionary<string, Dictionary<string, int>> dictionaryMenuCountCache = new(StringComparer.Ordinal);
-    private bool windowOpen = false;
+    private readonly WindowSystem windowSystem;
+    private readonly MainWindow mainWindow;
+    private readonly PluginInstallerModule pluginInstallerModule;
     private volatile bool captureEnabled;
     private long translatedCount;
     private string filter = string.Empty;
+    private string captureTargetFilter = string.Empty;
+    private string captureOtherFilter = string.Empty;
     private bool showUntranslatedOnly;
     private int dictionarySortMode; // 0=原文, 1=画面内項目, 2=日本語訳, 3=未訳優先
     private bool dictionarySortAscending = true;
+    // v0.3.3: 公式／コミュニティ／未翻訳一覧のソート。
+    private int officialDictionarySortMode;
+    private bool officialDictionarySortAscending = true;
+    private int communityDictionarySortMode;
+    private bool communityDictionarySortAscending = true;
+    private int captureSortMode;
+    private bool captureSortAscending = true;
     private string customPluginName = string.Empty;
     private string customWindowKeyword = string.Empty;
+    // v0.4.9: 独立ImGuiウィンドウの手動関連付け + 検出テストモード。
+    // 特定プラグインのウィンドウ名を決め打ちせず、ユーザーが「検出開始」後に開いた
+    // 新規ウィンドウを候補として表示し、選択した翻訳対象へ関連付ける。
+    private string additionalWindowKeywordInput = string.Empty;
+    private string detectedWindowSelection = string.Empty;
+    private bool additionalWindowDetectMode;
+    private string additionalWindowDetectPlugin = string.Empty;
+    private long additionalWindowDetectStartedAt;
+    private HashSet<string> additionalWindowDetectBaseline = new(StringComparer.Ordinal);
+    private string additionalWindowNewSelection = string.Empty;
+    private string additionalWindowSearch = string.Empty;
+    private bool showInternalDetectedWindows;
     private string installedPluginSelection = string.Empty;
     private string csvStatus = string.Empty;
+    private string dictionaryAutoTranslateStatus = string.Empty;
+    private Task<(Dictionary<string, string> Translations, int Skipped, int Failed)>? dictionaryAutoTranslateTask;
+    private CancellationTokenSource? dictionaryAutoTranslateCts;
+    private Task<string>? dictionaryGoogleAvailabilityTask;
+    private string dictionaryGoogleAvailabilityStatus = "未確認";
+    private readonly Dictionary<string, string> dictionaryAutoTranslateDrafts = new(StringComparer.Ordinal);
+    private readonly ConcurrentQueue<string> dictionaryAutoTranslateLogs = new();
+    private const int MaxDictionaryAutoTranslateLogs = 500;
     private string hookStatus = "未初期化";
     private string selectedPlugin = "RSR";
     private string capturePlugin = "RSR";
+    private string communityPosterNameBuffer = string.Empty;
+    private string communityFilter = string.Empty;
+    // v0.3.3: 公式／コミュニティ辞書の状態列を必要なときだけ表示。
+    // Default is the compact view (dictionary / supported plugin / state).
+    private bool showStatusTranslationRegistered;
+    private bool showStatusCaptureRegistered;
+    private bool showStatusTranslationEnabled;
+    private bool showStatusInstalled;
+    private bool showStatusPluginSwitch;
+    private string communityStatus = "未取得";
+    private bool communityListLoaded;
+    private bool communityNoticePending;
+    private volatile bool communityDictionaryBusy;
+    private readonly object communityDictionaryLock = new();
+    private List<CommunityDictionaryEntry> communityDictionaryEntries = new();
+    private readonly HashSet<string> selectedCommunityDictionaries = new(StringComparer.Ordinal);
+    private const string CommunityIndexApiUrl = "https://api.github.com/repos/elpapityo/PluginJPHelper/contents/Dictionaries/Community/community-index.json?ref=main";
     [ThreadStatic] private static bool drawingOwnUi;
+
+    // v0.3.4 local test: translate custom game ContextMenu items before Dalamud renders them.
+    // Plugin identity + prefix + original text must all match exactly.
+    private static readonly ContextMenuTranslationEntry[] ContextMenuTranslations =
+    [
+        new("MarketBoardPlugin", SeIconChar.BoxedLetterM, "Search in Market Board", "マーケットボードで検索"),
+        // GatherBuddyReborn upstream currently uses C, but some installed builds present the same exact item with V.
+        // Only this exact original text accepts the V fallback; all other matching remains plugin + prefix + exact text.
+        new("GatherBuddyReborn", SeIconChar.BoxedLetterC, "Add to Crafting List", "製作リストに追加"),
+        new("GatherBuddyReborn", SeIconChar.BoxedLetterV, "Add to Crafting List", "製作リストに追加"),
+        new("GatherBuddyReborn", SeIconChar.BoxedLetterV, "Open in Vulcan", "Vulcanで開く"),
+        new("Artisan", SeIconChar.BoxedLetterA, "Artisan Crafting List", "Artisan 製作リスト"),
+    ];
+
+    private static readonly Dictionary<string, string> ArtisanSubmenuTranslations = new(StringComparer.Ordinal)
+    {
+        ["Add to Current Artisan Crafting List"] = "現在のArtisan製作リストに追加",
+        ["Add to Current Artisan Crafting List (with Sub-crafts)"] = "現在のArtisan製作リストに追加（サブクラフト込み）",
+        ["Add to New Artisan Crafting List"] = "新しいArtisan製作リストに追加",
+        ["Add to New Artisan Crafting List (with Sub-crafts)"] = "新しいArtisan製作リストに追加（サブクラフト込み）",
+    };
 
     private Hook<TextUnformattedDelegate>? textHook;
     private Hook<TextWrappedDelegate>? textWrappedHook;
+    private Hook<TextVDelegate>? textVHook;
+    private Hook<TextColoredVDelegate>? textColoredVHook;
+    private Hook<TextDisabledVDelegate>? textDisabledVHook;
     private Hook<CheckboxDelegate>? checkboxHook;
     private Hook<ButtonDelegate>? buttonHook;
+    private Hook<ButtonExDelegate>? buttonExHook;
     private Hook<SelectableDelegate>? selectableHook;
     private Hook<SelectablePtrDelegate>? selectablePtrHook;
     private Hook<ComboStrArrDelegate>? comboStrArrHook;
@@ -55,9 +164,14 @@ public sealed unsafe class Plugin : IDalamudPlugin
     private Hook<ComboFnStrPtrDelegate>? comboFnStrPtrHook;
     private Hook<BeginComboDelegate>? beginComboHook;
     private Hook<EndComboDelegate>? endComboHook;
+    private Hook<SliderIntDelegate>? sliderIntHook;
+    private Hook<TableSetupColumnDelegate>? tableSetupColumnHook;
     private Hook<SeparatorTextDelegate>? separatorTextHook;
     private Hook<BeginDelegate>? beginHook;
     private Hook<EndDelegate>? endHook;
+    private Hook<BeginPopupDelegate>? beginPopupHook;
+    private Hook<BeginPopupModalDelegate>? beginPopupModalHook;
+    private Hook<EndPopupDelegate>? endPopupHook;
     private Hook<RadioButtonBoolDelegate>? radioButtonBoolHook;
     private Hook<RadioButtonIntPtrDelegate>? radioButtonIntPtrHook;
     private Hook<TreeNodeStrDelegate>? treeNodeStrHook;
@@ -69,11 +183,13 @@ public sealed unsafe class Plugin : IDalamudPlugin
     private Hook<RenderTextWrappedDelegate>? renderTextWrappedHook;
     private Hook<RenderTextClippedDelegate>? renderTextClippedHook;
     private Hook<DrawListAddTextVec2Delegate>? drawListAddTextVec2Hook;
+    private Hook<DrawListAddTextFontPtrDelegate>? drawListAddTextFontPtrHook;
     private Hook<BeginTabItemDelegate>? beginTabItemHook;
     private Hook<MenuItemBoolDelegate>? menuItemBoolHook;
     private Hook<MenuItemBoolPtrDelegate>? menuItemBoolPtrHook;
     private Hook<BeginMenuDelegate>? beginMenuHook;
     [ThreadStatic] private static Stack<string>? windowStack;
+    [ThreadStatic] private static Stack<bool>? popupOwnerFrameStack;
     [ThreadStatic] private static string rsrCurrentMenu = string.Empty;
     [ThreadStatic] private static string rsrCurrentSection = string.Empty;
     [ThreadStatic] private static string rsrPendingMenuCandidate = string.Empty;
@@ -83,8 +199,15 @@ public sealed unsafe class Plugin : IDalamudPlugin
     private long comboStrCalls;
     private long comboFnCalls;
     private long beginComboCalls;
+    private long sliderIntCalls;
+    private long tableSetupColumnCalls;
     private long comboSelectableCalls;
+    private readonly ConcurrentQueue<HookDiagnosticEntry> hookDiagnosticEntries = new();
+    private const int MaxHookDiagnosticEntries = 80;
     private readonly ConcurrentDictionary<string, int> seenWindows = new(StringComparer.Ordinal);
+    // v0.4.9: Begin() が直近のフレームで呼ばれているウィンドウだけを
+    // 「現在表示中」とみなすための最終検出時刻。seenWindows は履歴として残す。
+    private readonly ConcurrentDictionary<string, long> liveWindowLastSeen = new(StringComparer.Ordinal);
     private static Stack<string>? windowOwnerStack;
     private string lastExplicitWindowOwner = string.Empty;
     private long lastExplicitWindowOwnerTick;
@@ -734,10 +857,22 @@ public sealed unsafe class Plugin : IDalamudPlugin
     // RSR のチェック項目ラベルは TextUnformatted ではなくこの経路に来る。
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void TextWrappedDelegate(byte* text);
+    // ImGui.Text / TextColored / TextDisabled のV系経路。
+    // va_list はそのままOriginalへ渡し、書式指定子を含まない固定ラベルだけ翻訳する。
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    private delegate void TextVDelegate(byte* fmt, nint args);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    private delegate void TextColoredVDelegate(Vector4 col, byte* fmt, nint args);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    private delegate void TextDisabledVDelegate(byte* fmt, nint args);
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate byte CheckboxDelegate(byte* label, byte* value);
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate byte ButtonDelegate(byte* label, Vector2 size);
+    // ImSharp Im.Button() calls cimgui igButtonEx directly instead of igButton.
+    // Penumbra/Luna use this path for support buttons and tutorial controls.
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    private delegate byte ButtonExDelegate(byte* label, Vector2 size, int flags);
     // cimgui: bool igSelectable_Bool(const char* label, bool selected, ImGuiSelectableFlags flags, const ImVec2 size)
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate byte SelectableDelegate(byte* label, byte selected, int flags, Vector2 size);
@@ -754,6 +889,12 @@ public sealed unsafe class Plugin : IDalamudPlugin
     private delegate byte BeginComboDelegate(byte* label, byte* previewValue, int flags);
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void EndComboDelegate();
+    // cimgui: bool igSliderInt(const char* label, int* v, int v_min, int v_max, const char* format, ImGuiSliderFlags flags)
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    private delegate byte SliderIntDelegate(byte* label, int* value, int min, int max, byte* format, int flags);
+    // cimgui: void igTableSetupColumn(const char* label, ImGuiTableColumnFlags flags, float init_width_or_weight, ImGuiID user_id)
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    private delegate void TableSetupColumnDelegate(byte* label, int flags, float initWidthOrWeight, uint userId);
     // cimgui: bool igBeginTabItem(const char* label, bool* p_open, ImGuiTabItemFlags flags)
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate byte BeginTabItemDelegate(byte* label, byte* pOpen, int flags);
@@ -772,6 +913,14 @@ public sealed unsafe class Plugin : IDalamudPlugin
     private delegate byte BeginDelegate(byte* name, byte* pOpen, int flags);
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void EndDelegate();
+    // cimgui popup tracking. Popup content is rendered after BeginPopup/BeginPopupModal returns,
+    // so keep the parent plugin owner active until igEndPopup.
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    private delegate byte BeginPopupDelegate(byte* strId, int flags);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    private delegate byte BeginPopupModalDelegate(byte* name, byte* pOpen, int flags);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    private delegate void EndPopupDelegate();
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate byte RadioButtonBoolDelegate(byte* label, byte active);
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -1034,20 +1183,42 @@ public sealed unsafe class Plugin : IDalamudPlugin
 
     private delegate void DrawListAddTextVec2Delegate(void* drawList, Vector2 pos, uint col, byte* textBegin, byte* textEnd);
 
-    public Plugin(IDalamudPluginInterface pluginInterface, ICommandManager commandManager, IGameInteropProvider interop, IPluginLog log)
+    // ImDrawList::AddText(font, size, ...) overload. Some plugins use this path for colored/custom-font labels.
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    private delegate void DrawListAddTextFontPtrDelegate(
+        void* drawList, void* font, float fontSize, Vector2 pos, uint col,
+        byte* textBegin, byte* textEnd, float wrapWidth, Vector4* cpuFineClipRect);
+
+    public Plugin(IDalamudPluginInterface pluginInterface, ICommandManager commandManager, IGameInteropProvider interop, IPluginLog log, IContextMenu contextMenu)
     {
         this.pluginInterface = pluginInterface;
         this.commandManager = commandManager;
         this.interop = interop;
         this.log = log;
+        this.contextMenu = contextMenu;
+        windowSystem = new WindowSystem("PluginJPHelper");
+        mainWindow = new MainWindow(this);
+        windowSystem.AddWindow(mainWindow);
         config = pluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
         config.EnsurePlugins();
+        pluginInstallerModule = new PluginInstallerModule(pluginInterface, commandManager, log);
+        communityPosterNameBuffer = config.CommunityPosterName ?? string.Empty;
+        // GitHub辞書テストv3で公式CSVを直接適用していたデータを解除する。
+        // v4以降は公式フォルダーを配布置き場としてのみ扱い、ローカルへコピーしたCSVだけを利用する。
+        var clearedLegacyOfficialOverrides = false;
+        foreach (var state in GetPluginConfigSnapshot().Select(x => x.Value))
+        {
+            if (state.OfficialOverrides.Count == 0) continue;
+            state.OfficialOverrides.Clear();
+            clearedLegacyOfficialOverrides = true;
+        }
+        if (clearedLegacyOfficialOverrides) pluginInterface.SavePluginConfig(config);
         EnsureCaptureDictionaries();
         // v0.0.23: 完全リセット版。更新時に一度だけ旧データを全消去する。
         // バンドル済み旧標準辞書も CleanSlateMode で無効化し、今回の再取得結果だけを新基準にする。
         if (config.DataResetVersion < 23)
         {
-            foreach (var state in config.Plugins.Values)
+            foreach (var state in GetPluginConfigSnapshot().Select(x => x.Value))
             {
                 state.UserOverrides.Clear();
                 state.Locations.Clear();
@@ -1108,11 +1279,19 @@ public sealed unsafe class Plugin : IDalamudPlugin
         _ = EnsureLatestBundledInventoryToolsCsv();
 
         EnsureInitialRsrCsv();
+        // 公式辞書フォルダーは配布・更新確認専用。
+        // 実際に使用する辞書はユーザーがローカル辞書フォルダーへコピーして読み込む。
+        _ = RefreshOfficialNoticeAsync();
+        // 公式・コミュニティ辞書は起動時に1回確認し、その後は1時間ごとに再確認する。
+        // 確認済み扱いは各「一覧を取得」ボタンをユーザーが押した時だけ行う。
+        _ = RefreshCommunityDictionariesAsync(false);
 
         commandManager.AddHandler(Command, new CommandInfo(OnCommand) { HelpMessage = "Plugin JP Helper を開きます。" });
-        pluginInterface.UiBuilder.Draw += Draw;
+        pluginInterface.UiBuilder.Draw += windowSystem.Draw;
+        pluginInterface.UiBuilder.Draw += pluginInstallerModule.Tick;
         pluginInterface.UiBuilder.OpenConfigUi += OpenUi;
         pluginInterface.UiBuilder.OpenMainUi += OpenUi;
+        contextMenu.OnMenuOpened += OnContextMenuOpened;
         InstallHooks();
     }
 
@@ -1124,10 +1303,18 @@ public sealed unsafe class Plugin : IDalamudPlugin
         catch (Exception ex) { failed.Add("Text"); log.Warning(ex, "[PluginJPHelper] igTextUnformatted hook failed"); }
         try { textWrappedHook = interop.HookFromSymbol<TextWrappedDelegate>("cimgui.dll", "igTextWrapped", TextWrappedDetour); textWrappedHook.Enable(); installed.Add("TextWrapped"); }
         catch (Exception ex) { failed.Add("TextWrapped"); log.Warning(ex, "[PluginJPHelper] igTextWrapped hook failed"); }
+        try { textVHook = interop.HookFromSymbol<TextVDelegate>("cimgui.dll", "igTextV", TextVDetour); textVHook.Enable(); installed.Add("TextV"); }
+        catch (Exception ex) { failed.Add("TextV"); log.Warning(ex, "[PluginJPHelper] igTextV hook failed"); }
+        try { textColoredVHook = interop.HookFromSymbol<TextColoredVDelegate>("cimgui.dll", "igTextColoredV", TextColoredVDetour); textColoredVHook.Enable(); installed.Add("TextColoredV"); }
+        catch (Exception ex) { failed.Add("TextColoredV"); log.Warning(ex, "[PluginJPHelper] igTextColoredV hook failed"); }
+        try { textDisabledVHook = interop.HookFromSymbol<TextDisabledVDelegate>("cimgui.dll", "igTextDisabledV", TextDisabledVDetour); textDisabledVHook.Enable(); installed.Add("TextDisabledV"); }
+        catch (Exception ex) { failed.Add("TextDisabledV"); log.Warning(ex, "[PluginJPHelper] igTextDisabledV hook failed"); }
         try { checkboxHook = interop.HookFromSymbol<CheckboxDelegate>("cimgui.dll", "igCheckbox", CheckboxDetour); checkboxHook.Enable(); installed.Add("Checkbox"); }
         catch (Exception ex) { failed.Add("Checkbox"); log.Warning(ex, "[PluginJPHelper] igCheckbox hook failed"); }
         try { buttonHook = interop.HookFromSymbol<ButtonDelegate>("cimgui.dll", "igButton", ButtonDetour); buttonHook.Enable(); installed.Add("Button"); }
         catch (Exception ex) { failed.Add("Button"); log.Warning(ex, "[PluginJPHelper] igButton hook failed"); }
+        try { buttonExHook = interop.HookFromSymbol<ButtonExDelegate>("cimgui.dll", "igButtonEx", ButtonExDetour); buttonExHook.Enable(); installed.Add("ButtonEx"); }
+        catch (Exception ex) { failed.Add("ButtonEx"); log.Warning(ex, "[PluginJPHelper] igButtonEx hook failed"); }
         try { selectableHook = interop.HookFromSymbol<SelectableDelegate>("cimgui.dll", "igSelectable_Bool", SelectableDetour); selectableHook.Enable(); installed.Add("Selectable"); }
         catch (Exception ex) { failed.Add("Selectable"); log.Warning(ex, "[PluginJPHelper] igSelectable_Bool hook failed"); }
         try { selectablePtrHook = interop.HookFromSymbol<SelectablePtrDelegate>("cimgui.dll", "igSelectable_BoolPtr", SelectablePtrDetour); selectablePtrHook.Enable(); installed.Add("SelectablePtr"); }
@@ -1142,6 +1329,10 @@ public sealed unsafe class Plugin : IDalamudPlugin
         catch (Exception ex) { failed.Add("BeginCombo"); log.Warning(ex, "[PluginJPHelper] igBeginCombo hook failed"); }
         try { endComboHook = interop.HookFromSymbol<EndComboDelegate>("cimgui.dll", "igEndCombo", EndComboDetour); endComboHook.Enable(); installed.Add("EndCombo"); }
         catch (Exception ex) { failed.Add("EndCombo"); log.Warning(ex, "[PluginJPHelper] igEndCombo hook failed"); }
+        try { sliderIntHook = interop.HookFromSymbol<SliderIntDelegate>("cimgui.dll", "igSliderInt", SliderIntDetour); sliderIntHook.Enable(); installed.Add("SliderInt"); }
+        catch (Exception ex) { failed.Add("SliderInt"); log.Warning(ex, "[PluginJPHelper] igSliderInt hook failed"); }
+        try { tableSetupColumnHook = interop.HookFromSymbol<TableSetupColumnDelegate>("cimgui.dll", "igTableSetupColumn", TableSetupColumnDetour); tableSetupColumnHook.Enable(); installed.Add("TableSetupColumn"); }
+        catch (Exception ex) { failed.Add("TableSetupColumn"); log.Warning(ex, "[PluginJPHelper] igTableSetupColumn hook failed"); }
         try { beginTabItemHook = interop.HookFromSymbol<BeginTabItemDelegate>("cimgui.dll", "igBeginTabItem", BeginTabItemDetour); beginTabItemHook.Enable(); installed.Add("BeginTabItem"); }
         catch (Exception ex) { failed.Add("BeginTabItem"); log.Warning(ex, "[PluginJPHelper] igBeginTabItem hook failed"); }
         try { menuItemBoolHook = interop.HookFromSymbol<MenuItemBoolDelegate>("cimgui.dll", "igMenuItem_Bool", MenuItemBoolDetour); menuItemBoolHook.Enable(); installed.Add("MenuItem"); }
@@ -1156,6 +1347,12 @@ public sealed unsafe class Plugin : IDalamudPlugin
         catch (Exception ex) { failed.Add("Begin"); log.Warning(ex, "[PluginJPHelper] igBegin hook failed"); }
         try { endHook = interop.HookFromSymbol<EndDelegate>("cimgui.dll", "igEnd", EndDetour); endHook.Enable(); installed.Add("End"); }
         catch (Exception ex) { failed.Add("End"); log.Warning(ex, "[PluginJPHelper] igEnd hook failed"); }
+        try { beginPopupHook = interop.HookFromSymbol<BeginPopupDelegate>("cimgui.dll", "igBeginPopup", BeginPopupDetour); beginPopupHook.Enable(); installed.Add("BeginPopup"); }
+        catch (Exception ex) { failed.Add("BeginPopup"); log.Warning(ex, "[PluginJPHelper] igBeginPopup hook failed"); }
+        try { beginPopupModalHook = interop.HookFromSymbol<BeginPopupModalDelegate>("cimgui.dll", "igBeginPopupModal", BeginPopupModalDetour); beginPopupModalHook.Enable(); installed.Add("BeginPopupModal"); }
+        catch (Exception ex) { failed.Add("BeginPopupModal"); log.Warning(ex, "[PluginJPHelper] igBeginPopupModal hook failed"); }
+        try { endPopupHook = interop.HookFromSymbol<EndPopupDelegate>("cimgui.dll", "igEndPopup", EndPopupDetour); endPopupHook.Enable(); installed.Add("EndPopup"); }
+        catch (Exception ex) { failed.Add("EndPopup"); log.Warning(ex, "[PluginJPHelper] igEndPopup hook failed"); }
         try { radioButtonBoolHook = interop.HookFromSymbol<RadioButtonBoolDelegate>("cimgui.dll", "igRadioButton_Bool", RadioButtonBoolDetour); radioButtonBoolHook.Enable(); installed.Add("RadioButtonBool"); }
         catch (Exception ex) { failed.Add("RadioButtonBool"); log.Warning(ex, "[PluginJPHelper] igRadioButton_Bool hook failed"); }
         try { radioButtonIntPtrHook = interop.HookFromSymbol<RadioButtonIntPtrDelegate>("cimgui.dll", "igRadioButton_IntPtr", RadioButtonIntPtrDetour); radioButtonIntPtrHook.Enable(); installed.Add("RadioButtonIntPtr"); }
@@ -1178,6 +1375,8 @@ public sealed unsafe class Plugin : IDalamudPlugin
         catch (Exception ex) { failed.Add("RenderTextClipped"); log.Warning(ex, "[PluginJPHelper] igRenderTextClipped hook failed"); }
         try { drawListAddTextVec2Hook = interop.HookFromSymbol<DrawListAddTextVec2Delegate>("cimgui.dll", "ImDrawList_AddText_Vec2", DrawListAddTextVec2Detour); drawListAddTextVec2Hook.Enable(); installed.Add("DrawListAddText"); }
         catch (Exception ex) { failed.Add("DrawListAddText"); log.Warning(ex, "[PluginJPHelper] ImDrawList_AddText_Vec2 hook failed"); }
+        try { drawListAddTextFontPtrHook = interop.HookFromSymbol<DrawListAddTextFontPtrDelegate>("cimgui.dll", "ImDrawList_AddText_FontPtr", DrawListAddTextFontPtrDetour); drawListAddTextFontPtrHook.Enable(); installed.Add("DrawListAddTextFont"); }
+        catch (Exception ex) { failed.Add("DrawListAddTextFont"); log.Warning(ex, "[PluginJPHelper] ImDrawList_AddText_FontPtr hook failed"); }
         hookStatus = installed.Count == 0 ? "フック失敗（Dalamudログを確認）" : $"有効: {string.Join(", ", installed)}" + (failed.Count > 0 ? $" / 失敗: {string.Join(", ", failed)}" : string.Empty);
     }
 
@@ -1203,6 +1402,53 @@ public sealed unsafe class Plugin : IDalamudPlugin
         textWrappedHook!.Original(text);
     }
 
+    private static bool IsSafeFixedTextFormat(byte* fmt)
+    {
+        if (fmt == null) return false;
+        try
+        {
+            var source = Marshal.PtrToStringUTF8((nint)fmt);
+            return !string.IsNullOrEmpty(source) && !source.Contains('%');
+        }
+        catch { return false; }
+    }
+
+    private void TextVDetour(byte* fmt, nint args)
+    {
+        try { if (!drawingOwnUi && (captureEnabled || baselineCaptureEnabled) && IsSafeFixedTextFormat(fmt)) CapturePointer(fmt, null, "TextV"); } catch { }
+        if (!drawingOwnUi && IsSafeFixedTextFormat(fmt) && TryTranslatePointer(fmt, null, false, out var translated))
+        {
+            Interlocked.Increment(ref translatedCount);
+            var bytes = Encoding.UTF8.GetBytes(translated + "\0");
+            fixed (byte* p = bytes) { textVHook!.Original(p, args); return; }
+        }
+        textVHook!.Original(fmt, args);
+    }
+
+    private void TextColoredVDetour(Vector4 col, byte* fmt, nint args)
+    {
+        try { if (!drawingOwnUi && (captureEnabled || baselineCaptureEnabled) && IsSafeFixedTextFormat(fmt)) CapturePointer(fmt, null, "TextColoredV"); } catch { }
+        if (!drawingOwnUi && IsSafeFixedTextFormat(fmt) && TryTranslatePointer(fmt, null, false, out var translated))
+        {
+            Interlocked.Increment(ref translatedCount);
+            var bytes = Encoding.UTF8.GetBytes(translated + "\0");
+            fixed (byte* p = bytes) { textColoredVHook!.Original(col, p, args); return; }
+        }
+        textColoredVHook!.Original(col, fmt, args);
+    }
+
+    private void TextDisabledVDetour(byte* fmt, nint args)
+    {
+        try { if (!drawingOwnUi && (captureEnabled || baselineCaptureEnabled) && IsSafeFixedTextFormat(fmt)) CapturePointer(fmt, null, "TextDisabledV"); } catch { }
+        if (!drawingOwnUi && IsSafeFixedTextFormat(fmt) && TryTranslatePointer(fmt, null, false, out var translated))
+        {
+            Interlocked.Increment(ref translatedCount);
+            var bytes = Encoding.UTF8.GetBytes(translated + "\0");
+            fixed (byte* p = bytes) { textDisabledVHook!.Original(p, args); return; }
+        }
+        textDisabledVHook!.Original(fmt, args);
+    }
+
     private byte CheckboxDetour(byte* label, byte* value)
     {
         try { if (!drawingOwnUi && (captureEnabled || baselineCaptureEnabled)) CapturePointer(label, null, "Checkbox"); } catch { }
@@ -1215,6 +1461,24 @@ public sealed unsafe class Plugin : IDalamudPlugin
         try { if (!drawingOwnUi && (captureEnabled || baselineCaptureEnabled)) CapturePointer(label, null, "Button"); } catch { }
         if (!drawingOwnUi && TryTranslatePointer(label, null, true, out var translated)) { Interlocked.Increment(ref translatedCount); return CallButtonOriginal(MakeDisplayOnlyInteractiveLabel(label, translated), size); }
         return buttonHook!.Original(label, size);
+    }
+
+    // v0.4.3: ImSharp (Penumbra/Luna等) の通常ボタンは igButton ではなく igButtonEx を直接呼ぶ。
+    // 既存のButtonフックと同じ完全一致・ImGui ID保持の処理だけを適用する。
+    private byte ButtonExDetour(byte* label, Vector2 size, int flags)
+    {
+        try { if (!drawingOwnUi && (captureEnabled || baselineCaptureEnabled)) CapturePointer(label, null, "ButtonEx"); } catch { }
+
+        if (!drawingOwnUi && TryTranslatePointer(label, null, true, out var translated))
+        {
+            Interlocked.Increment(ref translatedCount);
+            var display = MakeDisplayOnlyInteractiveLabel(label, translated);
+            var bytes = Encoding.UTF8.GetBytes(display + "\0");
+            fixed (byte* p = bytes)
+                return buttonExHook!.Original(p, size, flags);
+        }
+
+        return buttonExHook!.Original(label, size, flags);
     }
 
 
@@ -1409,31 +1673,133 @@ public sealed unsafe class Plugin : IDalamudPlugin
         return comboFnStrPtrHook!.Original(label, currentItem, getter, userData, itemsCount, popupMaxHeightInItems);
     }
 
+    private void RecordHookDiagnostic(string hookKind, byte* textPtr)
+    {
+        if (drawingOwnUi || textPtr == null) return;
+        try
+        {
+            var text = Marshal.PtrToStringUTF8((nint)textPtr) ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(text)) return;
+            hookDiagnosticEntries.Enqueue(new HookDiagnosticEntry(
+                DateTime.Now.ToString("HH:mm:ss"),
+                hookKind,
+                text,
+                CurrentWindowName,
+                CurrentWindowOwner,
+                captureEnabled ? capturePlugin : string.Empty,
+                captureEnabled && IsCurrentWindowOwnedBy(capturePlugin)));
+            while (hookDiagnosticEntries.Count > MaxHookDiagnosticEntries && hookDiagnosticEntries.TryDequeue(out _)) { }
+        }
+        catch { }
+    }
+
     private byte BeginComboDetour(byte* label, byte* previewValue, int flags)
     {
         Interlocked.Increment(ref beginComboCalls);
-        byte result;
-        if (drawingOwnUi || previewValue == null)
+        RecordHookDiagnostic("BeginComboLabel", label);
+        if (previewValue != null) RecordHookDiagnostic("BeginComboPreview", previewValue);
+
+        // BeginCombo は「左側ラベル」と「現在選択中の preview」の2つを別々に描画する。
+        // preview だけでは Select Route / Select Mode 等のラベルが英語のまま残るため、両方を翻訳する。
+        try
         {
-            result = beginComboHook!.Original(label, previewValue, flags);
-        }
-        else
-        {
-            try
+            if (!drawingOwnUi && (captureEnabled || baselineCaptureEnabled))
             {
-                var src = Marshal.PtrToStringUTF8((nint)previewValue);
-                if (!string.IsNullOrEmpty(src) && TryTranslate(src, out var ja))
-                {
-                    var bytes = Encoding.UTF8.GetBytes(ja + "\0");
-                    fixed (byte* p = bytes) result = beginComboHook!.Original(label, p, flags);
-                }
-                else result = beginComboHook!.Original(label, previewValue, flags);
+                CapturePointer(label, null, "BeginComboLabel");
+                if (previewValue != null) CapturePointer(previewValue, null, "BeginComboPreview");
             }
-            catch { result = beginComboHook!.Original(label, previewValue, flags); }
+        }
+        catch { }
+
+        byte* callLabel = label;
+        byte* callPreview = previewValue;
+        byte[]? labelBytes = null;
+        byte[]? previewBytes = null;
+
+        try
+        {
+            if (!drawingOwnUi && label != null && TryTranslatePointer(label, null, true, out var labelJa))
+            {
+                var display = MakeDisplayOnlyInteractiveLabel(label, labelJa);
+                labelBytes = Encoding.UTF8.GetBytes(display + "\0");
+            }
+
+            if (!drawingOwnUi && previewValue != null && TryTranslatePointer(previewValue, null, false, out var previewJa))
+                previewBytes = Encoding.UTF8.GetBytes(previewJa + "\0");
+
+            byte result;
+            if (labelBytes != null && previewBytes != null)
+            {
+                fixed (byte* lp = labelBytes)
+                fixed (byte* pp = previewBytes)
+                    result = beginComboHook!.Original(lp, pp, flags);
+            }
+            else if (labelBytes != null)
+            {
+                fixed (byte* lp = labelBytes)
+                    result = beginComboHook!.Original(lp, callPreview, flags);
+            }
+            else if (previewBytes != null)
+            {
+                fixed (byte* pp = previewBytes)
+                    result = beginComboHook!.Original(callLabel, pp, flags);
+            }
+            else
+            {
+                result = beginComboHook!.Original(callLabel, callPreview, flags);
+            }
+
+            if (!drawingOwnUi && result != 0) comboOpenDepth++;
+            return result;
+        }
+        catch
+        {
+            var result = beginComboHook!.Original(label, previewValue, flags);
+            if (!drawingOwnUi && result != 0) comboOpenDepth++;
+            return result;
+        }
+    }
+
+    private byte SliderIntDetour(byte* label, int* value, int min, int max, byte* format, int flags)
+    {
+        Interlocked.Increment(ref sliderIntCalls);
+        RecordHookDiagnostic("SliderInt", label);
+        try { if (!drawingOwnUi && (captureEnabled || baselineCaptureEnabled)) CapturePointer(label, null, "SliderInt"); } catch { }
+
+        if (!drawingOwnUi && label != null && TryTranslatePointer(label, null, true, out var translated))
+        {
+            var display = MakeDisplayOnlyInteractiveLabel(label, translated);
+            var bytes = Encoding.UTF8.GetBytes(display + "\0");
+            fixed (byte* p = bytes)
+            {
+                Interlocked.Increment(ref translatedCount);
+                return sliderIntHook!.Original(p, value, min, max, format, flags);
+            }
         }
 
-        if (!drawingOwnUi && result != 0) comboOpenDepth++;
-        return result;
+        return sliderIntHook!.Original(label, value, min, max, format, flags);
+    }
+
+    private void TableSetupColumnDetour(byte* label, int flags, float initWidthOrWeight, uint userId)
+    {
+        Interlocked.Increment(ref tableSetupColumnCalls);
+        RecordHookDiagnostic("TableSetupColumn", label);
+        try { if (!drawingOwnUi && (captureEnabled || baselineCaptureEnabled)) CapturePointer(label, null, "TableSetupColumn"); } catch { }
+
+        if (!drawingOwnUi && label != null && TryTranslatePointer(label, null, true, out var translated))
+        {
+            // Table列IDはラベルから生成される場合があるため、###original で元IDを維持して表示だけ差し替える。
+            var display = MakeDisplayOnlyInteractiveLabel(label, translated);
+            var bytes = Encoding.UTF8.GetBytes(display + "\0");
+            fixed (byte* p = bytes)
+            {
+                tableSetupColumnHook!.Original(p, flags, initWidthOrWeight, userId);
+                Interlocked.Increment(ref translatedCount);
+                return;
+            }
+        }
+
+        tableSetupColumnHook!.Original(label, flags, initWidthOrWeight, userId);
     }
 
     private void EndComboDetour()
@@ -1548,8 +1914,98 @@ public sealed unsafe class Plugin : IDalamudPlugin
     {
         translated = string.Empty;
         if (!config.Plugins.TryGetValue(pluginName, out var state) || !state.Enabled) return false;
+        if (state.DeletedKeys.Contains(source)) return false;
         if (state.UserOverrides.TryGetValue(source, out translated!) && !string.IsNullOrWhiteSpace(translated)) return true;
+        if (state.OfficialOverrides.TryGetValue(source, out translated!) && !string.IsNullOrWhiteSpace(translated)) return true;
         return GetActiveStandardDictionary(pluginName).TryGetValue(source, out translated!);
+    }
+
+    // v0.4.9:
+    // 個別OFFは「そのプラグイン自身の画面を原文表示にする」設定として扱う。
+    // 辞書データは削除せず、別のONプラグイン画面で同じ原文が使われた場合の
+    // 共通完全一致辞書として引き続き参照できるようにする。
+    private bool TryGetSharedTranslationForPlugin(string pluginName, string source, out string translated)
+    {
+        translated = string.Empty;
+        if (!config.Plugins.TryGetValue(pluginName, out var state) || !state.TranslationTarget) return false;
+        if (state.DeletedKeys.Contains(source)) return false;
+        if (state.UserOverrides.TryGetValue(source, out translated!) && !string.IsNullOrWhiteSpace(translated)) return true;
+        if (state.OfficialOverrides.TryGetValue(source, out translated!) && !string.IsNullOrWhiteSpace(translated)) return true;
+        return GetActiveStandardDictionary(pluginName).TryGetValue(source, out translated!);
+    }
+
+    // v0.4.9:
+    // Tooltip/Combo/Popupなどでは CurrentWindowOwner が一時的に空になる場合があるため、
+    // 直前の明示的な親ウィンドウ所有者まで含めて「実効所有者」を求める。
+    // これにより日本語化OFF直後でも、Tooltipや別描画経路だけ翻訳が残るのを防ぐ。
+    private KeyValuePair<string, PluginDictionaryState>[] GetPluginConfigSnapshot()
+    {
+        lock (pluginConfigSync)
+            return config.Plugins.ToArray();
+    }
+
+    private string GetEffectiveCurrentWindowOwner()
+    {
+        var owner = CurrentWindowOwner;
+        if (!string.IsNullOrWhiteSpace(owner))
+            return owner;
+
+        owner = ResolveWindowOwner(CurrentWindowName);
+        if (!string.IsNullOrWhiteSpace(owner))
+            return owner;
+
+        if (IsTransientImGuiWindow(CurrentWindowName)
+            && !string.IsNullOrWhiteSpace(lastExplicitWindowOwner)
+            && Environment.TickCount64 - lastExplicitWindowOwnerTick <= 1000)
+        {
+            return lastExplicitWindowOwner;
+        }
+
+        return string.Empty;
+    }
+
+    // 所有者を確定できた画面だけを対象にする。
+    // 所有者不明の画面をOFF扱いにして他プラグインを巻き込まない。
+    // Plugin Installer はプラグイン本体とは別系統の専用翻訳で処理する。
+    // 通常プラグイン辞書（公式/ユーザー/コミュニティ）を Installer へ流用しない。
+    // Dalamud 側の固定 ImGui ID `###XlPluginInstaller` を使って判定するため、
+    // 表示言語やウィンドウタイトル文字列には依存しない。
+    private static bool IsDalamudPluginInstallerWindow(string? windowName)
+        => !string.IsNullOrWhiteSpace(windowName)
+           && windowName.Contains("###XlPluginInstaller", StringComparison.Ordinal);
+
+    private static bool IsInsideDalamudPluginInstaller()
+    {
+        if (windowStack == null || windowStack.Count == 0) return false;
+        foreach (var windowName in windowStack)
+            if (IsDalamudPluginInstallerWindow(windowName)) return true;
+        return false;
+    }
+
+    private bool IsCurrentWindowTranslationExplicitlyDisabled()
+    {
+        // Plugin Installer 内では通常プラグイン辞書を完全に遮断する。
+        // PluginInstallerModule が Manifest/更新履歴へ直接適用する専用翻訳は影響を受けない。
+        if (IsInsideDalamudPluginInstaller()) return true;
+
+        var owner = GetEffectiveCurrentWindowOwner();
+
+        // v0.4.9:
+        // owner が空でもここで return しない。
+        // CurrentWindowName から対象プラグインを判定できるため、
+        // Pawprint###BeastmasterMain のような画面は OFF を必ず優先する。
+        foreach (var (pluginName, state) in GetPluginConfigSnapshot())
+        {
+            if (!state.TranslationTarget) continue;
+
+            if (!string.IsNullOrWhiteSpace(owner) && IsSamePluginIdentity(owner, pluginName))
+                return !state.Enabled;
+
+            if (!state.Enabled && IsTargetWindow(pluginName, CurrentWindowName))
+                return true;
+        }
+
+        return false;
     }
 
     private static bool AllowsPartialTranslation(string pluginName)
@@ -1563,13 +2019,15 @@ public sealed unsafe class Plugin : IDalamudPlugin
         translated = string.Empty;
         pluginName = string.Empty;
         if (begin == null) return false;
+        if (IsCurrentWindowTranslationExplicitlyDisabled()) return false;
 
         var currentWindow = CurrentWindowName;
         if (string.IsNullOrWhiteSpace(currentWindow)) return false;
 
-        foreach (var (name, state) in config.Plugins)
+        var effectiveOwner = GetEffectiveCurrentWindowOwner();
+        foreach (var (name, state) in GetPluginConfigSnapshot())
         {
-            if (!state.Enabled || !(string.Equals(CurrentWindowOwner, name, StringComparison.Ordinal) || IsTargetWindow(name, currentWindow))) continue;
+            if (!state.Enabled || !(IsSamePluginIdentity(effectiveOwner, name) || IsTargetWindow(name, currentWindow))) continue;
             pluginName = name;
             break;
         }
@@ -1589,6 +2047,24 @@ public sealed unsafe class Plugin : IDalamudPlugin
         // まず従来どおり完全一致。
         if (TryGetTranslationForPlugin(pluginName, source, out translated)) return true;
 
+        // v0.4.9: 表示文字列###内部ID / ##内部ID の形で渡される特殊描画にも対応。
+        // 辞書は表示部分の完全一致だけを使い、内部IDは原文のまま保持する。
+        var safeIdMarker = source.IndexOf("###", StringComparison.Ordinal);
+        if (safeIdMarker < 0) safeIdMarker = source.IndexOf("##", StringComparison.Ordinal);
+        if (safeIdMarker > 0)
+        {
+            var visibleSource = source[..safeIdMarker];
+            if (TryGetTranslationForPlugin(pluginName, visibleSource, out var visibleTranslated) &&
+                !string.IsNullOrWhiteSpace(visibleTranslated))
+            {
+                translated = visibleTranslated + source[safeIdMarker..];
+                return true;
+            }
+        }
+
+        // v0.4.9: 末尾が動的に変化する固定接頭辞を翻訳する。
+        // 完全一致辞書を最優先し、該当しない場合だけ接頭辞部分を差し替える。
+        if (TryTranslateDynamicPrefix(source, false, out translated)) return true;
         if (TryTranslateInventoryToolsDynamic(pluginName, source, out translated)) return true;
         if (TryTranslateArtisanDynamic(pluginName, source, false, out translated)) return true;
 
@@ -1608,7 +2084,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
         if (!config.Plugins.TryGetValue(pluginName, out var pluginState)) return false;
 
         var candidates = GetDictionaryCatalog(pluginName)
-            .Select(kv => (Source: kv.Key, Ja: pluginState.UserOverrides.TryGetValue(kv.Key, out var userJa) && !string.IsNullOrWhiteSpace(userJa) ? userJa : kv.Value))
+            .Select(kv => (Source: kv.Key, Ja: pluginState.UserOverrides.TryGetValue(kv.Key, out var userJa) && !string.IsNullOrWhiteSpace(userJa) ? userJa : (pluginState.OfficialOverrides.TryGetValue(kv.Key, out var officialJa) && !string.IsNullOrWhiteSpace(officialJa) ? officialJa : kv.Value)))
             .Where(x => !string.IsNullOrWhiteSpace(x.Source) && !string.IsNullOrWhiteSpace(x.Ja))
             .Where(x => !x.Source.Contains("##", StringComparison.Ordinal) && !x.Ja.Contains("##", StringComparison.Ordinal))
             .Where(x => visible.Contains(x.Source, StringComparison.Ordinal))
@@ -1633,48 +2109,30 @@ public sealed unsafe class Plugin : IDalamudPlugin
 
     private void DrawListAddTextVec2Detour(void* drawList, Vector2 pos, uint col, byte* textBegin, byte* textEnd)
     {
-        // v0.0.66:
-        // DalamudACT の PartyMonitorWindow は ImGui.Text 系ではなく
-        // ImDrawList.AddText() で短縮ジョブ名を直接描画する。
-        // この経路は通常の Text/RenderText フックを通らないため、DalamudACT の
-        // ウィンドウ内だけを対象に最小限の完全一致置換を行う。
-        if (drawingOwnUi || textBegin == null || !IsCurrentWindowOwnedBy("DalamudACT"))
+        // v0.4.9: ImDrawList.AddText() を直接使うプラグインも、
+        // 現在のImGuiウィンドウ所有者を確定できる場合は通常のRenderText系と同じ辞書で翻訳する。
+        // 特定プラグイン名には依存せず、対象ウィンドウ内だけを処理する。
+        if (drawingOwnUi || textBegin == null)
         {
             drawListAddTextVec2Hook!.Original(drawList, pos, col, textBegin, textEnd);
             return;
         }
 
-        string? source = null;
         try
         {
-            if (textEnd != null && textEnd >= textBegin)
-            {
-                var len = textEnd - textBegin;
-                if (len > 0 && len <= 4096)
-                    source = Encoding.UTF8.GetString(new ReadOnlySpan<byte>(textBegin, (int)len));
-            }
-            else
-            {
-                source = Marshal.PtrToStringUTF8((nint)textBegin);
-            }
+            // 取得中は従来どおりDrawList経路も記録する。CapturePointer側で対象ウィンドウを判定する。
+            if (captureEnabled || baselineCaptureEnabled)
+                CapturePointer(textBegin, textEnd, "DrawListAddText");
 
-            if (!string.IsNullOrEmpty(source))
+            if (TryTranslateRenderPointerForCurrentWindow(textBegin, textEnd, out var translated, out _) &&
+                !string.IsNullOrWhiteSpace(translated))
             {
-                // 取得中もこの描画経路を対象側へ追加する。
-                if (captureEnabled || baselineCaptureEnabled)
-                    CapturePointer(textBegin, textEnd, "DrawListAddText");
-
-                if (TryGetTranslationForPlugin("DalamudACT", source, out var translated) &&
-                    !string.IsNullOrWhiteSpace(translated) &&
-                    !string.Equals(source, translated, StringComparison.Ordinal))
+                var bytes = Encoding.UTF8.GetBytes(translated + "\0");
+                fixed (byte* p = bytes)
                 {
-                    var bytes = Encoding.UTF8.GetBytes(translated + "\0");
-                    fixed (byte* p = bytes)
-                    {
-                        drawListAddTextVec2Hook!.Original(drawList, pos, col, p, null);
-                        Interlocked.Increment(ref translatedCount);
-                        return;
-                    }
+                    drawListAddTextVec2Hook!.Original(drawList, pos, col, p, null);
+                    Interlocked.Increment(ref translatedCount);
+                    return;
                 }
             }
         }
@@ -1684,6 +2142,55 @@ public sealed unsafe class Plugin : IDalamudPlugin
         }
 
         drawListAddTextVec2Hook!.Original(drawList, pos, col, textBegin, textEnd);
+    }
+
+
+    private void DrawListAddTextFontPtrDetour(
+        void* drawList, void* font, float fontSize, Vector2 pos, uint col,
+        byte* textBegin, byte* textEnd, float wrapWidth, Vector4* cpuFineClipRect)
+    {
+        if (drawingOwnUi || textBegin == null)
+        {
+            drawListAddTextFontPtrHook!.Original(drawList, font, fontSize, pos, col, textBegin, textEnd, wrapWidth, cpuFineClipRect);
+            return;
+        }
+
+        try
+        {
+            if (captureEnabled || baselineCaptureEnabled)
+                CapturePointer(textBegin, textEnd, "DrawListAddTextFont");
+
+            if (TryTranslateRenderPointerForCurrentWindow(textBegin, textEnd, out var translated, out _))
+            {
+                // v0.4.11 safety: FontPtr経路では呼び出し側が日本語グリフを持たない
+                // 専用フォントを指定している場合がある。ASCII原文を非ASCIIへ置き換える必要が
+                // ある場合は、文字化けを避けるため元表示を優先する。
+                var source = textEnd != null && textEnd >= textBegin
+                    ? Encoding.UTF8.GetString(new ReadOnlySpan<byte>(textBegin, (int)(textEnd - textBegin)))
+                    : Marshal.PtrToStringUTF8((nint)textBegin) ?? string.Empty;
+                var sourceIsAscii = source.All(c => c <= 0x7F);
+                var translatedNeedsNonAscii = translated.Any(c => c > 0x7F);
+                if (sourceIsAscii && translatedNeedsNonAscii)
+                {
+                    drawListAddTextFontPtrHook!.Original(drawList, font, fontSize, pos, col, textBegin, textEnd, wrapWidth, cpuFineClipRect);
+                    return;
+                }
+
+                var bytes = Encoding.UTF8.GetBytes(translated + "\0");
+                fixed (byte* p = bytes)
+                {
+                    drawListAddTextFontPtrHook!.Original(drawList, font, fontSize, pos, col, p, null, wrapWidth, cpuFineClipRect);
+                    Interlocked.Increment(ref translatedCount);
+                    return;
+                }
+            }
+        }
+        catch
+        {
+            // 失敗時は元の描画をそのまま通す。
+        }
+
+        drawListAddTextFontPtrHook!.Original(drawList, font, fontSize, pos, col, textBegin, textEnd, wrapWidth, cpuFineClipRect);
     }
 
     private void RenderTextDetour(Vector2 pos, byte* text, byte* textEnd, byte hideTextAfterHash)
@@ -1744,7 +2251,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
     private bool IsCurrentWindowForAnyEnabledPlugin()
     {
         if (windowStack == null || windowStack.Count == 0) return false;
-        foreach (var (pluginName, state) in config.Plugins)
+        foreach (var (pluginName, state) in GetPluginConfigSnapshot())
         {
             if (!state.Enabled) continue;
             foreach (var windowName in windowStack)
@@ -1846,8 +2353,6 @@ public sealed unsafe class Plugin : IDalamudPlugin
     // igBegin/igEnd をフックして、現在どのウィンドウから描画された文字列かを判定する。
     private byte BeginDetour(byte* name, byte* pOpen, int flags)
     {
-        var result = beginHook!.Original(name, pOpen, flags);
-
         string windowName = string.Empty;
         try
         {
@@ -1859,26 +2364,17 @@ public sealed unsafe class Plugin : IDalamudPlugin
         windowStack ??= new Stack<string>();
         windowOwnerStack ??= new Stack<string>();
 
-        // v0.0.66: Combo/Tooltip/Popup などの内部ウィンドウは元のプラグイン名を持たない。
-        // 直前の通常ウィンドウの所有プラグインを継承し、追加プラグインでもドロップダウン候補や
-        // ツールチップを背景側ではなく正しい対象へ取得できるようにする。
-        var owner = ResolveWindowOwner(windowName);
+        // 所有者判定は必ず「原文のウィンドウ名」で行う。
+        // Dalamud Plugin Installer は専用翻訳系統のため、通常プラグイン所有者を割り当てない。
+        var isDalamudPluginInstaller = IsDalamudPluginInstallerWindow(windowName);
+        var owner = isDalamudPluginInstaller ? string.Empty : ResolveWindowOwner(windowName);
 
-        // v0.0.69: Allagan Tools などは、設定画面の内部を Child Window に分割して描画する。
-        // 親ウィンドウで対象プラグインを確定できていても、子ウィンドウ名（例: Menu）自体には
-        // プラグイン固有名が含まれないため、従来は RenderText 系の所有判定が外れていた。
-        // ImGui の Begin が親ウィンドウの描画中にネストしている場合だけ、直近の親所有者を継承する。
-        // 辞書検索や部分一致は追加せず、Stack.Peek() 1回だけの軽量な所属継承。
+        // Child Window は親の所有者を継承。
         if (string.IsNullOrWhiteSpace(owner) && windowOwnerStack.Count > 0)
             owner = windowOwnerStack.Peek();
 
         if (IsTransientImGuiWindow(windowName))
         {
-
-            // v0.0.66:
-            // Tooltip/Combo/Popup は親ウィンドウとは別の ImGui Window として描画されるため、
-            // 直前の対象プラグイン所有者を短時間だけ継承する。
-            // 無関係なウィンドウで lastExplicitWindowOwner を空にしないことが重要。
             if (string.IsNullOrWhiteSpace(owner) &&
                 !string.IsNullOrWhiteSpace(lastExplicitWindowOwner) &&
                 Environment.TickCount64 - lastExplicitWindowOwnerTick <= 150)
@@ -1886,23 +2382,110 @@ public sealed unsafe class Plugin : IDalamudPlugin
                 owner = lastExplicitWindowOwner;
             }
         }
+        else if (!string.IsNullOrWhiteSpace(owner))
+        {
+            lastExplicitWindowOwner = owner;
+            lastExplicitWindowOwnerTick = Environment.TickCount64;
+        }
+
+        // v0.4.9:
+        // igBegin の name は「ウィンドウタイトル」そのもの。
+        // これまでは Original() を先に呼んでいたため、内容が翻訳できても
+        // `节点设置###ArenaNodeEditor` のタイトルだけ中国語のまま残っていた。
+        // 関連付け済みの所有者が分かる場合は、辞書でタイトルも翻訳してから Begin() へ渡す。
+        byte result;
+        if (!drawingOwnUi
+            && !isDalamudPluginInstaller
+            && !string.IsNullOrWhiteSpace(owner)
+            && !string.IsNullOrWhiteSpace(windowName)
+            && TryGetTranslationForPlugin(owner, windowName, out var translatedWindowName)
+            && !string.IsNullOrWhiteSpace(translatedWindowName)
+            && !string.Equals(windowName, translatedWindowName, StringComparison.Ordinal))
+        {
+            var bytes = Encoding.UTF8.GetBytes(translatedWindowName + "\0");
+            fixed (byte* translatedName = bytes)
+                result = beginHook!.Original(translatedName, pOpen, flags);
+        }
         else
         {
-            if (!string.IsNullOrWhiteSpace(owner))
-            {
-                lastExplicitWindowOwner = owner;
-                lastExplicitWindowOwnerTick = Environment.TickCount64;
-            }
+            result = beginHook!.Original(name, pOpen, flags);
         }
 
         windowStack.Push(windowName);
         windowOwnerStack.Push(owner);
 
-        // JP Helper自身の内部ウィンドウは検出一覧へ出さない。
         if (!drawingOwnUi && !string.IsNullOrWhiteSpace(windowName))
+        {
             seenWindows.AddOrUpdate(windowName, 1, (_, count) => count + 1);
+            liveWindowLastSeen[windowName] = Environment.TickCount64;
+        }
 
         return result;
+    }
+
+    // v0.4.9: Popup/Modal ownership inheritance.
+    // cimgui's igBeginPopup* enters an ImGui popup internally; that internal Begin does not
+    // necessarily pass through our igBegin hook. Inherit the parent window owner explicitly
+    // and keep it on the PJH owner stack until igEndPopup.
+    private byte BeginPopupDetour(byte* strId, int flags)
+    {
+        var inheritedOwner = CurrentWindowOwner;
+        var result = beginPopupHook!.Original(strId, flags);
+        PushPopupOwnerFrame(result != 0, strId, inheritedOwner);
+        return result;
+    }
+
+    private byte BeginPopupModalDetour(byte* name, byte* pOpen, int flags)
+    {
+        var inheritedOwner = CurrentWindowOwner;
+        var result = beginPopupModalHook!.Original(name, pOpen, flags);
+        PushPopupOwnerFrame(result != 0, name, inheritedOwner);
+        return result;
+    }
+
+    private void PushPopupOwnerFrame(bool opened, byte* namePtr, string inheritedOwner)
+    {
+        popupOwnerFrameStack ??= new Stack<bool>();
+        popupOwnerFrameStack.Push(opened);
+        if (!opened) return;
+
+        string popupName = string.Empty;
+        try
+        {
+            if (namePtr != null) popupName = Marshal.PtrToStringUTF8((nint)namePtr) ?? string.Empty;
+        }
+        catch { }
+
+        var owner = !string.IsNullOrWhiteSpace(inheritedOwner)
+            ? inheritedOwner
+            : ResolveWindowOwner(popupName);
+
+        // If parent ownership is known, that always wins for the popup. This is the key
+        // difference from guessing ownership from translated/Chinese popup titles.
+        windowStack ??= new Stack<string>();
+        windowOwnerStack ??= new Stack<string>();
+        windowStack.Push(popupName);
+        windowOwnerStack.Push(owner);
+    }
+
+    private void EndPopupDetour()
+    {
+        try
+        {
+            endPopupHook!.Original();
+        }
+        finally
+        {
+            if (popupOwnerFrameStack is { Count: > 0 })
+            {
+                var opened = popupOwnerFrameStack.Pop();
+                if (opened)
+                {
+                    if (windowStack is { Count: > 0 }) windowStack.Pop();
+                    if (windowOwnerStack is { Count: > 0 }) windowOwnerStack.Pop();
+                }
+            }
+        }
     }
 
     private void EndDetour()
@@ -1941,10 +2524,35 @@ public sealed unsafe class Plugin : IDalamudPlugin
             || w.StartsWith("##ContextMenu_", StringComparison.Ordinal);
     }
 
+    private static bool IsNoisyInternalDetectedWindow(string? windowName)
+    {
+        if (string.IsNullOrWhiteSpace(windowName)) return false;
+        var w = windowName.Trim();
+
+        // Umbra はツールバー/補助バーの各部品を個別の ImGui Window として大量に生成する。
+        // ユーザーが「別ウィンドウ」として関連付けたい対象ではないことが多いので標準では隠す。
+        if (w.StartsWith("Umbra:AuxBar#", StringComparison.OrdinalIgnoreCase)
+            || w.StartsWith("Umbra:Toolbar#", StringComparison.OrdinalIgnoreCase)
+            || w.Contains("ui-widget-instance", StringComparison.OrdinalIgnoreCase))
+            return true;
+
+        return false;
+    }
+
+    private IEnumerable<string> GetLiveDetectedWindows(long liveMs = 500)
+    {
+        var now = Environment.TickCount64;
+        foreach (var item in liveWindowLastSeen)
+        {
+            if (now - item.Value <= liveMs)
+                yield return item.Key;
+        }
+    }
+
     private string ResolveWindowOwner(string? windowName)
     {
         if (string.IsNullOrWhiteSpace(windowName)) return string.Empty;
-        foreach (var (pluginName, state) in config.Plugins)
+        foreach (var (pluginName, state) in GetPluginConfigSnapshot())
         {
             if (!state.TranslationTarget && !state.Enabled) continue;
             if (IsTargetWindow(pluginName, windowName)) return pluginName;
@@ -1952,8 +2560,15 @@ public sealed unsafe class Plugin : IDalamudPlugin
         return string.Empty;
     }
 
+    private static bool IsSamePluginIdentity(string a, string b)
+    {
+        if (string.Equals(a, b, StringComparison.Ordinal)) return true;
+        return (string.Equals(a, "ICE", StringComparison.Ordinal) && string.Equals(b, "ExplorersIcebox", StringComparison.Ordinal))
+            || (string.Equals(a, "ExplorersIcebox", StringComparison.Ordinal) && string.Equals(b, "ICE", StringComparison.Ordinal));
+    }
+
     private bool IsCurrentWindowOwnedBy(string pluginName)
-        => string.Equals(CurrentWindowOwner, pluginName, StringComparison.Ordinal)
+        => IsSamePluginIdentity(CurrentWindowOwner, pluginName)
            || IsTargetWindow(pluginName, CurrentWindowName);
 
     private bool IsTargetWindow(string pluginName, string? windowName)
@@ -1983,10 +2598,31 @@ public sealed unsafe class Plugin : IDalamudPlugin
                          || w.Contains("SkillMonitorWindow", StringComparison.OrdinalIgnoreCase)
                          || w.Contains("SettingsWindow", StringComparison.OrdinalIgnoreCase),
 
-            _ => config.Plugins.TryGetValue(pluginName, out var custom)
-                 && !string.IsNullOrWhiteSpace(custom.WindowKeyword)
-                 && custom.WindowKeyword.Split('|', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
-                     .Any(keyword => w.Contains(keyword, StringComparison.OrdinalIgnoreCase)),
+            // v0.4.9: PureTimeline系の編集画面は
+            // ウィンドウ名にプラグイン名を含まず、中国語タイトルを使う。
+            // 実機で確認できた名前だけを所有判定へ追加する。
+            "PromeRotation" => w.Contains("PromeRotation", StringComparison.OrdinalIgnoreCase)
+                            || w.Contains("PureTimeline", StringComparison.OrdinalIgnoreCase)
+                            || w.Contains("时间轴编辑器", StringComparison.Ordinal)
+                            || w.Contains("触发轴编辑器", StringComparison.Ordinal)
+                            // v0.4.9: PureTimeline系の未保存確認は
+                            // 独立したモーダルウィンドウとして描画され、親所有者を継承しない。
+                            // 実機で確認できたタイトル語だけを PromeRotation 所有として扱う。
+                            || (w.Contains("未保存", StringComparison.Ordinal)
+                                && (w.Contains("放弃", StringComparison.Ordinal)
+                                    || w.Contains("修改", StringComparison.Ordinal))),
+
+            "ExplorersIcebox" or "ICE" => w.Contains("Explorer's Icebox", StringComparison.OrdinalIgnoreCase)
+                              || w.Contains("ExplorersIceboxMainWindow", StringComparison.OrdinalIgnoreCase),
+
+            _ =>
+                // 通常のプラグインは、まずプラグイン名そのものを含むWindowを本体Windowとして扱う。
+                // 例: "Pawprint###BeastmasterMain"
+                w.Contains(pluginName, StringComparison.OrdinalIgnoreCase)
+                || (config.Plugins.TryGetValue(pluginName, out var custom)
+                    && !string.IsNullOrWhiteSpace(custom.WindowKeyword)
+                    && custom.WindowKeyword.Split('|', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                        .Any(keyword => w.Contains(keyword, StringComparison.OrdinalIgnoreCase))),
         };
     }
 
@@ -2066,6 +2702,41 @@ public sealed unsafe class Plugin : IDalamudPlugin
 
     // v0.0.69: InventoryTools の Source/Use category HelpText は毎回動的に組み立てられる。
     // 全辞書の部分一致は行わず、既知の定型文だけを O(文字列長) で処理する。
+    // v0.4.9:
+    // 「版本：v1.2.3」のように後半だけが動的に変わる表示を、辞書を
+    // バージョンごとに増やさず固定接頭辞だけ翻訳する。
+    // 実機で確認した固定接頭辞を、所有プラグインを問わず同じ規則で扱う。
+    private static bool TryTranslateDynamicPrefix(string source, bool interactiveLabel, out string translated)
+    {
+        translated = string.Empty;
+        if (string.IsNullOrEmpty(source)) return false;
+
+        var idMarker = source.IndexOf("###", StringComparison.Ordinal);
+        if (idMarker < 0) idMarker = source.IndexOf("##", StringComparison.Ordinal);
+        var visible = idMarker >= 0 ? source[..idMarker] : source;
+        var idSuffix = idMarker >= 0 ? source[idMarker..] : string.Empty;
+
+        ReadOnlySpan<(string Source, string Japanese)> prefixes = new (string, string)[]
+        {
+            ("参考PR版本：", "参考PRバージョン："),
+            ("版本：", "バージョン："),
+            ("描述：", "説明："),
+            ("作者：", "作者："),
+        };
+
+        foreach (var (prefix, jaPrefix) in prefixes)
+        {
+            if (!visible.StartsWith(prefix, StringComparison.Ordinal) || visible.Length <= prefix.Length)
+                continue;
+
+            var replaced = jaPrefix + visible[prefix.Length..];
+            translated = interactiveLabel ? replaced : replaced + idSuffix;
+            return !string.Equals(translated, source, StringComparison.Ordinal);
+        }
+
+        return false;
+    }
+
     private bool TryTranslateInventoryToolsDynamic(string pluginName, string source, out string translated)
     {
         translated = string.Empty;
@@ -2131,7 +2802,8 @@ public sealed unsafe class Plugin : IDalamudPlugin
         return false;
     }
 
-    // v0.3.1: Artisan の可変表示を安全に翻訳する。数値・アイテム名・ImGui ID は保持する。
+    // v0.3.1: Artisan の List Editor / Processing List で毎回値が変わる表示だけを
+    // 定型部分で安全に翻訳する。数値・アイテム名・ImGui ID は変更しない。
     private static bool TryTranslateArtisanDynamic(string pluginName, string source, bool interactiveLabel, out string translated)
     {
         translated = string.Empty;
@@ -2170,13 +2842,18 @@ public sealed unsafe class Plugin : IDalamudPlugin
         }
         else if (visible.StartsWith(completedMinimum, StringComparison.Ordinal) && visible.EndsWith("s!", StringComparison.Ordinal))
         {
+            // 秒数は毎回変わるため完全一致にはしない。
             var seconds = visible.Substring(completedMinimum.Length, visible.Length - completedMinimum.Length - 2);
-            if (!string.IsNullOrWhiteSpace(seconds)) result = $"製作完了、必要最低品質を{seconds}秒で達成しました！";
+            if (!string.IsNullOrWhiteSpace(seconds))
+                result = $"製作完了、必要最低品質を{seconds}秒で達成しました！";
         }
         else if (visible.StartsWith(completedFullQuality, StringComparison.Ordinal) && visible.EndsWith("s!", StringComparison.Ordinal))
         {
+            // List Editor 実機で確認した別形式。秒数だけを保持して表示文言を翻訳する。
+            // 例: Craft completed with full quality in 6s!
             var seconds = visible.Substring(completedFullQuality.Length, visible.Length - completedFullQuality.Length - 2);
-            if (!string.IsNullOrWhiteSpace(seconds)) result = $"製作完了、最高品質を{seconds}秒で達成しました！";
+            if (!string.IsNullOrWhiteSpace(seconds))
+                result = $"製作完了、最高品質を{seconds}秒で達成しました！";
         }
         else if (visible.StartsWith(currentProgress, StringComparison.Ordinal))
             result = "現在のアイテム進捗: " + visible[currentProgress.Length..];
@@ -2190,6 +2867,9 @@ public sealed unsafe class Plugin : IDalamudPlugin
             result = "リテイナー所持品: " + visible[retainerItem.Length..];
 
         if (result == null) return false;
+
+        // Button/Selectable 等は呼び出し側が元ラベル全体を ###original として保持するため表示部だけ返す。
+        // RenderText 系は表示文字列中の ## / ### サフィックスをそのまま戻す。
         translated = interactiveLabel ? result : result + idSuffix;
         return true;
     }
@@ -2198,6 +2878,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
     {
         translated = string.Empty;
         if (begin == null) return false;
+        if (IsCurrentWindowTranslationExplicitlyDisabled()) return false;
         string? source;
         if (end != null && end >= begin)
         {
@@ -2207,8 +2888,22 @@ public sealed unsafe class Plugin : IDalamudPlugin
         else source = Marshal.PtrToStringUTF8((nint)begin);
         if (string.IsNullOrEmpty(source)) return false;
 
-        // まず従来どおり完全一致。既存挙動を変えない。
-        if (TryTranslate(source, out translated)) return true;
+        // v0.4.9:
+        // まず現在の所有プラグインを優先して完全一致辞書を引く。
+        // Popup/Modalのように別ウィンドウ名へ切り替わる場合でも、owner が
+        // 引き継がれていれば対象プラグインの辞書を確実に参照できる。
+        var ownerForExact = GetEffectiveCurrentWindowOwner();
+        if (!string.IsNullOrWhiteSpace(ownerForExact) &&
+            TryGetTranslationForPlugin(ownerForExact, source, out translated))
+        {
+            return true;
+        }
+
+        // 従来どおり全有効辞書の完全一致も残す。
+        if (TryTranslate(source, out translated))
+        {
+            return true;
+        }
 
         // v0.0.66:
         // TreeNode/Button/Checkbox/RadioButton 等の動的表示文字列にも部分翻訳を適用する。
@@ -2222,10 +2917,11 @@ public sealed unsafe class Plugin : IDalamudPlugin
         if (string.IsNullOrWhiteSpace(currentWindow)) return false;
 
         string pluginName = string.Empty;
-        foreach (var (name, state) in config.Plugins)
+        var effectiveOwnerForPointer = GetEffectiveCurrentWindowOwner();
+        foreach (var (name, state) in GetPluginConfigSnapshot())
         {
             if (!state.Enabled) continue;
-            if (string.Equals(CurrentWindowOwner, name, StringComparison.Ordinal) || IsTargetWindow(name, currentWindow))
+            if (IsSamePluginIdentity(effectiveOwnerForPointer, name) || IsTargetWindow(name, currentWindow))
             {
                 pluginName = name;
                 break;
@@ -2233,6 +2929,9 @@ public sealed unsafe class Plugin : IDalamudPlugin
         }
         if (string.IsNullOrEmpty(pluginName)) return false;
 
+        // v0.4.9: バージョン番号・作者名・説明文など、
+        // 後半が動的な文字列は固定接頭辞だけ翻訳する。
+        if (TryTranslateDynamicPrefix(source, preserveImGuiId, out translated)) return true;
         if (TryTranslateInventoryToolsDynamic(pluginName, source, out translated)) return true;
         if (TryTranslateArtisanDynamic(pluginName, source, preserveImGuiId, out translated)) return true;
 
@@ -2251,7 +2950,9 @@ public sealed unsafe class Plugin : IDalamudPlugin
                 Source: kv.Key,
                 Ja: pluginState.UserOverrides.TryGetValue(kv.Key, out var userJa) && !string.IsNullOrWhiteSpace(userJa)
                     ? userJa
-                    : kv.Value))
+                    : (pluginState.OfficialOverrides.TryGetValue(kv.Key, out var officialJa) && !string.IsNullOrWhiteSpace(officialJa)
+                        ? officialJa
+                        : kv.Value)))
             .Where(x => !string.IsNullOrWhiteSpace(x.Source) && !string.IsNullOrWhiteSpace(x.Ja))
             .Where(x => !x.Source.Contains("##", StringComparison.Ordinal) && !x.Source.Contains("###", StringComparison.Ordinal))
             .Where(x => !x.Ja.Contains("##", StringComparison.Ordinal) && !x.Ja.Contains("###", StringComparison.Ordinal))
@@ -2276,6 +2977,12 @@ public sealed unsafe class Plugin : IDalamudPlugin
 
     private bool TryTranslate(string source, out string translated)
     {
+        if (IsCurrentWindowTranslationExplicitlyDisabled())
+        {
+            translated = string.Empty;
+            return false;
+        }
+
         const string counterPrefix = "RSR has helped you by clicking actions ";
         const string counterSuffix = " times.";
         if (source.StartsWith(counterPrefix, StringComparison.Ordinal) && source.EndsWith(counterSuffix, StringComparison.Ordinal))
@@ -2285,11 +2992,47 @@ public sealed unsafe class Plugin : IDalamudPlugin
             return true;
         }
 
-        foreach (var (pluginName, state) in config.Plugins)
+        // v0.4.9:
+        // まず「現在の画面に属する有効プラグイン」があるかを確認する。
+        // Pawprint自身をOFFにした画面では、PawprintのOFF辞書を共有辞書として
+        // 再利用してしまわないようにする。
+        var currentOwner = GetEffectiveCurrentWindowOwner();
+        var currentWindow = CurrentWindowName;
+
+        var hasEnabledOwner = GetPluginConfigSnapshot().Any(kv =>
+            kv.Value.TranslationTarget
+            && kv.Value.Enabled
+            && (
+                (!string.IsNullOrWhiteSpace(currentOwner) && IsSamePluginIdentity(currentOwner, kv.Key))
+                || IsTargetWindow(kv.Key, currentWindow)
+            ));
+
+        // 1) 有効プラグインの辞書を優先。
+        foreach (var (pluginName, state) in GetPluginConfigSnapshot())
         {
-            if (!state.Enabled) continue;
+            if (!state.TranslationTarget || !state.Enabled) continue;
             if (TryGetTranslationForPlugin(pluginName, source, out translated)) return true;
         }
+
+        // 2) 現在の画面に「有効な所有プラグイン」が確定している場合だけ、
+        //    OFFプラグインの辞書を共通完全一致辞書として利用してよい。
+        //    これで A=OFF / B=ON のとき、B画面ではA辞書を共有利用できる一方、
+        //    A自身のOFF画面ではA辞書が復活しない。
+        if (hasEnabledOwner)
+        {
+            foreach (var (pluginName, state) in GetPluginConfigSnapshot())
+            {
+                if (!state.TranslationTarget || state.Enabled) continue;
+
+                // 現在の画面そのものに属するOFFプラグインは絶対に共有利用しない。
+                if ((!string.IsNullOrWhiteSpace(currentOwner) && IsSamePluginIdentity(currentOwner, pluginName))
+                    || IsTargetWindow(pluginName, currentWindow))
+                    continue;
+
+                if (TryGetSharedTranslationForPlugin(pluginName, source, out translated)) return true;
+            }
+        }
+
         translated = string.Empty; return false;
     }
 
@@ -2353,8 +3096,17 @@ public sealed unsafe class Plugin : IDalamudPlugin
         return s.Any(c => c is >= 'A' and <= 'Z' or >= 'a' and <= 'z' || (c >= '\u3400' && c <= '\u9fff'));
     }
 
-    private void OnCommand(string command, string args) => windowOpen = true;
-    private void OpenUi() => windowOpen = true;
+    private void OnCommand(string command, string args)
+    {
+        mainWindow.IsOpen = true;
+        mainWindow.BringToFront();
+    }
+
+    private void OpenUi()
+    {
+        mainWindow.IsOpen = true;
+        mainWindow.BringToFront();
+    }
 
     private enum ButtonRole { Primary, Success, Warning, Danger, Neutral }
 
@@ -2378,36 +3130,464 @@ public sealed unsafe class Plugin : IDalamudPlugin
         return pressed;
     }
 
-    private void Draw()
+    // 操作を続けられない状態を見落とさないようにする警告表示。
+    // 色だけに依存せず、記号と「操作待ち」の文字も常に表示する。
+    private static void DrawBlinkingWorkflowWarning(string message)
     {
-        if (!windowOpen) return;
-        // Plugin JP Helper 自身のUIは翻訳・取得対象にしない。
-        // これにより辞書左列の「英語原文」は必ず原文のまま表示される。
-        drawingOwnUi = true;
-        try
+        var seconds = Environment.TickCount64 / 1000.0;
+        var pulse = (float)((Math.Sin(seconds * Math.PI * 2.4) + 1.0) * 0.5);
+        // 警告側の赤と、読みやすい白を往復させる。本文は固定色のまま。
+        var warningRed = new Vector4(1.00f, 0.12f, 0.12f, 1.00f);
+        var warningWhite = new Vector4(1.00f, 1.00f, 1.00f, 1.00f);
+        var warning = Vector4.Lerp(warningRed, warningWhite, pulse);
+
+        ImGui.PushStyleColor(ImGuiCol.Text, warning);
+        ImGui.TextUnformatted("● 操作待ち");
+        ImGui.PopStyleColor();
+        ImGui.SameLine();
+        ImGui.TextWrapped(message);
+    }
+
+    private void DrawMainWindowContents()
+    {
+        EnsureOfficialNoticeRefresh();
+        EnsureCommunityUpdateRefresh();
+
+        ImGui.PushStyleColor(ImGuiCol.Tab, new Vector4(0.16f, 0.20f, 0.26f, 1.00f));
+        ImGui.PushStyleColor(ImGuiCol.TabHovered, new Vector4(0.24f, 0.46f, 0.70f, 1.00f));
+        ImGui.PushStyleColor(ImGuiCol.TabActive, new Vector4(0.18f, 0.38f, 0.62f, 1.00f));
+        if (ImGui.BeginTabBar("mainTabs"))
         {
-            ImGui.SetNextWindowSize(new Vector2(920, 650), ImGuiCond.FirstUseEver);
-            if (!ImGui.Begin("Plugin JP Helper v0.1.0", ref windowOpen)) { ImGui.End(); return; }
-
-            ImGui.TextWrapped("プラグインの表示を日本語化する翻訳辞書を管理します。初めて使う場合は「未翻訳・取得」から対象プラグインを追加してください。");
-            ImGui.Separator();
-
-            ImGui.PushStyleColor(ImGuiCol.Tab, new Vector4(0.16f, 0.20f, 0.26f, 1.00f));
-            ImGui.PushStyleColor(ImGuiCol.TabHovered, new Vector4(0.24f, 0.46f, 0.70f, 1.00f));
-            ImGui.PushStyleColor(ImGuiCol.TabActive, new Vector4(0.18f, 0.38f, 0.62f, 1.00f));
-            if (ImGui.BeginTabBar("mainTabs"))
-            {
-                if (ImGui.BeginTabItem("翻訳辞書")) { DrawDictionaryTab(); ImGui.EndTabItem(); }
-                if (ImGui.BeginTabItem("未翻訳・取得")) { DrawCaptureTab(); ImGui.EndTabItem(); }
-                ImGui.EndTabBar();
-            }
-            ImGui.PopStyleColor(3);
-            ImGui.End();
+            if (ImGui.BeginTabItem("翻訳辞書")) { DrawScrollableMainTab("dict", DrawDictionaryTab); ImGui.EndTabItem(); }
+            if (ImGui.BeginTabItem("未翻訳・取得")) { DrawScrollableMainTab("capture", DrawCaptureTab); ImGui.EndTabItem(); }
+            if (ImGui.BeginTabItem("公式辞書")) { DrawScrollableMainTab("official", DrawOfficialDictionaryTab); ImGui.EndTabItem(); }
+            if (ImGui.BeginTabItem("コミュニティ辞書")) { DrawScrollableMainTab("community", DrawCommunityDictionaryTab); ImGui.EndTabItem(); }
+            if (ImGui.BeginTabItem("Plugin Installer")) { DrawScrollableMainTab("pluginInstaller", pluginInstallerModule.DrawUi); ImGui.EndTabItem(); }
+            if (ImGui.BeginTabItem("ヘルプ")) { DrawScrollableMainTab("help", DrawHelpTab); ImGui.EndTabItem(); }
+            ImGui.EndTabBar();
         }
-        finally
+        ImGui.PopStyleColor(3);
+    }
+
+    private sealed class MainWindow : Window
+    {
+        private readonly Plugin owner;
+
+        public MainWindow(Plugin owner)
+            : base("Plugin JP Helper###PluginJPHelperMain")
+        {
+            this.owner = owner;
+            Size = new Vector2(920, 650);
+            SizeCondition = ImGuiCond.FirstUseEver;
+
+            // Dalamud標準WindowSystemのウィンドウ設定を利用する。
+            // 透明度・背景ブラー・ピン留め・クリック透過はタイトルバーの標準設定メニューから変更できる。
+            BgAlpha = null;
+            AllowBackgroundBlur = true;
+            AllowPinning = true;
+            AllowClickthrough = true;
+
+            // v0.4.9: Dalamud標準タイトルバーへOFUSE支援ボタンを追加。
+            TitleBarButtons.Add(new TitleBarButton
+            {
+                Icon = FontAwesomeIcon.Heart,
+                IconColor = new Vector4(1.00f, 0.78f, 0.42f, 1.00f),
+                Priority = 10,
+                AvailableClickthrough = true,
+                ShowTooltip = () => ImGui.SetTooltip("OFUSEでElpaを支援"),
+                Click = mouseButton =>
+                {
+                    if (mouseButton != ImGuiMouseButton.Left)
+                        return;
+
+                    try
+                    {
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = "https://ofuse.me/elpa",
+                            UseShellExecute = true
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        owner.csvStatus = $"OFUSEを開けませんでした: {ex.Message}";
+                    }
+                },
+            });
+        }
+
+        public override void PreDraw()
+        {
+            // WindowSystem が ImGui.Begin() を呼ぶ前から、自分自身を翻訳・取得対象外にする。
+            drawingOwnUi = true;
+            WindowName = owner.BuildMainWindowTitle();
+        }
+
+        public override void Draw() => owner.DrawMainWindowContents();
+
+        public override void PostDraw()
         {
             drawingOwnUi = false;
         }
+    }
+
+    private void DrawScrollableMainTab(string id, Action drawContent)
+    {
+        if (ImGui.BeginChild($"##mainTabContent_{id}", new Vector2(0, 0), false, ImGuiWindowFlags.None))
+            drawContent();
+        ImGui.EndChild();
+    }
+
+    private sealed class CommunityDictionaryEntry
+    {
+        public string FileName { get; set; } = string.Empty;
+        public string PluginName { get; set; } = string.Empty;
+        public string Owner { get; set; } = string.Empty;
+        public string Updated { get; set; } = string.Empty;
+        public string Sha { get; set; } = string.Empty;
+        public string DownloadUrl { get; set; } = string.Empty;
+    }
+
+    private sealed class CommunityDictionaryIndex
+    {
+        public int Version { get; set; }
+        public List<CommunityDictionaryEntry> Entries { get; set; } = new();
+    }
+
+    private string CommunityDictionaryDirectory()
+    {
+        var dir = Path.Combine(DictionaryDirectory(), "Community");
+        Directory.CreateDirectory(dir);
+        return dir;
+    }
+
+    private string CommunityCsvPath(string fileName) => Path.Combine(CommunityDictionaryDirectory(), fileName);
+    private string CommunityShaPath(string fileName) => CommunityCsvPath(fileName) + ".sha";
+
+    private string GetCommunityDictionaryState(CommunityDictionaryEntry item)
+    {
+        var path = CommunityCsvPath(item.FileName);
+        if (!File.Exists(path)) return "未取得";
+        var shaPath = CommunityShaPath(item.FileName);
+        if (!File.Exists(shaPath)) return "導入済み";
+        try
+        {
+            var localSha = File.ReadAllText(shaPath, Encoding.UTF8).Trim();
+            return string.Equals(localSha, item.Sha, StringComparison.Ordinal) ? "最新版" : "更新あり";
+        }
+        catch { return "導入済み"; }
+    }
+
+    private void EnsureCommunityUpdateRefresh()
+    {
+        var now = Environment.TickCount64;
+        var last = Interlocked.Read(ref communityLastAttemptTick);
+        if (communityDictionaryBusy || (last != 0 && now - last < UpdateCheckIntervalMs)) return;
+        _ = RefreshCommunityDictionariesAsync(false);
+    }
+
+    private Task RefreshCommunityDictionariesAsync(bool acknowledge)
+    {
+        if (communityDictionaryBusy) return Task.CompletedTask;
+        communityDictionaryBusy = true;
+        Interlocked.Exchange(ref communityLastAttemptTick, Environment.TickCount64);
+        if (acknowledge) communityStatus = "GitHubのコミュニティ辞書一覧を確認しています...";
+
+        return Task.Run(() =>
+        {
+            try
+            {
+                using var apiReq = new HttpRequestMessage(HttpMethod.Get, CommunityIndexApiUrl);
+                apiReq.Headers.UserAgent.ParseAdd("PluginJPHelper/0.4.4");
+                using var apiRes = officialDictionaryHttp.SendAsync(apiReq).GetAwaiter().GetResult();
+                apiRes.EnsureSuccessStatusCode();
+                var apiJson = apiRes.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                using var apiDoc = JsonDocument.Parse(apiJson);
+                var root = apiDoc.RootElement;
+                var indexSha = root.TryGetProperty("sha", out var shaProp) ? shaProp.GetString() ?? string.Empty : string.Empty;
+                var encodedContent = root.TryGetProperty("content", out var contentProp) ? contentProp.GetString() ?? string.Empty : string.Empty;
+                var encoding = root.TryGetProperty("encoding", out var encodingProp) ? encodingProp.GetString() ?? string.Empty : string.Empty;
+                if (string.IsNullOrWhiteSpace(encodedContent) || !string.Equals(encoding, "base64", StringComparison.OrdinalIgnoreCase))
+                    throw new InvalidOperationException("community-index.json の本文を取得できませんでした。");
+
+                var compactBase64 = encodedContent.Replace("\n", string.Empty).Replace("\r", string.Empty);
+                var indexJson = Encoding.UTF8.GetString(Convert.FromBase64String(compactBase64));
+                var index = JsonSerializer.Deserialize<CommunityDictionaryIndex>(indexJson, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                }) ?? new CommunityDictionaryIndex();
+
+                var entries = (index.Entries ?? new List<CommunityDictionaryEntry>())
+                    .Where(x => !string.IsNullOrWhiteSpace(x.FileName)
+                        && x.FileName.EndsWith(".csv", StringComparison.OrdinalIgnoreCase)
+                        && !string.IsNullOrWhiteSpace(x.DownloadUrl))
+                    .OrderBy(x => x.PluginName, StringComparer.OrdinalIgnoreCase)
+                    .ThenBy(x => x.FileName, StringComparer.OrdinalIgnoreCase)
+                    .ToList();
+
+                lock (communityDictionaryLock)
+                    communityDictionaryEntries = entries;
+
+                var previousSha = config.LastAcknowledgedCommunityIndexSha ?? string.Empty;
+                communityNoticePending = !string.IsNullOrWhiteSpace(indexSha)
+                    && !string.Equals(indexSha, previousSha, StringComparison.Ordinal);
+
+                if (acknowledge)
+                {
+                    communityListLoaded = true;
+                    communityStatus = $"コミュニティ辞書 {entries.Count}件を確認しました。";
+                    config.LastAcknowledgedCommunityIndexSha = indexSha;
+                    communityNoticePending = false;
+                    SaveConfig();
+                }
+            }
+            catch (Exception ex)
+            {
+                if (acknowledge)
+                    communityStatus = $"コミュニティ辞書一覧の取得に失敗しました: {ex.Message}";
+                log.Warning(ex, "[PluginJPHelper] community dictionary list failed");
+            }
+            finally
+            {
+                communityDictionaryBusy = false;
+            }
+        });
+    }
+
+    private Task DownloadSelectedCommunityDictionariesAsync()
+    {
+        if (communityDictionaryBusy) return Task.CompletedTask;
+        List<CommunityDictionaryEntry> targets;
+        lock (communityDictionaryLock)
+            targets = communityDictionaryEntries.Where(x => selectedCommunityDictionaries.Contains(x.FileName)).ToList();
+        if (targets.Count == 0)
+        {
+            communityStatus = "ダウンロード／更新する辞書を選択してください。";
+            return Task.CompletedTask;
+        }
+
+        communityDictionaryBusy = true;
+        return Task.Run(() =>
+        {
+            try
+            {
+                var completed = 0;
+                foreach (var item in targets)
+                {
+                    communityStatus = $"{item.FileName} をダウンロードしています...";
+                    using var req = new HttpRequestMessage(HttpMethod.Get, item.DownloadUrl);
+                    req.Headers.UserAgent.ParseAdd("PluginJPHelper/0.4.4");
+                    using var res = officialDictionaryHttp.SendAsync(req).GetAwaiter().GetResult();
+                    res.EnsureSuccessStatusCode();
+                    var text = res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                    File.WriteAllText(CommunityCsvPath(item.FileName), text, new UTF8Encoding(true));
+                    File.WriteAllText(CommunityShaPath(item.FileName), item.Sha, Encoding.UTF8);
+
+                    // コミュニティ辞書に @Window メタ情報があれば、ダウンロード時点で自動適用。
+                    var rows = ParseCsvRecords(text);
+                    var metadataPluginName = rows.Skip(1)
+                        .FirstOrDefault(r => r.Count >= 6 && !string.IsNullOrWhiteSpace(r[0]))?[0]?.Trim();
+                    if (string.IsNullOrWhiteSpace(metadataPluginName))
+                        metadataPluginName = item.PluginName;
+
+                    if (!string.IsNullOrWhiteSpace(metadataPluginName))
+                    {
+                        if (!config.Plugins.TryGetValue(metadataPluginName, out var metadataState) || metadataState == null)
+                        {
+                            metadataState = new PluginDictionaryState
+                            {
+                                Enabled = true,
+                                TranslationTarget = true,
+                                WindowKeyword = metadataPluginName
+                            };
+                            lock (pluginConfigSync)
+                                config.Plugins[metadataPluginName] = metadataState;
+                            EnsureCaptureDictionary(metadataPluginName);
+                        }
+
+                        var communityWindows = ExtractDictionaryWindowKeywords(rows);
+
+                        // 明示的なダウンロード/更新操作なので、辞書側に記載された @Window は
+                        // 過去の抑止より優先して再適用する。
+                        metadataState.SuppressedDictionaryWindowKeywords ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                        foreach (var keyword in communityWindows)
+                            metadataState.SuppressedDictionaryWindowKeywords.Remove(keyword);
+
+                        ApplyDictionaryWindowMetadata(metadataPluginName, metadataState, communityWindows, "コミュニティ辞書");
+                    }
+
+                    completed++;
+                }
+                SaveConfig();
+                communityStatus = $"選択したコミュニティ辞書 {completed}件をダウンロード／更新しました。別ウィンドウ設定が含まれる辞書は自動適用しました。";
+            }
+            catch (Exception ex)
+            {
+                communityStatus = $"コミュニティ辞書のダウンロードに失敗しました: {ex.Message}";
+                log.Warning(ex, "[PluginJPHelper] community dictionary download failed");
+            }
+            finally
+            {
+                communityDictionaryBusy = false;
+            }
+        });
+    }
+
+    private void DrawCommunityDictionaryTab()
+    {
+        ImGui.TextWrapped("ユーザーが作成・共有したコミュニティ辞書を確認し、必要なものだけダウンロード／更新できます。");
+        ImGui.Separator();
+
+        ImGui.TextUnformatted("自分の投稿名");
+        ImGui.SetNextItemWidth(260f);
+        ImGui.InputTextWithHint("##communityPosterName", "例: エルパ", ref communityPosterNameBuffer, 128);
+        ImGui.SameLine();
+        if (ActionButton("保存", ButtonRole.Primary))
+        {
+            config.CommunityPosterName = communityPosterNameBuffer.Trim();
+            communityPosterNameBuffer = config.CommunityPosterName;
+            SaveConfig();
+        }
+        ImGui.TextDisabled("Web投稿時に入力した投稿者名と一致する辞書を [自分] として強調表示します。削除権限の判定には使用しません。");
+        ImGui.Separator();
+
+        if (ActionButton("コミュニティ辞書一覧を取得", ButtonRole.Primary) && !communityDictionaryBusy)
+            _ = RefreshCommunityDictionariesAsync(true);
+        ImGui.SameLine();
+        if (ActionButton("コミュニティ辞書フォルダーを開く", ButtonRole.Success))
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo { FileName = CommunityDictionaryDirectory(), UseShellExecute = true });
+                communityStatus = "コミュニティ辞書フォルダーを開きました。";
+            }
+            catch (Exception ex) { communityStatus = $"フォルダーを開けませんでした: {ex.Message}"; }
+        }
+        ImGui.SameLine();
+        if (ActionButton("コミュニティ辞書をアップロード", ButtonRole.Warning))
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "https://pjh-community-upload.akumanomaria.workers.dev/",
+                    UseShellExecute = true,
+                });
+                communityStatus = "コミュニティ辞書の投稿ページを開きました。";
+            }
+            catch (Exception ex) { communityStatus = $"アップロードページを開けませんでした: {ex.Message}"; }
+        }
+        if (communityDictionaryBusy) { ImGui.SameLine(); ImGui.TextDisabled("通信中..."); }
+
+        if (!string.IsNullOrWhiteSpace(communityStatus)) ImGui.TextWrapped(communityStatus);
+        if (!communityListLoaded)
+        {
+            ImGui.TextDisabled("「コミュニティ辞書一覧を取得」を押すとGitHub上の一覧を表示します。");
+            return;
+        }
+
+        ImGui.SetNextItemWidth(300f);
+        ImGui.InputTextWithHint("##communityFilter", "辞書名・プラグイン名・投稿者で検索", ref communityFilter, 160);
+        ImGui.SameLine();
+        if (ActionButton("検索をクリア", ButtonRole.Neutral)) communityFilter = string.Empty;
+
+        List<CommunityDictionaryEntry> snapshot;
+        lock (communityDictionaryLock) snapshot = communityDictionaryEntries.ToList();
+        var filterText = communityFilter.Trim();
+        var visibleEntries = snapshot.Where(x =>
+            filterText.Length == 0
+            || x.FileName.Contains(filterText, StringComparison.OrdinalIgnoreCase)
+            || x.PluginName.Contains(filterText, StringComparison.OrdinalIgnoreCase)
+            || x.Owner.Contains(filterText, StringComparison.OrdinalIgnoreCase)).ToArray();
+
+        if (visibleEntries.Length == 0)
+        {
+            ImGui.TextDisabled("表示できるコミュニティ辞書がありません。");
+        }
+        else
+        {
+            DrawDictionaryStatusColumnControls("community");
+            DrawListSortControls("community", new[] { "辞書", "対応プラグイン", "翻訳辞書登録", "未翻訳登録", "日本語化", "導入", "プラグインスイッチ", "投稿者", "更新日", "状態" }, ref communityDictionarySortMode, ref communityDictionarySortAscending);
+            visibleEntries = communityDictionarySortMode switch
+            {
+                1 => SortArray(visibleEntries, x => x.PluginName, communityDictionarySortAscending),
+                2 => SortArray(visibleEntries, x => GetPluginStatusColumns(x.PluginName).TranslationRegistered == "有り", communityDictionarySortAscending),
+                3 => SortArray(visibleEntries, x => GetPluginStatusColumns(x.PluginName).CaptureRegistered == "有り", communityDictionarySortAscending),
+                4 => SortArray(visibleEntries, x => GetPluginStatusColumns(x.PluginName).TranslationEnabled == "ON", communityDictionarySortAscending),
+                5 => SortArray(visibleEntries, x => GetPluginStatusColumns(x.PluginName).Installed == "導入済み", communityDictionarySortAscending),
+                6 => SortArray(visibleEntries, x => GetPluginStatusColumns(x.PluginName).PluginSwitch == "ON", communityDictionarySortAscending),
+                7 => SortArray(visibleEntries, x => x.Owner, communityDictionarySortAscending),
+                8 => SortArray(visibleEntries, x => x.Updated, communityDictionarySortAscending),
+                9 => SortArray(visibleEntries, x => GetCommunityDictionaryState(x), communityDictionarySortAscending),
+                _ => SortArray(visibleEntries, x => x.FileName, communityDictionarySortAscending),
+            };
+            var statusColumnCount = VisibleDictionaryStatusColumnCount();
+            if (ImGui.BeginTable("communityDictionaryTable", 6 + statusColumnCount, ImGuiTableFlags.Borders | ImGuiTableFlags.RowBg | ImGuiTableFlags.Resizable | ImGuiTableFlags.ScrollX | ImGuiTableFlags.SizingFixedFit | ImGuiTableFlags.NoKeepColumnsVisible, new Vector2(0, 0)))
+            {
+                ImGui.TableSetupColumn("選択", ImGuiTableColumnFlags.WidthFixed, 55);
+                ImGui.TableSetupColumn("辞書", ImGuiTableColumnFlags.WidthFixed, 190);
+                ImGui.TableSetupColumn("対応プラグイン", ImGuiTableColumnFlags.WidthFixed, 170);
+                if (showStatusTranslationRegistered) ImGui.TableSetupColumn("翻訳辞書登録", ImGuiTableColumnFlags.WidthFixed, 95);
+                if (showStatusCaptureRegistered) ImGui.TableSetupColumn("未翻訳登録", ImGuiTableColumnFlags.WidthFixed, 90);
+                if (showStatusTranslationEnabled) ImGui.TableSetupColumn("日本語化", ImGuiTableColumnFlags.WidthFixed, 80);
+                if (showStatusInstalled) ImGui.TableSetupColumn("導入", ImGuiTableColumnFlags.WidthFixed, 85);
+                if (showStatusPluginSwitch) ImGui.TableSetupColumn("プラグインスイッチ", ImGuiTableColumnFlags.WidthFixed, 115);
+                ImGui.TableSetupColumn("投稿者", ImGuiTableColumnFlags.WidthFixed, 170);
+                ImGui.TableSetupColumn("更新日", ImGuiTableColumnFlags.WidthFixed, 105);
+                ImGui.TableSetupColumn("状態", ImGuiTableColumnFlags.WidthFixed, 90);
+                var communityHeaders = new List<string> { "選択", "辞書", "対応プラグイン" };
+                if (showStatusTranslationRegistered) communityHeaders.Add("翻訳辞書登録");
+                if (showStatusCaptureRegistered) communityHeaders.Add("未翻訳登録");
+                if (showStatusTranslationEnabled) communityHeaders.Add("日本語化");
+                if (showStatusInstalled) communityHeaders.Add("導入");
+                if (showStatusPluginSwitch) communityHeaders.Add("プラグインスイッチ");
+                communityHeaders.Add("投稿者");
+                communityHeaders.Add("更新日");
+                communityHeaders.Add("状態");
+                DrawJapaneseTableHeaderRow(communityHeaders);
+
+            foreach (var item in visibleEntries)
+            {
+                var isMine = !string.IsNullOrWhiteSpace(config.CommunityPosterName)
+                    && string.Equals(config.CommunityPosterName, item.Owner, StringComparison.OrdinalIgnoreCase);
+                var mineColor = new Vector4(0.35f, 0.95f, 0.55f, 1.00f);
+                var state = GetCommunityDictionaryState(item);
+
+                ImGui.TableNextRow();
+                ImGui.TableSetColumnIndex(0);
+                var selected = selectedCommunityDictionaries.Contains(item.FileName);
+                if (ImGui.Checkbox($"##community_{item.FileName}", ref selected))
+                {
+                    if (selected) selectedCommunityDictionaries.Add(item.FileName);
+                    else selectedCommunityDictionaries.Remove(item.FileName);
+                }
+
+                ImGui.TableSetColumnIndex(1);
+                if (isMine) ImGui.TextColored(mineColor, item.FileName); else ImGui.TextUnformatted(item.FileName);
+                ImGui.TableSetColumnIndex(2);
+                if (isMine) ImGui.TextColored(mineColor, item.PluginName); else ImGui.TextUnformatted(item.PluginName);
+                var pluginStatus = GetPluginStatusColumns(item.PluginName);
+                var column = 3;
+                if (showStatusTranslationRegistered) { ImGui.TableSetColumnIndex(column++); DrawYesNoStatus(pluginStatus.TranslationRegistered); }
+                if (showStatusCaptureRegistered) { ImGui.TableSetColumnIndex(column++); DrawYesNoStatus(pluginStatus.CaptureRegistered); }
+                if (showStatusTranslationEnabled) { ImGui.TableSetColumnIndex(column++); DrawOnOffStatus(pluginStatus.TranslationEnabled); }
+                if (showStatusInstalled) { ImGui.TableSetColumnIndex(column++); DrawInstalledStatus(pluginStatus.Installed); }
+                if (showStatusPluginSwitch) { ImGui.TableSetColumnIndex(column++); DrawOnOffStatus(pluginStatus.PluginSwitch); }
+                ImGui.TableSetColumnIndex(column++);
+                if (isMine) ImGui.TextColored(mineColor, $"{item.Owner} [自分]"); else ImGui.TextUnformatted(item.Owner);
+                ImGui.TableSetColumnIndex(column++);
+                if (isMine) ImGui.TextColored(mineColor, item.Updated); else ImGui.TextUnformatted(item.Updated);
+                ImGui.TableSetColumnIndex(column);
+                if (state == "更新あり") ImGui.TextColored(new Vector4(1f, 0.75f, 0.20f, 1f), state);
+                else if (state == "最新版") ImGui.TextColored(new Vector4(0.35f, 0.85f, 0.50f, 1f), state);
+                else ImGui.TextUnformatted(state);
+            }
+                ImGui.EndTable();
+            }
+        }
+
+        if (ActionButton("選択した辞書をダウンロード／更新", ButtonRole.Success) && !communityDictionaryBusy)
+            _ = DownloadSelectedCommunityDictionariesAsync();
     }
 
     private static readonly (string Key, string Label)[] RsrBaseDictionaryTabs =
@@ -2446,15 +3626,1222 @@ public sealed unsafe class Plugin : IDalamudPlugin
         state.Enabled = false;
         SaveConfig();
 
-        var next = config.Plugins.Where(x => x.Value.TranslationTarget).Select(x => x.Key)
+        var next = GetPluginConfigSnapshot().Where(x => x.Value.TranslationTarget).Select(x => x.Key)
             .OrderBy(x => PluginSortKey(x)).ThenBy(x => x, StringComparer.OrdinalIgnoreCase).FirstOrDefault();
         if (!string.IsNullOrWhiteSpace(next)) selectedPlugin = capturePlugin = next;
         csvStatus = $"{pluginName} を翻訳対象から外しました。辞書データ自体は削除していません。";
     }
 
+    private void DrawPluginDropdown(string id, string[] pluginNames, ref string selected, bool disabled)
+    {
+        ImGui.SetNextItemWidth(240f);
+        if (disabled) ImGui.BeginDisabled();
+
+        var previewEnabled = !string.IsNullOrWhiteSpace(selected)
+            && config.Plugins.TryGetValue(selected, out var previewState)
+            && previewState.Enabled;
+        if (previewEnabled) ImGui.PushStyleColor(ImGuiCol.Text, new Vector4(0.35f, 0.95f, 0.55f, 1.00f));
+
+        var opened = ImGui.BeginCombo(id, string.IsNullOrWhiteSpace(selected) ? "選択してください" : selected);
+
+        if (previewEnabled) ImGui.PopStyleColor();
+
+        if (opened)
+        {
+            foreach (var name in pluginNames)
+            {
+                var isSelected = string.Equals(selected, name, StringComparison.Ordinal);
+                var isEnabled = config.Plugins.TryGetValue(name, out var state) && state.Enabled;
+                if (isEnabled) ImGui.PushStyleColor(ImGuiCol.Text, new Vector4(0.35f, 0.95f, 0.55f, 1.00f));
+                if (ImGui.Selectable($"{name}##{id}_{name}", isSelected)) selected = name;
+                if (isEnabled) ImGui.PopStyleColor();
+                if (isSelected) ImGui.SetItemDefaultFocus();
+            }
+            ImGui.EndCombo();
+        }
+
+        if (disabled) ImGui.EndDisabled();
+        if (ImGui.IsItemHovered(ImGuiHoveredFlags.AllowWhenDisabled))
+            ImGui.SetTooltip("日本語化が有効なプラグインは緑色で表示します。");
+    }
+
+    // v0.4.9:
+    // 別 Begin() された独立ウィンドウを任意の翻訳対象へ関連付ける。
+    // 「検出テストモード」は開始時点のウィンドウ一覧を記録し、その後に新しく現れた
+    // ウィンドウだけを候補として表示する。Pawprint / Omni 等の固有名は決め打ちしない。
+    private static string NormalizeDetectedWindowKeyword(string value)
+    {
+        value = (value ?? string.Empty).Trim();
+        var marker = value.IndexOf("###", StringComparison.Ordinal);
+        if (marker >= 0 && marker + 3 < value.Length)
+            value = value[(marker + 3)..].Trim();
+        return value;
+    }
+
+    private static string DescribeDetectedWindow(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value)) return string.Empty;
+        var marker = value.IndexOf("###", StringComparison.Ordinal);
+        if (marker >= 0 && marker + 3 < value.Length)
+        {
+            var visible = value[..marker].Trim();
+            var internalId = value[(marker + 3)..].Trim();
+            if (!string.IsNullOrWhiteSpace(visible) && !string.IsNullOrWhiteSpace(internalId))
+                return $"{visible}  [内部ID: {internalId}]";
+        }
+        return value;
+    }
+
+    private void DrawAdditionalWindowControls(string pluginName, PluginDictionaryState state)
+    {
+        if (!ImGui.CollapsingHeader("別ウィンドウの関連付け")) return;
+
+        ImGui.TextWrapped("メイン画面とは別の独立ウィンドウを使うプラグイン向けです。関連付けたウィンドウでも、このプラグインの翻訳辞書を使用します。");
+        ImGui.TextDisabled("Popup / Combo / Tooltip は通常、自動で親ウィンドウを引き継ぎます。ここでは完全に別 Begin() されたウィンドウだけを追加してください。");
+
+        var keywords = (state.WindowKeyword ?? string.Empty)
+            .Split('|', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToList();
+
+        if (keywords.Count == 0)
+        {
+            ImGui.TextDisabled("関連付け済みウィンドウ名：なし");
+        }
+        else
+        {
+            ImGui.TextUnformatted("関連付け済み：");
+            for (var i = 0; i < keywords.Count; i++)
+            {
+                ImGui.PushID($"windowKeyword_{pluginName}_{i}");
+                var keyword = keywords[i];
+                ImGui.BulletText(keyword);
+
+                var sourceLabel = GetDictionaryWindowSourceLabel(state, keyword);
+                if (!string.IsNullOrWhiteSpace(sourceLabel))
+                {
+                    ImGui.SameLine();
+                    ImGui.TextDisabled($"[{sourceLabel}から自動適用]");
+                }
+
+                ImGui.SameLine();
+                if (ActionButton("削除", ButtonRole.Danger))
+                {
+                    // 辞書由来の場合は抑止リストへ記録し、
+                    // 辞書更新・再読込で勝手に復活しないようにする。
+                    if (!string.IsNullOrWhiteSpace(sourceLabel))
+                        state.SuppressedDictionaryWindowKeywords.Add(keyword);
+
+                    keywords.RemoveAt(i);
+                    state.WindowKeyword = string.Join("|", keywords);
+                    SaveConfig();
+                    ImGui.PopID();
+                    break;
+                }
+                ImGui.PopID();
+            }
+        }
+
+        ImGui.Separator();
+        ImGui.TextUnformatted("検出テストモード");
+
+        var detectingThisPlugin = additionalWindowDetectMode &&
+                                  string.Equals(additionalWindowDetectPlugin, pluginName, StringComparison.OrdinalIgnoreCase);
+
+        if (!detectingThisPlugin)
+        {
+            if (additionalWindowDetectMode) ImGui.BeginDisabled();
+            if (ActionButton("検出開始", ButtonRole.Primary))
+            {
+                additionalWindowDetectMode = true;
+                additionalWindowDetectPlugin = pluginName;
+                additionalWindowDetectStartedAt = Environment.TickCount64;
+                additionalWindowDetectBaseline = GetLiveDetectedWindows().ToHashSet(StringComparer.Ordinal);
+                additionalWindowNewSelection = string.Empty;
+            }
+            if (additionalWindowDetectMode) ImGui.EndDisabled();
+
+            ImGui.SameLine();
+            ImGui.TextDisabled("押したあと、翻訳したい別ウィンドウをゲーム内で開いてください。");
+        }
+        else
+        {
+            var elapsed = Math.Max(0, (Environment.TickCount64 - additionalWindowDetectStartedAt) / 1000);
+            ImGui.TextWrapped($"検出中… {elapsed}秒　対象の別ウィンドウを開いてください。開始時から開いていた場合は、一度閉じて約0.5秒待ってから開き直してください。");
+            ImGui.SameLine();
+            if (ActionButton("検出終了", ButtonRole.Danger))
+            {
+                additionalWindowDetectMode = false;
+                additionalWindowDetectPlugin = string.Empty;
+                additionalWindowDetectBaseline.Clear();
+                additionalWindowNewSelection = string.Empty;
+            }
+
+            // v0.4.9:
+            // 検出開始時に開いていたウィンドウも、一度閉じたら基準リストから外す。
+            // これにより「検出開始時に開いていた → 閉じる → 再度開く」でも
+            // 再オープン時に新規ウィンドウとして検出できる。
+            var liveNow = GetLiveDetectedWindows()
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .ToHashSet(StringComparer.Ordinal);
+
+            additionalWindowDetectBaseline.RemoveWhere(x => !liveNow.Contains(x));
+
+            var newlyDetected = liveNow
+                .Where(x => !additionalWindowDetectBaseline.Contains(x))
+                .Where(x => !IsTransientImGuiWindow(x))
+                .Where(x => !x.Contains("Plugin JP Helper", StringComparison.OrdinalIgnoreCase))
+                .Where(x => showInternalDetectedWindows || !IsNoisyInternalDetectedWindow(x))
+                .OrderBy(x => x, StringComparer.OrdinalIgnoreCase)
+                .ToArray();
+
+            if (newlyDetected.Length == 0)
+            {
+                ImGui.TextDisabled("新しい独立ウィンドウはまだ検出されていません。");
+            }
+            else
+            {
+                if (!newlyDetected.Contains(additionalWindowNewSelection, StringComparer.Ordinal))
+                    additionalWindowNewSelection = newlyDetected[0];
+
+                ImGui.TextUnformatted($"新しく検出：{newlyDetected.Length}件");
+                ImGui.SetNextItemWidth(520);
+                var preview = DescribeDetectedWindow(additionalWindowNewSelection);
+                if (ImGui.BeginCombo($"##newDetectedWindow_{pluginName}", preview))
+                {
+                    foreach (var item in newlyDetected)
+                    {
+                        var selected = string.Equals(item, additionalWindowNewSelection, StringComparison.Ordinal);
+                        if (ImGui.Selectable($"{DescribeDetectedWindow(item)}##newDetected_{item}", selected))
+                            additionalWindowNewSelection = item;
+                        if (selected) ImGui.SetItemDefaultFocus();
+                    }
+                    ImGui.EndCombo();
+                }
+
+                var normalized = NormalizeDetectedWindowKeyword(additionalWindowNewSelection);
+                ImGui.TextDisabled($"追加時登録名：{normalized}");
+
+                var alreadyAddedNew = keywords.Contains(normalized, StringComparer.OrdinalIgnoreCase);
+                if (alreadyAddedNew || string.IsNullOrWhiteSpace(normalized)) ImGui.BeginDisabled();
+                if (ActionButton("この新規ウィンドウを関連付け", ButtonRole.Success))
+                {
+                    state.SuppressedDictionaryWindowKeywords.Remove(normalized);
+                    state.SuppressedDictionaryWindowKeywords.Remove(normalized);
+                    keywords.Add(normalized);
+                    state.WindowKeyword = string.Join("|", keywords.Distinct(StringComparer.OrdinalIgnoreCase));
+                    SaveConfig();
+
+                    // 追加後も検出は続けられる。現在までに見えたウィンドウを基準へ吸収し、
+                    // 次に開く別ウィンドウだけを探せるようにする。
+                    additionalWindowDetectBaseline = GetLiveDetectedWindows().ToHashSet(StringComparer.Ordinal);
+                    additionalWindowNewSelection = string.Empty;
+                }
+                if (alreadyAddedNew || string.IsNullOrWhiteSpace(normalized)) ImGui.EndDisabled();
+            }
+        }
+
+        ImGui.Spacing();
+        ImGui.Separator();
+        ImGui.TextUnformatted("手動追加");
+        ImGui.SetNextItemWidth(300);
+        ImGui.InputTextWithHint($"##additionalWindowKeyword_{pluginName}", "ウィンドウ名 / 内部ID", ref additionalWindowKeywordInput, 128);
+        ImGui.SameLine();
+        var manual = additionalWindowKeywordInput.Trim();
+        if (string.IsNullOrWhiteSpace(manual)) ImGui.BeginDisabled();
+        if (ActionButton("追加##additionalWindowKeywordAdd", ButtonRole.Primary))
+        {
+            var normalized = NormalizeDetectedWindowKeyword(manual);
+            if (!string.IsNullOrWhiteSpace(normalized) && !keywords.Contains(normalized, StringComparer.OrdinalIgnoreCase))
+                state.SuppressedDictionaryWindowKeywords.Remove(normalized);
+                keywords.Add(normalized);
+            state.WindowKeyword = string.Join("|", keywords);
+            additionalWindowKeywordInput = string.Empty;
+            SaveConfig();
+        }
+        if (string.IsNullOrWhiteSpace(manual)) ImGui.EndDisabled();
+
+        ImGui.Spacing();
+        ImGui.Separator();
+        ImGui.TextUnformatted("現在表示中のウィンドウ");
+        ImGui.TextDisabled("この一覧はリアルタイムです。対象ウィンドウを閉じると自動で消え、再度開くと戻ります。");
+
+        ImGui.SetNextItemWidth(360);
+        ImGui.InputTextWithHint($"##windowSearch_{pluginName}", "検索（表示名 / 内部ID）", ref additionalWindowSearch, 128);
+        ImGui.SameLine();
+        if (ActionButton("クリア##windowSearchClear", ButtonRole.Neutral))
+            additionalWindowSearch = string.Empty;
+
+        ImGui.SameLine();
+        ImGui.Checkbox("内部UIも表示", ref showInternalDetectedWindows);
+        if (ImGui.IsItemHovered())
+            ImGui.SetTooltip("UmbraのToolbar/AuxBarなど、画面部品として大量生成される内部ImGui Windowも表示します。");
+
+        var search = additionalWindowSearch.Trim();
+        var liveDetected = GetLiveDetectedWindows()
+            .Where(x => !string.IsNullOrWhiteSpace(x))
+            .Where(x => !IsTransientImGuiWindow(x))
+            .Where(x => !x.Contains("Plugin JP Helper", StringComparison.OrdinalIgnoreCase))
+            .Where(x => showInternalDetectedWindows || !IsNoisyInternalDetectedWindow(x))
+            .Where(x => string.IsNullOrWhiteSpace(search)
+                     || x.Contains(search, StringComparison.OrdinalIgnoreCase)
+                     || DescribeDetectedWindow(x).Contains(search, StringComparison.OrdinalIgnoreCase)
+                     || NormalizeDetectedWindowKeyword(x).Contains(search, StringComparison.OrdinalIgnoreCase))
+            .OrderBy(x => x, StringComparer.OrdinalIgnoreCase)
+            .Take(100)
+            .ToArray();
+
+        if (liveDetected.Length == 0)
+        {
+            ImGui.TextDisabled(string.IsNullOrWhiteSpace(search)
+                ? "現在表示中の対象ウィンドウはありません。"
+                : "現在表示中で検索条件に一致するウィンドウはありません。");
+            return;
+        }
+
+        ImGui.TextDisabled($"現在表示中：{liveDetected.Length}件（最大100件表示）");
+
+        var childHeight = Math.Min(320f, 30f + liveDetected.Length * 27f);
+        if (ImGui.BeginChild($"##windowSearchResults_{pluginName}", new Vector2(0, childHeight), true))
+        {
+            foreach (var raw in liveDetected)
+            {
+                var normalized = NormalizeDetectedWindowKeyword(raw);
+                var alreadyAdded = keywords.Contains(normalized, StringComparer.OrdinalIgnoreCase);
+
+                ImGui.PushID($"windowResult_{pluginName}_{raw}");
+
+                if (alreadyAdded) ImGui.BeginDisabled();
+                if (ActionButton(alreadyAdded ? "追加済み" : "追加", alreadyAdded ? ButtonRole.Neutral : ButtonRole.Success))
+                {
+                    state.SuppressedDictionaryWindowKeywords.Remove(normalized);
+                    state.SuppressedDictionaryWindowKeywords.Remove(normalized);
+                    keywords.Add(normalized);
+                    state.WindowKeyword = string.Join("|", keywords.Distinct(StringComparer.OrdinalIgnoreCase));
+                    SaveConfig();
+                }
+                if (alreadyAdded) ImGui.EndDisabled();
+
+                ImGui.SameLine();
+                ImGui.TextUnformatted(DescribeDetectedWindow(raw));
+
+                if (!string.Equals(raw, normalized, StringComparison.Ordinal))
+                {
+                    ImGui.SameLine();
+                    ImGui.TextDisabled($"→ 追加時登録名: {normalized}");
+                }
+
+                ImGui.PopID();
+            }
+        }
+        ImGui.EndChild();
+    }
+
+    private void DrawOpenCommandControls(string pluginName, PluginDictionaryState state)
+    {
+        if (!openCommandBuffers.TryGetValue(pluginName, out var commandBuffer))
+        {
+            commandBuffer = state.OpenCommand ?? string.Empty;
+            openCommandBuffers[pluginName] = commandBuffer;
+        }
+
+        ImGui.TextUnformatted("開くコマンド：");
+        ImGui.SameLine();
+        ImGui.SetNextItemWidth(240f);
+        if (ImGui.InputTextWithHint($"##openCommand_{pluginName}", "/command", ref commandBuffer, 256))
+            openCommandBuffers[pluginName] = commandBuffer;
+
+        ImGui.SameLine();
+        if (ActionButton("コマンドを保存", ButtonRole.Primary))
+        {
+            var trimmed = commandBuffer.Trim();
+            if (string.IsNullOrWhiteSpace(trimmed))
+            {
+                state.OpenCommand = string.Empty;
+                openCommandBuffers[pluginName] = string.Empty;
+                SaveConfig();
+                csvStatus = $"{pluginName} の開くコマンドを削除しました。";
+            }
+            else if (!trimmed.StartsWith("/", StringComparison.Ordinal))
+            {
+                csvStatus = "開くコマンドは / から始まるコマンドを入力してください。";
+            }
+            else
+            {
+                state.OpenCommand = trimmed;
+                openCommandBuffers[pluginName] = trimmed;
+                SaveConfig();
+                csvStatus = $"{pluginName} の開くコマンドを保存しました: {trimmed}";
+            }
+        }
+        if (ImGui.IsItemHovered())
+            ImGui.SetTooltip("このプラグインを開くためのコマンドを保存します。プラグインごとに個別保存されます。");
+
+        ImGui.SameLine();
+        var canOpen = !string.IsNullOrWhiteSpace(state.OpenCommand);
+        if (!canOpen) ImGui.BeginDisabled();
+        if (ActionButton("開く", ButtonRole.Success) && canOpen)
+        {
+            try
+            {
+                var savedCommand = state.OpenCommand ?? string.Empty;
+                commandManager.ProcessCommand(savedCommand);
+                csvStatus = $"{pluginName} を開くコマンドを実行しました: {savedCommand}";
+            }
+            catch (Exception ex)
+            {
+                log.Warning(ex, "[PluginJPHelper] Failed to execute open command for {Plugin}", pluginName);
+                csvStatus = $"コマンドの実行に失敗しました: {state.OpenCommand}";
+            }
+        }
+        if (!canOpen) ImGui.EndDisabled();
+        if (ImGui.IsItemHovered(ImGuiHoveredFlags.AllowWhenDisabled))
+            ImGui.SetTooltip(canOpen
+                ? $"保存済みコマンドを実行します: {state.OpenCommand}"
+                : "先に開くコマンドを入力して「コマンドを保存」を押してください。");
+    }
+
+    private void EnsureOfficialNoticeRefresh()
+    {
+        var now = Environment.TickCount64;
+        var last = Interlocked.Read(ref officialNoticeLastAttemptTick);
+        if (officialNoticeBusy || (last != 0 && now - last < UpdateCheckIntervalMs)) return;
+        _ = RefreshOfficialNoticeAsync();
+    }
+
+    private Task RefreshOfficialNoticeAsync()
+    {
+        if (officialNoticeBusy) return Task.CompletedTask;
+        officialNoticeBusy = true;
+        Interlocked.Exchange(ref officialNoticeLastAttemptTick, Environment.TickCount64);
+
+        return Task.Run(() =>
+        {
+            try
+            {
+                // 公式辞書の更新判定は notice.txt ではなく Dictionaries/Official 配下のCSV構成で行う。
+                using var dirReq = new HttpRequestMessage(HttpMethod.Get, OfficialDictionaryApiUrl);
+                dirReq.Headers.UserAgent.ParseAdd("PluginJPHelper/0.4.4");
+                dirReq.Headers.Accept.ParseAdd("application/vnd.github+json");
+                using var dirRes = officialDictionaryHttp.SendAsync(dirReq).GetAwaiter().GetResult();
+                dirRes.EnsureSuccessStatusCode();
+                var dirJson = dirRes.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                using var dirDoc = JsonDocument.Parse(dirJson);
+
+                var parts = new List<string>();
+                foreach (var item in dirDoc.RootElement.EnumerateArray())
+                {
+                    if (!item.TryGetProperty("type", out var type) || type.GetString() != "file") continue;
+                    var name = item.TryGetProperty("name", out var nameEl) ? nameEl.GetString() ?? string.Empty : string.Empty;
+                    if (!name.EndsWith(".csv", StringComparison.OrdinalIgnoreCase)) continue;
+                    var sha = item.TryGetProperty("sha", out var shaEl) ? shaEl.GetString() ?? string.Empty : string.Empty;
+                    parts.Add($"{name}:{sha}");
+                }
+                parts.Sort(StringComparer.OrdinalIgnoreCase);
+                var signatureSource = string.Join("|", parts);
+                var latestSignature = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(signatureSource)));
+
+                // 表示文は notice.txt の1行目を利用する。フォルダー更新が無い限り通知は出さない。
+                using var req = new HttpRequestMessage(HttpMethod.Get, OfficialNoticeUrl);
+                req.Headers.UserAgent.ParseAdd("PluginJPHelper/0.4.4");
+                using var res = officialDictionaryHttp.SendAsync(req).GetAwaiter().GetResult();
+                res.EnsureSuccessStatusCode();
+                var text = res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                var firstLine = text.Replace("\r\n", "\n", StringComparison.Ordinal)
+                    .Replace('\r', '\n')
+                    .Split('\n', StringSplitOptions.RemoveEmptyEntries)
+                    .FirstOrDefault()?.Trim() ?? "公式辞書に更新があります。";
+
+                officialNoticeSha = latestSignature;
+                officialNoticeText = !string.IsNullOrWhiteSpace(latestSignature)
+                    && !string.Equals(latestSignature, config.LastAcknowledgedOfficialNoticeSha ?? string.Empty, StringComparison.Ordinal)
+                        ? firstLine
+                        : string.Empty;
+            }
+            catch (Exception ex)
+            {
+                // 通知取得失敗は翻訳機能を止めない。タイトルには何も追加しない。
+                log.Debug(ex, "[PluginJPHelper] official dictionary update check failed");
+            }
+            finally
+            {
+                officialNoticeBusy = false;
+            }
+        });
+    }
+
+    private string BuildMainWindowTitle()
+    {
+        const string baseTitle = "Plugin JP Helper v0.4.12";
+        var officialNotice = officialNoticeText?.Trim() ?? string.Empty;
+        var communityNotice = communityNoticePending ? "コミュニティ辞書に更新があります。" : string.Empty;
+        var notice = string.Empty;
+        if (officialNotice.Length > 0)
+            notice += $"【{officialNotice}】";
+        if (communityNotice.Length > 0)
+            notice += $"【{communityNotice}】";
+        if (notice.Length == 0) return baseTitle + "###PluginJPHelperMain";
+
+        // ImGuiの標準タイトルバー内に収まるよう、通知を一定幅で横スクロールさせる。
+        // ###以降を固定IDにすることで、表示文字が動いてもウィンドウ状態は維持される。
+        const int visibleChars = 34;
+        const string gap = "　　　　";
+        var loop = notice + gap;
+        if (loop.Length <= visibleChars)
+            return $"{baseTitle}     {notice}###PluginJPHelperMain";
+
+        var start = (int)((Environment.TickCount64 / 220) % loop.Length);
+        var doubled = loop + loop;
+        var segment = doubled.Substring(start, Math.Min(visibleChars, doubled.Length - start));
+        if (segment.Length < visibleChars)
+            segment += doubled.Substring(0, visibleChars - segment.Length);
+        return $"{baseTitle}     {segment}###PluginJPHelperMain";
+    }
+
+    private sealed class OfficialDictionaryEntry
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Sha { get; set; } = string.Empty;
+        public string DownloadUrl { get; set; } = string.Empty;
+        public string PluginName { get; set; } = string.Empty;
+    }
+
+    private static string GetOfficialDictionaryPluginName(string fileName)
+    {
+        var stem = Path.GetFileNameWithoutExtension(fileName);
+        var versionMarker = stem.LastIndexOf("_v", StringComparison.OrdinalIgnoreCase);
+        if (versionMarker > 0)
+        {
+            var version = stem[(versionMarker + 2)..];
+            if (version.Length > 0 && version.All(c => char.IsDigit(c) || c == '.'))
+                return stem[..versionMarker];
+        }
+        return stem;
+    }
+
+    private bool TryGetInstalledPluginState(string pluginName, out bool isLoaded)
+    {
+        static string Normalize(string value)
+            => new(value.Where(char.IsLetterOrDigit).Select(char.ToLowerInvariant).ToArray());
+
+        var aliases = pluginName.ToUpperInvariant() switch
+        {
+            "BMR" => new[] { "BMR", "BossModReborn" },
+            "BM" => new[] { "BM", "BossMod" },
+            "RSR" => new[] { "RSR", "RotationSolverReborn", "Rotation Solver Reborn" },
+            _ => new[] { pluginName },
+        };
+
+        var installed = pluginInterface.InstalledPlugins.FirstOrDefault(p =>
+            aliases.Any(alias =>
+                string.Equals(alias, p.InternalName, StringComparison.OrdinalIgnoreCase)
+                || string.Equals(alias, p.Name, StringComparison.OrdinalIgnoreCase)
+                || string.Equals(Normalize(alias), Normalize(p.InternalName ?? string.Empty), StringComparison.Ordinal)
+                || string.Equals(Normalize(alias), Normalize(p.Name ?? string.Empty), StringComparison.Ordinal)));
+
+        if (installed == null)
+        {
+            isLoaded = false;
+            return false;
+        }
+
+        isLoaded = installed.IsLoaded;
+        return true;
+    }
+
+    private IReadOnlyList<PluginDictionaryState> FindRegisteredPluginStates(string pluginName)
+    {
+        var matches = new List<PluginDictionaryState>();
+        foreach (var (registeredName, state) in GetPluginConfigSnapshot())
+        {
+            if (state == null) continue;
+
+            var matched = PluginIdentityMatches(registeredName, pluginName);
+            if (!matched)
+            {
+                var keywords = (state.WindowKeyword ?? string.Empty)
+                    .Split('|', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+                matched = keywords.Any(keyword => PluginIdentityMatches(keyword, pluginName));
+            }
+
+            if (matched && !matches.Contains(state)) matches.Add(state);
+        }
+        return matches;
+    }
+
+    private (string TranslationRegistered, string CaptureRegistered, string TranslationEnabled, string Installed, string PluginSwitch) GetPluginStatusColumns(string pluginName)
+    {
+        // 同一プラグインが略称・InternalName・旧登録名など複数のキーで残っていても、
+        // 最初の1件だけで判定せず、一致した全設定を集約する。
+        var states = FindRegisteredPluginStates(pluginName);
+        var translationRegistered = states.Any(state => state.TranslationTarget) ? "有り" : "無し";
+
+        // 現行v0.3.4では未翻訳取得の対象登録も TranslationTarget を共用している。
+        // そのため未翻訳登録も一致した全設定の TranslationTarget を集約して表示する。
+        var captureRegistered = states.Any(state => state.TranslationTarget) ? "有り" : "無し";
+        var translationEnabled = states.Any(state => state.TranslationTarget && state.Enabled) ? "ON" : "OFF";
+
+        if (!TryGetInstalledPluginState(pluginName, out var isLoaded))
+            return (translationRegistered, captureRegistered, translationEnabled, "未導入", "OFF");
+
+        return (translationRegistered, captureRegistered, translationEnabled, "導入済み", isLoaded ? "ON" : "OFF");
+    }
+
+    private static void DrawYesNoStatus(string value)
+    {
+        if (value == "有り") ImGui.TextColored(new Vector4(0.35f, 0.85f, 0.50f, 1f), value);
+        else ImGui.TextDisabled(value);
+    }
+
+    private static void DrawOnOffStatus(string value)
+    {
+        if (value == "ON") ImGui.TextColored(new Vector4(0.35f, 0.85f, 0.50f, 1f), value);
+        else ImGui.TextColored(new Vector4(1f, 0.75f, 0.20f, 1f), value);
+    }
+
+    private static void DrawInstalledStatus(string value)
+    {
+        if (value == "導入済み") ImGui.TextColored(new Vector4(0.35f, 0.85f, 0.50f, 1f), value);
+        else ImGui.TextDisabled(value);
+    }
+
+    private string OfficialDictionaryDirectory()
+    {
+        var dir = Path.Combine(DictionaryDirectory(), "Official");
+        Directory.CreateDirectory(dir);
+        return dir;
+    }
+
+    private string OfficialCsvPath(string fileName) => Path.Combine(OfficialDictionaryDirectory(), fileName);
+    private string OfficialShaPath(string fileName) => OfficialCsvPath(fileName) + ".sha";
+
+    private static bool IsDictionaryWindowMetaRow(IReadOnlyList<string> cols)
+        => cols.Count >= 6
+           && string.Equals(cols[3]?.Trim(), DictionaryWindowMetaType, StringComparison.OrdinalIgnoreCase)
+           && !string.IsNullOrWhiteSpace(cols[4]);
+
+    private static List<string> ExtractDictionaryWindowKeywords(List<List<string>> rows)
+        => rows.Skip(1)
+            .Where(IsDictionaryWindowMetaRow)
+            .Select(cols => NormalizeDetectedWindowKeyword(cols[4]))
+            .Where(x => !string.IsNullOrWhiteSpace(x))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToList();
+
+    private void ApplyDictionaryWindowMetadata(
+        string pluginName,
+        PluginDictionaryState state,
+        IEnumerable<string> keywords,
+        string sourceLabel)
+    {
+        state.DictionaryWindowKeywordSources ??= new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        state.SuppressedDictionaryWindowKeywords ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+        var active = (state.WindowKeyword ?? string.Empty)
+            .Split('|', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToList();
+
+        var changed = false;
+        foreach (var raw in keywords)
+        {
+            var keyword = NormalizeDetectedWindowKeyword(raw);
+            if (string.IsNullOrWhiteSpace(keyword)) continue;
+
+            state.DictionaryWindowKeywordSources[keyword] = sourceLabel;
+
+            // ユーザーが明示的に解除した辞書由来関連付けは、自動復活させない。
+            if (state.SuppressedDictionaryWindowKeywords.Contains(keyword))
+                continue;
+
+            if (!active.Contains(keyword, StringComparer.OrdinalIgnoreCase))
+            {
+                active.Add(keyword);
+                changed = true;
+            }
+        }
+
+        if (changed)
+            state.WindowKeyword = string.Join("|", active);
+    }
+
+    private string GetDictionaryWindowSourceLabel(PluginDictionaryState state, string keyword)
+    {
+        if (state.DictionaryWindowKeywordSources != null
+            && state.DictionaryWindowKeywordSources.TryGetValue(keyword, out var source)
+            && !string.IsNullOrWhiteSpace(source))
+            return source;
+        return string.Empty;
+    }
+
+    private List<string> GetDictionaryWindowMetadataFromCsvText(string csvText)
+    {
+        try
+        {
+            var rows = ParseCsvRecords(csvText);
+            return ExtractDictionaryWindowKeywords(rows);
+        }
+        catch
+        {
+            return new List<string>();
+        }
+    }
+
+    private void LoadInstalledOfficialDictionaries()
+    {
+        try
+        {
+            foreach (var path in Directory.GetFiles(OfficialDictionaryDirectory(), "*.csv", SearchOption.TopDirectoryOnly))
+                LoadOfficialDictionaryFile(path);
+        }
+        catch (Exception ex)
+        {
+            log.Warning(ex, "[PluginJPHelper] failed to load installed official dictionaries");
+        }
+    }
+
+    private string LoadOfficialDictionaryFile(string path)
+    {
+        var csvText = File.ReadAllText(path, Encoding.UTF8);
+        var rows = ParseCsvRecords(csvText);
+        if (rows.Count < 2) return $"公式辞書にデータがありません: {Path.GetFileName(path)}";
+
+        var pluginName = rows.Skip(1).FirstOrDefault(r => r.Count >= 6 && !string.IsNullOrWhiteSpace(r[0]))?[0]?.Trim();
+        if (string.IsNullOrWhiteSpace(pluginName)) pluginName = Path.GetFileNameWithoutExtension(path);
+
+        if (!config.Plugins.TryGetValue(pluginName, out var state) || state == null)
+        {
+            state = new PluginDictionaryState { Enabled = true, TranslationTarget = true, WindowKeyword = pluginName };
+            lock (pluginConfigSync)
+            config.Plugins[pluginName] = state;
+            EnsureCaptureDictionary(pluginName);
+        }
+
+        var officialWindows = ExtractDictionaryWindowKeywords(rows);
+        ApplyDictionaryWindowMetadata(pluginName, state, officialWindows, "公式辞書");
+
+        state.OfficialOverrides.Clear();
+        var imported = 0;
+        foreach (var cols in rows.Skip(1))
+        {
+            if (cols.Count < 6) continue;
+            if (IsDictionaryWindowMetaRow(cols)) continue;
+            var english = cols[4];
+            var japanese = cols[5];
+            if (string.IsNullOrWhiteSpace(english) || string.IsNullOrWhiteSpace(japanese)) continue;
+            state.OfficialOverrides[english] = japanese;
+            if (!string.IsNullOrWhiteSpace(cols[1]) || !string.IsNullOrWhiteSpace(cols[2]))
+                state.Locations[english] = new DictionaryLocation { Menu = cols[1], Section = cols[2] };
+            imported++;
+        }
+        state.TranslationTarget = true;
+        InvalidateDictionaryUiCache();
+        SaveConfig();
+        return $"{pluginName}: 公式辞書 {imported}件を読み込みました。";
+    }
+
+    private Task RefreshOfficialDictionariesAsync()
+    {
+        if (officialDictionaryBusy) return Task.CompletedTask;
+        officialDictionaryBusy = true;
+        officialDictionaryStatus = "GitHubの公式辞書一覧を確認しています...";
+
+        return Task.Run(() =>
+        {
+            try
+            {
+                using var req = new HttpRequestMessage(HttpMethod.Get, OfficialDictionaryApiUrl);
+                req.Headers.UserAgent.ParseAdd("PluginJPHelper/0.4.4");
+                req.Headers.Accept.ParseAdd("application/vnd.github+json");
+                using var res = officialDictionaryHttp.SendAsync(req).GetAwaiter().GetResult();
+                res.EnsureSuccessStatusCode();
+                var json = res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                using var doc = JsonDocument.Parse(json);
+                var list = new List<OfficialDictionaryEntry>();
+                foreach (var item in doc.RootElement.EnumerateArray())
+                {
+                    if (!item.TryGetProperty("type", out var type) || type.GetString() != "file") continue;
+                    var name = item.GetProperty("name").GetString() ?? string.Empty;
+                    if (!name.EndsWith(".csv", StringComparison.OrdinalIgnoreCase)) continue;
+                    var sha = item.GetProperty("sha").GetString() ?? string.Empty;
+                    var url = item.TryGetProperty("download_url", out var du) ? du.GetString() ?? string.Empty : string.Empty;
+                    list.Add(new OfficialDictionaryEntry
+                    {
+                        Name = name,
+                        Sha = sha,
+                        DownloadUrl = url,
+                        PluginName = GetOfficialDictionaryPluginName(name),
+                    });
+                }
+                lock (officialDictionaryLock)
+                    officialDictionaryEntries = list.OrderBy(x => x.Name, StringComparer.OrdinalIgnoreCase).ToList();
+                officialDictionaryStatus = $"公式辞書 {list.Count}件を確認しました。";
+                var noticeToAcknowledge = officialNoticeText?.Trim() ?? string.Empty;
+                var folderSignatureToAcknowledge = officialNoticeSha?.Trim() ?? string.Empty;
+                if (!string.IsNullOrWhiteSpace(folderSignatureToAcknowledge))
+                {
+                    // Officialフォルダー内CSVの構成署名を確認済みとして保存する。
+                    config.LastAcknowledgedOfficialNotice = noticeToAcknowledge;
+                    config.LastAcknowledgedOfficialNoticeSha = folderSignatureToAcknowledge;
+                    officialNoticeText = string.Empty;
+                    SaveConfig();
+                }
+            }
+            catch (Exception ex)
+            {
+                officialDictionaryStatus = $"公式辞書一覧の取得に失敗しました: {ex.Message}";
+                log.Warning(ex, "[PluginJPHelper] official dictionary list failed");
+            }
+            finally
+            {
+                officialDictionaryBusy = false;
+            }
+        });
+    }
+
+    private Task DownloadSelectedOfficialDictionariesAsync()
+    {
+        if (officialDictionaryBusy) return Task.CompletedTask;
+        List<OfficialDictionaryEntry> targets;
+        lock (officialDictionaryLock)
+            targets = officialDictionaryEntries.Where(x => selectedOfficialDictionaries.Contains(x.Name)).ToList();
+        if (targets.Count == 0)
+        {
+            officialDictionaryStatus = "ダウンロードする公式辞書を選択してください。";
+            return Task.CompletedTask;
+        }
+
+        officialDictionaryBusy = true;
+        return Task.Run(() =>
+        {
+            try
+            {
+                var completed = 0;
+                foreach (var item in targets)
+                {
+                    officialDictionaryStatus = $"{item.Name} をダウンロードしています...";
+                    if (string.IsNullOrWhiteSpace(item.DownloadUrl)) continue;
+                    using var req = new HttpRequestMessage(HttpMethod.Get, item.DownloadUrl);
+                    req.Headers.UserAgent.ParseAdd("PluginJPHelper/0.4.4");
+                    using var res = officialDictionaryHttp.SendAsync(req).GetAwaiter().GetResult();
+                    res.EnsureSuccessStatusCode();
+                    var text = res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                    var path = OfficialCsvPath(item.Name);
+                    File.WriteAllText(path, text, new UTF8Encoding(true));
+                    File.WriteAllText(OfficialShaPath(item.Name), item.Sha, Encoding.UTF8);
+
+                    // 公式辞書の明示ダウンロード/更新時は、その辞書に含まれる @Window の
+                    // 抑止を解除してから読み込む。起動時の自動読込では抑止を維持する。
+                    try
+                    {
+                        var downloadedRows = ParseCsvRecords(text);
+                        var downloadedPluginName = downloadedRows.Skip(1)
+                            .FirstOrDefault(r => r.Count >= 6 && !string.IsNullOrWhiteSpace(r[0]))?[0]?.Trim();
+                        if (!string.IsNullOrWhiteSpace(downloadedPluginName)
+                            && config.Plugins.TryGetValue(downloadedPluginName, out var downloadedState)
+                            && downloadedState != null)
+                        {
+                            downloadedState.SuppressedDictionaryWindowKeywords ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                            foreach (var keyword in ExtractDictionaryWindowKeywords(downloadedRows))
+                                downloadedState.SuppressedDictionaryWindowKeywords.Remove(keyword);
+                        }
+                    }
+                    catch { }
+
+                    // 公式辞書は保存直後に読み込み、@Windowメタ情報も自動適用。
+                    LoadOfficialDictionaryFile(path);
+                    completed++;
+                }
+                officialDictionaryStatus = $"選択した公式辞書 {completed}件をダウンロード／更新し、辞書と別ウィンドウ設定を自動適用しました。";
+            }
+            catch (Exception ex)
+            {
+                officialDictionaryStatus = $"公式辞書のダウンロードに失敗しました: {ex.Message}";
+                log.Warning(ex, "[PluginJPHelper] official dictionary download failed");
+            }
+            finally
+            {
+                officialDictionaryBusy = false;
+            }
+        });
+    }
+
+    private string GetOfficialDictionaryState(OfficialDictionaryEntry item)
+    {
+        var path = OfficialCsvPath(item.Name);
+        if (!File.Exists(path)) return "未導入";
+        var shaPath = OfficialShaPath(item.Name);
+        if (!File.Exists(shaPath)) return "導入済み";
+        try
+        {
+            var localSha = File.ReadAllText(shaPath, Encoding.UTF8).Trim();
+            return string.Equals(localSha, item.Sha, StringComparison.Ordinal) ? "最新版" : "更新あり";
+        }
+        catch { return "導入済み"; }
+    }
+
+    private void DrawHelpTab()
+    {
+        ImGui.TextWrapped("Plugin JP Helper は、他のDalamudプラグインの表示文字列をCSV辞書で日本語化する補助プラグインです。");
+        ImGui.Spacing();
+
+        ImGui.TextWrapped("開発を応援していただける場合は、OFUSEからご支援いただけます。");
+        if (ActionButton("OFUSEで支援する", ButtonRole.Success))
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "https://ofuse.me/elpa",
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                csvStatus = $"OFUSEを開けませんでした: {ex.Message}";
+            }
+        }
+        ImGui.TextDisabled("https://ofuse.me/elpa");
+        ImGui.Spacing();
+
+        if (ImGui.CollapsingHeader("Plugin Installerの日本語化：使い方・仕様"))
+        {
+            ImGui.TextWrapped("DalamudのPlugin Installerに表示される公開プラグインの説明文を、専用JSON辞書を使って日本語化します。Plugin本体を書き換える機能ではなく、表示だけを日本語へ差し替えます。");
+            ImGui.Spacing();
+
+            ImGui.TextUnformatted("【基本的な使い方】");
+            ImGui.BulletText("「Plugin Installer」タブを開きます。");
+            ImGui.BulletText("「Plugin Installerの説明を辞書で日本語化」をONにします。");
+            ImGui.BulletText("翻訳辞書に登録済みのプラグインは、Plugin Installerの説明文が日本語で表示されます。");
+            ImGui.BulletText("「翻訳の下に原文も表示」をONにすると、日本語の下に元の英文も表示できます。");
+            ImGui.BulletText("日本語化のチェックをOFFにすると、その場で元の英文表示へ戻ります。保存済みの翻訳辞書は削除されません。");
+            ImGui.TextWrapped("※ 再度ONにすると、保存済みの翻訳をそのまま使用します。");
+            ImGui.Spacing();
+
+            ImGui.TextUnformatted("【日本語検索】");
+            ImGui.BulletText("Plugin Installerの検索は本来英語が中心ですが、PJHの検索欄へ日本語を入力すると、対応する用語を英語へ置き換えてDalamudへ渡します。");
+            ImGui.BulletText("例：手配書、討伐手帳、製作、リテイナーなど、登録済みの検索用語に対応します。");
+            ImGui.TextWrapped("※ 日本語検索は辞書に登録された用語を使う補助機能です。すべての日本語を自由文として理解して検索する機能ではありません。");
+            ImGui.Spacing();
+
+            ImGui.TextUnformatted("【翻訳の保存と差分更新】");
+            ImGui.BulletText("一度翻訳したPlugin Installerの説明は plugin-installer-translations.json に保存します。");
+            ImGui.BulletText("次回以降は毎回すべてを翻訳せず、新しく追加されたプラグイン、または原文が変更された部分だけを差分として確認します。");
+            ImGui.BulletText("既に手動で確認・編集した辞書項目は優先して保護し、Google翻訳で自動上書きしません。");
+            ImGui.TextWrapped("「今すぐ差分チェック」を押すと、設定した待ち時間を待たずに差分確認を行います。");
+            ImGui.Spacing();
+
+            ImGui.TextUnformatted("【Google翻訳とPJH中継サーバー】");
+            ImGui.BulletText("翻訳方式で『PJH中継サーバー』を選んでいても、Google翻訳が利用可能な場合はGoogle翻訳を優先します。");
+            ImGui.BulletText("Google翻訳を利用できない場合はPJH中継サーバーへ切り替えます。画面には実際に使用している翻訳先を表示します。");
+            ImGui.BulletText("PJH中継サーバーは利用者側のAPIキー設定は不要です。中継サーバー側には月間45万文字の安全上限があります。");
+            ImGui.BulletText("『利用可能チェック』は手動確認用です。Googleは確認用通信を1回行い、中継サーバーは状態確認のみで翻訳文字数を消費しません。");
+            ImGui.BulletText("翻訳サービスへの自動再試行は行いません。差分チェックだけでは外部翻訳へ送信しません。");
+            ImGui.Spacing();
+
+            ImGui.TextUnformatted("【Google翻訳とFFXIV用語】");
+            ImGui.BulletText("未翻訳・変更分の説明文は、設定した翻訳方式（Google翻訳 / PJH中継サーバー）を利用して日本語化します。");
+            ImGui.BulletText("FFXIV/Dalamud固有用語や保護対象の文字列は、Googleへ送る前に一時的な目印へ置き換えます。");
+            ImGui.BulletText("翻訳後、その目印の位置へPJHの用語辞書に登録したFFXIV表記を戻します。");
+            ImGui.TextWrapped("この方式により、Google翻訳後の文章から『どの日本語が元のFFXIV用語だったか』を推測して置換するのではなく、翻訳前から場所を確保して用語を戻します。");
+            ImGui.Spacing();
+
+            ImGui.TextUnformatted("【Google側の制限について】");
+            ImGui.BulletText("短時間に多数の翻訳が必要になった場合、Google側の制限で一時的に翻訳できないことがあります。");
+            ImGui.BulletText("制限中は状態欄に表示されます。すぐに何度も再実行せず、少し時間を空けてから差分チェックしてください。");
+            ImGui.BulletText("翻訳済みの内容は保存されているため、再確認時も未翻訳・変更分だけが対象になります。");
+            ImGui.Spacing();
+
+            ImGui.TextUnformatted("【プライバシー・対象範囲】");
+            ImGui.BulletText("差分確認とGoogle翻訳の対象は、Dalamudで公開されているRemote Manifestのプラグインだけです。");
+            ImGui.BulletText("Local-only / private Pluginは、差分確認・Google送信・辞書自動更新の対象外です。");
+            ImGui.BulletText("導入済み公開PluginのLocal Manifestは、表示へ翻訳を適用するためだけに使用します。");
+            ImGui.TextWrapped("※ Local-only / private Pluginの名前や説明文をGoogle翻訳へ送信しないよう分離しています。");
+            ImGui.Spacing();
+
+            ImGui.TextUnformatted("【Plugin Installer用の辞書ファイル】");
+            ImGui.BulletText("plugin-installer-translations.json：Pluginごとの説明文・Punchlineの翻訳を保存する辞書です。");
+            ImGui.BulletText("plugin-installer-terminology.json：FFXIV/Dalamud用語など、翻訳時に保護・補正するための用語辞書です。");
+            ImGui.TextWrapped("通常はPlugin JP Helperの配布ZIPに含まれているため、個別にダウンロードして配置する必要はありません。");
+            ImGui.TextWrapped("保存先：XIVLauncher\\pluginConfigs\\PluginJPHelper\\Dictionaries\\PluginInstaller\\");
+            ImGui.Spacing();
+
+            ImGui.TextUnformatted("【翻訳辞書が0件・日本語化されない場合】");
+            ImGui.BulletText("「辞書ファイル設定」の「使用中」に plugin-installer-translations.json が表示されているか確認します。");
+            ImGui.BulletText("「読込件数」が0の場合は「再読み込み」を試してください。");
+            ImGui.BulletText("別のJSONを指定している場合は「翻訳ファイルを選択」またはパス欄から正しい辞書を指定し、「この辞書を使用」を押します。");
+            ImGui.BulletText("辞書ファイル自体がおかしい、または再読み込みしても0件のままの場合は、Plugin JP Helperの再インストールをお試しください。");
+            ImGui.TextWrapped("※ 再インストール時にPlugin Installer用の初期辞書ファイルも一緒に配置されます。");
+            ImGui.Spacing();
+
+            ImGui.TextUnformatted("【負荷について】");
+            ImGui.TextWrapped("PJHは作り始めの頃、広い範囲へ翻訳処理を適用するとフレームレートへ影響することがあったため、現在は対象を限定し、保存済み辞書と差分処理を優先して重い処理を増やさないようにしています。必要のないプラグインは日本語化をOFFにして使用できます。");
+        }
+
+        if (ImGui.CollapsingHeader("かんたん：公式CSVを使う方法"))
+        {
+            ImGui.BulletText("「公式辞書」タブを開き、「公式辞書一覧を取得」を押します。");
+            ImGui.BulletText("使いたいCSVにチェックを入れ、「選択した辞書をダウンロード／更新」を押します。");
+            ImGui.BulletText("「公式辞書フォルダーを開く」でダウンロード先を開きます。");
+            ImGui.BulletText("使いたいCSVを「ローカル辞書フォルダー」へコピーします。");
+            ImGui.BulletText("「翻訳辞書」タブでCSVを読み込み、日本語化を有効にします。");
+            ImGui.TextWrapped("※ 公式辞書フォルダーは配布・更新確認用です。そこへ置いただけでは翻訳に使用されません。ローカル辞書フォルダーへコピーしてから使用してください。");
+            ImGui.TextWrapped("※ 公式辞書を更新しても、ローカル側でユーザーが作成・編集したCSVは自動で上書きしません。");
+        }
+
+        if (ImGui.CollapsingHeader("自分で辞書を作る方法（未翻訳取得・自動翻訳）"))
+        {
+            ImGui.TextWrapped("「未翻訳・取得」タブは、取得作業と自動翻訳作業を分けています。上から順番に進めると安全に辞書を作れます。");
+            ImGui.Spacing();
+
+            ImGui.TextUnformatted("【1. 翻訳対象プラグインを選ぶ】");
+            ImGui.BulletText("「インストール済みプラグインから追加」で、日本語化したいプラグインを選んで「翻訳対象に追加」を押します。");
+            ImGui.BulletText("対象プラグインを切り替える場合は、画面上部の翻訳対象プラグイン選択から変更します。");
+            ImGui.TextWrapped("※ 取得中・自動翻訳中・翻訳結果の確認待ち中は、誤操作を防ぐため対象変更や関係するボタンが一時的に無効になります。");
+            ImGui.Spacing();
+
+            ImGui.TextUnformatted("【2. 「未翻訳取得」サブタブで文字列を集める】");
+            ImGui.BulletText("「取得開始」を押します。");
+            ImGui.BulletText("対象プラグインの設定画面・タブ・ボタン・ツールチップ・プルダウンなど、翻訳したい場所を一通り表示・操作します。");
+            ImGui.BulletText("確認が終わったら「取得停止」を押します。取得中は、一覧編集・対象変更・自動翻訳開始などはできません。");
+            ImGui.BulletText("取り込み方式が「自動」の場合は、取得停止時に対象分を翻訳辞書へ取り込みます。「手動」の場合は一覧確認後に「翻訳辞書へ取り込む」を押します。");
+            ImGui.Spacing();
+
+            ImGui.TextUnformatted("【3. 取得結果を確認する】");
+            ImGui.BulletText("「対象プラグイン」には対象として判定できた未翻訳文字列を表示します。");
+            ImGui.BulletText("「対象候補」には対象プラグイン由来の可能性が高い文字列を表示します。必要なものだけ確認して対象側へ移します。");
+            ImGui.BulletText("「他プラグイン」は別プラグイン由来と判定した文字列です。対象辞書へは自動で混ぜません。");
+            ImGui.BulletText("「判定不能」は所有元を安全に判断できなかった文字列です。必要な場合だけ確認してください。");
+            ImGui.BulletText("キャラクター名・サーバー名・FC名・時刻・座標・ログ・ローカルパスなど、公開辞書に不要な動的／個人的文字列は削除してください。");
+            ImGui.Spacing();
+
+            ImGui.TextUnformatted("【4. 「自動翻訳」サブタブで下書きを作る】");
+            ImGui.BulletText("未翻訳取得を停止してから「未翻訳を自動翻訳」を押します。");
+            ImGui.BulletText("選択した翻訳方式を利用し、翻訳可能な固定UI文字列だけを順番に翻訳します。翻訳中は対象変更・取得開始・取り込みなどの操作を無効化します。");
+            ImGui.BulletText("URL・コマンド・ローカルパス・明らかな動的数値・技術ID・作者表記などは可能な範囲で翻訳対象外にします。");
+            ImGui.BulletText("プラグイン名などの固有名詞やFFXIV用語は、可能な範囲で保護してから翻訳します。");
+            ImGui.TextWrapped("※ 自動翻訳は完成した公式訳を作る機能ではなく、ユーザーが辞書を作るための下書き補助です。自然さや意味が正しいか必ず確認してください。");
+            ImGui.Spacing();
+
+            ImGui.TextUnformatted("【5. 翻訳ログを確認する】");
+            ImGui.BulletText("自動翻訳ログには、翻訳開始・成功・スキップ理由・失敗・Google側エラーなどを表示します。");
+            ImGui.BulletText("「利用可能チェック」で、選択中の翻訳方式へ1回だけ通信し、利用可能か、HTTP 429か、通信エラーかを確認できます。429時は自動再試行せず停止します。Plugin Installer側にも同じ設定があります。");
+            ImGui.BulletText("自動翻訳中は「停止」ボタンで途中停止できます。429待機中でも停止でき、途中までの翻訳結果は保持します。");
+            ImGui.BulletText("問題がある場合は「ログをコピー」で内容を共有できます。");
+            ImGui.TextWrapped("※ Google側の制限が出た場合は、短時間に何度も再実行せず、少し時間を空けてから再度お試しください。");
+            ImGui.Spacing();
+
+            ImGui.TextUnformatted("【6. 翻訳結果を辞書へ反映する】");
+            ImGui.BulletText("翻訳結果を確認し、問題なければ「翻訳結果を辞書へ反映」を押します。不要なら「自動翻訳結果を破棄」を押します。");
+            ImGui.BulletText("翻訳結果の確認待ち中は、別の取得や対象変更を行えないようにしています。反映または破棄を完了してから次の作業へ進んでください。");
+            ImGui.BulletText("既にユーザーが作成・修正した翻訳や既存の翻訳がある項目は、自動翻訳で勝手に上書きしません。");
+            ImGui.Spacing();
+
+            ImGui.TextUnformatted("【7. 翻訳辞書タブで仕上げる】");
+            ImGui.BulletText("「翻訳辞書」タブへ移動し、日本語訳を確認・修正します。");
+            ImGui.BulletText("内容が整ったらCSVへ保存します。Google自動翻訳の作業用CSVは再生成できますが、手修正済みの既存辞書は自動翻訳で勝手に置き換えない方針です。");
+            ImGui.TextWrapped("※ コミュニティ辞書や公式辞書として公開する場合は、個人情報・動的値・別プラグインの文字列が混ざっていないか、必ず最後に確認してください。");
+        }
+
+        if (ImGui.CollapsingHeader("コミュニティ辞書を投稿・削除する方法"))
+        {
+            ImGui.BulletText("「コミュニティ辞書」タブの「コミュニティ辞書をアップロード」を押すと投稿ページが開きます。");
+            ImGui.BulletText("投稿者名、削除用パスワード、投稿するCSVを指定して投稿します。GitHubアカウントは必要ありません。");
+            ImGui.BulletText("アップロードしたCSVのファイル名は変更されず、そのままコミュニティ辞書名として登録されます。");
+            ImGui.BulletText("削除する場合は投稿ページ下部の削除欄から自分の辞書を選び、投稿時に決めた削除用パスワードを入力します。");
+            ImGui.TextWrapped("※ 削除用パスワードは必ず自分で覚えておいてください。旧方式で登録された辞書など、削除用パスワードを持たない辞書はWeb画面から削除できません。");
+            ImGui.Spacing();
+            ImGui.TextWrapped("【アップロード前に必ず確認してください】");
+            ImGui.TextWrapped("プラグインによっては、キャラクター名・サーバー名・FC名など、個人を特定される可能性がある表示文字列まで翻訳・取得されてCSVに含まれる場合があります。コミュニティ辞書として公開すると、その内容も第三者から見える状態になります。");
+            ImGui.TextWrapped("投稿前にCSVを開き、自分のキャラクター名やサーバー名などで検索してください。該当する行が見つかった場合は、その行を削除してからアップロードしてください。必要に応じて他のキャラクター名、ログ、座標、時刻などの個人的・動的な情報も確認してください。");
+            ImGui.TextWrapped("※ Plugin JP Helper側ですべての個人情報を自動判定することはできません。公開前の確認は投稿者自身で行ってください。");
+        }
+
+        if (ImGui.CollapsingHeader("翻訳辞書と対象プラグインについて"))
+        {
+            ImGui.TextWrapped("翻訳辞書タブでは、対象プラグインごとのCSVを読み込み、表示文字列の日本語化を有効／無効にできます。");
+            ImGui.TextWrapped("初めて使うプラグインは「未翻訳・取得」から対象プラグインへ追加してください。");
+            ImGui.TextWrapped("Plugin JP Helper をOFFにすると、対象プラグインの表示は元の文字列へ戻ります。");
+        }
+
+        if (ImGui.CollapsingHeader("辞書の更新通知について"))
+        {
+            ImGui.TextWrapped("Plugin JP Helper起動時と、その後1時間ごとに公式辞書・コミュニティ辞書の更新を確認します。");
+            ImGui.TextWrapped("公式辞書はGitHubの Dictionaries/Official フォルダー内のCSVに追加・更新・削除があった場合に通知します。コミュニティ辞書は community-index.json の更新を確認します。");
+            ImGui.TextWrapped("更新がある場合はタイトルバーに【公式辞書に更新があります。】【コミュニティ辞書に更新があります。】のように表示されます。");
+            ImGui.TextWrapped("各辞書タブで「一覧を取得」が成功すると、その時点を確認済みとして通知が消えます。");
+        }
+    }
+
+    private void DrawDictionaryStatusColumnControls(string idSuffix)
+    {
+        ImGui.TextUnformatted("表示項目:");
+        ImGui.SameLine();
+        ImGui.Checkbox($"翻訳辞書登録##showTranslationRegistered_{idSuffix}", ref showStatusTranslationRegistered);
+        ImGui.SameLine();
+        ImGui.Checkbox($"未翻訳登録##showCaptureRegistered_{idSuffix}", ref showStatusCaptureRegistered);
+        ImGui.SameLine();
+        ImGui.Checkbox($"日本語化##showTranslationEnabled_{idSuffix}", ref showStatusTranslationEnabled);
+        ImGui.SameLine();
+        ImGui.Checkbox($"導入##showInstalled_{idSuffix}", ref showStatusInstalled);
+        ImGui.SameLine();
+        ImGui.Checkbox($"プラグインスイッチ##showPluginSwitch_{idSuffix}", ref showStatusPluginSwitch);
+        ImGui.SameLine();
+        if (ActionButton($"最小表示##compact_{idSuffix}", ButtonRole.Neutral))
+        {
+            showStatusTranslationRegistered = false;
+            showStatusCaptureRegistered = false;
+            showStatusTranslationEnabled = false;
+            showStatusInstalled = false;
+            showStatusPluginSwitch = false;
+        }
+        ImGui.SameLine();
+        if (ActionButton($"全部表示##all_{idSuffix}", ButtonRole.Neutral))
+        {
+            showStatusTranslationRegistered = true;
+            showStatusCaptureRegistered = true;
+            showStatusTranslationEnabled = true;
+            showStatusInstalled = true;
+            showStatusPluginSwitch = true;
+        }
+    }
+
+    private int VisibleDictionaryStatusColumnCount()
+        => (showStatusTranslationRegistered ? 1 : 0)
+         + (showStatusCaptureRegistered ? 1 : 0)
+         + (showStatusTranslationEnabled ? 1 : 0)
+         + (showStatusInstalled ? 1 : 0)
+         + (showStatusPluginSwitch ? 1 : 0);
+
+    private static T[] SortArray<T, TKey>(IEnumerable<T> source, Func<T, TKey> keySelector, bool ascending)
+        => ascending
+            ? source.OrderBy(keySelector).ToArray()
+            : source.OrderByDescending(keySelector).ToArray();
+
+    private static List<T> SortList<T, TKey>(IEnumerable<T> source, Func<T, TKey> keySelector, bool ascending)
+        => ascending
+            ? source.OrderBy(keySelector).ToList()
+            : source.OrderByDescending(keySelector).ToList();
+
+    private static void DrawListSortControls(string id, string[] labels, ref int mode, ref bool ascending)
+    {
+        if (labels.Length == 0) return;
+        mode = Math.Clamp(mode, 0, labels.Length - 1);
+        ImGui.TextUnformatted("並び順：");
+        ImGui.SameLine();
+        ImGui.SetNextItemWidth(170f);
+        if (ImGui.BeginCombo($"##sort_{id}", labels[mode]))
+        {
+            for (var i = 0; i < labels.Length; i++)
+            {
+                var selected = mode == i;
+                if (ImGui.Selectable($"{labels[i]}##sort_{id}_{i}", selected)) mode = i;
+                if (selected) ImGui.SetItemDefaultFocus();
+            }
+            ImGui.EndCombo();
+        }
+        ImGui.SameLine();
+        if (ImGui.Button($"{(ascending ? "昇順" : "降順")}##sortDir_{id}")) ascending = !ascending;
+    }
+
+    private void DrawOfficialDictionaryTab()
+    {
+        ImGui.TextWrapped("GitHubの公式CSV辞書を確認し、必要なものだけダウンロード／更新できます。使用方法は「ヘルプ」タブを確認してください。");
+        ImGui.Separator();
+        if (ActionButton("公式辞書一覧を取得", ButtonRole.Primary) && !officialDictionaryBusy)
+        {
+            _ = RefreshOfficialDictionariesAsync();
+            _ = RefreshOfficialNoticeAsync();
+        }
+        ImGui.SameLine();
+        if (ActionButton("公式辞書フォルダーを開く", ButtonRole.Success))
+        {
+            try { Process.Start(new ProcessStartInfo { FileName = OfficialDictionaryDirectory(), UseShellExecute = true }); officialDictionaryStatus = "公式辞書フォルダーを開きました。"; }
+            catch (Exception ex) { officialDictionaryStatus = $"フォルダーを開けませんでした: {ex.Message}"; }
+        }
+        ImGui.SameLine();
+        if (ActionButton("ローカル辞書フォルダーを開く", ButtonRole.Warning))
+        {
+            try { Process.Start(new ProcessStartInfo { FileName = DictionaryDirectory(), UseShellExecute = true }); officialDictionaryStatus = "ローカル辞書フォルダーを開きました。"; }
+            catch (Exception ex) { officialDictionaryStatus = $"ローカル辞書フォルダーを開けませんでした: {ex.Message}"; }
+        }
+        if (!string.IsNullOrWhiteSpace(officialDictionaryStatus)) ImGui.TextWrapped(officialDictionaryStatus);
+
+        List<OfficialDictionaryEntry> snapshot;
+        lock (officialDictionaryLock) snapshot = officialDictionaryEntries.ToList();
+        if (snapshot.Count == 0)
+        {
+            ImGui.TextDisabled("「公式辞書一覧を取得」を押すとGitHub上のCSV一覧を表示します。");
+            return;
+        }
+
+        DrawDictionaryStatusColumnControls("official");
+        DrawListSortControls("official", new[] { "公式辞書", "対応プラグイン", "翻訳辞書登録", "未翻訳登録", "日本語化", "導入", "プラグインスイッチ", "状態" }, ref officialDictionarySortMode, ref officialDictionarySortAscending);
+        snapshot = officialDictionarySortMode switch
+        {
+            1 => SortList(snapshot, x => x.PluginName, officialDictionarySortAscending),
+            2 => SortList(snapshot, x => GetPluginStatusColumns(x.PluginName).TranslationRegistered == "有り", officialDictionarySortAscending),
+            3 => SortList(snapshot, x => GetPluginStatusColumns(x.PluginName).CaptureRegistered == "有り", officialDictionarySortAscending),
+            4 => SortList(snapshot, x => GetPluginStatusColumns(x.PluginName).TranslationEnabled == "ON", officialDictionarySortAscending),
+            5 => SortList(snapshot, x => GetPluginStatusColumns(x.PluginName).Installed == "導入済み", officialDictionarySortAscending),
+            6 => SortList(snapshot, x => GetPluginStatusColumns(x.PluginName).PluginSwitch == "ON", officialDictionarySortAscending),
+            7 => SortList(snapshot, x => GetOfficialDictionaryState(x), officialDictionarySortAscending),
+            _ => SortList(snapshot, x => x.Name, officialDictionarySortAscending),
+        };
+        var statusColumnCount = VisibleDictionaryStatusColumnCount();
+        if (ImGui.BeginTable("officialDictionaryTable", 4 + statusColumnCount, ImGuiTableFlags.Borders | ImGuiTableFlags.RowBg | ImGuiTableFlags.Resizable | ImGuiTableFlags.ScrollX | ImGuiTableFlags.SizingFixedFit | ImGuiTableFlags.NoKeepColumnsVisible, new Vector2(0, -70)))
+        {
+            ImGui.TableSetupColumn("選択", ImGuiTableColumnFlags.WidthFixed, 60);
+            ImGui.TableSetupColumn("公式辞書", ImGuiTableColumnFlags.WidthFixed, 190);
+            ImGui.TableSetupColumn("対応プラグイン", ImGuiTableColumnFlags.WidthFixed, 170);
+            if (showStatusTranslationRegistered) ImGui.TableSetupColumn("翻訳辞書登録", ImGuiTableColumnFlags.WidthFixed, 95);
+            if (showStatusCaptureRegistered) ImGui.TableSetupColumn("未翻訳登録", ImGuiTableColumnFlags.WidthFixed, 90);
+            if (showStatusTranslationEnabled) ImGui.TableSetupColumn("日本語化", ImGuiTableColumnFlags.WidthFixed, 80);
+            if (showStatusInstalled) ImGui.TableSetupColumn("導入", ImGuiTableColumnFlags.WidthFixed, 85);
+            if (showStatusPluginSwitch) ImGui.TableSetupColumn("プラグインスイッチ", ImGuiTableColumnFlags.WidthFixed, 115);
+            ImGui.TableSetupColumn("状態", ImGuiTableColumnFlags.WidthFixed, 100);
+            var officialHeaders = new List<string> { "選択", "公式辞書", "対応プラグイン" };
+            if (showStatusTranslationRegistered) officialHeaders.Add("翻訳辞書登録");
+            if (showStatusCaptureRegistered) officialHeaders.Add("未翻訳登録");
+            if (showStatusTranslationEnabled) officialHeaders.Add("日本語化");
+            if (showStatusInstalled) officialHeaders.Add("導入");
+            if (showStatusPluginSwitch) officialHeaders.Add("プラグインスイッチ");
+            officialHeaders.Add("状態");
+            DrawJapaneseTableHeaderRow(officialHeaders);
+            foreach (var item in snapshot)
+            {
+                ImGui.TableNextRow();
+                ImGui.TableSetColumnIndex(0);
+                var selected = selectedOfficialDictionaries.Contains(item.Name);
+                if (ImGui.Checkbox($"##official_{item.Name}", ref selected))
+                {
+                    if (selected) selectedOfficialDictionaries.Add(item.Name); else selectedOfficialDictionaries.Remove(item.Name);
+                }
+                ImGui.TableSetColumnIndex(1); ImGui.TextUnformatted(item.Name);
+                ImGui.TableSetColumnIndex(2); ImGui.TextUnformatted(item.PluginName);
+                var pluginStatus = GetPluginStatusColumns(item.PluginName);
+                var column = 3;
+                if (showStatusTranslationRegistered) { ImGui.TableSetColumnIndex(column++); DrawYesNoStatus(pluginStatus.TranslationRegistered); }
+                if (showStatusCaptureRegistered) { ImGui.TableSetColumnIndex(column++); DrawYesNoStatus(pluginStatus.CaptureRegistered); }
+                if (showStatusTranslationEnabled) { ImGui.TableSetColumnIndex(column++); DrawOnOffStatus(pluginStatus.TranslationEnabled); }
+                if (showStatusInstalled) { ImGui.TableSetColumnIndex(column++); DrawInstalledStatus(pluginStatus.Installed); }
+                if (showStatusPluginSwitch) { ImGui.TableSetColumnIndex(column++); DrawOnOffStatus(pluginStatus.PluginSwitch); }
+                ImGui.TableSetColumnIndex(column);
+                var state = GetOfficialDictionaryState(item);
+                if (state == "更新あり") ImGui.TextColored(new Vector4(1f, 0.75f, 0.20f, 1f), state);
+                else if (state == "最新版") ImGui.TextColored(new Vector4(0.35f, 0.85f, 0.50f, 1f), state);
+                else ImGui.TextUnformatted(state);
+            }
+            ImGui.EndTable();
+        }
+        if (ActionButton("選択した辞書をダウンロード／更新", ButtonRole.Success) && !officialDictionaryBusy)
+            _ = DownloadSelectedOfficialDictionariesAsync();
+        if (officialDictionaryBusy) { ImGui.SameLine(); ImGui.TextDisabled("通信中..."); }
+    }
+
     private void DrawDictionaryTab()
     {
-        var pluginNames = config.Plugins
+        var pluginNames = GetPluginConfigSnapshot()
             .Where(x => x.Value.TranslationTarget)
             .Select(x => x.Key)
             .OrderBy(x => PluginSortKey(x)).ThenBy(x => x, StringComparer.OrdinalIgnoreCase).ToArray();
@@ -2464,16 +4851,32 @@ public sealed unsafe class Plugin : IDalamudPlugin
             return;
         }
         if (!pluginNames.Contains(selectedPlugin, StringComparer.Ordinal)) selectedPlugin = pluginNames[0];
-        foreach (var name in pluginNames)
-        {
-            if (ImGui.RadioButton($"{name}##dictPlugin", selectedPlugin == name)) selectedPlugin = name;
-            ImGui.SameLine();
-        }
-        ImGui.NewLine();
+        ImGui.TextUnformatted("対象プラグイン：");
+        ImGui.SameLine();
+        DrawPluginDropdown("##dictPluginDropdown", pluginNames, ref selectedPlugin, false);
+        ImGui.SameLine();
+        var crossSelectionLocked = captureEnabled || baselineCaptureEnabled || dictionaryAutoTranslateTask != null || dictionaryAutoTranslateDrafts.Count > 0;
+        if (crossSelectionLocked) ImGui.BeginDisabled();
+        if (ActionButton("未翻訳・取得側にも適用", ButtonRole.Neutral))
+            capturePlugin = selectedPlugin;
+        if (crossSelectionLocked) ImGui.EndDisabled();
         var state = config.Plugins[selectedPlugin];
         var enabled = state.Enabled;
         ImGui.PushStyleColor(ImGuiCol.CheckMark, new Vector4(0.28f, 0.78f, 0.48f, 1.00f));
-        if (ImGui.Checkbox($"{selectedPlugin} の日本語化を有効##enabled", ref enabled)) { state.Enabled = enabled; SaveConfig(); }
+        if (ImGui.Checkbox($"{selectedPlugin} の日本語化を有効##enabled", ref enabled))
+        {
+            state.Enabled = enabled;
+
+            // OFF時は現在の描画所有者スタックを次フレームで再判定させる。
+            // 辞書やWindow関連付け自体は保持する。
+            if (!enabled)
+            {
+                lastExplicitWindowOwner = string.Empty;
+                lastExplicitWindowOwnerTick = 0;
+            }
+
+            SaveConfig();
+        }
         ImGui.PopStyleColor();
         ImGui.SameLine();
         var catalogCount = GetDictionaryCatalog(selectedPlugin).Count();
@@ -2495,9 +4898,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
         ImGui.SameLine();
         if (ActionButton("再読み込み", ButtonRole.Primary))
         {
-            csvStatus = string.IsNullOrWhiteSpace(state.LastCsvPath)
-                ? "先にCSVを選択してください。"
-                : ImportDictionaryCsv(selectedPlugin, state.LastCsvPath);
+            csvStatus = ReloadDictionaryCsv(selectedPlugin);
         }
         ImGui.SameLine();
         if (ActionButton("名前を付けて書き出し", ButtonRole.Success))
@@ -2512,6 +4913,9 @@ public sealed unsafe class Plugin : IDalamudPlugin
             ImGui.TextDisabled($"指定中CSV: {state.LastCsvPath}");
         else
             ImGui.TextDisabled("指定中CSV: なし");
+
+        DrawOpenCommandControls(selectedPlugin, state);
+        DrawAdditionalWindowControls(selectedPlugin, state);
 
         if (ImGui.Checkbox("未訳だけ表示", ref showUntranslatedOnly)) { }
         if (!string.IsNullOrWhiteSpace(csvStatus)) ImGui.TextWrapped(csvStatus);
@@ -2532,6 +4936,26 @@ public sealed unsafe class Plugin : IDalamudPlugin
         }
         ImGui.SameLine();
         if (ImGui.Button(dictionarySortAscending ? "昇順" : "降順")) dictionarySortAscending = !dictionarySortAscending;
+
+        if (!string.IsNullOrWhiteSpace(filter))
+        {
+            ImGui.SameLine();
+            if (ActionButton("検索結果を一括削除", ButtonRole.Danger))
+                ImGui.OpenPopup("検索結果を一括削除しますか？");
+
+            if (ImGui.BeginPopupModal("検索結果を一括削除しますか？", ImGuiWindowFlags.AlwaysAutoResize))
+            {
+                ImGui.TextWrapped($"「{filter}」に一致する翻訳辞書の項目をすべて削除します。\nこの操作は指定中CSVにも反映されます。");
+                if (ActionButton("削除する", ButtonRole.Danger))
+                {
+                    csvStatus = DeleteFilteredDictionaryEntries(selectedPlugin, filter);
+                    ImGui.CloseCurrentPopup();
+                }
+                ImGui.SameLine();
+                if (ActionButton("キャンセル", ButtonRole.Neutral)) ImGui.CloseCurrentPopup();
+                ImGui.EndPopup();
+            }
+        }
 
         if (selectedPlugin == "RSR")
         {
@@ -2557,6 +4981,57 @@ public sealed unsafe class Plugin : IDalamudPlugin
         }
     }
 
+    // Dear ImGui標準の列メニューは英語固定のため、PJHの表では日本語メニューを表示する。
+    // 列幅調整はDalamudのImGui内部APIを通して、Dear ImGui標準と同じ処理を呼ぶ。
+    private void DrawJapaneseColumnSizingMenu(int column, string popupId)
+    {
+        // BeginPopupで描画先がポップアップへ切り替わる前に、元テーブルを保持する。
+        var table = ImGuiP.GetCurrentTable();
+        if (!ImGui.BeginPopupContextItem(popupId))
+            return;
+
+        try
+        {
+            if (table.Handle != null && ImGui.MenuItem("この列を内容に合わせる"))
+                ImGuiP.TableSetColumnWidthAutoSingle(table, column);
+
+            if (table.Handle != null && ImGui.MenuItem("すべての列を内容に合わせる"))
+                ImGuiP.TableSetColumnWidthAutoAll(table);
+        }
+        catch (Exception ex)
+        {
+            log.Warning(ex, "列幅の自動調整に失敗しました。");
+        }
+        finally
+        {
+            ImGui.EndPopup();
+        }
+    }
+
+    private void DrawJapaneseTableHeaderRow(IEnumerable<string> labels)
+    {
+        ImGui.TableNextRow(ImGuiTableRowFlags.Headers);
+        var column = 0;
+        foreach (var label in labels)
+        {
+            var currentColumn = column++;
+            ImGui.TableSetColumnIndex(currentColumn);
+            ImGui.AlignTextToFramePadding();
+            ImGui.TextUnformatted(label);
+            DrawJapaneseColumnSizingMenu(currentColumn, $"##pjh_colmenu_{currentColumn}_{label}");
+        }
+    }
+
+    private void DrawSortableJapaneseTableHeader(int column, string label, int sortMode)
+    {
+        ImGui.TableSetColumnIndex(column);
+        ImGui.AlignTextToFramePadding();
+        ImGui.TextUnformatted(GetSortableHeaderLabel(label, sortMode));
+        if (ImGui.IsItemClicked(ImGuiMouseButton.Left))
+            SetDictionarySortFromHeader(sortMode);
+        DrawJapaneseColumnSizingMenu(column, $"##pjh_sortcolmenu_{column}_{label}");
+    }
+
     private string GetSortableHeaderLabel(string label, int sortMode)
     {
         if (dictionarySortMode != sortMode) return label;
@@ -2576,38 +5051,31 @@ public sealed unsafe class Plugin : IDalamudPlugin
 
     private void DrawDictionaryTable(PluginDictionaryState state, string? category)
     {
-        if (ImGui.BeginTable($"dict_{selectedPlugin}_{category ?? "all"}", 4, ImGuiTableFlags.Borders | ImGuiTableFlags.RowBg | ImGuiTableFlags.ScrollY | ImGuiTableFlags.Resizable, new Vector2(0, -35)))
+        if (ImGui.BeginTable($"dict_{selectedPlugin}_{category ?? "all"}", 4, ImGuiTableFlags.Borders | ImGuiTableFlags.RowBg | ImGuiTableFlags.ScrollY | ImGuiTableFlags.ScrollX | ImGuiTableFlags.Resizable | ImGuiTableFlags.SizingFixedFit | ImGuiTableFlags.NoKeepColumnsVisible, new Vector2(0, -35)))
         {
             ImGui.TableSetupColumn("画面内項目", ImGuiTableColumnFlags.WidthFixed, 150);
-            ImGui.TableSetupColumn("原文（英語/中国語）", ImGuiTableColumnFlags.WidthStretch, 0.38f);
-            ImGui.TableSetupColumn("日本語訳（編集可）", ImGuiTableColumnFlags.WidthStretch, 0.46f);
+            ImGui.TableSetupColumn("原文（英語/中国語）", ImGuiTableColumnFlags.WidthFixed, 360);
+            ImGui.TableSetupColumn("日本語訳（編集可）", ImGuiTableColumnFlags.WidthFixed, 420);
             ImGui.TableSetupColumn("操作", ImGuiTableColumnFlags.WidthFixed, 90);
 
             // ヘッダー行を縦スクロール時も固定。
             ImGui.TableSetupScrollFreeze(0, 1);
             ImGui.TableNextRow(ImGuiTableRowFlags.Headers);
 
-            ImGui.TableSetColumnIndex(0);
-            ImGui.TableHeader(GetSortableHeaderLabel("画面内項目", 1));
-            if (ImGui.IsItemClicked()) SetDictionarySortFromHeader(1);
-
-            ImGui.TableSetColumnIndex(1);
-            ImGui.TableHeader(GetSortableHeaderLabel("原文（英語/中国語）", 0));
-            if (ImGui.IsItemClicked()) SetDictionarySortFromHeader(0);
-
-            ImGui.TableSetColumnIndex(2);
-            ImGui.TableHeader(GetSortableHeaderLabel("日本語訳（編集可）", 2));
-            if (ImGui.IsItemClicked()) SetDictionarySortFromHeader(2);
+            DrawSortableJapaneseTableHeader(0, "画面内項目", 1);
+            DrawSortableJapaneseTableHeader(1, "原文（英語/中国語）", 0);
+            DrawSortableJapaneseTableHeader(2, "日本語訳（編集可）", 2);
 
             ImGui.TableSetColumnIndex(3);
-            ImGui.TableHeader("操作");
+            ImGui.AlignTextToFramePadding();
+            ImGui.TextUnformatted("操作");
 
             var rows = GetDictionaryCatalog(selectedPlugin)
                 .Select(kv => new
                 {
                     Key = kv.Key,
                     DefaultJa = kv.Value,
-                    CurrentJa = state.UserOverrides.TryGetValue(kv.Key, out var ov) && !string.IsNullOrWhiteSpace(ov) ? ov : kv.Value,
+                    CurrentJa = state.UserOverrides.TryGetValue(kv.Key, out var ov) && !string.IsNullOrWhiteSpace(ov) ? ov : (state.OfficialOverrides.TryGetValue(kv.Key, out var officialJa) && !string.IsNullOrWhiteSpace(officialJa) ? officialJa : kv.Value),
                     Section = selectedPlugin == "RSR" ? GetRsrSection(kv.Key) : string.Empty,
                     Menu = selectedPlugin == "RSR" ? GetRsrMenuCategory(kv.Key) : string.Empty,
                 })
@@ -2673,7 +5141,14 @@ public sealed unsafe class Plugin : IDalamudPlugin
                             state.UserOverrides[row.Key] = edit;
                             editBuffers[key] = edit;
                         }
+                        state.DeletedKeys.Remove(row.Key);
                         SaveConfig();
+                    }
+                    ImGui.SameLine();
+                    if (ActionButton($"削除##d{key.GetHashCode()}", ButtonRole.Danger))
+                    {
+                        csvStatus = DeleteDictionaryEntry(selectedPlugin, row.Key);
+                        break;
                     }
 
                     if (state.UserOverrides.ContainsKey(row.Key))
@@ -2691,6 +5166,63 @@ public sealed unsafe class Plugin : IDalamudPlugin
 
             ImGui.EndTable();
         }
+    }
+
+    private string DeleteDictionaryEntry(string pluginName, string source)
+    {
+        if (!config.Plugins.TryGetValue(pluginName, out var state)) return "削除対象の辞書が見つかりませんでした。";
+
+        state.UserOverrides.Remove(source);
+        state.Locations.Remove(source);
+        state.DeletedKeys.Add(source);
+        editBuffers.Remove($"{pluginName}\u001f{source}");
+        InvalidateDictionaryUiCache();
+        SaveConfig();
+
+        if (!string.IsNullOrWhiteSpace(state.LastCsvPath) && File.Exists(state.LastCsvPath))
+            return ExportDictionaryCsv(pluginName, state.LastCsvPath).Replace("CSVを書き出しました:", "辞書から削除しCSVへ反映しました:", StringComparison.Ordinal);
+
+        return "辞書から削除しました。";
+    }
+
+    private string DeleteFilteredDictionaryEntries(string pluginName, string searchText)
+    {
+        if (!config.Plugins.TryGetValue(pluginName, out var state)) return "削除対象の辞書が見つかりませんでした。";
+        if (string.IsNullOrWhiteSpace(searchText)) return "検索文字を入力してください。";
+
+        var targets = GetDictionaryCatalogSnapshot(pluginName)
+            .Where(kv =>
+            {
+                state.Locations.TryGetValue(kv.Key, out var loc);
+                var ja = state.UserOverrides.TryGetValue(kv.Key, out var ov) && !string.IsNullOrWhiteSpace(ov) ? ov : (state.OfficialOverrides.TryGetValue(kv.Key, out var officialJa) && !string.IsNullOrWhiteSpace(officialJa) ? officialJa : kv.Value);
+                return kv.Key.Contains(searchText, StringComparison.OrdinalIgnoreCase)
+                    || ja.Contains(searchText, StringComparison.OrdinalIgnoreCase)
+                    || (loc?.Section?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false)
+                    || (loc?.Menu?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false);
+            })
+            .Select(kv => kv.Key)
+            .ToArray();
+
+        if (targets.Length == 0) return "検索結果に削除対象はありませんでした。";
+
+        foreach (var source in targets)
+        {
+            state.UserOverrides.Remove(source);
+            state.Locations.Remove(source);
+            state.DeletedKeys.Add(source);
+            editBuffers.Remove($"{pluginName}\u001f{source}");
+        }
+
+        InvalidateDictionaryUiCache();
+        SaveConfig();
+
+        if (!string.IsNullOrWhiteSpace(state.LastCsvPath) && File.Exists(state.LastCsvPath))
+        {
+            var result = ExportDictionaryCsv(pluginName, state.LastCsvPath);
+            if (result.StartsWith("CSV書き出し失敗", StringComparison.Ordinal)) return $"{targets.Length}件削除しましたが、CSVへの反映に失敗しました。 {result}";
+        }
+
+        return $"検索結果から {targets.Length} 件削除しました。";
     }
 
     private string GetRsrMenuCategory(string key)
@@ -2732,6 +5264,50 @@ public sealed unsafe class Plugin : IDalamudPlugin
 
     private void DrawCaptureTab()
     {
+        // 非同期翻訳の完了をUI描画の先頭で確定し、以降の操作ロック判定を一貫させる。
+        if (dictionaryAutoTranslateTask is { IsCompleted: true } completedTask)
+        {
+            try
+            {
+                var result = completedTask.GetAwaiter().GetResult();
+                dictionaryAutoTranslateDrafts.Clear();
+                foreach (var pair in result.Translations)
+                    dictionaryAutoTranslateDrafts[pair.Key] = pair.Value;
+                var canceled = dictionaryAutoTranslateCts?.IsCancellationRequested == true;
+                dictionaryAutoTranslateStatus = canceled
+                    ? $"自動翻訳を停止しました。途中までの翻訳 {result.Translations.Count}件を保持しています。内容を確認して辞書へ反映するか、破棄してください。"
+                    : $"自動翻訳完了: {result.Translations.Count}件 / 対象外 {result.Skipped}件 / 失敗 {result.Failed}件。内容を確認してから「翻訳結果を辞書へ反映」を押してください。";
+            }
+            catch (Exception ex)
+            {
+                dictionaryAutoTranslateStatus = $"自動翻訳に失敗しました: {ex.Message}";
+            }
+            dictionaryAutoTranslateTask = null;
+            dictionaryAutoTranslateCts?.Dispose();
+            dictionaryAutoTranslateCts = null;
+        }
+
+        if (dictionaryGoogleAvailabilityTask is { IsCompleted: true } googleCheckTask)
+        {
+            try
+            {
+                dictionaryGoogleAvailabilityStatus = googleCheckTask.GetAwaiter().GetResult();
+            }
+            catch (Exception ex)
+            {
+                dictionaryGoogleAvailabilityStatus = "確認失敗: " + ex.Message;
+            }
+            dictionaryGoogleAvailabilityTask = null;
+        }
+
+        var workflowLocked = captureEnabled || baselineCaptureEnabled || dictionaryAutoTranslateTask != null || dictionaryAutoTranslateDrafts.Count > 0;
+        var workflowLockReason = dictionaryAutoTranslateTask != null
+            ? "自動翻訳が完了するまで他の操作はできません。"
+            : dictionaryAutoTranslateDrafts.Count > 0
+                ? "自動翻訳結果の「辞書へ反映」または「破棄」を完了してから次の操作をしてください。"
+                : (captureEnabled || baselineCaptureEnabled)
+                    ? "未翻訳取得中です。先に「取得停止」を押してください。"
+                    : string.Empty;
 
         ImGui.TextWrapped("新しい翻訳辞書を作るときに使います。まず「インストール済みプラグインから追加」で日本語化したいプラグインを追加してください。");
         ImGui.TextDisabled("追加後は「取得開始」→対象プラグインの画面やツールチップを一通り表示→「取得停止」の順で操作します。ツールチップ等も可能な限り対象プラグインへ自動分類します。");
@@ -2741,9 +5317,15 @@ public sealed unsafe class Plugin : IDalamudPlugin
         ImGui.TextDisabled("日本語化したいプラグインを選択して追加します。");
         var installed = pluginInterface.InstalledPlugins
             .Where(p => !string.Equals(p.InternalName, pluginInterface.InternalName, StringComparison.OrdinalIgnoreCase))
+            .Where(p => !IsInstalledPluginAlreadyRegistered(p.InternalName, p.Name))
             .OrderBy(p => p.Name, StringComparer.OrdinalIgnoreCase)
             .ThenBy(p => p.InternalName, StringComparer.OrdinalIgnoreCase)
             .ToArray();
+
+        // 登録済みになった項目が選択状態に残っていた場合はクリアする。
+        if (!string.IsNullOrWhiteSpace(installedPluginSelection)
+            && !installed.Any(p => string.Equals(p.InternalName, installedPluginSelection, StringComparison.Ordinal)))
+            installedPluginSelection = string.Empty;
         var selectedInstalled = installed.FirstOrDefault(p => string.Equals(p.InternalName, installedPluginSelection, StringComparison.Ordinal));
         var installedPreview = selectedInstalled == null ? "選択してください" : $"{selectedInstalled.Name} ({selectedInstalled.InternalName})";
         ImGui.SetNextItemWidth(360);
@@ -2751,8 +5333,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
         {
             foreach (var p in installed)
             {
-                var already = config.Plugins.TryGetValue(p.InternalName, out var existing) && existing.TranslationTarget;
-                var label = $"{p.Name} ({p.InternalName}){(already ? "  [追加済み]" : string.Empty)}{(p.IsLoaded ? string.Empty : "  [停止中]")}";
+                var label = $"{p.Name} ({p.InternalName}){(p.IsLoaded ? string.Empty : "  [停止中]")}";
                 var selected = string.Equals(installedPluginSelection, p.InternalName, StringComparison.Ordinal);
                 if (ImGui.Selectable($"{label}##installed_{p.InternalName}", selected)) installedPluginSelection = p.InternalName;
                 if (selected) ImGui.SetItemDefaultFocus();
@@ -2760,7 +5341,9 @@ public sealed unsafe class Plugin : IDalamudPlugin
             ImGui.EndCombo();
         }
         ImGui.SameLine();
-        if (ActionButton("翻訳対象に追加", ButtonRole.Primary) && !captureEnabled) AddInstalledPluginTarget();
+        if (workflowLocked) ImGui.BeginDisabled();
+        if (ActionButton("翻訳対象に追加", ButtonRole.Primary)) AddInstalledPluginTarget();
+        if (workflowLocked) ImGui.EndDisabled();
 
         if (ImGui.TreeNode("手入力で追加（自動判定できない場合のみ）"))
         {
@@ -2769,27 +5352,34 @@ public sealed unsafe class Plugin : IDalamudPlugin
             ImGui.SameLine();
             ImGui.SetNextItemWidth(260); ImGui.InputTextWithHint("##customWindow", "ウィンドウ名キーワード", ref customWindowKeyword, 128);
             ImGui.SameLine();
-            if (ActionButton("手入力で追加", ButtonRole.Primary) && !captureEnabled) AddCustomPlugin();
+            if (workflowLocked) ImGui.BeginDisabled();
+            if (ActionButton("手入力で追加", ButtonRole.Primary)) AddCustomPlugin();
+            if (workflowLocked) ImGui.EndDisabled();
             ImGui.TreePop();
         }
 
 
         ImGui.Spacing();
         ImGui.TextUnformatted("翻訳対象プラグイン");
-        var captureNames = config.Plugins.Where(x => x.Value.TranslationTarget).Select(x => x.Key)
+        var captureNames = GetPluginConfigSnapshot().Where(x => x.Value.TranslationTarget).Select(x => x.Key)
             .OrderBy(x => PluginSortKey(x)).ThenBy(x => x, StringComparer.OrdinalIgnoreCase).ToArray();
         if (captureNames.Length > 0 && !captureNames.Contains(capturePlugin, StringComparer.Ordinal)) capturePlugin = captureNames[0];
-        foreach (var name in captureNames)
+        if (captureNames.Length > 0)
         {
-            if (ImGui.RadioButton($"{name}##capturePlugin", capturePlugin == name) && !captureEnabled) capturePlugin = name;
+            DrawPluginDropdown("##capturePluginDropdown", captureNames, ref capturePlugin, workflowLocked);
             ImGui.SameLine();
+            if (workflowLocked) ImGui.BeginDisabled();
+            if (ActionButton("翻訳辞書側にも適用", ButtonRole.Neutral))
+                selectedPlugin = capturePlugin;
+            if (workflowLocked) ImGui.EndDisabled();
         }
-        ImGui.NewLine();
 
-        if (!string.IsNullOrWhiteSpace(capturePlugin) && !captureEnabled)
+        if (!string.IsNullOrWhiteSpace(capturePlugin))
         {
+            if (workflowLocked) ImGui.BeginDisabled();
             if (ActionButton("選択中を翻訳対象から外す", ButtonRole.Danger))
                 RemoveTranslationTarget(capturePlugin);
+            if (workflowLocked) ImGui.EndDisabled();
             ImGui.SameLine();
             ImGui.TextDisabled("辞書データは削除せず、翻訳対象からだけ外します。");
         }
@@ -2803,65 +5393,282 @@ public sealed unsafe class Plugin : IDalamudPlugin
         EnsureCaptureDictionary(capturePlugin);
         var current = pluginCaptured[capturePlugin];
 
+        var untranslated = current.Values.Where(x => !IsKnown(x.Text)).OrderBy(x => x.Text, StringComparer.OrdinalIgnoreCase).ToArray();
+        var bgUntranslated = backgroundCaptured.Values.Where(x => !IsKnown(x.Text)).OrderBy(x => x.Text, StringComparer.OrdinalIgnoreCase).ToArray();
+        var targetCandidates = bgUntranslated.Where(x => ClassifyBackgroundItem(x, capturePlugin) == BackgroundCaptureClass.TargetCandidate).ToArray();
+        var otherPlugins = bgUntranslated.Where(x => ClassifyBackgroundItem(x, capturePlugin) == BackgroundCaptureClass.OtherPlugin).ToArray();
+        var unknownItems = bgUntranslated.Where(x => ClassifyBackgroundItem(x, capturePlugin) == BackgroundCaptureClass.Unknown).ToArray();
+
         ImGui.Separator();
-        ImGui.TextUnformatted("未翻訳の取得");
-        if (captureEnabled || baselineCaptureEnabled)
+        if (!string.IsNullOrWhiteSpace(workflowLockReason))
         {
-            if (ActionButton("取得停止", ButtonRole.Warning))
-            {
-                captureEnabled = false;
-                baselineCaptureEnabled = false;
-                ApplyCapturedLocations(capturePlugin);
-            }
-            ImGui.SameLine();
-            ImGui.TextUnformatted($"{capturePlugin} を取得中");
+            DrawBlinkingWorkflowWarning(workflowLockReason);
+            ImGui.TextDisabled("作業途中で対象プラグインや取得内容が変わらないよう、関係するボタンを一時的に無効化しています。");
         }
         else
         {
-            if (ActionButton("取得開始", ButtonRole.Success))
-            {
-                current.Clear();
-                backgroundCaptured.Clear();
-                rsrCurrentMenu = string.Empty;
-                rsrCurrentSection = string.Empty;
-                rsrPendingMenuCandidate = string.Empty;
-                baselineCaptureEnabled = true;
-                captureEnabled = true;
-                SaveConfig();
-            }
-            ImGui.SameLine();
-            ImGui.TextDisabled("対象プラグインの画面を一通り開いて操作してください。");
+            ImGui.TextDisabled("取得 → 自動翻訳 → 内容確認 → 辞書へ反映、の順に進めてください。");
         }
-
-        if (ActionButton("一覧クリア", ButtonRole.Danger))
-        {
-            current.Clear();
-            backgroundCaptured.Clear();
-        }
-        ImGui.SameLine();
-        if (ActionButton("対象分をコピー", ButtonRole.Primary))
-            ImGui.SetClipboardText(BuildUntranslatedExport(capturePlugin));
-        ImGui.SameLine();
-        if (ActionButton("その他取得分をコピー", ButtonRole.Neutral))
-            ImGui.SetClipboardText(BuildBackgroundExport());
-
-        var untranslated = current.Values.Where(x => !IsKnown(x.Text)).OrderBy(x => x.Text, StringComparer.OrdinalIgnoreCase).ToArray();
-        var bgUntranslated = backgroundCaptured.Values.Where(x => !IsKnown(x.Text)).OrderBy(x => x.Text, StringComparer.OrdinalIgnoreCase).ToArray();
-        ImGui.TextUnformatted($"対象: 取得 {current.Count}件 / 未翻訳 {untranslated.Length}件    その他: 取得 {backgroundCaptured.Count}件 / 未翻訳 {bgUntranslated.Length}件");
 
         ImGui.PushStyleColor(ImGuiCol.Tab, new Vector4(0.16f, 0.20f, 0.26f, 1.00f));
         ImGui.PushStyleColor(ImGuiCol.TabHovered, new Vector4(0.24f, 0.46f, 0.70f, 1.00f));
         ImGui.PushStyleColor(ImGuiCol.TabActive, new Vector4(0.18f, 0.38f, 0.62f, 1.00f));
-        if (ImGui.BeginTabBar("captureResultTabs"))
+        if (ImGui.BeginTabBar("captureWorkTabs"))
         {
-            if (ImGui.BeginTabItem($"対象プラグイン ({untranslated.Length})"))
+            if (ImGui.BeginTabItem("未翻訳取得"))
             {
-                DrawCapturedTable($"plugin_{capturePlugin}", untranslated);
+                ImGui.TextUnformatted("翻訳辞書への取り込み：");
+                ImGui.SameLine();
+                var captureControlLocked = dictionaryAutoTranslateTask != null || dictionaryAutoTranslateDrafts.Count > 0;
+                if (captureControlLocked) ImGui.BeginDisabled();
+                if (ActionButton(config.CaptureAutoImport ? "● 自動" : "自動", config.CaptureAutoImport ? ButtonRole.Success : ButtonRole.Neutral))
+                {
+                    config.CaptureAutoImport = true;
+                    SaveConfig();
+                }
+                if (ImGui.IsItemHovered())
+                    ImGui.SetTooltip("取得停止時に、取得した未翻訳項目を翻訳辞書へ自動で取り込みます。通常はこちらを使用します。");
+
+                ImGui.SameLine();
+                if (ActionButton(!config.CaptureAutoImport ? "● 手動" : "手動", !config.CaptureAutoImport ? ButtonRole.Primary : ButtonRole.Neutral))
+                {
+                    config.CaptureAutoImport = false;
+                    SaveConfig();
+                }
+                if (ImGui.IsItemHovered())
+                    ImGui.SetTooltip("取得結果を一覧で確認し、不要な項目を削除してから手動で翻訳辞書へ取り込みます。");
+                if (captureControlLocked) ImGui.EndDisabled();
+
+                if (!config.CaptureAutoImport)
+                {
+                    ImGui.SameLine();
+                    var manualImportDisabled = captureEnabled || baselineCaptureEnabled || dictionaryAutoTranslateTask != null || dictionaryAutoTranslateDrafts.Count > 0 || current.Count == 0;
+                    if (manualImportDisabled) ImGui.BeginDisabled();
+                    if (ActionButton("翻訳辞書へ取り込む", ButtonRole.Success))
+                    {
+                        ApplyCapturedLocations(capturePlugin);
+                        csvStatus = $"{capturePlugin} の取得結果を翻訳辞書へ取り込みました。";
+                    }
+                    if (manualImportDisabled) ImGui.EndDisabled();
+                    if (ImGui.IsItemHovered(ImGuiHoveredFlags.AllowWhenDisabled))
+                        ImGui.SetTooltip(manualImportDisabled ? "取得停止・翻訳作業の完了後、取得結果がある場合に使用できます。" : "現在の対象プラグインの取得結果をまとめて翻訳辞書へ取り込みます。不要な項目は先に削除してください。");
+                }
+
+                if (captureEnabled || baselineCaptureEnabled)
+                {
+                    if (ActionButton("取得停止", ButtonRole.Warning))
+                    {
+                        captureEnabled = false;
+                        baselineCaptureEnabled = false;
+                        if (config.CaptureAutoImport)
+                            ApplyCapturedLocations(capturePlugin);
+                    }
+                    ImGui.SameLine();
+                    ImGui.TextUnformatted($"{capturePlugin} を取得中");
+                }
+                else
+                {
+                    var startDisabled = dictionaryAutoTranslateTask != null || dictionaryAutoTranslateDrafts.Count > 0;
+                    if (startDisabled) ImGui.BeginDisabled();
+                    if (ActionButton("取得開始", ButtonRole.Success))
+                    {
+                        current.Clear();
+                        backgroundCaptured.Clear();
+                        rsrCurrentMenu = string.Empty;
+                        rsrCurrentSection = string.Empty;
+                        rsrPendingMenuCandidate = string.Empty;
+                        baselineCaptureEnabled = true;
+                        captureEnabled = true;
+                        SaveConfig();
+                    }
+                    if (startDisabled) ImGui.EndDisabled();
+                    ImGui.SameLine();
+                    ImGui.TextDisabled(startDisabled ? "自動翻訳の確認・反映を完了してから新しい取得を開始できます。" : "対象プラグインの画面を一通り開いて操作してください。");
+                }
+
+                var listEditDisabled = captureEnabled || baselineCaptureEnabled || dictionaryAutoTranslateTask != null || dictionaryAutoTranslateDrafts.Count > 0;
+                if (listEditDisabled) ImGui.BeginDisabled();
+                if (ActionButton("一覧クリア", ButtonRole.Danger))
+                {
+                    current.Clear();
+                    backgroundCaptured.Clear();
+                }
+                ImGui.SameLine();
+                if (ActionButton("対象分をコピー", ButtonRole.Primary))
+                    ImGui.SetClipboardText(BuildUntranslatedExport(capturePlugin));
+                ImGui.SameLine();
+                if (ActionButton("その他取得分をコピー", ButtonRole.Neutral))
+                    ImGui.SetClipboardText(BuildBackgroundExport());
+                if (listEditDisabled) ImGui.EndDisabled();
+
+                ImGui.TextUnformatted($"対象: 取得 {current.Count}件 / 未翻訳 {untranslated.Length}件    その他: 取得 {backgroundCaptured.Count}件 / 未翻訳 {bgUntranslated.Length}件");
+
+                if (ImGui.BeginTabBar("captureResultTabs"))
+                {
+                    if (ImGui.BeginTabItem($"対象プラグイン ({untranslated.Length})"))
+                    {
+                        DrawCapturedTable($"plugin_{capturePlugin}", untranslated, current, false, ref captureTargetFilter, listEditDisabled);
+                        ImGui.EndTabItem();
+                    }
+                    if (ImGui.BeginTabItem($"対象候補 ({targetCandidates.Length})"))
+                    {
+                        ImGui.TextDisabled("対象プラグイン由来の可能性が高い項目です。確認してから対象側へ移してください。自動では辞書へ混ぜません。");
+                        var moveDisabled = listEditDisabled || targetCandidates.Length == 0;
+                        if (moveDisabled) ImGui.BeginDisabled();
+                        if (ActionButton("候補を対象プラグインへ移す", ButtonRole.Success))
+                        {
+                            foreach (var item in targetCandidates) MoveBackgroundItemToTarget(item, capturePlugin);
+                            csvStatus = $"対象候補 {targetCandidates.Length}件を {capturePlugin} の取得結果へ移しました。";
+                        }
+                        if (moveDisabled) ImGui.EndDisabled();
+                        DrawCapturedTable("targetCandidate", targetCandidates, backgroundCaptured, true, ref captureOtherFilter, listEditDisabled);
+                        ImGui.EndTabItem();
+                    }
+                    if (ImGui.BeginTabItem($"他プラグイン ({otherPlugins.Length})"))
+                    {
+                        ImGui.TextDisabled("インストール済みの別プラグインのウィンドウ名と一致した項目です。対象辞書には取り込みません。");
+                        DrawCapturedTable("otherPlugin", otherPlugins, backgroundCaptured, true, ref captureOtherFilter, listEditDisabled);
+                        ImGui.EndTabItem();
+                    }
+                    if (ImGui.BeginTabItem($"判定不能 ({unknownItems.Length})"))
+                    {
+                        ImGui.TextDisabled("所有元を安全に判定できなかった項目です。必要な場合だけコピーして確認してください。");
+                        DrawCapturedTable("unknown", unknownItems, backgroundCaptured, true, ref captureOtherFilter, listEditDisabled);
+                        ImGui.EndTabItem();
+                    }
+                    ImGui.EndTabBar();
+                }
                 ImGui.EndTabItem();
             }
-            if (ImGui.BeginTabItem($"その他取得分 ({bgUntranslated.Length})"))
+
+            if (ImGui.BeginTabItem("自動翻訳"))
             {
-                DrawCapturedTable("other", bgUntranslated);
+                ImGui.TextWrapped("自動翻訳は辞書作成を補助するための下書き機能です。訳文は必ず確認し、必要に応じて修正してから辞書へ反映してください。");
+                ImGui.TextDisabled("既に翻訳済みの項目は自動翻訳の対象にせず、ユーザーが作成・修正した訳を優先します。");
+                ImGui.Spacing();
+                ImGui.TextUnformatted($"対象プラグイン: {capturePlugin}    未翻訳: {untranslated.Length}件    翻訳下書き: {dictionaryAutoTranslateDrafts.Count}件");
+                ImGui.TextUnformatted("翻訳方式");
+                if (ActionButton("Google翻訳##dictionaryProviderGoogle", pluginInstallerModule.UsePrivateServer ? ButtonRole.Neutral : ButtonRole.Success))
+                    pluginInstallerModule.SetTranslationProvider(false);
+                ImGui.SameLine();
+                if (ActionButton("PJH中継サーバー##dictionaryProviderPrivate", pluginInstallerModule.UsePrivateServer ? ButtonRole.Success : ButtonRole.Neutral))
+                    pluginInstallerModule.SetTranslationProvider(true);
+                if (pluginInstallerModule.UsePrivateServer)
+                {
+                    if (pluginInstallerModule.EffectiveTranslationProviderName == "Google翻訳")
+                        ImGui.TextColored(new System.Numerics.Vector4(0.45f, 1f, 0.55f, 1f), "現在の翻訳先: Google翻訳（PJH中継サーバー選択中）");
+                    else
+                        ImGui.TextUnformatted("現在の翻訳先: PJH中継サーバー");
+                }
+
+                var googleCheckBusy = dictionaryGoogleAvailabilityTask != null;
+                if (googleCheckBusy) ImGui.BeginDisabled();
+                if (ActionButton("利用可能チェック##dictionaryAutoTranslate", ButtonRole.Primary))
+                {
+                    dictionaryGoogleAvailabilityStatus = "確認中…";
+                    AddDictionaryAutoTranslateLog($"[{pluginInstallerModule.TranslationProviderName}確認] 利用可能か確認を開始しました。");
+                    dictionaryGoogleAvailabilityTask = pluginInstallerModule.CheckSelectedTranslationAvailabilityAsync("未翻訳の自動翻訳", AddDictionaryAutoTranslateLog);
+                }
+                if (googleCheckBusy) ImGui.EndDisabled();
+                ImGui.SameLine();
+                ImGui.TextUnformatted("確認結果: " + dictionaryGoogleAvailabilityStatus);
+
+                if (captureEnabled || baselineCaptureEnabled)
+                {
+                    DrawBlinkingWorkflowWarning("未翻訳取得中のため、自動翻訳は開始できません。先に「未翻訳取得」タブで取得を停止してください。");
+                }
+                else if (dictionaryAutoTranslateTask != null)
+                {
+                    ImGui.TextUnformatted($"自動翻訳中… {pluginInstallerModule.TranslationProviderName}で順番に処理しています。");
+                    ImGui.TextUnformatted(pluginInstallerModule.TranslationProviderName + "状態: " + pluginInstallerModule.GoogleStatus);
+                    if (!string.IsNullOrWhiteSpace(pluginInstallerModule.GoogleStatusDetail))
+                        ImGui.TextWrapped(pluginInstallerModule.GoogleStatusDetail);
+                    if (pluginInstallerModule.GoogleStatus.Contains("429", StringComparison.OrdinalIgnoreCase))
+                        ImGui.TextWrapped($"[429] {pluginInstallerModule.TranslationProviderName}側がHTTP 429を返しました。自動再試行は行わず停止します。");
+                    if (ActionButton("停止##dictionaryAutoTranslate", ButtonRole.Danger))
+                    {
+                        dictionaryAutoTranslateStatus = "自動翻訳を停止しています…";
+                        AddDictionaryAutoTranslateLog("[停止要求] 自動翻訳の停止を要求しました。");
+                        dictionaryAutoTranslateCts?.Cancel();
+                    }
+                }
+                else if (dictionaryAutoTranslateDrafts.Count == 0)
+                {
+                    var translateDisabled = untranslated.Length == 0;
+                    if (translateDisabled) ImGui.BeginDisabled();
+                    if (ActionButton("未翻訳を自動翻訳", ButtonRole.Primary))
+                    {
+                        ApplyCapturedLocations(capturePlugin);
+                        dictionaryAutoTranslateDrafts.Clear();
+                        ClearDictionaryAutoTranslateLogs();
+                        dictionaryAutoTranslateStatus = pluginInstallerModule.TranslationProviderName + "を開始しました。翻訳可能な固定UI文字列だけを処理します。";
+                        AddDictionaryAutoTranslateLog($"[開始] {capturePlugin} / 未翻訳 {untranslated.Length}件");
+                        var texts = untranslated.Select(x => x.Text).Distinct(StringComparer.Ordinal).ToArray();
+                        var translatePlugin = capturePlugin;
+                        var protectedNames = GetDictionaryProtectedNames(translatePlugin);
+                        dictionaryAutoTranslateCts?.Dispose();
+                        dictionaryAutoTranslateCts = new CancellationTokenSource();
+                        dictionaryAutoTranslateTask = pluginInstallerModule.TranslateDictionaryBatchAsync(
+                            translatePlugin, texts, text => GetDictionaryAutoTranslateSkipReason(text, translatePlugin), protectedNames, AddDictionaryAutoTranslateLog, dictionaryAutoTranslateCts.Token);
+                    }
+                    if (translateDisabled) ImGui.EndDisabled();
+                    ImGui.SameLine();
+                    ImGui.TextDisabled(translateDisabled ? "自動翻訳できる未翻訳項目がありません。" : "URL・パス・コマンド・動的値・技術IDなどは除外します。");
+                }
+
+                if (dictionaryAutoTranslateDrafts.Count > 0 && dictionaryAutoTranslateTask == null)
+                {
+                    if (ActionButton("翻訳結果を辞書へ反映", ButtonRole.Success))
+                    {
+                        if (config.Plugins.TryGetValue(capturePlugin, out var draftState))
+                        {
+                            var applied = 0;
+                            var protectedExisting = 0;
+                            foreach (var pair in dictionaryAutoTranslateDrafts)
+                            {
+                                var alreadyTranslated = (draftState.UserOverrides.TryGetValue(pair.Key, out var existingUser) && !string.IsNullOrWhiteSpace(existingUser))
+                                    || (draftState.OfficialOverrides.TryGetValue(pair.Key, out var existingOfficial) && !string.IsNullOrWhiteSpace(existingOfficial));
+                                if (alreadyTranslated)
+                                {
+                                    protectedExisting++;
+                                    continue;
+                                }
+                                draftState.UserOverrides[pair.Key] = pair.Value;
+                                editBuffers[$"{capturePlugin}\u001f{pair.Key}"] = pair.Value;
+                                applied++;
+                            }
+                            dictionaryAutoTranslateDrafts.Clear();
+                            SaveConfig();
+                            dictionaryAutoTranslateStatus = $"自動翻訳 {applied}件を辞書へ反映しました。既存訳 {protectedExisting}件は上書きせず保護しました。翻訳辞書タブで修正してからCSVへ保存できます。";
+                        }
+                    }
+                    ImGui.SameLine();
+                    if (ActionButton("自動翻訳結果を破棄", ButtonRole.Danger))
+                    {
+                        dictionaryAutoTranslateDrafts.Clear();
+                        dictionaryAutoTranslateStatus = "自動翻訳結果を破棄しました。";
+                    }
+                }
+
+                if (!string.IsNullOrWhiteSpace(dictionaryAutoTranslateStatus))
+                    ImGui.TextWrapped(dictionaryAutoTranslateStatus);
+
+                if (!dictionaryAutoTranslateLogs.IsEmpty && ImGui.CollapsingHeader("自動翻訳ログ", ImGuiTreeNodeFlags.DefaultOpen))
+                {
+                    if (ActionButton("ログをコピー##dictionaryTranslateLog", ButtonRole.Primary))
+                        ImGui.SetClipboardText(string.Join(Environment.NewLine, dictionaryAutoTranslateLogs.ToArray()));
+                    ImGui.SameLine();
+                    if (dictionaryAutoTranslateTask != null) ImGui.BeginDisabled();
+                    if (ActionButton("ログをクリア##dictionaryTranslateLog", ButtonRole.Danger))
+                        ClearDictionaryAutoTranslateLogs();
+                    if (dictionaryAutoTranslateTask != null) ImGui.EndDisabled();
+                    ImGui.BeginChild("dictionaryTranslateLogChild", new Vector2(0, 180), true);
+                    foreach (var line in dictionaryAutoTranslateLogs.ToArray())
+                        ImGui.TextWrapped(line);
+                    ImGui.EndChild();
+                }
+
+                DrawCapturedTable($"translate_{capturePlugin}", untranslated, current, false, ref captureTargetFilter, true);
                 ImGui.EndTabItem();
             }
             ImGui.EndTabBar();
@@ -2869,17 +5676,64 @@ public sealed unsafe class Plugin : IDalamudPlugin
         ImGui.PopStyleColor(3);
     }
 
-    private static void DrawCapturedTable(string id, CapturedItem[] items)
+    private void DrawCapturedTable(string id, CapturedItem[] items, ConcurrentDictionary<string, CapturedItem> source, bool background, ref string captureFilter, bool editsDisabled = false)
     {
-        if (ImGui.BeginTable($"untranslated_{id}", 5, ImGuiTableFlags.Borders | ImGuiTableFlags.RowBg | ImGuiTableFlags.ScrollY | ImGuiTableFlags.Resizable, new Vector2(0, -25)))
+        ImGui.SetNextItemWidth(320);
+        ImGui.InputTextWithHint($"##captureFilter_{id}", "未翻訳の英語・種類などを絞り込み", ref captureFilter, 256);
+
+        var filterText = captureFilter;
+        var visibleItems = string.IsNullOrWhiteSpace(filterText)
+            ? items
+            : items.Where(x => CaptureItemMatchesFilter(x, filterText)).ToArray();
+
+        if (!string.IsNullOrWhiteSpace(captureFilter))
+        {
+            ImGui.SameLine();
+            if (editsDisabled) ImGui.BeginDisabled();
+            if (ActionButton($"検索結果を削除##captureDeleteFiltered_{id}", ButtonRole.Danger))
+                ImGui.OpenPopup($"取得結果を一括削除##{id}");
+            if (editsDisabled) ImGui.EndDisabled();
+
+            if (ImGui.BeginPopupModal($"取得結果を一括削除##{id}", ImGuiWindowFlags.AlwaysAutoResize))
+            {
+                ImGui.TextWrapped($"検索「{captureFilter}」に一致する未翻訳取得 {visibleItems.Length} 件を一覧から削除します。\n削除した項目は翻訳辞書へ取り込まれません。");
+                if (ActionButton($"削除する##captureDeleteConfirm_{id}", ButtonRole.Danger))
+                {
+                    foreach (var item in visibleItems)
+                        RemoveCapturedItem(source, item, background);
+                    csvStatus = $"未翻訳取得から {visibleItems.Length} 件削除しました。";
+                    ImGui.CloseCurrentPopup();
+                }
+                ImGui.SameLine();
+                if (ActionButton($"キャンセル##captureDeleteCancel_{id}", ButtonRole.Neutral)) ImGui.CloseCurrentPopup();
+                ImGui.EndPopup();
+            }
+        }
+
+        if (visibleItems.Length != items.Length)
+            ImGui.TextDisabled($"表示 {visibleItems.Length} / {items.Length} 件");
+
+        DrawListSortControls($"capture_{id}", new[] { "未翻訳の原文", "メニュー", "画面内項目", "種類", "回数" }, ref captureSortMode, ref captureSortAscending);
+        visibleItems = captureSortMode switch
+        {
+            1 => SortArray(visibleItems, x => x.Menu, captureSortAscending),
+            2 => SortArray(visibleItems, x => x.Section, captureSortAscending),
+            3 => SortArray(visibleItems, x => x.Kind, captureSortAscending),
+            4 => SortArray(visibleItems, x => x.Count, captureSortAscending),
+            _ => SortArray(visibleItems, x => x.Text, captureSortAscending),
+        };
+
+        if (ImGui.BeginTable($"untranslated_{id}", 7, ImGuiTableFlags.Borders | ImGuiTableFlags.RowBg | ImGuiTableFlags.ScrollY | ImGuiTableFlags.ScrollX | ImGuiTableFlags.Resizable | ImGuiTableFlags.SizingFixedFit | ImGuiTableFlags.NoKeepColumnsVisible, new Vector2(0, -25)))
         {
             ImGui.TableSetupColumn("メニュー", ImGuiTableColumnFlags.WidthFixed, 100);
             ImGui.TableSetupColumn("画面内項目", ImGuiTableColumnFlags.WidthFixed, 150);
             ImGui.TableSetupColumn("種類", ImGuiTableColumnFlags.WidthFixed, 90);
             ImGui.TableSetupColumn("回数", ImGuiTableColumnFlags.WidthFixed, 55);
-            ImGui.TableSetupColumn("未翻訳の英語", ImGuiTableColumnFlags.WidthStretch);
-            ImGui.TableHeadersRow();
-            foreach (var item in items)
+            ImGui.TableSetupColumn("未翻訳の原文", ImGuiTableColumnFlags.WidthFixed, 420);
+            ImGui.TableSetupColumn("自動翻訳（確認用）", ImGuiTableColumnFlags.WidthFixed, 360);
+            ImGui.TableSetupColumn("操作", ImGuiTableColumnFlags.WidthFixed, 62);
+            DrawJapaneseTableHeaderRow(new[] { "メニュー", "画面内項目", "種類", "回数", "未翻訳の原文", "自動翻訳（確認用）", "操作" });
+            foreach (var item in visibleItems)
             {
                 ImGui.TableNextRow();
                 ImGui.TableSetColumnIndex(0); ImGui.TextUnformatted(item.Menu);
@@ -2887,9 +5741,139 @@ public sealed unsafe class Plugin : IDalamudPlugin
                 ImGui.TableSetColumnIndex(2); ImGui.TextUnformatted(item.Kind);
                 ImGui.TableSetColumnIndex(3); ImGui.TextUnformatted(item.Count.ToString());
                 ImGui.TableSetColumnIndex(4); ImGui.TextWrapped(item.Text);
+                ImGui.TableSetColumnIndex(5);
+                if (dictionaryAutoTranslateDrafts.TryGetValue(item.Text, out var draft)) ImGui.TextWrapped(draft);
+                else if (!IsDictionaryAutoTranslateCandidate(item.Text)) ImGui.TextDisabled("対象外");
+                ImGui.TableSetColumnIndex(6);
+                var rowId = HashCode.Combine(item.Text, item.Menu, item.Section, item.Window);
+                if (editsDisabled) ImGui.BeginDisabled();
+                if (ActionButton($"削除##capture_{id}_{rowId}", ButtonRole.Danger))
+                {
+                    RemoveCapturedItem(source, item, background);
+                    csvStatus = "未翻訳取得から1件削除しました。";
+                    if (editsDisabled) ImGui.EndDisabled();
+                    break;
+                }
+                if (editsDisabled) ImGui.EndDisabled();
             }
             ImGui.EndTable();
         }
+    }
+
+    private static readonly HashSet<string> DictionaryTechnicalIdentifiers = new(StringComparer.OrdinalIgnoreCase)
+    {
+        "Atch", "Atr", "Shp", "PBD", "Pbd", "Meta", "Tex", "Mdl", "Mtrl", "Avfx", "Tmb", "Pap", "Sklb", "Skp", "chinese", "cjk", "font"
+    };
+
+    private bool IsDictionaryAutoTranslateCandidate(string text)
+        => GetDictionaryAutoTranslateSkipReason(text, capturePlugin) == null;
+
+    private string? GetDictionaryAutoTranslateSkipReason(string text, string pluginName)
+    {
+        if (string.IsNullOrWhiteSpace(text)) return "空文字";
+        var value = text.Trim();
+        if (ContainsJapanese(value)) return "すでに日本語を含む";
+        if (DictionaryTechnicalIdentifiers.Contains(value)) return "技術識別子";
+        if (value.Length < 2) return "短すぎる文字列";
+        if (value.Length > 1200) return "長すぎる文字列";
+        if (Regex.IsMatch(value, @"^https?://\S+$", RegexOptions.IgnoreCase)) return "URL";
+        // A pure slash command is excluded, but a command help line with ':' remains
+        // translatable so only the command prefix is protected and the description is translated.
+        if (!value.Contains(':') && Regex.IsMatch(value, @"^/[A-Za-z0-9_\-]+(?:\s+\S+)*$")) return "コマンド";
+        if (Regex.IsMatch(value, @"^[A-Za-z]:[\\/]" ) || value.StartsWith("\\", StringComparison.Ordinal)) return "ローカルパス";
+        if (Regex.IsMatch(value, @"^(?:\d+[\s:/.,%+\-]*)+$")) return "動的な数値";
+        if (Regex.IsMatch(value, @"^[A-Za-z0-9_.:+#\-]{1,24}$") && !value.Contains(' ')) return "短い内部ID";
+        if (Regex.IsMatch(value, @"(?:^|[\\/])(?:common|chara|ui|bgcommon|vfx|shader|sound)/", RegexOptions.IgnoreCase)) return "FFXIV内部ファイルパス";
+        if (Regex.IsMatch(value, @"^(?:by|author|created by|developer|maintainer)\s*[:\-]?\s*.+$", RegexOptions.IgnoreCase)) return "作者・クレジット表記";
+
+        foreach (var protectedName in GetDictionaryProtectedNames(pluginName))
+            if (string.Equals(value, protectedName, StringComparison.OrdinalIgnoreCase)) return "プラグイン名・固有名詞";
+
+        return value.Any(char.IsLetter) ? null : "翻訳対象となる文字がない";
+    }
+
+    private IReadOnlyCollection<string> GetDictionaryProtectedNames(string pluginName)
+    {
+        var names = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        if (!string.IsNullOrWhiteSpace(pluginName)) names.Add(pluginName.Trim());
+        var installed = pluginInterface.InstalledPlugins.FirstOrDefault(p => string.Equals(p.InternalName, pluginName, StringComparison.OrdinalIgnoreCase));
+        if (installed != null && !string.IsNullOrWhiteSpace(installed.Name)) names.Add(installed.Name.Trim());
+        return names.ToArray();
+    }
+
+    private void AddDictionaryAutoTranslateLog(string message)
+    {
+        dictionaryAutoTranslateLogs.Enqueue($"[{DateTime.Now:HH:mm:ss}] {message}");
+        while (dictionaryAutoTranslateLogs.Count > MaxDictionaryAutoTranslateLogs && dictionaryAutoTranslateLogs.TryDequeue(out _)) { }
+    }
+
+    private void ClearDictionaryAutoTranslateLogs()
+    {
+        while (dictionaryAutoTranslateLogs.TryDequeue(out _)) { }
+    }
+
+    private enum BackgroundCaptureClass
+    {
+        TargetCandidate,
+        OtherPlugin,
+        Unknown,
+    }
+
+    private BackgroundCaptureClass ClassifyBackgroundItem(CapturedItem item, string targetPlugin)
+    {
+        var window = item.Window ?? string.Empty;
+        if (string.IsNullOrWhiteSpace(window)) return BackgroundCaptureClass.Unknown;
+
+        var targetNames = GetDictionaryProtectedNames(targetPlugin);
+        foreach (var name in targetNames)
+            if (name.Length >= 3 && window.Contains(name, StringComparison.OrdinalIgnoreCase))
+                return BackgroundCaptureClass.TargetCandidate;
+
+        if (config.Plugins.TryGetValue(targetPlugin, out var targetState) && !string.IsNullOrWhiteSpace(targetState.WindowKeyword))
+        {
+            foreach (var keyword in targetState.WindowKeyword.Split('|', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+            {
+                if (keyword.Length < 4 || keyword.Equals("Configuration", StringComparison.OrdinalIgnoreCase) || keyword.Equals("Settings", StringComparison.OrdinalIgnoreCase)) continue;
+                if (window.Contains(keyword, StringComparison.OrdinalIgnoreCase)) return BackgroundCaptureClass.TargetCandidate;
+            }
+        }
+
+        foreach (var plugin in pluginInterface.InstalledPlugins)
+        {
+            if (string.Equals(plugin.InternalName, targetPlugin, StringComparison.OrdinalIgnoreCase)) continue;
+            if (!string.IsNullOrWhiteSpace(plugin.Name) && plugin.Name.Length >= 3 && window.Contains(plugin.Name, StringComparison.OrdinalIgnoreCase))
+                return BackgroundCaptureClass.OtherPlugin;
+            if (!string.IsNullOrWhiteSpace(plugin.InternalName) && plugin.InternalName.Length >= 3 && window.Contains(plugin.InternalName, StringComparison.OrdinalIgnoreCase))
+                return BackgroundCaptureClass.OtherPlugin;
+        }
+
+        return BackgroundCaptureClass.Unknown;
+    }
+
+    private void MoveBackgroundItemToTarget(CapturedItem item, string targetPlugin)
+    {
+        EnsureCaptureDictionary(targetPlugin);
+        var target = pluginCaptured[targetPlugin];
+        var targetKey = string.Concat("", "\u001f", "", "\u001f", item.Text);
+        target.AddOrUpdate(targetKey,
+            _ => item with { Menu = string.Empty, Section = string.Empty },
+            (_, old) => old with { Count = old.Count + item.Count, Kind = MergeKind(old.Kind, item.Kind) });
+        RemoveCapturedItem(backgroundCaptured, item, true);
+    }
+
+    private static bool CaptureItemMatchesFilter(CapturedItem item, string searchText)
+        => item.Text.Contains(searchText, StringComparison.OrdinalIgnoreCase)
+        || item.Kind.Contains(searchText, StringComparison.OrdinalIgnoreCase)
+        || item.Menu.Contains(searchText, StringComparison.OrdinalIgnoreCase)
+        || item.Section.Contains(searchText, StringComparison.OrdinalIgnoreCase)
+        || item.Window.Contains(searchText, StringComparison.OrdinalIgnoreCase);
+
+    private static void RemoveCapturedItem(ConcurrentDictionary<string, CapturedItem> source, CapturedItem item, bool background)
+    {
+        var key = background
+            ? string.Concat(item.Window, "\u001f", item.Text)
+            : string.Concat(item.Menu, "\u001f", item.Section, "\u001f", item.Text);
+        source.TryRemove(key, out _);
     }
 
     private static readonly HashSet<string> KeepAsIs = new(StringComparer.Ordinal)
@@ -2918,7 +5902,11 @@ public sealed unsafe class Plugin : IDalamudPlugin
             source.Contains("#####up", StringComparison.OrdinalIgnoreCase) || source.Contains("#####down", StringComparison.OrdinalIgnoreCase) ||
             source.Contains("Rotation Solver Reborn Remove Territory", StringComparison.Ordinal)) return true;
         if (visible.StartsWith("RSR has helped you by clicking actions ", StringComparison.Ordinal) && visible.EndsWith(" times.", StringComparison.Ordinal)) return true;
-        foreach (var (name, state) in config.Plugins) if (GetActiveStandardDictionary(name).ContainsKey(visible) || state.UserOverrides.ContainsKey(visible)) return true;
+        foreach (var (name, state) in GetPluginConfigSnapshot())
+        {
+            if (state.DeletedKeys.Contains(visible)) continue;
+            if (GetActiveStandardDictionary(name).ContainsKey(visible) || state.OfficialOverrides.ContainsKey(visible) || state.UserOverrides.ContainsKey(visible)) return true;
+        }
         return false;
     }
 
@@ -2954,7 +5942,8 @@ public sealed unsafe class Plugin : IDalamudPlugin
         foreach (var dict in pluginCaptured.Values) dict.Clear();
         editBuffers.Clear();
         seenWindows.Clear();
-        foreach (var state in config.Plugins.Values)
+        liveWindowLastSeen.Clear();
+        foreach (var state in GetPluginConfigSnapshot().Select(x => x.Value))
         {
             state.UserOverrides.Clear();
             state.Locations.Clear();
@@ -2974,7 +5963,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
 
     private void EnsureCaptureDictionaries()
     {
-        foreach (var name in config.Plugins.Keys) EnsureCaptureDictionary(name);
+        foreach (var name in GetPluginConfigSnapshot().Select(x => x.Key)) EnsureCaptureDictionary(name);
     }
 
     private void EnsureCaptureDictionary(string name)
@@ -3018,13 +6007,15 @@ public sealed unsafe class Plugin : IDalamudPlugin
         var keys = new HashSet<string>(StringComparer.Ordinal);
         foreach (var key in state.Locations.Keys) keys.Add(key);
         foreach (var key in state.UserOverrides.Keys) keys.Add(key);
+        foreach (var key in state.OfficialOverrides.Keys) keys.Add(key);
         foreach (var key in standard.Keys) keys.Add(key);
 
         var rows = new List<KeyValuePair<string, string>>(keys.Count);
         foreach (var key in keys)
         {
+            if (state.DeletedKeys.Contains(key)) continue;
             if (IsTranslatedShadowKey(pluginName, key)) continue;
-            var fallback = standard.TryGetValue(key, out var ja) ? ja : string.Empty;
+            var fallback = state.OfficialOverrides.TryGetValue(key, out var officialJa) && !string.IsNullOrWhiteSpace(officialJa) ? officialJa : (standard.TryGetValue(key, out var ja) ? ja : string.Empty);
             rows.Add(new KeyValuePair<string, string>(key, fallback));
         }
 
@@ -3055,6 +6046,52 @@ public sealed unsafe class Plugin : IDalamudPlugin
         dictionaryMenuCountCache.Clear();
     }
 
+    private static string NormalizePluginIdentity(string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value)) return string.Empty;
+        return new string(value.Where(char.IsLetterOrDigit).Select(char.ToLowerInvariant).ToArray());
+    }
+
+    private static IReadOnlyList<string> GetPluginIdentityAliases(string? value)
+    {
+        var normalized = NormalizePluginIdentity(value);
+        return normalized switch
+        {
+            "rsr" or "rotationsolverreborn" => new[] { "rsr", "rotationsolverreborn" },
+            "bmr" or "bossmodreborn" => new[] { "bmr", "bossmodreborn" },
+            "bm" or "bossmod" => new[] { "bm", "bossmod" },
+            "marketboard" or "marketboardplugin" => new[] { "marketboard", "marketboardplugin" },
+            _ => string.IsNullOrEmpty(normalized) ? Array.Empty<string>() : new[] { normalized },
+        };
+    }
+
+    private static bool PluginIdentityMatches(string? left, string? right)
+    {
+        var leftAliases = GetPluginIdentityAliases(left);
+        var rightAliases = GetPluginIdentityAliases(right);
+        return leftAliases.Any(x => rightAliases.Contains(x, StringComparer.Ordinal));
+    }
+
+    private bool IsInstalledPluginAlreadyRegistered(string? internalName, string? displayName)
+    {
+        foreach (var (registeredName, state) in GetPluginConfigSnapshot())
+        {
+            if (state == null || !state.TranslationTarget) continue;
+
+            if (PluginIdentityMatches(registeredName, internalName)
+                || PluginIdentityMatches(registeredName, displayName))
+                return true;
+
+            // 手入力登録などでキー名が異なる場合は、保存済みのウィンドウキーワードも照合する。
+            var keywords = (state.WindowKeyword ?? string.Empty)
+                .Split('|', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            if (keywords.Any(keyword => PluginIdentityMatches(keyword, internalName)
+                || PluginIdentityMatches(keyword, displayName)))
+                return true;
+        }
+        return false;
+    }
+
     private void AddInstalledPluginTarget()
     {
         if (string.IsNullOrWhiteSpace(installedPluginSelection))
@@ -3074,6 +6111,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
         if (!config.Plugins.TryGetValue(key, out var state))
         {
             state = new PluginDictionaryState();
+            lock (pluginConfigSync)
             config.Plugins[key] = state;
         }
 
@@ -3083,7 +6121,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
             .Where(x => !string.IsNullOrWhiteSpace(x))
             .Distinct(StringComparer.OrdinalIgnoreCase)
             .ToList();
-        if (string.Equals(plugin.InternalName, "Artisan", StringComparison.OrdinalIgnoreCase)
+        if (string.Equals(key, "Artisan", StringComparison.OrdinalIgnoreCase)
             || string.Equals(plugin.Name, "Artisan", StringComparison.OrdinalIgnoreCase))
         {
             foreach (var required in new[] { "Artisan", "List Editor", "Processing List" })
@@ -3108,6 +6146,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
         if (!config.Plugins.TryGetValue(name, out var state))
         {
             state = new PluginDictionaryState();
+            lock (pluginConfigSync)
             config.Plugins[name] = state;
         }
         state.WindowKeyword = keyword;
@@ -3168,7 +6207,8 @@ public sealed unsafe class Plugin : IDalamudPlugin
                     TranslationTarget = true,
                     WindowKeyword = "Configuration",
                 };
-                config.Plugins[pluginName] = state;
+                lock (pluginConfigSync)
+            config.Plugins[pluginName] = state;
                 EnsureCaptureDictionary(pluginName);
             }
             else
@@ -3246,10 +6286,24 @@ public sealed unsafe class Plugin : IDalamudPlugin
             var state = config.Plugins[pluginName];
             using var sw = new StreamWriter(fullPath, false, new UTF8Encoding(true));
             sw.WriteLine("Plugin,Menu,Section,Type,English,Japanese");
+
+            // 別ウィンドウ関連付けも辞書に含める。
+            // このCSVを別PC/別ユーザーで読み込んだ時も自動適用できる。
+            foreach (var keyword in (state.WindowKeyword ?? string.Empty)
+                         .Split('|', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                         .Distinct(StringComparer.OrdinalIgnoreCase)
+                         .OrderBy(x => x, StringComparer.OrdinalIgnoreCase))
+            {
+                sw.WriteLine(string.Join(',', new[]
+                {
+                    pluginName, string.Empty, string.Empty, DictionaryWindowMetaType, keyword, string.Empty
+                }.Select(CsvEscape)));
+            }
+
             foreach (var kv in GetDictionaryCatalog(pluginName).OrderBy(x => x.Key, StringComparer.OrdinalIgnoreCase))
             {
                 state.Locations.TryGetValue(kv.Key, out var loc);
-                var ja = state.UserOverrides.TryGetValue(kv.Key, out var ov) ? ov : kv.Value;
+                var ja = state.UserOverrides.TryGetValue(kv.Key, out var ov) ? ov : (state.OfficialOverrides.TryGetValue(kv.Key, out var officialJa) ? officialJa : kv.Value);
                 sw.WriteLine(string.Join(',', new[] { pluginName, loc?.Menu ?? string.Empty, loc?.Section ?? string.Empty, string.Empty, kv.Key, ja }.Select(CsvEscape)));
             }
             state.LastCsvPath = fullPath;
@@ -3257,6 +6311,25 @@ public sealed unsafe class Plugin : IDalamudPlugin
             return $"CSVを書き出しました: {fullPath}";
         }
         catch (Exception ex) { return $"CSV書き出し失敗: {ex.Message}"; }
+    }
+
+    private string ReloadDictionaryCsv(string pluginName)
+    {
+        var state = config.Plugins[pluginName];
+        if (string.IsNullOrWhiteSpace(state.LastCsvPath)) return "先にCSVを選択してください。";
+
+        var path = state.LastCsvPath;
+        if (File.Exists(path)) return ImportDictionaryCsv(pluginName, path);
+
+        // 「再読み込み」対象のCSVが外部で削除されている場合は、
+        // そのプラグインの読み込み済みユーザー辞書を空にして、削除済みCSVを指定し続けない。
+        // 標準辞書・公式辞書・未翻訳取得結果・他プラグインの状態には触れない。
+        state.UserOverrides.Clear();
+        state.Locations.Clear();
+        state.LastCsvPath = string.Empty;
+        editBuffers.Clear();
+        SaveConfig();
+        return $"CSVがありません: {path} / 読み込み済みのユーザー辞書をクリアしました。";
     }
 
     private string ImportDictionaryCsv(string pluginName) => ImportDictionaryCsv(pluginName, CsvPath(pluginName));
@@ -3269,13 +6342,28 @@ public sealed unsafe class Plugin : IDalamudPlugin
             var csvText = File.ReadAllText(path, Encoding.UTF8);
             var rows = ParseCsvRecords(csvText);
             var state = config.Plugins[pluginName];
+
+            var csvWindows = ExtractDictionaryWindowKeywords(rows);
+
+            // v0.4.9:
+            // ユーザーが「CSVを選択して読み込む」を実行した場合は明示操作とみなし、
+            // 過去に手動削除して抑止されていた @Window でも、このCSVに含まれていれば
+            // 抑止を解除して改めて自動適用する。
+            state.SuppressedDictionaryWindowKeywords ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            foreach (var keyword in csvWindows)
+                state.SuppressedDictionaryWindowKeywords.Remove(keyword);
+
+            ApplyDictionaryWindowMetadata(pluginName, state, csvWindows, "CSV辞書");
+
             var imported = 0;
             foreach (var cols in rows.Skip(1))
             {
                 if (cols.Count < 6) continue;
+                if (IsDictionaryWindowMetaRow(cols)) continue;
                 var english = cols[4];
                 var japanese = cols[5];
                 if (string.IsNullOrWhiteSpace(english)) continue;
+                state.DeletedKeys.Remove(english);
                 if (string.IsNullOrWhiteSpace(japanese)) state.UserOverrides.Remove(english);
                 else state.UserOverrides[english] = japanese;
                 if (!string.IsNullOrWhiteSpace(cols[1]) || !string.IsNullOrWhiteSpace(cols[2]))
@@ -3289,6 +6377,15 @@ public sealed unsafe class Plugin : IDalamudPlugin
         }
         catch (Exception ex) { return $"CSV読込失敗: {ex.Message}"; }
     }
+
+    private sealed record HookDiagnosticEntry(
+        string Time,
+        string Kind,
+        string Text,
+        string Window,
+        string Owner,
+        string CapturePlugin,
+        bool IsCaptureTarget);
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
     private struct OpenFileName
@@ -3492,6 +6589,140 @@ public sealed unsafe class Plugin : IDalamudPlugin
         return result;
     }
 
+    private bool IsContextMenuPluginTranslationEnabled(string pluginName)
+    {
+        foreach (var (registeredName, state) in GetPluginConfigSnapshot())
+        {
+            if (state == null || !state.TranslationTarget || !state.Enabled) continue;
+            if (PluginIdentityMatches(registeredName, pluginName)) return true;
+
+            var keywords = (state.WindowKeyword ?? string.Empty)
+                .Split('|', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            if (keywords.Any(keyword => PluginIdentityMatches(keyword, pluginName))) return true;
+        }
+        return false;
+    }
+
+    private void OnContextMenuOpened(IMenuOpenedArgs args)
+    {
+        try
+        {
+            // Dalamud's MenuOpenedArgs keeps SelectedItems.Add in this private delegate.
+            // The delegate target is the actual List<IMenuItem> that will be rendered immediately after this event.
+            var property = args.GetType().GetProperty("OnAddMenuItem", BindingFlags.Instance | BindingFlags.NonPublic);
+            if (property?.GetValue(args) is not Action<MenuItem> addMenuItem
+                || addMenuItem.Target is not IEnumerable currentItems)
+            {
+                log.Debug("[PluginJPHelper][ContextMenuData] Could not access current menu item list.");
+                return;
+            }
+
+            var items = currentItems.Cast<object>().OfType<IMenuItem>().ToArray();
+            var translated = 0;
+
+            foreach (var item in items)
+            {
+                var original = item.Name.TextValue;
+                if (string.IsNullOrEmpty(original) || item.Prefix is not { } prefix) continue;
+
+                foreach (var entry in ContextMenuTranslations)
+                {
+                    if (prefix != entry.Prefix) continue;
+                    if (!string.Equals(original, entry.English, StringComparison.Ordinal)) continue;
+
+                    var enabled = IsContextMenuPluginTranslationEnabled(entry.PluginName);
+                    log.Information(
+                        "[PluginJPHelper][ContextMenuData] Candidate Plugin={Plugin} Enabled={Enabled} Prefix={Prefix} English=\"{English}\"",
+                        entry.PluginName, enabled, (int)entry.Prefix, entry.English);
+                    if (!enabled) break;
+
+                    if (string.Equals(entry.PluginName, "Artisan", StringComparison.Ordinal)
+                        && string.Equals(entry.English, "Artisan Crafting List", StringComparison.Ordinal))
+                    {
+                        WrapArtisanCraftingListSubmenu(item);
+                    }
+
+                    item.Name = (SeString)entry.Japanese;
+                    translated++;
+                    Interlocked.Increment(ref translatedCount);
+                    log.Information(
+                        "[PluginJPHelper][ContextMenuData] Translated Plugin={Plugin} Prefix={Prefix} English=\"{English}\" Japanese=\"{Japanese}\"",
+                        entry.PluginName, (int)entry.Prefix, entry.English, entry.Japanese);
+                    break;
+                }
+            }
+
+            log.Debug("[PluginJPHelper][ContextMenuData] ObservedItems={Count} Translated={Translated}", items.Length, translated);
+        }
+        catch (Exception ex)
+        {
+            log.Warning(ex, "[PluginJPHelper][ContextMenuData] Translation failed");
+        }
+    }
+
+
+    private void WrapArtisanCraftingListSubmenu(IMenuItem item)
+    {
+        var originalClicked = item.OnClicked;
+        if (originalClicked == null) return;
+
+        item.OnClicked = clickedArgs =>
+        {
+            var proxy = new ContextMenuClickedArgsProxy(clickedArgs, TranslateArtisanSubmenuItems);
+            originalClicked(proxy);
+        };
+    }
+
+    private IReadOnlyList<IMenuItem> TranslateArtisanSubmenuItems(IReadOnlyList<IMenuItem> items)
+    {
+        if (!IsContextMenuPluginTranslationEnabled("Artisan")) return items;
+
+        var translated = 0;
+        foreach (var item in items)
+        {
+            if (item.Prefix is not SeIconChar.BoxedLetterA) continue;
+            var original = item.Name.TextValue;
+            if (!ArtisanSubmenuTranslations.TryGetValue(original, out var japanese)) continue;
+
+            item.Name = (SeString)japanese;
+            translated++;
+            Interlocked.Increment(ref translatedCount);
+            log.Information(
+                "[PluginJPHelper][ContextMenuData] TranslatedSubmenu Plugin={Plugin} English=\"{English}\" Japanese=\"{Japanese}\"",
+                "Artisan", original, japanese);
+        }
+
+        log.Debug("[PluginJPHelper][ContextMenuData] ArtisanSubmenu ObservedItems={Count} Translated={Translated}", items.Count, translated);
+        return items;
+    }
+
+    private sealed class ContextMenuClickedArgsProxy : IMenuItemClickedArgs
+    {
+        private readonly IMenuItemClickedArgs inner;
+        private readonly Func<IReadOnlyList<IMenuItem>, IReadOnlyList<IMenuItem>> translateItems;
+
+        public ContextMenuClickedArgsProxy(
+            IMenuItemClickedArgs inner,
+            Func<IReadOnlyList<IMenuItem>, IReadOnlyList<IMenuItem>> translateItems)
+        {
+            this.inner = inner;
+            this.translateItems = translateItems;
+        }
+
+        public IReadOnlySet<nint> EventInterfaces => inner.EventInterfaces;
+        public string? AddonName => inner.AddonName;
+        public nint AddonPtr => inner.AddonPtr;
+        public nint AgentPtr => inner.AgentPtr;
+        public ContextMenuType MenuType => inner.MenuType;
+        public MenuTarget Target => inner.Target;
+
+        public void OpenSubmenu(SeString name, IReadOnlyList<IMenuItem> items)
+            => inner.OpenSubmenu(name, translateItems(items));
+
+        public void OpenSubmenu(IReadOnlyList<IMenuItem> items)
+            => inner.OpenSubmenu(translateItems(items));
+    }
+
     private void SaveConfig()
     {
         InvalidateDictionaryUiCache();
@@ -3501,9 +6732,14 @@ public sealed unsafe class Plugin : IDalamudPlugin
     public void Dispose()
     {
         captureEnabled = false; baselineCaptureEnabled = false;
-        pluginInterface.UiBuilder.Draw -= Draw; pluginInterface.UiBuilder.OpenConfigUi -= OpenUi; pluginInterface.UiBuilder.OpenMainUi -= OpenUi; commandManager.RemoveHandler(Command);
-        beginMenuHook?.Dispose(); menuItemBoolPtrHook?.Dispose(); menuItemBoolHook?.Dispose(); beginTabItemHook?.Dispose(); drawListAddTextVec2Hook?.Dispose(); collapsingHeaderBoolPtrHook?.Dispose(); collapsingHeaderTreeNodeFlagsHook?.Dispose(); renderTextClippedHook?.Dispose(); renderTextWrappedHook?.Dispose(); renderTextHook?.Dispose(); bulletTextHook?.Dispose(); textWrappedHook?.Dispose(); treeNodeExStrHook?.Dispose(); treeNodeStrHook?.Dispose(); radioButtonIntPtrHook?.Dispose(); radioButtonBoolHook?.Dispose(); endHook?.Dispose(); beginHook?.Dispose(); separatorTextHook?.Dispose(); endComboHook?.Dispose(); beginComboHook?.Dispose(); comboFnStrPtrHook?.Dispose(); comboStrHook?.Dispose(); comboStrArrHook?.Dispose(); selectablePtrHook?.Dispose(); selectableHook?.Dispose(); buttonHook?.Dispose(); checkboxHook?.Dispose(); textHook?.Dispose();
+        contextMenu.OnMenuOpened -= OnContextMenuOpened;
+        pluginInterface.UiBuilder.Draw -= pluginInstallerModule.Tick; pluginInterface.UiBuilder.Draw -= windowSystem.Draw; pluginInterface.UiBuilder.OpenConfigUi -= OpenUi; pluginInterface.UiBuilder.OpenMainUi -= OpenUi; commandManager.RemoveHandler(Command);
+        windowSystem.RemoveAllWindows();
+        pluginInstallerModule.Dispose();
+        officialDictionaryHttp.Dispose();
+        tableSetupColumnHook?.Dispose(); sliderIntHook?.Dispose(); beginMenuHook?.Dispose(); menuItemBoolPtrHook?.Dispose(); menuItemBoolHook?.Dispose(); beginTabItemHook?.Dispose(); drawListAddTextFontPtrHook?.Dispose(); drawListAddTextVec2Hook?.Dispose(); collapsingHeaderBoolPtrHook?.Dispose(); collapsingHeaderTreeNodeFlagsHook?.Dispose(); renderTextClippedHook?.Dispose(); renderTextWrappedHook?.Dispose(); renderTextHook?.Dispose(); bulletTextHook?.Dispose(); textWrappedHook?.Dispose(); treeNodeExStrHook?.Dispose(); treeNodeStrHook?.Dispose(); radioButtonIntPtrHook?.Dispose(); radioButtonBoolHook?.Dispose(); endPopupHook?.Dispose(); beginPopupModalHook?.Dispose(); beginPopupHook?.Dispose(); endHook?.Dispose(); beginHook?.Dispose(); separatorTextHook?.Dispose(); endComboHook?.Dispose(); beginComboHook?.Dispose(); comboFnStrPtrHook?.Dispose(); comboStrHook?.Dispose(); comboStrArrHook?.Dispose(); selectablePtrHook?.Dispose(); selectableHook?.Dispose(); buttonExHook?.Dispose(); buttonHook?.Dispose(); checkboxHook?.Dispose(); textDisabledVHook?.Dispose(); textColoredVHook?.Dispose(); textVHook?.Dispose(); textHook?.Dispose();
     }
 
+    private sealed record ContextMenuTranslationEntry(string PluginName, SeIconChar Prefix, string English, string Japanese);
     private sealed record CapturedItem(string Text, string Kind, int Count, string Menu, string Section, string Window);
 }

@@ -1,4 +1,4 @@
-using Dalamud.Configuration;
+﻿using Dalamud.Configuration;
 
 namespace PluginJPHelper;
 
@@ -58,6 +58,8 @@ public sealed class Configuration : IPluginConfiguration
             state.OfficialOverrides ??= new Dictionary<string, string>(StringComparer.Ordinal);
             state.Locations ??= new Dictionary<string, DictionaryLocation>(StringComparer.Ordinal);
             state.DeletedKeys ??= new HashSet<string>(StringComparer.Ordinal);
+            state.DictionaryWindowKeywordSources ??= new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            state.SuppressedDictionaryWindowKeywords ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         }
     }
 }
@@ -67,6 +69,14 @@ public sealed class PluginDictionaryState
     public bool Enabled { get; set; }
     public bool TranslationTarget { get; set; }
     public string WindowKeyword { get; set; } = string.Empty;
+
+    // 辞書ファイルに埋め込まれた別ウィンドウ関連付け。
+    // Key=WindowKeyword / Value=由来（公式辞書・コミュニティ辞書・CSV等）。
+    public Dictionary<string, string> DictionaryWindowKeywordSources { get; set; } = new(StringComparer.OrdinalIgnoreCase);
+
+    // 辞書由来の関連付けをユーザーが手動で削除した場合、
+    // 辞書再読込のたびに勝手に復活させないための抑止リスト。
+    public HashSet<string> SuppressedDictionaryWindowKeywords { get; set; } = new(StringComparer.OrdinalIgnoreCase);
     public string LastCsvPath { get; set; } = string.Empty;
     public string OpenCommand { get; set; } = string.Empty;
     public Dictionary<string, string> UserOverrides { get; set; } = new(StringComparer.Ordinal);

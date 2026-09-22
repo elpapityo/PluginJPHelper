@@ -1,0 +1,24 @@
+PluginJPHelper / Dalamud icon specification
+
+LOCAL DEV PLUGIN
+- Dalamud loads a local dev plugin icon from:
+  <plugin folder>\images\icon.png
+- For PJH local testing this becomes:
+  Z:\PluginJPHelper\Current\images\icon.png
+- build.bat copies images\icon.png there automatically.
+
+CUSTOM REPOSITORY
+- Plugin Installer uses pluginmaster.json -> IconUrl for the repository entry.
+- PJH uses the same GitHub file:
+  https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/images/icon.png?v=VERSION
+- The ?v=VERSION suffix is used to avoid stale icon caches after updates.
+
+OFFICIAL D17
+- The submission convention also uses images/icon.png.
+- The icon must be 1:1 and 64x64 through 512x512.
+
+IMPORTANT
+- These are separate mechanisms:
+  local dev = disk file images/icon.png
+  custom repository = IconUrl
+  official D17 = submission images/icon.png
