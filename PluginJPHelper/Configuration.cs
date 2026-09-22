@@ -1,4 +1,6 @@
 ﻿using Dalamud.Configuration;
+using PluginJPHelper.Plugins.Behaviors;
+using PluginJPHelper.Plugins.Profiles;
 
 namespace PluginJPHelper;
 
@@ -37,21 +39,25 @@ public sealed class Configuration : IPluginConfiguration
         // 既に登録済みの設定にも不足キーワードだけを補完し、ユーザー設定は消さない。
         foreach (var (pluginName, artisanState) in Plugins)
         {
-            if (artisanState == null || !string.Equals(pluginName, "Artisan", StringComparison.OrdinalIgnoreCase)) continue;
+            if (artisanState == null || !ArtisanBehavior.MatchesPluginName(pluginName)) continue;
 
             var keywords = (artisanState.WindowKeyword ?? string.Empty)
                 .Split('|', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
                 .ToList();
-            foreach (var required in new[] { "Artisan", "List Editor", "Processing List" })
-                if (!keywords.Contains(required, StringComparer.OrdinalIgnoreCase)) keywords.Add(required);
+            ArtisanBehavior.EnsureWindowKeywords(keywords);
             artisanState.WindowKeyword = string.Join("|", keywords);
         }
 
-        foreach (var name in new[] { "RSR", "BMR", "BM" })
+        foreach (var name in new[] { RsrProfile.PluginName, BossModRebornProfile.PluginName, BossModProfile.PluginName })
         {
             if (!Plugins.TryGetValue(name, out var state) || state == null)
             {
-                state = new PluginDictionaryState { Enabled = name == "RSR", TranslationTarget = true, WindowKeyword = name switch { "RSR" => "Rotation Solver", "BMR" => "BossModReborn", "BM" => "BossMod", _ => string.Empty } };
+                state = new PluginDictionaryState
+                {
+                    Enabled = name == RsrProfile.PluginName,
+                    TranslationTarget = true,
+                    WindowKeyword = PluginProfileRegistry.Find(name)?.DefaultWindowKeyword ?? string.Empty,
+                };
                 Plugins[name] = state;
             }
             state.UserOverrides ??= new Dictionary<string, string>(StringComparer.Ordinal);

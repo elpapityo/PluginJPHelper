@@ -141,16 +141,8 @@ public sealed unsafe class Plugin : IDalamudPlugin
         new("GatherBuddyReborn", SeIconChar.BoxedLetterC, "Add to Crafting List", "製作リストに追加"),
         new("GatherBuddyReborn", SeIconChar.BoxedLetterV, "Add to Crafting List", "製作リストに追加"),
         new("GatherBuddyReborn", SeIconChar.BoxedLetterV, "Open in Vulcan", "Vulcanで開く"),
-        new("Artisan", SeIconChar.BoxedLetterA, "Artisan Crafting List", "Artisan 製作リスト"),
+        new(ArtisanBehavior.PluginName, SeIconChar.BoxedLetterA, "Artisan Crafting List", "Artisan 製作リスト"),
     ];
-
-    private static readonly Dictionary<string, string> ArtisanSubmenuTranslations = new(StringComparer.Ordinal)
-    {
-        ["Add to Current Artisan Crafting List"] = "現在のArtisan製作リストに追加",
-        ["Add to Current Artisan Crafting List (with Sub-crafts)"] = "現在のArtisan製作リストに追加（サブクラフト込み）",
-        ["Add to New Artisan Crafting List"] = "新しいArtisan製作リストに追加",
-        ["Add to New Artisan Crafting List (with Sub-crafts)"] = "新しいArtisan製作リストに追加（サブクラフト込み）",
-    };
 
     private Hook<TextUnformattedDelegate>? textHook;
     private Hook<TextWrappedDelegate>? textWrappedHook;
@@ -1205,8 +1197,8 @@ public sealed unsafe class Plugin : IDalamudPlugin
         // v0.4.9: 末尾が動的に変化する固定接頭辞を翻訳する。
         // 完全一致辞書を最優先し、該当しない場合だけ接頭辞部分を差し替える。
         if (TryTranslateDynamicPrefix(source, false, out translated)) return true;
-        if (TryTranslateInventoryToolsDynamic(pluginName, source, out translated)) return true;
-        if (TryTranslateArtisanDynamic(pluginName, source, false, out translated)) return true;
+        if (InventoryToolsBehavior.TryTranslateDynamic(pluginName, source, out translated)) return true;
+        if (ArtisanBehavior.TryTranslateDynamic(pluginName, source, false, out translated)) return true;
 
         // v0.0.66: 部分一致はDalamudACTの動的ラベルだけに限定する。
         // ICEなど通常のプラグインは完全一致だけで処理し、辞書全件走査を行わない。
@@ -1420,18 +1412,18 @@ public sealed unsafe class Plugin : IDalamudPlugin
     private void DetectInventoryToolsConfigurationOwner(byte* label)
     {
         if (drawingOwnUi || label == null) return;
-        if (!string.Equals(CurrentWindowName, "Configuration", StringComparison.Ordinal)) return;
-        if (!config.Plugins.TryGetValue("InventoryTools", out var state) || !state.Enabled) return;
+        if (!InventoryToolsBehavior.IsConfigurationWindow(CurrentWindowName)) return;
+        if (!config.Plugins.TryGetValue(InventoryToolsBehavior.PluginName, out var state) || !state.Enabled) return;
 
         string? source;
         try { source = Marshal.PtrToStringUTF8((nint)label); }
         catch { return; }
-        if (!string.Equals(source, "Wizard", StringComparison.Ordinal)) return;
+        if (!InventoryToolsBehavior.IsConfigurationOwnerMenu(source)) return;
 
         if (windowOwnerStack is not { Count: > 0 }) return;
         windowOwnerStack.Pop();
-        windowOwnerStack.Push("InventoryTools");
-        lastExplicitWindowOwner = "InventoryTools";
+        windowOwnerStack.Push(InventoryToolsBehavior.PluginName);
+        lastExplicitWindowOwner = InventoryToolsBehavior.PluginName;
         lastExplicitWindowOwnerTick = Environment.TickCount64;
     }
 
@@ -1778,143 +1770,8 @@ public sealed unsafe class Plugin : IDalamudPlugin
         return false;
     }
 
-    private bool TryTranslateInventoryToolsDynamic(string pluginName, string source, out string translated)
-    {
-        translated = string.Empty;
-        if (!string.Equals(pluginName, "InventoryTools", StringComparison.OrdinalIgnoreCase)) return false;
-
-        const string sourcePrefix = "Can the item be sourced via ";
-        const string sourceMiddle = "?\n\nIt includes these sources: ";
-        const string usePrefix = "Can the item be used for ";
-        const string useMiddle = "?\n\nIt includes these uses: ";
-        const string nextAutosavePrefix = "Next Autosave: ";
-
-        if (source.StartsWith(nextAutosavePrefix, StringComparison.Ordinal))
-        {
-            translated = "次回自動保存：" + source[nextAutosavePrefix.Length..];
-            return true;
-        }
-
-        static string CategoryJa(string value) => value.Trim().ToLowerInvariant() switch
-        {
-            "botany" => "園芸",
-            "crafting" => "製作",
-            "deep dungeon" => "ディープダンジョン",
-            "duties" => "コンテンツ",
-            "field operation" => "特殊フィールド探索",
-            "fishing" => "釣り",
-            "gathering" => "採集",
-            "gathering (ephemeral)" => "刻限の採集",
-            "gathering (hidden)" => "未知の採集",
-            "gathering (timed)" => "時間限定の採集",
-            "mining" => "採掘",
-            "venture" => "リテイナーベンチャー",
-            "venture (exploration)" => "探索依頼",
-            "leves" => "リーヴ",
-            "shops" => "ショップ",
-            "housing" => "ハウジング",
-            "relic weapon" => "武器強化コンテンツ",
-            "relic tool" => "道具強化コンテンツ",
-            _ => value.Trim()
-        };
-
-        if (source.StartsWith(sourcePrefix, StringComparison.Ordinal))
-        {
-            var middle = source.IndexOf(sourceMiddle, sourcePrefix.Length, StringComparison.Ordinal);
-            if (middle > sourcePrefix.Length)
-            {
-                var category = source.Substring(sourcePrefix.Length, middle - sourcePrefix.Length);
-                var list = source[(middle + sourceMiddle.Length)..];
-                translated = $"{CategoryJa(category)}で入手できるアイテムか？\n\n対象となる入手元：{list}";
-                return true;
-            }
-        }
-        if (source.StartsWith(usePrefix, StringComparison.Ordinal))
-        {
-            var middle = source.IndexOf(useMiddle, usePrefix.Length, StringComparison.Ordinal);
-            if (middle > usePrefix.Length)
-            {
-                var category = source.Substring(usePrefix.Length, middle - usePrefix.Length);
-                var list = source[(middle + useMiddle.Length)..];
-                translated = $"{CategoryJa(category)}に使用するアイテムか？\n\n対象となる用途：{list}";
-                return true;
-            }
-        }
-        return false;
-    }
-
     // v0.3.1: Artisan の List Editor / Processing List で毎回値が変わる表示だけを
     // 定型部分で安全に翻訳する。数値・アイテム名・ImGui ID は変更しない。
-    private static bool TryTranslateArtisanDynamic(string pluginName, string source, bool interactiveLabel, out string translated)
-    {
-        translated = string.Empty;
-        if (!string.Equals(pluginName, "Artisan", StringComparison.OrdinalIgnoreCase)) return false;
-
-        var idMarker = source.IndexOf("##", StringComparison.Ordinal);
-        var visible = idMarker >= 0 ? source[..idMarker] : source;
-        var idSuffix = idMarker >= 0 ? source[idMarker..] : string.Empty;
-        string? result = null;
-
-        const string listTime = "Approximate List Time: ";
-        const string difficulty = "Difficulty: ";
-        const string durability = " | Durability: ";
-        const string quality = " | Quality: ";
-        const string completedMinimum = "Craft completed and minimum quality required met in ";
-        const string completedFullQuality = "Craft completed with full quality in ";
-        const string currentProgress = "Current Item Progress: ";
-        const string overallProgress = "Overall List Progress: ";
-        const string remaining = "Approximate Remaining Duration: ";
-        const string crafting = "Crafting: ";
-        const string retainerItem = "Retainer Item: ";
-
-        if (visible.StartsWith(listTime, StringComparison.Ordinal))
-            result = "おおよそのリスト所要時間: " + visible[listTime.Length..];
-        else if (visible.StartsWith(difficulty, StringComparison.Ordinal))
-        {
-            var durabilityPos = visible.IndexOf(durability, difficulty.Length, StringComparison.Ordinal);
-            var qualityPos = durabilityPos >= 0 ? visible.IndexOf(quality, durabilityPos + durability.Length, StringComparison.Ordinal) : -1;
-            if (durabilityPos > difficulty.Length && qualityPos > durabilityPos)
-            {
-                var difficultyValue = visible.Substring(difficulty.Length, durabilityPos - difficulty.Length);
-                var durabilityValue = visible.Substring(durabilityPos + durability.Length, qualityPos - (durabilityPos + durability.Length));
-                var qualityValue = visible[(qualityPos + quality.Length)..];
-                result = $"難易度: {difficultyValue} | 耐久: {durabilityValue} | 品質: {qualityValue}";
-            }
-        }
-        else if (visible.StartsWith(completedMinimum, StringComparison.Ordinal) && visible.EndsWith("s!", StringComparison.Ordinal))
-        {
-            // 秒数は毎回変わるため完全一致にはしない。
-            var seconds = visible.Substring(completedMinimum.Length, visible.Length - completedMinimum.Length - 2);
-            if (!string.IsNullOrWhiteSpace(seconds))
-                result = $"製作完了、必要最低品質を{seconds}秒で達成しました！";
-        }
-        else if (visible.StartsWith(completedFullQuality, StringComparison.Ordinal) && visible.EndsWith("s!", StringComparison.Ordinal))
-        {
-            // List Editor 実機で確認した別形式。秒数だけを保持して表示文言を翻訳する。
-            // 例: Craft completed with full quality in 6s!
-            var seconds = visible.Substring(completedFullQuality.Length, visible.Length - completedFullQuality.Length - 2);
-            if (!string.IsNullOrWhiteSpace(seconds))
-                result = $"製作完了、最高品質を{seconds}秒で達成しました！";
-        }
-        else if (visible.StartsWith(currentProgress, StringComparison.Ordinal))
-            result = "現在のアイテム進捗: " + visible[currentProgress.Length..];
-        else if (visible.StartsWith(overallProgress, StringComparison.Ordinal))
-            result = "リスト全体の進捗: " + visible[overallProgress.Length..];
-        else if (visible.StartsWith(remaining, StringComparison.Ordinal))
-            result = "おおよその残り時間: " + visible[remaining.Length..];
-        else if (visible.StartsWith(crafting, StringComparison.Ordinal))
-            result = "製作中: " + visible[crafting.Length..];
-        else if (visible.StartsWith(retainerItem, StringComparison.Ordinal))
-            result = "リテイナー所持品: " + visible[retainerItem.Length..];
-
-        if (result == null) return false;
-
-        // Button/Selectable 等は呼び出し側が元ラベル全体を ###original として保持するため表示部だけ返す。
-        // RenderText 系は表示文字列中の ## / ### サフィックスをそのまま戻す。
-        translated = interactiveLabel ? result : result + idSuffix;
-        return true;
-    }
-
     private bool TryTranslatePointer(byte* begin, byte* end, bool preserveImGuiId, out string translated)
     {
         translated = string.Empty;
@@ -1973,8 +1830,8 @@ public sealed unsafe class Plugin : IDalamudPlugin
         // v0.4.9: バージョン番号・作者名・説明文など、
         // 後半が動的な文字列は固定接頭辞だけ翻訳する。
         if (TryTranslateDynamicPrefix(source, preserveImGuiId, out translated)) return true;
-        if (TryTranslateInventoryToolsDynamic(pluginName, source, out translated)) return true;
-        if (TryTranslateArtisanDynamic(pluginName, source, preserveImGuiId, out translated)) return true;
+        if (InventoryToolsBehavior.TryTranslateDynamic(pluginName, source, out translated)) return true;
+        if (ArtisanBehavior.TryTranslateDynamic(pluginName, source, preserveImGuiId, out translated)) return true;
 
         // v0.0.66: Button/Checkbox/TreeNode/Selectable等も、部分一致はDalamudACTだけ。
         // 通常プラグインは上の完全一致辞書検索だけで終了する。
@@ -5145,14 +5002,11 @@ public sealed unsafe class Plugin : IDalamudPlugin
         state.Enabled = true;
         var keywords = new[] { plugin.Name?.Trim(), plugin.InternalName?.Trim() }
             .Where(x => !string.IsNullOrWhiteSpace(x))
+            .Select(x => x!)
             .Distinct(StringComparer.OrdinalIgnoreCase)
             .ToList();
-        if (string.Equals(key, "Artisan", StringComparison.OrdinalIgnoreCase)
-            || string.Equals(plugin.Name, "Artisan", StringComparison.OrdinalIgnoreCase))
-        {
-            foreach (var required in new[] { "Artisan", "List Editor", "Processing List" })
-                if (!keywords.Contains(required, StringComparer.OrdinalIgnoreCase)) keywords.Add(required);
-        }
+        if (ArtisanBehavior.MatchesPluginName(key) || ArtisanBehavior.MatchesPluginName(plugin.Name))
+            ArtisanBehavior.EnsureWindowKeywords(keywords);
         state.WindowKeyword = string.Join("|", keywords);
         EnsureCaptureDictionary(key);
         selectedPlugin = capturePlugin = key;
@@ -5223,7 +5077,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
     {
         try
         {
-            const string pluginName = "InventoryTools";
+            const string pluginName = InventoryToolsBehavior.PluginName;
 
             if (!config.Plugins.TryGetValue(pluginName, out var state) || state == null)
             {
@@ -5662,7 +5516,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
                         entry.PluginName, enabled, (int)entry.Prefix, entry.English);
                     if (!enabled) break;
 
-                    if (string.Equals(entry.PluginName, "Artisan", StringComparison.Ordinal)
+                    if (string.Equals(entry.PluginName, ArtisanBehavior.PluginName, StringComparison.Ordinal)
                         && string.Equals(entry.English, "Artisan Crafting List", StringComparison.Ordinal))
                     {
                         WrapArtisanCraftingListSubmenu(item);
@@ -5701,21 +5555,21 @@ public sealed unsafe class Plugin : IDalamudPlugin
 
     private IReadOnlyList<IMenuItem> TranslateArtisanSubmenuItems(IReadOnlyList<IMenuItem> items)
     {
-        if (!IsContextMenuPluginTranslationEnabled("Artisan")) return items;
+        if (!IsContextMenuPluginTranslationEnabled(ArtisanBehavior.PluginName)) return items;
 
         var translated = 0;
         foreach (var item in items)
         {
             if (item.Prefix is not SeIconChar.BoxedLetterA) continue;
             var original = item.Name.TextValue;
-            if (!ArtisanSubmenuTranslations.TryGetValue(original, out var japanese)) continue;
+            if (!ArtisanBehavior.SubmenuTranslations.TryGetValue(original, out var japanese)) continue;
 
             item.Name = (SeString)japanese;
             translated++;
             Interlocked.Increment(ref translatedCount);
             log.Information(
                 "[PluginJPHelper][ContextMenuData] TranslatedSubmenu Plugin={Plugin} English=\"{English}\" Japanese=\"{Japanese}\"",
-                "Artisan", original, japanese);
+                ArtisanBehavior.PluginName, original, japanese);
         }
 
         log.Debug("[PluginJPHelper][ContextMenuData] ArtisanSubmenu ObservedItems={Count} Translated={Translated}", items.Count, translated);
