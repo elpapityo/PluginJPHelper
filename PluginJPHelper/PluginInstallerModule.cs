@@ -302,7 +302,18 @@ internal sealed class PluginInstallerModule : IDisposable
     {
         try
         {
-            var assemblyDir = Path.GetDirectoryName(typeof(Plugin).Assembly.Location) ?? string.Empty;
+            // typeof(Plugin).Assembly.Location は使わない。
+            // Dalamud は Dev Plugin をメモリ上へ読み込むため、その場合 Location は空文字になる。
+            // 空のまま Path.Combine すると相対パスになり、同梱辞書が見つからず
+            // Plugin Installer の翻訳辞書が 0 件のまま起動してしまう。
+            // Dalamud が保持しているロード元パスを使う。
+            var assemblyDir = this.pluginInterface.AssemblyLocation.DirectoryName ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(assemblyDir))
+            {
+                this.log.Warning("[PJH/PluginInstaller] 同梱辞書の配置をスキップ: アセンブリの場所を特定できません。");
+                return;
+            }
+
             var bundledPath = Path.Combine(assemblyDir, "Dictionaries", "PluginInstaller", fileName);
 
             // v0.2.5: A previous test build may have already created an empty [] dictionary.

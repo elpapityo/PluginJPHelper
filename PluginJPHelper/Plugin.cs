@@ -5097,7 +5097,18 @@ public sealed unsafe class Plugin : IDalamudPlugin
                 state.TranslationTarget = true;
             }
 
-            var assemblyDir = Path.GetDirectoryName(typeof(Plugin).Assembly.Location) ?? string.Empty;
+            // typeof(Plugin).Assembly.Location は使わない。
+            // Dalamud は Dev Plugin をメモリ上へ読み込むため、その場合 Location は空文字になる。
+            // 空文字のまま Directory.GetFiles へ渡すと
+            // ArgumentException: The path is empty. で落ちる。
+            // Dalamud が保持しているロード元パスを使う。
+            var assemblyDir = pluginInterface.AssemblyLocation.DirectoryName ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(assemblyDir) || !Directory.Exists(assemblyDir))
+            {
+                log.Warning($"[PluginJPHelper] InventoryTools bundled CSV import skipped: assembly directory is unavailable: {assemblyDir}");
+                return false;
+            }
+
             var latest = Directory
                 .GetFiles(assemblyDir, "InventoryTools_JP_patch_v*.csv", SearchOption.TopDirectoryOnly)
                 .Select(path => new { Path = path, Version = GetInventoryToolsPatchVersion(path) })
