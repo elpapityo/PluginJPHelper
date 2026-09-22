@@ -1587,9 +1587,19 @@ public sealed unsafe class Plugin : IDalamudPlugin
 
     private void PushPopupOwnerFrame(bool opened, byte* namePtr, string inheritedOwner)
     {
-        popupOwnerFrameStack ??= new Stack<bool>();
-        popupOwnerFrameStack.Push(opened);
+        // ImGui は BeginPopup* が false を返したとき EndPopup() を呼ばない。
+        // 開かなかった分まで push すると対応する pop が来ないため、
+        // 閉じている popup を描画するたびに 1 要素ずつ積み上がり続ける。
+        //
+        // さらに、開いている popup の内側で別の BeginPopup が false を返すと、
+        // 外側の EndPopup がその false を pop してしまい、windowStack /
+        // windowOwnerStack が戻らないまま所有者判定がずれる。
+        //
+        // 開いたときだけ積む。これで EndPopup と 1 対 1 に対応する。
         if (!opened) return;
+
+        popupOwnerFrameStack ??= new Stack<bool>();
+        popupOwnerFrameStack.Push(true);
 
         string popupName = string.Empty;
         try
