@@ -86,12 +86,25 @@ if errorlevel 1 (
     goto :fail
 )
 
+rem 同梱するのはプラグインが実行時に読み込む辞書だけにする。
+rem Dictionaries\Official と Dictionaries\Community は GitHub 配布用の置き場で、
+rem 実行時はユーザーの設定フォルダー側 (ConfigDirectory\Dictionaries\...) を参照するため
+rem 同梱しても読まれない。再帰コピーすると配布 ZIP が 3MB 以上膨らむ。
 if exist "%SOURCEDICT%" (
     if exist "%RELEASE%\Dictionaries" rmdir /s /q "%RELEASE%\Dictionaries"
-    xcopy "%SOURCEDICT%\*" "%RELEASE%\Dictionaries\" /E /I /Y /Q >nul
+    mkdir "%RELEASE%\Dictionaries" >nul 2>nul
+    copy /Y "%SOURCEDICT%\*.csv" "%RELEASE%\Dictionaries\" >nul
     if errorlevel 1 (
-        echo [ERROR] Failed to copy Dictionaries.
+        echo [ERROR] Failed to copy bundled dictionaries.
         goto :fail
+    )
+    if exist "%SOURCEDICT%\PluginInstaller" (
+        mkdir "%RELEASE%\Dictionaries\PluginInstaller" >nul 2>nul
+        xcopy "%SOURCEDICT%\PluginInstaller\*" "%RELEASE%\Dictionaries\PluginInstaller\" /E /I /Y /Q >nul
+        if errorlevel 1 (
+            echo [ERROR] Failed to copy PluginInstaller dictionaries.
+            goto :fail
+        )
     )
 )
 
