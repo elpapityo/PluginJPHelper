@@ -180,7 +180,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
     private Hook<SelectablePtrDelegate>? selectablePtrHook;
     private Hook<ComboStrArrDelegate>? comboStrArrHook;
     private Hook<ComboStrDelegate>? comboStrHook;
-    private Hook<ComboFnStrPtrDelegate>? comboFnStrPtrHook;
+    private Hook<ComboFnPtrDelegate>? comboFnPtrHook;
     private Hook<BeginComboDelegate>? beginComboHook;
     private Hook<EndComboDelegate>? endComboHook;
     private Hook<SliderIntDelegate>? sliderIntHook;
@@ -261,7 +261,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate byte ComboStrDelegate(byte* label, int* currentItem, byte* itemsSeparatedByZeros, int popupMaxHeightInItems);
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    private delegate byte ComboFnStrPtrDelegate(byte* label, int* currentItem, nint getter, void* userData, int itemsCount, int popupMaxHeightInItems);
+    private delegate byte ComboFnPtrDelegate(byte* label, int* currentItem, nint getter, void* userData, int itemsCount, int popupMaxHeightInItems);
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate byte BeginComboDelegate(byte* label, byte* previewValue, int flags);
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -454,6 +454,26 @@ public sealed unsafe class Plugin : IDalamudPlugin
         InstallHooks();
     }
 
+    // ImGui のバージョンによって cimgui のエクスポート名が変わる関数がある。
+    // 例: Combo(getter) は ImGui 1.89.7 で getter のシグネチャが変わり、
+    //     cimgui 側の名前も igCombo_FnBoolPtr から igCombo_FnStrPtr になった。
+    //       旧 (〜1.89.6) bool (*)(void* data, int idx, const char** out_text)  -> igCombo_FnBoolPtr
+    //       新 (1.89.7〜) const char* (*)(void* user_data, int idx)             -> igCombo_FnStrPtr
+    // どちらも関数ポインタを nint で受けるため ABI は同じ。
+    // Dalamud がどの ImGui を同梱していても刺さるよう、候補を順に試す。
+    private Hook<T> HookFirstAvailable<T>(string[] symbols, T detour) where T : Delegate
+    {
+        Exception? lastError = null;
+        foreach (var symbol in symbols)
+        {
+            try { return interop.HookFromSymbol("cimgui.dll", symbol, detour); }
+            catch (Exception ex) { lastError = ex; }
+        }
+
+        throw lastError ?? new InvalidOperationException(
+            $"cimgui.dll に該当するシンボルがありません: {string.Join(" / ", symbols)}");
+    }
+
     private void InstallHooks()
     {
         var installed = new List<string>();
@@ -482,8 +502,9 @@ public sealed unsafe class Plugin : IDalamudPlugin
         catch (Exception ex) { failed.Add("ComboStrArr"); log.Warning(ex, "[PluginJPHelper] igCombo_Str_arr hook failed"); }
         try { comboStrHook = interop.HookFromSymbol<ComboStrDelegate>("cimgui.dll", "igCombo_Str", ComboStrDetour); comboStrHook.Enable(); installed.Add("ComboStr"); }
         catch (Exception ex) { failed.Add("ComboStr"); log.Warning(ex, "[PluginJPHelper] igCombo_Str hook failed"); }
-        try { comboFnStrPtrHook = interop.HookFromSymbol<ComboFnStrPtrDelegate>("cimgui.dll", "igCombo_FnStrPtr", ComboFnStrPtrDetour); comboFnStrPtrHook.Enable(); installed.Add("ComboFn"); }
-        catch (Exception ex) { failed.Add("ComboFn"); log.Warning(ex, "[PluginJPHelper] igCombo_FnStrPtr hook failed"); }
+        // Combo(getter) は ImGui のバージョンでエクスポート名が変わる。新旧どちらでも刺さるよう順に試す。
+        try { comboFnPtrHook = HookFirstAvailable<ComboFnPtrDelegate>(["igCombo_FnStrPtr", "igCombo_FnBoolPtr"], ComboFnPtrDetour); comboFnPtrHook.Enable(); installed.Add("ComboFn"); }
+        catch (Exception ex) { failed.Add("ComboFn"); log.Warning(ex, "[PluginJPHelper] Combo(getter) hook failed"); }
         try { beginComboHook = interop.HookFromSymbol<BeginComboDelegate>("cimgui.dll", "igBeginCombo", BeginComboDetour); beginComboHook.Enable(); installed.Add("BeginCombo"); }
         catch (Exception ex) { failed.Add("BeginCombo"); log.Warning(ex, "[PluginJPHelper] igBeginCombo hook failed"); }
         try { endComboHook = interop.HookFromSymbol<EndComboDelegate>("cimgui.dll", "igEndCombo", EndComboDetour); endComboHook.Enable(); installed.Add("EndCombo"); }
@@ -501,7 +522,10 @@ public sealed unsafe class Plugin : IDalamudPlugin
         try { beginMenuHook = interop.HookFromSymbol<BeginMenuDelegate>("cimgui.dll", "igBeginMenu", BeginMenuDetour); beginMenuHook.Enable(); installed.Add("BeginMenu"); }
         catch (Exception ex) { failed.Add("BeginMenu"); log.Warning(ex, "[PluginJPHelper] igBeginMenu hook failed"); }
         try { separatorTextHook = interop.HookFromSymbol<SeparatorTextDelegate>("cimgui.dll", "igSeparatorText", SeparatorTextDetour); separatorTextHook.Enable(); installed.Add("SeparatorText"); }
-        catch (Exception ex) { failed.Add("SeparatorText"); log.Warning(ex, "[PluginJPHelper] igSeparatorText hook failed"); }
+        // igSeparatorText は ImGui 1.89 で追加された API。
+        // 現行 Dalamud が同梱する cimgui (v1.65.4-543 / ImGui 1.88 相当) には存在しないため
+        // ここは失敗するのが正常。Dalamud が ImGui を上げれば自動的に有効になる。
+        catch (Exception ex) { failed.Add("SeparatorText"); log.Information(ex, "[PluginJPHelper] igSeparatorText hook unavailable (ImGui 1.89 未満では正常)"); }
         try { beginHook = interop.HookFromSymbol<BeginDelegate>("cimgui.dll", "igBegin", BeginDetour); beginHook.Enable(); installed.Add("Begin"); }
         catch (Exception ex) { failed.Add("Begin"); log.Warning(ex, "[PluginJPHelper] igBegin hook failed"); }
         try { endHook = interop.HookFromSymbol<EndDelegate>("cimgui.dll", "igEnd", EndDetour); endHook.Enable(); installed.Add("End"); }
@@ -849,11 +873,11 @@ public sealed unsafe class Plugin : IDalamudPlugin
         }
     }
 
-    private byte ComboFnStrPtrDetour(byte* label, int* currentItem, nint getter, void* userData, int itemsCount, int popupMaxHeightInItems)
+    private byte ComboFnPtrDetour(byte* label, int* currentItem, nint getter, void* userData, int itemsCount, int popupMaxHeightInItems)
     {
         // まず実機でこの経路を使っているかだけ確認する。getter差し替えは誤動作リスクがあるためまだ行わない。
         Interlocked.Increment(ref comboFnCalls);
-        return comboFnStrPtrHook!.Original(label, currentItem, getter, userData, itemsCount, popupMaxHeightInItems);
+        return comboFnPtrHook!.Original(label, currentItem, getter, userData, itemsCount, popupMaxHeightInItems);
     }
 
     private void RecordHookDiagnostic(string hookKind, byte* textPtr)
@@ -5319,7 +5343,18 @@ public sealed unsafe class Plugin : IDalamudPlugin
                 state.TranslationTarget = true;
             }
 
-            var assemblyDir = Path.GetDirectoryName(typeof(Plugin).Assembly.Location) ?? string.Empty;
+            // typeof(Plugin).Assembly.Location は使わない。
+            // Dalamud は Dev Plugin をメモリ上へ読み込むため、その場合 Location は空文字になる。
+            // 空文字のまま Directory.GetFiles へ渡すと
+            // ArgumentException: The path is empty. で落ちる。
+            // Dalamud が保持しているロード元パスを使う。
+            var assemblyDir = pluginInterface.AssemblyLocation.DirectoryName ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(assemblyDir) || !Directory.Exists(assemblyDir))
+            {
+                log.Warning($"[PluginJPHelper] InventoryTools bundled CSV import skipped: assembly directory is unavailable: {assemblyDir}");
+                return false;
+            }
+
             var latest = Directory
                 .GetFiles(assemblyDir, "InventoryTools_JP_patch_v*.csv", SearchOption.TopDirectoryOnly)
                 .Select(path => new { Path = path, Version = GetInventoryToolsPatchVersion(path) })
@@ -5839,7 +5874,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
         windowSystem.RemoveAllWindows();
         pluginInstallerModule.Dispose();
         officialDictionaryHttp.Dispose();
-        tableSetupColumnHook?.Dispose(); sliderIntHook?.Dispose(); beginMenuHook?.Dispose(); menuItemBoolPtrHook?.Dispose(); menuItemBoolHook?.Dispose(); beginTabItemHook?.Dispose(); drawListAddTextFontPtrHook?.Dispose(); drawListAddTextVec2Hook?.Dispose(); collapsingHeaderBoolPtrHook?.Dispose(); collapsingHeaderTreeNodeFlagsHook?.Dispose(); renderTextClippedHook?.Dispose(); renderTextWrappedHook?.Dispose(); renderTextHook?.Dispose(); bulletTextHook?.Dispose(); textWrappedHook?.Dispose(); treeNodeExStrHook?.Dispose(); treeNodeStrHook?.Dispose(); radioButtonIntPtrHook?.Dispose(); radioButtonBoolHook?.Dispose(); endPopupHook?.Dispose(); beginPopupModalHook?.Dispose(); beginPopupHook?.Dispose(); endHook?.Dispose(); beginHook?.Dispose(); separatorTextHook?.Dispose(); endComboHook?.Dispose(); beginComboHook?.Dispose(); comboFnStrPtrHook?.Dispose(); comboStrHook?.Dispose(); comboStrArrHook?.Dispose(); selectablePtrHook?.Dispose(); selectableHook?.Dispose(); buttonExHook?.Dispose(); buttonHook?.Dispose(); checkboxHook?.Dispose(); textDisabledVHook?.Dispose(); textColoredVHook?.Dispose(); textVHook?.Dispose(); textHook?.Dispose();
+        tableSetupColumnHook?.Dispose(); sliderIntHook?.Dispose(); beginMenuHook?.Dispose(); menuItemBoolPtrHook?.Dispose(); menuItemBoolHook?.Dispose(); beginTabItemHook?.Dispose(); drawListAddTextFontPtrHook?.Dispose(); drawListAddTextVec2Hook?.Dispose(); collapsingHeaderBoolPtrHook?.Dispose(); collapsingHeaderTreeNodeFlagsHook?.Dispose(); renderTextClippedHook?.Dispose(); renderTextWrappedHook?.Dispose(); renderTextHook?.Dispose(); bulletTextHook?.Dispose(); textWrappedHook?.Dispose(); treeNodeExStrHook?.Dispose(); treeNodeStrHook?.Dispose(); radioButtonIntPtrHook?.Dispose(); radioButtonBoolHook?.Dispose(); endPopupHook?.Dispose(); beginPopupModalHook?.Dispose(); beginPopupHook?.Dispose(); endHook?.Dispose(); beginHook?.Dispose(); separatorTextHook?.Dispose(); endComboHook?.Dispose(); beginComboHook?.Dispose(); comboFnPtrHook?.Dispose(); comboStrHook?.Dispose(); comboStrArrHook?.Dispose(); selectablePtrHook?.Dispose(); selectableHook?.Dispose(); buttonExHook?.Dispose(); buttonHook?.Dispose(); checkboxHook?.Dispose(); textDisabledVHook?.Dispose(); textColoredVHook?.Dispose(); textVHook?.Dispose(); textHook?.Dispose();
     }
 
     private sealed record ContextMenuTranslationEntry(string PluginName, SeIconChar Prefix, string English, string Japanese);

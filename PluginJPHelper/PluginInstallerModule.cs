@@ -296,8 +296,9 @@ internal sealed class PluginInstallerModule : IDisposable
         // Default path only: seed the bundled dictionary. A manually selected file is never overwritten.
         if (string.Equals(this.dictionaryPath, defaultDictionaryPath, StringComparison.OrdinalIgnoreCase))
         {
+            // 用語辞書はシードしない。LoadTerminology が同梱辞書を毎回重ねて読むため、
+            // ここでコピーすると同じ内容を二重に扱うことになる。
             this.SeedSharedDictionaryIfMissing(DictionaryFileName, this.dictionaryPath);
-            this.SeedSharedDictionaryIfMissing(TerminologyFileName, this.terminologyPath);
         }
 
         this.LoadDictionary();
@@ -325,7 +326,18 @@ internal sealed class PluginInstallerModule : IDisposable
     {
         try
         {
-            var assemblyDir = Path.GetDirectoryName(typeof(Plugin).Assembly.Location) ?? string.Empty;
+            // typeof(Plugin).Assembly.Location は使わない。
+            // Dalamud は Dev Plugin をメモリ上へ読み込むため、その場合 Location は空文字になる。
+            // 空のまま Path.Combine すると相対パスになり、同梱辞書が見つからず
+            // Plugin Installer の翻訳辞書が 0 件のまま起動してしまう。
+            // Dalamud が保持しているロード元パスを使う。
+            var assemblyDir = this.pluginInterface.AssemblyLocation.DirectoryName ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(assemblyDir))
+            {
+                this.log.Warning("[PJH/PluginInstaller] 同梱辞書の配置をスキップ: アセンブリの場所を特定できません。");
+                return;
+            }
+
             var bundledPath = Path.Combine(assemblyDir, "Dictionaries", "PluginInstaller", fileName);
 
             // v0.2.5: A previous test build may have already created an empty [] dictionary.
@@ -2315,6 +2327,19 @@ internal sealed class PluginInstallerModule : IDisposable
         }
     }
 
+    // 用語辞書は 3 層を重ねて作る。後の層が前の層を上書きする。
+    //   1. DefaultTerminology  コード内の最低限の既定値
+    //   2. 同梱 terminology.json  配布物。毎回読み直すので更新が自動で反映される
+    //   3. ユーザーの terminology.json  ユーザー編集。最優先
+    //
+    // 以前は 2 を「ファイルが無ければコピーする」シード方式で扱っていたが、
+    // SeedSharedDictionaryIfMissing の「中身が空なら再シード」判定が
+    // translations.json にしか掛かっておらず、terminology は
+    // 「ファイルが存在すればスキップ」だけだった。
+    // 一方この関数は必ずファイルを書き戻すため、初回のシードに失敗すると
+    // 既定値だけのファイルが出来上がり、以後永久に同梱辞書が入らなくなる。
+    // 実際に 374 件の同梱辞書があるのに 57 件（既定値のみ）で固定される事例が出た。
+    // 毎回重ねる方式にすることで、初回に何が起きても自己修復する。
     private void LoadTerminology()
     {
         try
@@ -2322,19 +2347,48 @@ internal sealed class PluginInstallerModule : IDisposable
             foreach (var pair in DefaultTerminology)
                 this.terminology[pair.Key] = pair.Value;
 
-            if (File.Exists(this.terminologyPath))
-            {
-                var json = File.ReadAllText(this.terminologyPath, Encoding.UTF8);
-                var saved = JsonSerializer.Deserialize<Dictionary<string, string>>(json, JsonOptions);
-                if (saved != null)
-                    foreach (var pair in saved)
-                        this.terminology[pair.Key] = pair.Value;
-            }
+            foreach (var pair in ReadTerminologyFile(this.BundledTerminologyPath))
+                this.terminology[pair.Key] = pair.Value;
+
+            foreach (var pair in ReadTerminologyFile(this.terminologyPath))
+                this.terminology[pair.Key] = pair.Value;
+
             File.WriteAllText(this.terminologyPath, JsonSerializer.Serialize(this.terminology, JsonOptions), new UTF8Encoding(false));
         }
         catch (Exception ex)
         {
             this.log.Error(ex, "[PJH/PluginInstaller] 用語辞書の読み込みに失敗");
+        }
+    }
+
+    /// <summary>配布物に同梱された用語辞書のパス。取得できない場合は空。</summary>
+    private string BundledTerminologyPath
+    {
+        get
+        {
+            var assemblyDir = this.pluginInterface.AssemblyLocation.DirectoryName;
+            return string.IsNullOrWhiteSpace(assemblyDir)
+                ? string.Empty
+                : Path.Combine(assemblyDir, "Dictionaries", "PluginInstaller", TerminologyFileName);
+        }
+    }
+
+    /// <summary>用語辞書を 1 ファイル読む。読めない場合は空を返し、他の層の処理は止めない。</summary>
+    private IReadOnlyDictionary<string, string> ReadTerminologyFile(string path)
+    {
+        if (string.IsNullOrWhiteSpace(path) || !File.Exists(path))
+            return new Dictionary<string, string>(0);
+
+        try
+        {
+            var json = File.ReadAllText(path, Encoding.UTF8);
+            return JsonSerializer.Deserialize<Dictionary<string, string>>(json, JsonOptions)
+                   ?? new Dictionary<string, string>(0);
+        }
+        catch (Exception ex)
+        {
+            this.log.Warning(ex, "[PJH/PluginInstaller] 用語辞書を読めませんでした: {Path}", path);
+            return new Dictionary<string, string>(0);
         }
     }
 
