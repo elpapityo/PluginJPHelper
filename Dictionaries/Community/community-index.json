@@ -117,15 +117,6 @@
       "sha": "54884e7fc25737c32a3159eb4c0b7fd4ec62919c",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/CBT_v69.218.csv",
       "deleteKeyHash": "b9eb1b087120d9c02de5c3fe3dbcbdb85491000e7b97059cffc29707ff7884f6"
-    },
-    {
-      "fileName": "BossModReborn公式辞書対応コンテンツ酷い翻訳を一部修正.csv",
-      "pluginName": "BossModReborn",
-      "owner": "CBT",
-      "updated": "2026-09-22",
-      "sha": "5b0a31428a403418713d662637373d4abe520d88",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/BossModReborn%E5%85%AC%E5%BC%8F%E8%BE%9E%E6%9B%B8%E5%AF%BE%E5%BF%9C%E3%82%B3%E3%83%B3%E3%83%86%E3%83%B3%E3%83%84%E9%85%B7%E3%81%84%E7%BF%BB%E8%A8%B3%E3%82%92%E4%B8%80%E9%83%A8%E4%BF%AE%E6%AD%A3.csv",
-      "deleteKeyHash": "76258936d83ba57c9517fef356c2a200ae3286358e5d27b0b7f18097a155edb4"
     }
   ]
 }
