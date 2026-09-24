@@ -126,6 +126,15 @@
       "sha": "e931a759be48de162b859ebf3de543ed999ce55a",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/BossModReborn.csv",
       "deleteKeyHash": "c8da03245369f7b21d89d6d456ed8291ead3811c3b9053a5279ef7674db64b59"
+    },
+    {
+      "fileName": "YesAlready.csv",
+      "pluginName": "YesAlready",
+      "owner": "より良い辞書",
+      "updated": "2026-09-24",
+      "sha": "e983decee61d03e4e2a8778fba9aed33a2e6a1d2",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/YesAlready.csv",
+      "deleteKeyHash": "521ac5af53f1b485762099f4c0cd6ceaa5c21b28c46abb88395a7c6caf6ed469"
     }
   ]
 }
