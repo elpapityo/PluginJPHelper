@@ -1,0 +1,116 @@
+name: Build and Publish Plugin JP Helper
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - "VERSION.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-release:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Read version
+        id: ver
+        shell: pwsh
+        run: |
+          $version = (Get-Content VERSION.txt -Raw).Trim([char]0xFEFF).Trim()
+          if (-not ($version -match '^\d+\.\d+\.\d+$')) { throw "Invalid VERSION.txt: $version" }
+          "version=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          "tag=V$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore
+        shell: pwsh
+        run: dotnet restore .\PluginJPHelper\PluginJPHelper.csproj
+
+      - name: Build
+        shell: pwsh
+        run: dotnet build .\PluginJPHelper\PluginJPHelper.csproj -c Release --no-restore -p:Platform=x64
+
+      - name: Package
+        shell: pwsh
+        env:
+          VERSION: ${{ steps.ver.outputs.version }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $dll = Get-ChildItem .\PluginJPHelper\bin -Recurse -Filter PluginJPHelper.dll | Where-Object { $_.FullName -match '\\Release\\' } | Select-Object -First 1
+          if (-not $dll) { throw 'PluginJPHelper.dll was not found.' }
+          $buildDir = $dll.Directory.FullName
+          $releaseRoot = Join-Path $PWD 'release'
+          $releaseDir = Join-Path $releaseRoot 'PluginJPHelper'
+          $zip = Join-Path $releaseRoot ("PluginJPHelper_v{0}.zip" -f $env:VERSION)
+          if (Test-Path $releaseRoot) { Remove-Item $releaseRoot -Recurse -Force }
+          New-Item -ItemType Directory -Path $releaseDir -Force | Out-Null
+          Copy-Item $dll.FullName (Join-Path $releaseDir 'PluginJPHelper.dll')
+          foreach ($name in @('PluginJPHelper.deps.json','Microsoft.Windows.SDK.NET.dll','WinRT.Runtime.dll')) {
+            $src = Join-Path $buildDir $name
+            if (-not (Test-Path $src)) { throw "Required build file missing: $name" }
+            Copy-Item $src (Join-Path $releaseDir $name)
+          }
+          Copy-Item .\PluginJPHelper\PluginJPHelper.json (Join-Path $releaseDir 'PluginJPHelper.json')
+          New-Item -ItemType Directory -Path (Join-Path $releaseDir 'images') -Force | Out-Null
+          Copy-Item .\images\icon.png (Join-Path $releaseDir 'images\icon.png')
+          New-Item -ItemType Directory -Path (Join-Path $releaseDir 'Dictionaries') -Force | Out-Null
+          Get-ChildItem .\Dictionaries -File -Filter *.csv | Copy-Item -Destination (Join-Path $releaseDir 'Dictionaries')
+          if (Test-Path .\Dictionaries\PluginInstaller) {
+            Copy-Item .\Dictionaries\PluginInstaller (Join-Path $releaseDir 'Dictionaries\PluginInstaller') -Recurse -Force
+          }
+          Compress-Archive -Path (Join-Path $releaseDir '*') -DestinationPath $zip -CompressionLevel Optimal -Force
+          if (-not (Test-Path $zip)) { throw 'Release ZIP was not created.' }
+
+          $manifest = Get-Content (Join-Path $releaseDir 'PluginJPHelper.json') -Raw | ConvertFrom-Json
+          $expected = "$env:VERSION.0"
+          if ($manifest.AssemblyVersion -ne $expected) { throw "AssemblyVersion mismatch: $($manifest.AssemblyVersion) != $expected" }
+          "ZIP=$zip" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+
+      - name: Update pluginmaster
+        shell: pwsh
+        env:
+          VERSION: ${{ steps.ver.outputs.version }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $path = 'pluginmaster.json'
+          $data = Get-Content $path -Raw | ConvertFrom-Json
+          if ($data -isnot [System.Array]) { $data = @($data) }
+          if ($data.Count -lt 1) { throw 'pluginmaster.json is empty.' }
+          $entry = $data[0]
+          $assembly = "$env:VERSION.0"
+          $url = "https://github.com/elpapityo/PluginJPHelper/releases/download/V$env:VERSION/PluginJPHelper_v$env:VERSION.zip"
+          $entry.AssemblyVersion = $assembly
+          $entry.DownloadLinkInstall = $url
+          $entry.DownloadLinkUpdate = $url
+          $entry.DownloadLinkTesting = $url
+          $data | ConvertTo-Json -Depth 20 | Set-Content $path -Encoding utf8
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pluginmaster.json
+          if (-not (git diff --cached --quiet)) {
+            git commit -m "Sync pluginmaster for v$env:VERSION"
+            git push
+          }
+
+      - name: Publish release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.ver.outputs.version }}
+          TAG: ${{ steps.ver.outputs.tag }}
+        run: |
+          if (gh release view $env:TAG --repo $env:GITHUB_REPOSITORY 2>$null) {
+            gh release upload $env:TAG $env:ZIP --clobber --repo $env:GITHUB_REPOSITORY
+            gh release edit $env:TAG --repo $env:GITHUB_REPOSITORY --title "Plugin JP Helper v$env:VERSION" --notes-file CHANGELOG.md
+          } else {
+            gh release create $env:TAG $env:ZIP --repo $env:GITHUB_REPOSITORY --title "Plugin JP Helper v$env:VERSION" --notes-file CHANGELOG.md
+          }
