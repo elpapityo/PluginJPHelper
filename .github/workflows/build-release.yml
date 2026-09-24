@@ -5,7 +5,7 @@ on:
     branches: [ main ]
     paths:
       - "VERSION.txt"
-      - "source-upload/PluginJPHelper_v*_Source.zip"
+      - "source-patch/PluginJPHelper_v*.patch.gz.b64.part*"
   workflow_dispatch:
 
 permissions:
@@ -20,38 +20,54 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Promote uploaded source package
+      - name: Promote staged source patch
+        id: promote
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
-          $sourceZip = Get-ChildItem .\source-upload -Filter 'PluginJPHelper_v*_Source.zip' -File -ErrorAction SilentlyContinue |
-            Sort-Object LastWriteTime -Descending | Select-Object -First 1
-          if (-not $sourceZip) {
-            Write-Host 'No source package to promote.'
+          $parts = Get-ChildItem .\source-patch -Filter 'PluginJPHelper_v*.patch.gz.b64.part*' -File -ErrorAction SilentlyContinue | Sort-Object Name
+          if (-not $parts -or $parts.Count -eq 0) {
+            "promoted=false" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+            Write-Host 'No staged source patch found.'
             exit 0
           }
 
-          $temp = Join-Path $env:RUNNER_TEMP 'pjh-source'
-          if (Test-Path $temp) { Remove-Item $temp -Recurse -Force }
-          Expand-Archive -Path $sourceZip.FullName -DestinationPath $temp -Force
+          $b64 = ($parts | ForEach-Object { (Get-Content $_.FullName -Raw).Trim() }) -join ''
+          $gzPath = Join-Path $env:RUNNER_TEMP 'pjh050.patch.gz'
+          $patchPath = Join-Path $env:RUNNER_TEMP 'pjh050.patch'
+          [IO.File]::WriteAllBytes($gzPath, [Convert]::FromBase64String($b64))
 
-          foreach ($name in @('CHANGELOG.md','VERSION.txt','build.bat')) {
-            Copy-Item (Join-Path $temp $name) (Join-Path $PWD $name) -Force
-          }
-          if (Test-Path .\PluginJPHelper) { Remove-Item .\PluginJPHelper -Recurse -Force }
-          Copy-Item (Join-Path $temp 'PluginJPHelper') .\PluginJPHelper -Recurse -Force
-          Remove-Item $sourceZip.FullName -Force
+          $input = [IO.File]::OpenRead($gzPath)
+          try {
+            $gzip = [IO.Compression.GZipStream]::new($input, [IO.Compression.CompressionMode]::Decompress)
+            try {
+              $output = [IO.File]::Create($patchPath)
+              try { $gzip.CopyTo($output) } finally { $output.Dispose() }
+            } finally { $gzip.Dispose() }
+          } finally { $input.Dispose() }
+
+          git apply --check $patchPath
+          if ($LASTEXITCODE -ne 0) { throw 'Source patch validation failed.' }
+          git apply $patchPath
+          if ($LASTEXITCODE -ne 0) { throw 'Source patch apply failed.' }
+
+          $version = (Get-Content VERSION.txt -Raw).Trim([char]0xFEFF).Trim()
+          if ($version -ne '0.5.0') { throw "Unexpected promoted version: $version" }
+          Remove-Item $parts.FullName -Force
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add CHANGELOG.md VERSION.txt build.bat PluginJPHelper source-upload
-          if (-not (git diff --cached --quiet)) {
-            $version = (Get-Content VERSION.txt -Raw).Trim([char]0xFEFF).Trim()
-            git commit -m "Promote Plugin JP Helper v$version source"
-            git push
-          }
+          git add -A -- CHANGELOG.md VERSION.txt build.bat PluginJPHelper source-patch
+          if (git diff --cached --quiet) { throw 'Source patch produced no changes.' }
+          git commit -m "Promote Plugin JP Helper v$version source"
+          git push
+          if ($LASTEXITCODE -ne 0) { throw 'Failed to push promoted source.' }
+
+          "promoted=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          Write-Host 'Source promoted. The follow-up push will perform the release build.'
 
       - name: Read version
+        if: steps.promote.outputs.promoted != 'true'
         id: ver
         shell: pwsh
         run: |
@@ -61,19 +77,23 @@ jobs:
           "tag=V$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
 
       - name: Setup .NET 10
+        if: steps.promote.outputs.promoted != 'true'
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0.x'
 
       - name: Restore
+        if: steps.promote.outputs.promoted != 'true'
         shell: pwsh
         run: dotnet restore .\PluginJPHelper\PluginJPHelper.csproj
 
       - name: Build
+        if: steps.promote.outputs.promoted != 'true'
         shell: pwsh
         run: dotnet build .\PluginJPHelper\PluginJPHelper.csproj -c Release --no-restore -p:Platform=x64
 
       - name: Package
+        if: steps.promote.outputs.promoted != 'true'
         shell: pwsh
         env:
           VERSION: ${{ steps.ver.outputs.version }}
@@ -110,6 +130,7 @@ jobs:
           "ZIP=$zip" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
 
       - name: Update pluginmaster
+        if: steps.promote.outputs.promoted != 'true'
         shell: pwsh
         env:
           VERSION: ${{ steps.ver.outputs.version }}
@@ -136,6 +157,7 @@ jobs:
           }
 
       - name: Publish release
+        if: steps.promote.outputs.promoted != 'true'
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
