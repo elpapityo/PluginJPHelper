@@ -64,7 +64,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Failed to push promoted source.' }
 
           "promoted=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
-          Write-Host 'Source promoted. The follow-up push will perform the release build.'
+          Write-Host 'Source promoted. A follow-up run will perform the release build.'
 
       - name: Read version
         if: steps.promote.outputs.promoted != 'true'
@@ -81,6 +81,19 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0.x'
+
+      - name: Download Dalamud dev build
+        if: steps.promote.outputs.promoted != 'true'
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $dalamudUrl = 'https://goatcorp.github.io/dalamud-distrib/stg/latest.zip'
+          $dalamudDir = Join-Path $env:AppData 'XIVLauncher\addon\Hooks\dev'
+          New-Item -ItemType Directory -Force -Path $dalamudDir | Out-Null
+          Invoke-WebRequest -Uri $dalamudUrl -OutFile dalamud.zip
+          Expand-Archive -Path dalamud.zip -DestinationPath $dalamudDir -Force
+          Remove-Item dalamud.zip -Force
+          if (-not (Test-Path (Join-Path $dalamudDir 'Dalamud.dll'))) { throw 'Dalamud.dll was not found after download.' }
 
       - name: Restore
         if: steps.promote.outputs.promoted != 'true'
