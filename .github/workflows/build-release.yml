@@ -5,6 +5,7 @@ on:
     branches: [ main ]
     paths:
       - "VERSION.txt"
+      - "source-upload/PluginJPHelper_v*_Source.zip"
   workflow_dispatch:
 
 permissions:
@@ -16,6 +17,39 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Promote uploaded source package
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $sourceZip = Get-ChildItem .\source-upload -Filter 'PluginJPHelper_v*_Source.zip' -File -ErrorAction SilentlyContinue |
+            Sort-Object LastWriteTime -Descending | Select-Object -First 1
+          if (-not $sourceZip) {
+            Write-Host 'No source package to promote.'
+            exit 0
+          }
+
+          $temp = Join-Path $env:RUNNER_TEMP 'pjh-source'
+          if (Test-Path $temp) { Remove-Item $temp -Recurse -Force }
+          Expand-Archive -Path $sourceZip.FullName -DestinationPath $temp -Force
+
+          foreach ($name in @('CHANGELOG.md','VERSION.txt','build.bat')) {
+            Copy-Item (Join-Path $temp $name) (Join-Path $PWD $name) -Force
+          }
+          if (Test-Path .\PluginJPHelper) { Remove-Item .\PluginJPHelper -Recurse -Force }
+          Copy-Item (Join-Path $temp 'PluginJPHelper') .\PluginJPHelper -Recurse -Force
+          Remove-Item $sourceZip.FullName -Force
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add CHANGELOG.md VERSION.txt build.bat PluginJPHelper source-upload
+          if (-not (git diff --cached --quiet)) {
+            $version = (Get-Content VERSION.txt -Raw).Trim([char]0xFEFF).Trim()
+            git commit -m "Promote Plugin JP Helper v$version source"
+            git push
+          }
 
       - name: Read version
         id: ver
