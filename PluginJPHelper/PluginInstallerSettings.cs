@@ -6,7 +6,7 @@ namespace PluginJPHelper;
 [Serializable]
 internal sealed class PluginInstallerSettings
 {
-    public int Version { get; set; } = 4;
+    public int Version { get; set; } = 5;
     public bool TranslateInstallerDescriptions { get; set; } = true;
     public bool ShowOriginalBelowTranslation { get; set; } = false;
     public int DiffCheckMinutes { get; set; } = 999;
@@ -15,6 +15,8 @@ internal sealed class PluginInstallerSettings
     public bool DetailsSectionOpen { get; set; } = false;
     public string TranslationProvider { get; set; } = "Google";
     public string PrivateServerUrl { get; set; } = "https://pjh-translate-relay.akumanomaria.workers.dev";
+    // v0.4.26: Plugin Installerで「今後は翻訳しない」を確定保存した項目。キーは InternalName|FieldName。
+    public List<string> MojibakeNoTranslateFields { get; set; } = new();
 
     public static PluginInstallerSettings Load(string path, IPluginLog log)
     {
@@ -44,6 +46,14 @@ internal sealed class PluginInstallerSettings
                 settings.PrivateServerUrl = "https://pjh-translate-relay.akumanomaria.workers.dev";
                 settings.Version = 4;
             }
+
+            if (settings.Version < 5)
+            {
+                settings.MojibakeNoTranslateFields ??= new List<string>();
+                settings.Version = 5;
+            }
+
+            settings.MojibakeNoTranslateFields ??= new List<string>();
 
             if (!string.Equals(settings.TranslationProvider, "PrivateServer", StringComparison.OrdinalIgnoreCase))
                 settings.TranslationProvider = "Google";

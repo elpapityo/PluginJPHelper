@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Numerics;
@@ -54,6 +54,29 @@ public sealed unsafe class Plugin : IDalamudPlugin
             catch (Exception ex) { log.Error(ex, "[PluginJPHelper] 描画スレッドへ委譲した処理で例外"); }
         }
     }
+
+    // v0.4.20: 文字化け警告は3択のまま、判定ルール全表示とホワイトリスト優先判定を追加。
+    // Hook内では重いUI/保存処理を行わず、対象翻訳だけ即時OFFにして通知をキューへ積む。
+    private readonly ConcurrentQueue<MojibakeIncident> pendingMojibakeIncidents = new();
+    private readonly HashSet<string> queuedMojibakeIncidentKeys = new(StringComparer.Ordinal);
+    private readonly HashSet<string> allowedMojibakeIncidentKeys = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, string> allowedMojibakeTargets = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, bool> mojibakePluginLoadStates = new(StringComparer.OrdinalIgnoreCase);
+    private readonly object mojibakeSafetySync = new();
+    private MojibakeIncident? activeMojibakeIncident;
+    private string mojibakeCorrectionBuffer = string.Empty;
+    private string requestedMainTab = string.Empty;
+    private bool requestOpenInstallerRepairHistory;
+    private readonly HashSet<string> selectedInstallerRepairHistory = new(StringComparer.Ordinal);
+    private readonly MojibakeAlertWindow mojibakeAlertWindow;
+    private readonly Dictionary<string, long> mojibakeTargetedScanTicks = new(StringComparer.Ordinal);
+    private const long MojibakeTargetedScanIntervalMs = 5000;
+    private string mojibakeRuleAddInput = string.Empty;
+    private string mojibakeRuleAddLabel = string.Empty;
+    private int mojibakeRuleAddMinimum = 1;
+    private string mojibakeWhitelistAddInput = string.Empty;
+    private string mojibakeWhitelistAddLabel = string.Empty;
+    private bool mojibakeWhitelistAddPartial;
 
     private const string Command = "/pjph";
     private readonly IDalamudPluginInterface pluginInterface;
@@ -363,10 +386,22 @@ public sealed unsafe class Plugin : IDalamudPlugin
         this.contextMenu = contextMenu;
         windowSystem = new WindowSystem("PluginJPHelper");
         mainWindow = new MainWindow(this);
+        mojibakeAlertWindow = new MojibakeAlertWindow(this);
         windowSystem.AddWindow(mainWindow);
+        windowSystem.AddWindow(mojibakeAlertWindow);
         config = pluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
+        var mojibakeSchemaBefore = config.MojibakeRulesSchemaVersion;
+        var mojibakeRulesBefore = config.MojibakeMarkerRules?.Count ?? 0;
+        var mojibakeWhitelistBefore = config.MojibakeWhitelistRules?.Count ?? 0;
+        var installerRepairHistoryBefore = config.InstallerMojibakeRepairHistory?.Count ?? 0;
         config.EnsurePlugins();
-        pluginInstallerModule = new PluginInstallerModule(pluginInterface, commandManager, log);
+        if (mojibakeSchemaBefore != config.MojibakeRulesSchemaVersion
+            || mojibakeRulesBefore != (config.MojibakeMarkerRules?.Count ?? 0)
+            || mojibakeWhitelistBefore != (config.MojibakeWhitelistRules?.Count ?? 0)
+            || installerRepairHistoryBefore != (config.InstallerMojibakeRepairHistory?.Count ?? 0))
+            pluginInterface.SavePluginConfig(config);
+        MojibakeSafety.Configure(config);
+        pluginInstallerModule = new PluginInstallerModule(pluginInterface, commandManager, log, QueueMojibakeIncident, RecordInstallerMojibakeRepair);
         communityPosterNameBuffer = config.CommunityPosterName ?? string.Empty;
         // GitHub辞書テストv3で公式CSVを直接適用していたデータを解除する。
         // v4以降は公式フォルダーを配布置き場としてのみ扱い、ローカルへコピーしたCSVだけを利用する。
@@ -444,12 +479,10 @@ public sealed unsafe class Plugin : IDalamudPlugin
         _ = EnsureLatestBundledInventoryToolsCsv();
 
         EnsureInitialRsrCsv();
-        // 公式辞書フォルダーは配布・更新確認専用。
-        // 実際に使用する辞書はユーザーがローカル辞書フォルダーへコピーして読み込む。
-        _ = RefreshOfficialNoticeAsync();
-        // 公式・コミュニティ辞書は起動時に1回確認し、その後は1時間ごとに再確認する。
-        // 確認済み扱いは各「一覧を取得」ボタンをユーザーが押した時だけ行う。
-        _ = RefreshCommunityDictionariesAsync(false);
+        // v0.5.0: 起動直後の自動HTTP通信は行わない。
+        // Dalamud/Plugin Installerのrepo読込や他プラグイン通信を最優先し、
+        // 公式・コミュニティ辞書の自動確認はPJHのメイン画面を開いた時だけ、
+        // PluginManagerが十分安定してから行う。手動取得ボタンは従来どおり利用できる。
 
         commandManager.AddHandler(Command, new CommandInfo(OnCommand) { HelpMessage = "Plugin JP Helper を開きます。" });
         // 背景処理から委譲された適用処理を毎フレーム最初に流し込む。
@@ -457,6 +490,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
         pluginInterface.UiBuilder.Draw += DrainMainThreadWork;
         pluginInterface.UiBuilder.Draw += windowSystem.Draw;
         pluginInterface.UiBuilder.Draw += pluginInstallerModule.Tick;
+        pluginInterface.UiBuilder.Draw += ProcessMojibakeSafetyIncidents;
         pluginInterface.UiBuilder.OpenConfigUi += OpenUi;
         pluginInterface.UiBuilder.OpenMainUi += OpenUi;
         contextMenu.OnMenuOpened += OnContextMenuOpened;
@@ -1157,9 +1191,20 @@ public sealed unsafe class Plugin : IDalamudPlugin
         {
             if (!config.Plugins.TryGetValue(pluginName, out var state) || !state.Enabled) return false;
             if (state.DeletedKeys.Contains(source)) return false;
-            if (state.UserOverrides.TryGetValue(source, out translated!) && !string.IsNullOrWhiteSpace(translated)) return true;
-            if (state.OfficialOverrides.TryGetValue(source, out translated!) && !string.IsNullOrWhiteSpace(translated)) return true;
-            return GetActiveStandardDictionary(pluginName).TryGetValue(source, out translated!);
+
+            if (state.UserOverrides.TryGetValue(source, out var userTranslated) && !string.IsNullOrWhiteSpace(userTranslated))
+                return TryAcceptPluginTranslation(pluginName, source, userTranslated, "ユーザー訳", state, out translated);
+
+            if (state.OfficialOverrides.TryGetValue(source, out var officialTranslated) && !string.IsNullOrWhiteSpace(officialTranslated))
+                return TryAcceptPluginTranslation(pluginName, source, officialTranslated, "公式上書き", state, out translated);
+
+            if (GetActiveStandardDictionary(pluginName).TryGetValue(source, out var standardTranslated) && !string.IsNullOrWhiteSpace(standardTranslated))
+            {
+                var dictionarySource = string.IsNullOrWhiteSpace(state.LastCsvPath) ? "標準辞書" : state.LastCsvPath;
+                return TryAcceptPluginTranslation(pluginName, source, standardTranslated, dictionarySource, state, out translated);
+            }
+
+            return false;
         }
         catch (Exception ex)
         {
@@ -1167,6 +1212,35 @@ public sealed unsafe class Plugin : IDalamudPlugin
             LogDetourFailure(nameof(TryGetTranslationForPlugin), ex);
             return false;
         }
+    }
+
+    private bool TryAcceptPluginTranslation(string pluginName, string source, string candidate, string dictionarySource, PluginDictionaryState state, out string translated)
+    {
+        translated = string.Empty;
+        if (!MojibakeSafety.TryDetectTranslatedText(candidate, out var reason))
+        {
+            translated = candidate;
+            return true;
+        }
+
+        var incident = new MojibakeIncident(
+            MojibakeTargetKind.Plugin,
+            pluginName,
+            "日本語訳",
+            source,
+            candidate,
+            reason,
+            dictionarySource);
+        if (IsMojibakeAllowedForSession(incident))
+        {
+            translated = candidate;
+            return true;
+        }
+
+        // そのフレームから対象プラグインの翻訳だけ停止する。設定保存/UI表示は次のUI Tickで行う。
+        state.Enabled = false;
+        QueueMojibakeIncident(incident);
+        return false;
     }
 
     // v0.4.9:
@@ -1180,9 +1254,33 @@ public sealed unsafe class Plugin : IDalamudPlugin
         {
             if (!config.Plugins.TryGetValue(pluginName, out var state) || !state.TranslationTarget) return false;
             if (state.DeletedKeys.Contains(source)) return false;
-            if (state.UserOverrides.TryGetValue(source, out translated!) && !string.IsNullOrWhiteSpace(translated)) return true;
-            if (state.OfficialOverrides.TryGetValue(source, out translated!) && !string.IsNullOrWhiteSpace(translated)) return true;
-            return GetActiveStandardDictionary(pluginName).TryGetValue(source, out translated!);
+
+            string candidate;
+            string dictionarySource;
+            if (state.UserOverrides.TryGetValue(source, out candidate!) && !string.IsNullOrWhiteSpace(candidate))
+                dictionarySource = "ユーザー訳";
+            else if (state.OfficialOverrides.TryGetValue(source, out candidate!) && !string.IsNullOrWhiteSpace(candidate))
+                dictionarySource = "公式上書き";
+            else if (GetActiveStandardDictionary(pluginName).TryGetValue(source, out candidate!) && !string.IsNullOrWhiteSpace(candidate))
+                dictionarySource = string.IsNullOrWhiteSpace(state.LastCsvPath) ? "標準辞書" : state.LastCsvPath;
+            else
+                return false;
+
+            if (!MojibakeSafety.TryDetectTranslatedText(candidate, out var reason))
+            {
+                translated = candidate;
+                return true;
+            }
+
+            var incident = new MojibakeIncident(
+                MojibakeTargetKind.Plugin, pluginName, "共有辞書", source, candidate, reason, dictionarySource);
+            if (IsMojibakeAllowedForSession(incident))
+            {
+                translated = candidate;
+                return true;
+            }
+            QueueMojibakeIncident(incident);
+            return false;
         }
         catch (Exception ex)
         {
@@ -1319,6 +1417,8 @@ public sealed unsafe class Plugin : IDalamudPlugin
 
         // まず従来どおり完全一致。
         if (TryGetTranslationForPlugin(pluginName, source, out translated)) return true;
+        // 文字化け検知でこの呼び出し中にOFFになった場合、別経路の翻訳へフォールバックしない。
+        if (config.Plugins.TryGetValue(pluginName, out var safetyStateAfterExact) && !safetyStateAfterExact.Enabled) return false;
 
         // v0.4.9: 表示文字列###内部ID / ##内部ID の形で渡される特殊描画にも対応。
         // 辞書は表示部分の完全一致だけを使い、内部IDは原文のまま保持する。
@@ -1333,6 +1433,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
                 translated = visibleTranslated + source[safeIdMarker..];
                 return true;
             }
+            if (config.Plugins.TryGetValue(pluginName, out var safetyStateAfterVisible) && !safetyStateAfterVisible.Enabled) return false;
         }
 
         // v0.4.9: 末尾が動的に変化する固定接頭辞を翻訳する。
@@ -1366,6 +1467,17 @@ public sealed unsafe class Plugin : IDalamudPlugin
             .ToArray();
 
         if (candidates.Length == 0) return false;
+        foreach (var x in candidates)
+        {
+            if (!MojibakeSafety.TryDetectTranslatedText(x.Ja, out var reason)) continue;
+            var incident = new MojibakeIncident(
+                MojibakeTargetKind.Plugin, pluginName, "部分一致辞書", x.Source, x.Ja, reason,
+                string.IsNullOrWhiteSpace(pluginState.LastCsvPath) ? "標準辞書" : pluginState.LastCsvPath);
+            if (IsMojibakeAllowedForSession(incident)) continue;
+            pluginState.Enabled = false;
+            QueueMojibakeIncident(incident);
+            return false;
+        }
         var replaced = visible;
         var changed = false;
         foreach (var x in candidates)
@@ -1677,6 +1789,11 @@ public sealed unsafe class Plugin : IDalamudPlugin
             {
                 lastExplicitWindowOwner = owner;
                 lastExplicitWindowOwnerTick = Environment.TickCount64;
+
+                // v0.4.16: 実際に対象プラグインのウィンドウが表示された時だけ、
+                // そのプラグインの現在有効な辞書を限定確認する。
+                // 起動時の全辞書走査は行わない。通常の翻訳フックで拾えない描画経路の保険。
+                TryTargetedMojibakeScanForVisiblePlugin(owner);
             }
 
             // v0.4.9:
@@ -1998,6 +2115,10 @@ public sealed unsafe class Plugin : IDalamudPlugin
         {
             return true;
         }
+        if (!string.IsNullOrWhiteSpace(ownerForExact)
+            && config.Plugins.TryGetValue(ownerForExact, out var safetyOwnerState)
+            && !safetyOwnerState.Enabled)
+            return false;
 
         // 従来どおり全有効辞書の完全一致も残す。
         if (TryTranslate(source, out translated))
@@ -2063,6 +2184,18 @@ public sealed unsafe class Plugin : IDalamudPlugin
 
         if (candidates.Length == 0) return false;
 
+        foreach (var x in candidates)
+        {
+            if (!MojibakeSafety.TryDetectTranslatedText(x.Ja, out var reason)) continue;
+            var incident = new MojibakeIncident(
+                MojibakeTargetKind.Plugin, pluginName, "部分一致辞書", x.Source, x.Ja, reason,
+                config.Plugins.TryGetValue(pluginName, out var sourceState) && !string.IsNullOrWhiteSpace(sourceState.LastCsvPath) ? sourceState.LastCsvPath : "標準辞書");
+            if (IsMojibakeAllowedForSession(incident)) continue;
+            if (config.Plugins.TryGetValue(pluginName, out var partialState)) partialState.Enabled = false;
+            QueueMojibakeIncident(incident);
+            return false;
+        }
+
         var replaced = visible;
         foreach (var x in candidates)
             replaced = replaced.Replace(x.Source, x.Ja, StringComparison.Ordinal);
@@ -2125,7 +2258,15 @@ public sealed unsafe class Plugin : IDalamudPlugin
         foreach (var (pluginName, state) in GetPluginConfigSnapshot())
         {
             if (!state.TranslationTarget || !state.Enabled) continue;
+            var wasEnabled = state.Enabled;
             if (TryGetTranslationForPlugin(pluginName, source, out translated)) return true;
+            if (wasEnabled && !state.Enabled
+                && ((!string.IsNullOrWhiteSpace(currentOwner) && IsSamePluginIdentity(currentOwner, pluginName))
+                    || IsTargetWindow(pluginName, currentWindow)))
+            {
+                translated = string.Empty;
+                return false;
+            }
         }
 
         // 2) 現在の画面に「有効な所有プラグイン」が確定している場合だけ、
@@ -2258,25 +2399,859 @@ public sealed unsafe class Plugin : IDalamudPlugin
         ImGui.TextWrapped(message);
     }
 
+    private bool IsMojibakeAllowedForSession(MojibakeIncident incident)
+    {
+        lock (mojibakeSafetySync)
+            return allowedMojibakeIncidentKeys.Contains(incident.DedupeKey);
+    }
+
+    private void AllowMojibakeAndResume(MojibakeIncident incident)
+    {
+        lock (mojibakeSafetySync)
+        {
+            allowedMojibakeIncidentKeys.Add(incident.DedupeKey);
+            allowedMojibakeTargets[incident.DedupeKey] = incident.TargetName;
+        }
+
+        if (incident.TargetKind == MojibakeTargetKind.Plugin)
+        {
+            lock (pluginConfigSync)
+            {
+                if (config.Plugins.TryGetValue(incident.TargetName, out var state))
+                    state.Enabled = true;
+            }
+            SaveConfig();
+        }
+        else
+        {
+            pluginInstallerModule.AllowMojibakeForSessionAndResume(incident);
+        }
+    }
+
+    private void RecordInstallerMojibakeRepair(MojibakeIncident incident)
+    {
+        if (incident.TargetKind != MojibakeTargetKind.PluginInstaller) return;
+
+        lock (pluginConfigSync)
+        {
+            config.InstallerMojibakeRepairHistory ??= new List<InstallerMojibakeRepairRecord>();
+
+            var pluginName = incident.TargetName ?? string.Empty;
+            var fieldName = incident.FieldName ?? string.Empty;
+            var reason = incident.Reason ?? string.Empty;
+            var detectedText = incident.TranslatedText ?? string.Empty;
+            var restoredSourceText = incident.SourceText ?? string.Empty;
+
+            // 同じ内容は再検知しても履歴件数へ加算しない。
+            // 保存せずPJHを再起動した場合でも、同一内容は最初の1件だけ残す。
+            var alreadyRecorded = config.InstallerMojibakeRepairHistory.Any(x => x != null
+                && string.Equals(x.PluginName ?? string.Empty, pluginName, StringComparison.Ordinal)
+                && string.Equals(x.FieldName ?? string.Empty, fieldName, StringComparison.Ordinal)
+                && string.Equals(x.Reason ?? string.Empty, reason, StringComparison.Ordinal)
+                && string.Equals(x.DetectedText ?? string.Empty, detectedText, StringComparison.Ordinal)
+                && string.Equals(x.RestoredSourceText ?? string.Empty, restoredSourceText, StringComparison.Ordinal));
+            if (alreadyRecorded) return;
+
+            config.InstallerMojibakeRepairHistory.Add(new InstallerMojibakeRepairRecord
+            {
+                RepairedAt = DateTimeOffset.Now,
+                PluginName = pluginName,
+                FieldName = fieldName,
+                Reason = reason,
+                DetectedText = detectedText,
+                RestoredSourceText = restoredSourceText,
+            });
+
+            // 設定ファイルが無制限に肥大化しないよう、新しい200件だけ保持する。
+            const int maxHistory = 200;
+            if (config.InstallerMojibakeRepairHistory.Count > maxHistory)
+                config.InstallerMojibakeRepairHistory.RemoveRange(0, config.InstallerMojibakeRepairHistory.Count - maxHistory);
+        }
+
+        SaveConfig();
+    }
+
+    private void QueueMojibakeIncident(MojibakeIncident incident)
+    {
+        lock (mojibakeSafetySync)
+        {
+            if (!queuedMojibakeIncidentKeys.Add(incident.DedupeKey)) return;
+        }
+        pendingMojibakeIncidents.Enqueue(incident);
+    }
+
+    private void RefreshMojibakeAllowancesForPluginRestarts()
+    {
+        string[] targets;
+        lock (mojibakeSafetySync)
+            targets = allowedMojibakeTargets.Values.Distinct(StringComparer.OrdinalIgnoreCase).ToArray();
+
+        foreach (var target in targets)
+        {
+            if (!TryGetInstalledPluginState(target, out var isLoaded)) continue;
+
+            if (mojibakePluginLoadStates.TryGetValue(target, out var previous) && !previous && isLoaded)
+            {
+                lock (mojibakeSafetySync)
+                {
+                    var remove = allowedMojibakeTargets
+                        .Where(x => string.Equals(x.Value, target, StringComparison.OrdinalIgnoreCase))
+                        .Select(x => x.Key)
+                        .ToArray();
+                    foreach (var key in remove)
+                    {
+                        allowedMojibakeIncidentKeys.Remove(key);
+                        allowedMojibakeTargets.Remove(key);
+                    }
+                }
+            }
+
+            mojibakePluginLoadStates[target] = isLoaded;
+        }
+    }
+
+    private void ProcessMojibakeSafetyIncidents()
+    {
+        RefreshMojibakeAllowancesForPluginRestarts();
+        // v0.4.16: 起動時の全辞書事前走査は行わない。
+        // 通常は実際の翻訳適用時に検知し、フックを通らない描画経路だけ
+        // 「そのプラグインのウィンドウが実際に表示された時」の限定確認で補完する。
+        if (activeMojibakeIncident != null) return;
+        if (!pendingMojibakeIncidents.TryDequeue(out var incident)) return;
+
+        activeMojibakeIncident = incident;
+        mojibakeCorrectionBuffer = incident.TranslatedText;
+        mojibakeAlertWindow.ResetForIncident();
+
+        if (incident.TargetKind == MojibakeTargetKind.Plugin)
+        {
+            lock (pluginConfigSync)
+            {
+                if (config.Plugins.TryGetValue(incident.TargetName, out var state))
+                    state.Enabled = false;
+            }
+            lastExplicitWindowOwner = string.Empty;
+            lastExplicitWindowOwnerTick = 0;
+            SaveConfig();
+        }
+
+        if (incident.TargetKind == MojibakeTargetKind.PluginInstaller)
+            log.Warning("[PluginJPHelper/MojibakeSafety] Installer項目を自動で原文へ復元: {Target} / {Field} / {Reason}", incident.TargetName, incident.FieldName, incident.Reason);
+        else
+            log.Warning("[PluginJPHelper/MojibakeSafety] 翻訳を安全停止: {Target} / {Field} / {Reason}", incident.TargetName, incident.FieldName, incident.Reason);
+        mojibakeAlertWindow.IsOpen = true;
+    }
+
+    private void TryTargetedMojibakeScanForVisiblePlugin(string pluginName)
+    {
+        if (string.IsNullOrWhiteSpace(pluginName) || activeMojibakeIncident != null) return;
+        if (!config.Plugins.TryGetValue(pluginName, out var state) || !state.TranslationTarget || !state.Enabled) return;
+
+        var now = Environment.TickCount64;
+        if (mojibakeTargetedScanTicks.TryGetValue(pluginName, out var last)
+            && now - last < MojibakeTargetedScanIntervalMs) return;
+        mojibakeTargetedScanTicks[pluginName] = now;
+
+        foreach (var row in GetDictionaryCatalog(pluginName))
+        {
+            var source = row.Key;
+            if (!IsSafeSourceForTargetedMojibakeScan(source) || state.DeletedKeys.Contains(source)) continue;
+
+            string candidate;
+            string dictionarySource;
+            if (state.UserOverrides.TryGetValue(source, out var userJa) && !string.IsNullOrWhiteSpace(userJa))
+            {
+                candidate = userJa;
+                dictionarySource = string.IsNullOrWhiteSpace(state.LastCsvPath) ? "ユーザー訳" : state.LastCsvPath;
+            }
+            else if (state.OfficialOverrides.TryGetValue(source, out var officialJa) && !string.IsNullOrWhiteSpace(officialJa))
+            {
+                candidate = officialJa;
+                dictionarySource = "公式上書き";
+            }
+            else
+            {
+                candidate = row.Value;
+                dictionarySource = string.IsNullOrWhiteSpace(state.LastCsvPath) ? "標準辞書" : state.LastCsvPath;
+            }
+
+            if (!MojibakeSafety.TryDetectTranslatedText(candidate, out var reason)) continue;
+
+            var incident = new MojibakeIncident(
+                MojibakeTargetKind.Plugin, pluginName, "日本語訳", source, candidate, reason, dictionarySource);
+            if (IsMojibakeAllowedForSession(incident)) continue;
+            state.Enabled = false;
+            QueueMojibakeIncident(incident);
+            return;
+        }
+    }
+
+    private static bool IsSafeSourceForTargetedMojibakeScan(string source)
+    {
+        if (string.IsNullOrWhiteSpace(source) || source.Length > 512) return false;
+        // 限定再確認は「原文は正常・訳側だけ異常」のケースだけを補完する。
+        // RuntimeLogs等の抽出素材に含まれる壊れた原文はPJH起因として扱わない。
+        if (source.IndexOf('\0') >= 0 || source.IndexOf('\r') >= 0 || source.IndexOf('\n') >= 0) return false;
+        if (source.Contains('�') || source.Contains("□□□", StringComparison.Ordinal)) return false;
+        return true;
+    }
+
+    private static string InstallerRepairHistoryKey(InstallerMojibakeRepairRecord item)
+        => $"{item.RepairedAt.ToUnixTimeMilliseconds()}|{item.PluginName}|{item.FieldName}";
+
+    private void OpenInstallerRepairHistorySettings()
+    {
+        requestedMainTab = "文字化け設定";
+        requestOpenInstallerRepairHistory = true;
+        mainWindow.IsOpen = true;
+        mainWindow.BringToFront();
+    }
+
+    private void OpenIncidentDictionary(MojibakeIncident incident)
+    {
+        mainWindow.IsOpen = true;
+        if (incident.TargetKind == MojibakeTargetKind.Plugin)
+        {
+            selectedPlugin = incident.TargetName;
+            filter = incident.SourceText;
+            requestedMainTab = "翻訳辞書";
+        }
+        else
+        {
+            requestedMainTab = "Plugin Installer";
+        }
+    }
+
+    private bool SaveIncidentCorrection(MojibakeIncident incident, string corrected, out string status)
+    {
+        status = string.Empty;
+        if (incident.TargetKind == MojibakeTargetKind.Plugin)
+        {
+            lock (pluginConfigSync)
+            {
+                if (!config.Plugins.TryGetValue(incident.TargetName, out var state))
+                {
+                    status = "対象プラグインの辞書設定が見つかりません。";
+                    return false;
+                }
+
+                state.DeletedKeys.Remove(incident.SourceText);
+                if (string.IsNullOrWhiteSpace(corrected)) state.UserOverrides.Remove(incident.SourceText);
+                else state.UserOverrides[incident.SourceText] = corrected;
+            }
+            SaveConfig();
+            status = "ユーザー訳として保存しました。翻訳は停止したままです。確認後に対象プラグインの日本語化をONにしてください。";
+            return true;
+        }
+
+        return pluginInstallerModule.TryUpdateMojibakeTranslation(incident, corrected, out status);
+    }
+
+    private bool SuppressIncidentTranslation(MojibakeIncident incident, out string status)
+    {
+        status = string.Empty;
+        if (incident.TargetKind == MojibakeTargetKind.Plugin)
+        {
+            lock (pluginConfigSync)
+            {
+                if (!config.Plugins.TryGetValue(incident.TargetName, out var state))
+                {
+                    status = "対象プラグインの辞書設定が見つかりません。";
+                    return false;
+                }
+                state.UserOverrides.Remove(incident.SourceText);
+                state.DeletedKeys.Add(incident.SourceText);
+            }
+            SaveConfig();
+            status = "この原文の翻訳を使用しない設定にしました。翻訳は停止したままです。";
+            return true;
+        }
+
+        return pluginInstallerModule.TryUpdateMojibakeTranslation(incident, string.Empty, out status);
+    }
+
+    private void FinishMojibakeIncident(bool keepWindowOpen = false)
+    {
+        var incident = activeMojibakeIncident;
+        if (incident != null)
+        {
+            lock (mojibakeSafetySync) queuedMojibakeIncidentKeys.Remove(incident.DedupeKey);
+        }
+        activeMojibakeIncident = null;
+        mojibakeCorrectionBuffer = string.Empty;
+        if (!keepWindowOpen) mojibakeAlertWindow.IsOpen = false;
+    }
+
     private void DrawMainWindowContents()
     {
         EnsureOfficialNoticeRefresh();
         EnsureCommunityUpdateRefresh();
+
+        if (activeMojibakeIncident != null)
+        {
+            var mojibakeStatusLabel = activeMojibakeIncident.TargetKind == MojibakeTargetKind.PluginInstaller
+                ? $"文字化け自動保護: {activeMojibakeIncident.TargetName}"
+                : $"文字化け安全停止中: {activeMojibakeIncident.TargetName}";
+            ImGui.TextColored(new Vector4(1.00f, 0.62f, 0.20f, 1.00f), mojibakeStatusLabel);
+            ImGui.SameLine();
+            if (ImGui.Button("確認画面を開く##MojibakeSafetyReopen")) mojibakeAlertWindow.IsOpen = true;
+            ImGui.Separator();
+        }
 
         ImGui.PushStyleColor(ImGuiCol.Tab, new Vector4(0.16f, 0.20f, 0.26f, 1.00f));
         ImGui.PushStyleColor(ImGuiCol.TabHovered, new Vector4(0.24f, 0.46f, 0.70f, 1.00f));
         ImGui.PushStyleColor(ImGuiCol.TabActive, new Vector4(0.18f, 0.38f, 0.62f, 1.00f));
         if (ImGui.BeginTabBar("mainTabs"))
         {
-            if (ImGui.BeginTabItem("翻訳辞書")) { DrawScrollableMainTab("dict", DrawDictionaryTab); ImGui.EndTabItem(); }
+            var dictFlags = requestedMainTab == "翻訳辞書" ? ImGuiTabItemFlags.SetSelected : ImGuiTabItemFlags.None;
+            var installerFlags = requestedMainTab == "Plugin Installer" ? ImGuiTabItemFlags.SetSelected : ImGuiTabItemFlags.None;
+            if (ImGui.BeginTabItem("翻訳辞書", dictFlags)) { DrawScrollableMainTab("dict", DrawDictionaryTab); if (requestedMainTab == "翻訳辞書") requestedMainTab = string.Empty; ImGui.EndTabItem(); }
             if (ImGui.BeginTabItem("未翻訳・取得")) { DrawScrollableMainTab("capture", DrawCaptureTab); ImGui.EndTabItem(); }
             if (ImGui.BeginTabItem("公式辞書")) { DrawScrollableMainTab("official", DrawOfficialDictionaryTab); ImGui.EndTabItem(); }
             if (ImGui.BeginTabItem("コミュニティ辞書")) { DrawScrollableMainTab("community", DrawCommunityDictionaryTab); ImGui.EndTabItem(); }
-            if (ImGui.BeginTabItem("Plugin Installer")) { DrawScrollableMainTab("pluginInstaller", pluginInstallerModule.DrawUi); ImGui.EndTabItem(); }
+            if (ImGui.BeginTabItem("Plugin Installer", installerFlags)) { DrawScrollableMainTab("pluginInstaller", pluginInstallerModule.DrawUi); if (requestedMainTab == "Plugin Installer") requestedMainTab = string.Empty; ImGui.EndTabItem(); }
+            var settingsFlags = requestedMainTab == "文字化け設定" ? ImGuiTabItemFlags.SetSelected : ImGuiTabItemFlags.None;
+            if (ImGui.BeginTabItem("文字化け設定", settingsFlags)) { DrawScrollableMainTab("settings", DrawSettingsTab); if (requestedMainTab == "文字化け設定") requestedMainTab = string.Empty; ImGui.EndTabItem(); }
             if (ImGui.BeginTabItem("ヘルプ")) { DrawScrollableMainTab("help", DrawHelpTab); ImGui.EndTabItem(); }
             ImGui.EndTabBar();
         }
         ImGui.PopStyleColor(3);
+    }
+
+    private static bool TryNormalizeMojibakeInput(string input, out string normalized)
+    {
+        normalized = string.Empty;
+        var value = (input ?? string.Empty).Trim();
+        if (string.IsNullOrWhiteSpace(value)) return false;
+
+        // U+25A1 / U+00EF U+00BF U+00BD のようなコードポイント入力にも対応。
+        if (value.Contains("U+", StringComparison.OrdinalIgnoreCase))
+        {
+            var tokens = value.Split(new[] { ' ', ',', ';', '/' }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            var builder = new StringBuilder();
+            foreach (var token in tokens)
+            {
+                if (!token.StartsWith("U+", StringComparison.OrdinalIgnoreCase)) return false;
+                var hex = token[2..];
+                if (!int.TryParse(hex, System.Globalization.NumberStyles.HexNumber, System.Globalization.CultureInfo.InvariantCulture, out var codepoint)) return false;
+                if (codepoint < 0 || codepoint > 0x10FFFF || (codepoint >= 0xD800 && codepoint <= 0xDFFF)) return false;
+                builder.Append(char.ConvertFromUtf32(codepoint));
+            }
+            normalized = builder.ToString();
+            return normalized.Length > 0;
+        }
+
+        normalized = value;
+        return true;
+    }
+
+    private static string DescribeMojibakeText(string text, string label = "")
+    {
+        if (string.IsNullOrEmpty(text)) return "未設定";
+        var codes = text.EnumerateRunes().Select(r => $"U+{r.Value:X4}").ToArray();
+        var name = label?.Trim() ?? string.Empty;
+        if (string.IsNullOrWhiteSpace(name) && codes.Length == 1)
+        {
+            name = codes[0] switch
+            {
+                "U+FFFD" => "置換文字",
+                "U+25A1" => "白四角",
+                _ => "登録文字",
+            };
+        }
+        if (string.IsNullOrWhiteSpace(name)) name = "登録文字列";
+        return $"{string.Join(" ", codes)}  {name}";
+    }
+
+    private void DrawSettingsTab()
+    {
+        ImGui.TextUnformatted("文字化け判定設定");
+        ImGui.TextDisabled("翻訳結果だけを判定します。原文側の文字化けはこの設定では停止対象にしません。");
+        ImGui.TextDisabled("ホワイトリストと判定条件が同時に一致した場合は、ホワイトリストを最優先して警告しません。");
+        ImGui.Separator();
+
+        var changed = false;
+        var rules = config.MojibakeMarkerRules ??= new List<MojibakeMarkerRule>();
+
+        if (ImGui.CollapsingHeader($"文字化け判定ルール（{rules.Count}件）##MojibakeRuleSection", ImGuiTreeNodeFlags.DefaultOpen))
+        {
+            ImGui.TextDisabled("登録文字列は実際の文字を表示します。文字列・Unicode欄はドラッグ選択して Ctrl+C でコピーできます。");
+            ImGui.Spacing();
+
+            var removeIndex = -1;
+            if (ImGui.BeginTable("mojibake_rule_table", 7,
+                ImGuiTableFlags.Borders | ImGuiTableFlags.RowBg | ImGuiTableFlags.Resizable | ImGuiTableFlags.SizingStretchProp))
+            {
+                ImGui.TableSetupColumn("有効", ImGuiTableColumnFlags.WidthFixed, 48);
+                ImGui.TableSetupColumn("名前", ImGuiTableColumnFlags.WidthFixed, 140);
+                ImGui.TableSetupColumn("登録文字列", ImGuiTableColumnFlags.WidthStretch, 1.0f);
+                ImGui.TableSetupColumn("Unicode", ImGuiTableColumnFlags.WidthFixed, 220);
+                ImGui.TableSetupColumn("回数", ImGuiTableColumnFlags.WidthFixed, 72);
+                ImGui.TableSetupColumn("条件", ImGuiTableColumnFlags.WidthFixed, 235);
+                ImGui.TableSetupColumn("操作", ImGuiTableColumnFlags.WidthFixed, 60);
+                ImGui.TableHeadersRow();
+
+                for (var i = 0; i < rules.Count; i++)
+                {
+                    var rule = rules[i];
+                    if (rule == null) continue;
+                    ImGui.PushID($"moji_rule_{i}");
+                    ImGui.TableNextRow();
+
+                    ImGui.TableSetColumnIndex(0);
+                    var enabled = rule.Enabled;
+                    if (ImGui.Checkbox("##enabled", ref enabled)) { rule.Enabled = enabled; changed = true; }
+
+                    ImGui.TableSetColumnIndex(1);
+                    var label = rule.Label ?? string.Empty;
+                    ImGui.SetNextItemWidth(-1);
+                    if (ImGui.InputText("##label", ref label, 96)) { rule.Label = label; changed = true; }
+
+                    ImGui.TableSetColumnIndex(2);
+                    var displayText = rule.Text ?? string.Empty;
+                    ImGui.SetNextItemWidth(-1);
+                    ImGui.InputText("##registered_text", ref displayText, 256, ImGuiInputTextFlags.ReadOnly);
+                    if (ImGui.IsItemHovered()) ImGui.SetTooltip("実際に登録されている文字列です。ドラッグ選択してコピーできます。");
+
+                    ImGui.TableSetColumnIndex(3);
+                    var unicodeText = string.IsNullOrEmpty(rule.Text)
+                        ? "(未設定)"
+                        : string.Join(" ", rule.Text.EnumerateRunes().Select(r => $"U+{r.Value:X4}"));
+                    var unicodeCopy = unicodeText;
+                    ImGui.SetNextItemWidth(-1);
+                    ImGui.InputText("##unicode_text", ref unicodeCopy, 512, ImGuiInputTextFlags.ReadOnly);
+
+                    ImGui.TableSetColumnIndex(4);
+                    var count = Math.Clamp(rule.MinimumConsecutive, 1, 64);
+                    ImGui.SetNextItemWidth(-1);
+                    if (ImGui.InputInt("##count", ref count, 1, 1))
+                    {
+                        rule.MinimumConsecutive = Math.Clamp(count, 1, 64);
+                        changed = true;
+                    }
+
+                    ImGui.TableSetColumnIndex(5);
+                    ImGui.TextUnformatted($"左記文字列が {count} 回繰り返したら検知");
+
+                    ImGui.TableSetColumnIndex(6);
+                    if (ImGui.SmallButton("削除")) removeIndex = i;
+                    ImGui.PopID();
+                }
+                ImGui.EndTable();
+            }
+
+            if (removeIndex >= 0)
+            {
+                rules.RemoveAt(removeIndex);
+                changed = true;
+            }
+
+            ImGui.Spacing();
+            ImGui.TextUnformatted("判定ルールを追加");
+            ImGui.SetNextItemWidth(260);
+            ImGui.InputTextWithHint("##moji_rule_label", "名前（例：白四角）", ref mojibakeRuleAddLabel, 64);
+            ImGui.SetNextItemWidth(320);
+            ImGui.InputTextWithHint("##moji_rule_add", "文字列 または U+25A1", ref mojibakeRuleAddInput, 128);
+            if (TryNormalizeMojibakeInput(mojibakeRuleAddInput, out var addRuleText))
+                ImGui.TextDisabled($"認識結果: {DescribeMojibakeText(addRuleText, mojibakeRuleAddLabel)}");
+            else if (!string.IsNullOrWhiteSpace(mojibakeRuleAddInput))
+                ImGui.TextColored(new Vector4(1f, 0.55f, 0.35f, 1f), "入力を認識できません。実文字または U+XXXX 形式で入力してください。");
+
+            ImGui.SetNextItemWidth(95);
+            ImGui.InputInt("繰り返し回数##moji_rule_add_count", ref mojibakeRuleAddMinimum, 1, 1);
+            mojibakeRuleAddMinimum = Math.Clamp(mojibakeRuleAddMinimum, 1, 64);
+            ImGui.SameLine();
+            var canAddRule = TryNormalizeMojibakeInput(mojibakeRuleAddInput, out addRuleText)
+                             && !rules.Any(x => x != null && string.Equals(x.Text, addRuleText, StringComparison.Ordinal));
+            if (!canAddRule) ImGui.BeginDisabled();
+            if (ImGui.Button("判定ルールを追加"))
+            {
+                rules.Add(new MojibakeMarkerRule
+                {
+                    Text = addRuleText,
+                    Label = mojibakeRuleAddLabel.Trim(),
+                    MinimumConsecutive = mojibakeRuleAddMinimum,
+                    Enabled = true,
+                });
+                mojibakeRuleAddInput = string.Empty;
+                mojibakeRuleAddLabel = string.Empty;
+                mojibakeRuleAddMinimum = 1;
+                changed = true;
+            }
+            if (!canAddRule) ImGui.EndDisabled();
+
+            ImGui.Spacing();
+            ImGui.TextUnformatted("特殊判定");
+            var control = config.MojibakeDetectControlCharacters;
+            if (ImGui.Checkbox("制御文字を検知", ref control)) { config.MojibakeDetectControlCharacters = control; changed = true; }
+            ImGui.TextDisabled("改行・タブ以外の制御文字を検知します。");
+        }
+
+        ImGui.Spacing();
+        ImGui.Separator();
+
+        var white = config.MojibakeWhitelistRules ??= new List<MojibakeWhitelistRule>();
+        if (ImGui.CollapsingHeader($"ホワイトリスト（{white.Count}件）##MojibakeWhitelistSection", ImGuiTreeNodeFlags.DefaultOpen))
+        {
+            ImGui.TextDisabled("ここに一致した翻訳文字列は、他の文字化け判定ルールに一致しても正常扱いにします。");
+            ImGui.TextDisabled("ホワイトリストは文字化け判定ルールより優先されます。");
+            ImGui.Spacing();
+
+            var removeWhiteIndex = -1;
+            if (ImGui.BeginTable("mojibake_white_table", 6,
+                ImGuiTableFlags.Borders | ImGuiTableFlags.RowBg | ImGuiTableFlags.Resizable | ImGuiTableFlags.SizingStretchProp))
+            {
+                ImGui.TableSetupColumn("有効", ImGuiTableColumnFlags.WidthFixed, 48);
+                ImGui.TableSetupColumn("名前", ImGuiTableColumnFlags.WidthFixed, 140);
+                ImGui.TableSetupColumn("登録文字列", ImGuiTableColumnFlags.WidthStretch, 1.0f);
+                ImGui.TableSetupColumn("Unicode", ImGuiTableColumnFlags.WidthFixed, 220);
+                ImGui.TableSetupColumn("判定方式", ImGuiTableColumnFlags.WidthFixed, 110);
+                ImGui.TableSetupColumn("操作", ImGuiTableColumnFlags.WidthFixed, 60);
+                ImGui.TableHeadersRow();
+
+                for (var i = 0; i < white.Count; i++)
+                {
+                    var entry = white[i];
+                    if (entry == null) continue;
+                    ImGui.PushID($"moji_white_{i}");
+                    ImGui.TableNextRow();
+
+                    ImGui.TableSetColumnIndex(0);
+                    var enabled = entry.Enabled;
+                    if (ImGui.Checkbox("##enabled", ref enabled)) { entry.Enabled = enabled; changed = true; }
+
+                    ImGui.TableSetColumnIndex(1);
+                    var label = entry.Label ?? string.Empty;
+                    ImGui.SetNextItemWidth(-1);
+                    if (ImGui.InputText("##label", ref label, 96)) { entry.Label = label; changed = true; }
+
+                    ImGui.TableSetColumnIndex(2);
+                    var whiteText = entry.Text ?? string.Empty;
+                    ImGui.SetNextItemWidth(-1);
+                    ImGui.InputText("##registered_text", ref whiteText, 256, ImGuiInputTextFlags.ReadOnly);
+
+                    ImGui.TableSetColumnIndex(3);
+                    var unicodeText = string.IsNullOrEmpty(entry.Text)
+                        ? "(未設定)"
+                        : string.Join(" ", entry.Text.EnumerateRunes().Select(r => $"U+{r.Value:X4}"));
+                    var unicodeCopy = unicodeText;
+                    ImGui.SetNextItemWidth(-1);
+                    ImGui.InputText("##unicode_text", ref unicodeCopy, 512, ImGuiInputTextFlags.ReadOnly);
+
+                    ImGui.TableSetColumnIndex(4);
+                    var modeLabel = entry.PartialMatch ? "部分一致" : "完全一致";
+                    ImGui.SetNextItemWidth(-1);
+                    if (ImGui.BeginCombo("##white_mode", modeLabel))
+                    {
+                        if (ImGui.Selectable("完全一致", !entry.PartialMatch)) { entry.PartialMatch = false; changed = true; }
+                        if (ImGui.Selectable("部分一致", entry.PartialMatch)) { entry.PartialMatch = true; changed = true; }
+                        ImGui.EndCombo();
+                    }
+
+                    ImGui.TableSetColumnIndex(5);
+                    if (ImGui.SmallButton("削除")) removeWhiteIndex = i;
+                    ImGui.PopID();
+                }
+                ImGui.EndTable();
+            }
+
+            if (removeWhiteIndex >= 0)
+            {
+                white.RemoveAt(removeWhiteIndex);
+                changed = true;
+            }
+
+            ImGui.Spacing();
+            ImGui.TextUnformatted("ホワイトリストを追加");
+            ImGui.SetNextItemWidth(260);
+            ImGui.InputTextWithHint("##moji_white_label", "名前（例：フランス語 Âmes）", ref mojibakeWhitelistAddLabel, 64);
+            ImGui.SetNextItemWidth(320);
+            ImGui.InputTextWithHint("##moji_white_add", "文字列 または U+XXXX", ref mojibakeWhitelistAddInput, 256);
+            if (TryNormalizeMojibakeInput(mojibakeWhitelistAddInput, out var addWhiteText))
+                ImGui.TextDisabled($"認識結果: {DescribeMojibakeText(addWhiteText, mojibakeWhitelistAddLabel)}");
+            ImGui.Checkbox("部分一致でホワイトリスト登録", ref mojibakeWhitelistAddPartial);
+            ImGui.SameLine();
+            var canAddWhite = TryNormalizeMojibakeInput(mojibakeWhitelistAddInput, out addWhiteText)
+                              && !white.Any(x => x != null && string.Equals(x.Text, addWhiteText, StringComparison.Ordinal) && x.PartialMatch == mojibakeWhitelistAddPartial);
+            if (!canAddWhite) ImGui.BeginDisabled();
+            if (ImGui.Button("ホワイトリストに追加"))
+            {
+                white.Add(new MojibakeWhitelistRule
+                {
+                    Text = addWhiteText,
+                    Label = mojibakeWhitelistAddLabel.Trim(),
+                    Enabled = true,
+                    PartialMatch = mojibakeWhitelistAddPartial,
+                });
+                mojibakeWhitelistAddInput = string.Empty;
+                mojibakeWhitelistAddLabel = string.Empty;
+                mojibakeWhitelistAddPartial = false;
+                changed = true;
+            }
+            if (!canAddWhite) ImGui.EndDisabled();
+        }
+
+        ImGui.Spacing();
+        ImGui.Separator();
+
+        var repairHistory = config.InstallerMojibakeRepairHistory ??= new List<InstallerMojibakeRepairRecord>();
+        if (requestOpenInstallerRepairHistory)
+        {
+            ImGui.SetNextItemOpen(true, ImGuiCond.Always);
+            requestOpenInstallerRepairHistory = false;
+        }
+        if (ImGui.CollapsingHeader($"Plugin Installer 文字化け修復履歴（{repairHistory.Count}件）##InstallerMojibakeRepairHistory"))
+        {
+            ImGui.TextDisabled("文字化けを検知した項目は、その場では元Manifestの原文へ戻しています。");
+            ImGui.TextColored(new Vector4(1f, 0.78f, 0.28f, 1f), "ここで保存するまでは、再翻訳・翻訳除外の指定は今回のPJH起動中だけの仮処理です。");
+            ImGui.TextDisabled("最終的に『現在の翻訳ファイルへ上書き保存』を押すと、現在使用中のPlugin Installer翻訳ファイルへ確定保存します。");
+            ImGui.Spacing();
+
+            if (repairHistory.Count == 0)
+            {
+                ImGui.TextDisabled("修復履歴はありません。");
+            }
+            else
+            {
+                if (ImGui.Button("全選択##SelectAllInstallerMojibakeRepair"))
+                    foreach (var item in repairHistory.Where(x => x != null)) selectedInstallerRepairHistory.Add(InstallerRepairHistoryKey(item));
+                ImGui.SameLine();
+                if (ImGui.Button("選択解除##ClearInstallerMojibakeRepairSelection")) selectedInstallerRepairHistory.Clear();
+
+                var selectedRecords = repairHistory.Where(x => x != null && selectedInstallerRepairHistory.Contains(InstallerRepairHistoryKey(x))).ToArray();
+                var hasSelection = selectedRecords.Length > 0;
+                if (!hasSelection) ImGui.BeginDisabled();
+                if (ImGui.Button("選択項目を再翻訳##RetranslateInstallerMojibake"))
+                    _ = pluginInstallerModule.StageMojibakeRetranslateAsync(selectedRecords);
+                ImGui.SameLine();
+                if (ImGui.Button("選択項目を今後は翻訳しない##NoTranslateInstallerMojibake"))
+                    pluginInstallerModule.StageMojibakeDoNotTranslate(selectedRecords);
+                if (!hasSelection) ImGui.EndDisabled();
+
+                ImGui.SameLine();
+                var hasStaged = pluginInstallerModule.HasStagedMojibakeRepairs;
+                if (!hasStaged) ImGui.BeginDisabled();
+                ImGui.PushStyleColor(ImGuiCol.Button, new Vector4(0.18f, 0.48f, 0.26f, 1f));
+                var commit = ImGui.Button("現在の翻訳ファイルへ上書き保存##CommitInstallerMojibakeRepairs", new Vector2(280, 0));
+                ImGui.PopStyleColor();
+                if (!hasStaged) ImGui.EndDisabled();
+                if (commit)
+                {
+                    if (pluginInstallerModule.CommitStagedMojibakeRepairs())
+                        selectedInstallerRepairHistory.Clear();
+                }
+
+                ImGui.SameLine();
+                if (ImGui.Button("修復履歴を消去##ClearInstallerMojibakeRepairHistory"))
+                {
+                    repairHistory.Clear();
+                    selectedInstallerRepairHistory.Clear();
+                    changed = true;
+                }
+
+                if (!string.IsNullOrWhiteSpace(pluginInstallerModule.MojibakeRepairStageStatus))
+                    ImGui.TextWrapped(pluginInstallerModule.MojibakeRepairStageStatus);
+
+                ImGui.Spacing();
+
+                if (ImGui.BeginTable("installer_mojibake_repair_history", 7,
+                    ImGuiTableFlags.Borders | ImGuiTableFlags.RowBg | ImGuiTableFlags.Resizable | ImGuiTableFlags.ScrollY,
+                    new Vector2(0, 260)))
+                {
+                    ImGui.TableSetupColumn("選択", ImGuiTableColumnFlags.WidthFixed, 55);
+                    ImGui.TableSetupColumn("日時", ImGuiTableColumnFlags.WidthFixed, 150);
+                    ImGui.TableSetupColumn("プラグイン", ImGuiTableColumnFlags.WidthFixed, 150);
+                    ImGui.TableSetupColumn("項目", ImGuiTableColumnFlags.WidthFixed, 95);
+                    ImGui.TableSetupColumn("検知理由", ImGuiTableColumnFlags.WidthFixed, 180);
+                    ImGui.TableSetupColumn("現在の翻訳", ImGuiTableColumnFlags.WidthStretch, 1.0f);
+                    ImGui.TableSetupColumn("翻訳前の原文", ImGuiTableColumnFlags.WidthStretch, 1.0f);
+                    ImGui.TableHeadersRow();
+
+                    for (var i = repairHistory.Count - 1; i >= 0; i--)
+                    {
+                        var item = repairHistory[i];
+                        if (item == null) continue;
+                        var selectionKey = InstallerRepairHistoryKey(item);
+                        ImGui.PushID($"installer_repair_{i}");
+                        ImGui.TableNextRow();
+
+                        ImGui.TableSetColumnIndex(0);
+                        var selected = selectedInstallerRepairHistory.Contains(selectionKey);
+                        if (ImGui.Checkbox("##selected", ref selected))
+                        {
+                            if (selected) selectedInstallerRepairHistory.Add(selectionKey);
+                            else selectedInstallerRepairHistory.Remove(selectionKey);
+                        }
+
+                        ImGui.TableSetColumnIndex(1);
+                        ImGui.TextUnformatted(item.RepairedAt.ToLocalTime().ToString("yyyy/MM/dd HH:mm:ss"));
+                        ImGui.TableSetColumnIndex(2); ImGui.TextUnformatted(item.PluginName ?? string.Empty);
+                        ImGui.TableSetColumnIndex(3); ImGui.TextUnformatted(item.FieldName ?? string.Empty);
+                        ImGui.TableSetColumnIndex(4); ImGui.TextWrapped(item.Reason ?? string.Empty);
+                        ImGui.TableSetColumnIndex(5);
+                        var detected = item.DetectedText ?? string.Empty;
+                        ImGui.SetNextItemWidth(-1); ImGui.InputText("##detected", ref detected, 4096, ImGuiInputTextFlags.ReadOnly);
+                        ImGui.TableSetColumnIndex(6);
+                        var restored = item.RestoredSourceText ?? string.Empty;
+                        ImGui.SetNextItemWidth(-1); ImGui.InputText("##restored", ref restored, 4096, ImGuiInputTextFlags.ReadOnly);
+                        ImGui.PopID();
+                    }
+                    ImGui.EndTable();
+                }
+
+            }
+        }
+
+        if (changed)
+        {
+            MojibakeSafety.Configure(config);
+            SaveConfig();
+        }
+    }
+
+    private sealed class MojibakeAlertWindow : Window
+    {
+        private readonly Plugin owner;
+        private int selectedAction;
+
+        internal MojibakeAlertWindow(Plugin owner)
+            : base("文字化けを検知 v0.5.0###PluginJPHelperMojibakeAlert")
+        {
+            this.owner = owner;
+            Size = new Vector2(760, 560);
+            SizeCondition = ImGuiCond.FirstUseEver;
+        }
+
+        internal void ResetForIncident()
+        {
+            selectedAction = 0;
+        }
+
+        public override void PreDraw() => drawingOwnUi = true;
+
+        public override void Draw()
+        {
+            var incident = owner.activeMojibakeIncident;
+            if (incident == null)
+            {
+                ImGui.TextDisabled("現在、確認が必要な文字化けはありません。");
+                return;
+            }
+
+            if (incident.TargetKind == MojibakeTargetKind.PluginInstaller)
+                ImGui.TextWrapped("Plugin Installerの翻訳で文字化けを検知しました。この項目だけ原文に戻しました。ほかのInstaller翻訳は継続します。");
+            else
+                ImGui.TextWrapped("以下の翻訳の文字化けを検知、対象のプラグインの翻訳をOFFにします。");
+            ImGui.Separator();
+            ImGui.TextColored(new Vector4(1.00f, 0.82f, 0.28f, 1.00f), $"【対象プラグイン】 {incident.TargetName}");
+            ImGui.TextUnformatted($"種類: {(incident.TargetKind == MojibakeTargetKind.PluginInstaller ? "Plugin Installer" : "プラグイン翻訳")}");
+            ImGui.TextUnformatted($"辞書: {incident.DictionarySource}");
+            ImGui.TextWrapped($"検知理由: {incident.Reason}");
+            ImGui.Separator();
+            ImGui.TextUnformatted("原文");
+            DrawAutoHeightTextBox("##MojibakeSource", incident.SourceText);
+            ImGui.TextUnformatted("検知した翻訳");
+            DrawAutoHeightTextBox("##MojibakeBadTranslation", incident.TranslatedText);
+
+            if (incident.TargetKind == MojibakeTargetKind.PluginInstaller)
+            {
+                ImGui.Separator();
+                ImGui.TextWrapped("この項目はPJHが自動で元Manifestの原文表示へ戻しました。正常なほかの翻訳はそのまま使用されます。");
+                ImGui.TextWrapped("恒久的に直す場合は、修復履歴画面で『再翻訳』または『今後は翻訳しない』を選び、最後に現在の翻訳ファイルへ上書き保存してください。保存しない場合は今回の起動中だけの処理です。");
+                ImGui.Spacing();
+                if (ImGui.Button("修復履歴・再処理画面を開く", new Vector2(240, 0)))
+                {
+                    owner.OpenInstallerRepairHistorySettings();
+                    owner.FinishMojibakeIncident();
+                    ResetForIncident();
+                }
+                ImGui.SameLine();
+                if (ImGui.Button("閉じる", new Vector2(120, 0)))
+                {
+                    owner.FinishMojibakeIncident();
+                    ResetForIncident();
+                }
+                return;
+            }
+
+            ImGui.Separator();
+            ImGui.TextUnformatted("処理を選択してください。");
+
+            ImGui.PushStyleColor(ImGuiCol.Text, new Vector4(0.48f, 0.92f, 1.00f, 1.00f));
+            ImGui.RadioButton("辞書を表示して修正", ref selectedAction, 1);
+            ImGui.PopStyleColor();
+
+            ImGui.PushStyleColor(ImGuiCol.Text, new Vector4(1.00f, 0.82f, 0.28f, 1.00f));
+            ImGui.RadioButton("翻訳を無効にしプラグインを起動", ref selectedAction, 2);
+            ImGui.PopStyleColor();
+
+            ImGui.PushStyleColor(ImGuiCol.Text, new Vector4(1.00f, 0.52f, 0.52f, 1.00f));
+            ImGui.RadioButton("文字化けのままプラグインを起動", ref selectedAction, 3);
+            ImGui.PopStyleColor();
+
+            ImGui.Spacing();
+            if (selectedAction == 1)
+            {
+                ImGui.TextWrapped("文字化けを検知した辞書を開きます。内容を修正し、「保存」「削除」「訳を消す」のいずれかを行った後、名前を付けて書き出してください。");
+            }
+            else if (selectedAction == 2)
+            {
+                ImGui.TextWrapped("翻訳を無効にし、未翻訳のまま対象プラグインを起動します。\n翻訳を有効にした時、文字化けの修正が行われていなければ再度表示します。");
+            }
+            else if (selectedAction == 3)
+            {
+                ImGui.TextWrapped("文字化けした翻訳をそのまま使用して、対象プラグインを起動します。\n他へ影響が波及する可能性があるため、おすすめはできません。\n文字化けの理由が分かっており、修正できない、または修正する必要がない場合のみ選択してください。\nこの警告はPJHを再起動した時に再表示します。");
+            }
+
+            ImGui.Spacing();
+            if (selectedAction == 0) ImGui.BeginDisabled();
+            var buttonColor = selectedAction switch
+            {
+                1 => new Vector4(0.18f, 0.46f, 0.62f, 1.00f),
+                2 => new Vector4(0.62f, 0.48f, 0.12f, 1.00f),
+                3 => new Vector4(0.62f, 0.20f, 0.20f, 1.00f),
+                _ => new Vector4(0.30f, 0.30f, 0.30f, 1.00f),
+            };
+            ImGui.PushStyleColor(ImGuiCol.Button, buttonColor);
+            ImGui.PushStyleColor(ImGuiCol.ButtonHovered, buttonColor + new Vector4(0.08f, 0.08f, 0.08f, 0.00f));
+            ImGui.PushStyleColor(ImGuiCol.ButtonActive, buttonColor - new Vector4(0.06f, 0.06f, 0.06f, 0.00f));
+            var execute = ImGui.Button("選択した処理を実行", new Vector2(220, 0));
+            ImGui.PopStyleColor(3);
+            if (selectedAction == 0) ImGui.EndDisabled();
+
+            if (execute)
+            {
+                switch (selectedAction)
+                {
+                    case 1:
+                        owner.OpenIncidentDictionary(incident);
+                        break;
+                    case 2:
+                        // 検知時点で対象翻訳は既にOFF。辞書内容は変更しない。
+                        break;
+                    case 3:
+                        owner.AllowMojibakeAndResume(incident);
+                        break;
+                }
+
+                owner.FinishMojibakeIncident();
+                ResetForIncident();
+                return;
+            }
+        }
+
+        private static void DrawAutoHeightTextBox(string id, string text)
+        {
+            var available = Math.Max(ImGui.GetContentRegionAvail().X - 20.0f, 120.0f);
+            var measured = ImGui.CalcTextSize(string.IsNullOrEmpty(text) ? " " : text, false, available);
+            var lineHeight = ImGui.GetTextLineHeightWithSpacing();
+            var desired = Math.Clamp(measured.Y + lineHeight * 1.4f, lineHeight * 2.2f, lineHeight * 7.0f);
+            ImGui.BeginChild(id, new Vector2(0, desired), true);
+            ImGui.TextWrapped(text);
+            ImGui.EndChild();
+        }
+
+        public override void PostDraw() => drawingOwnUi = false;
     }
 
     private sealed class MainWindow : Window
@@ -2297,33 +3272,6 @@ public sealed unsafe class Plugin : IDalamudPlugin
             AllowPinning = true;
             AllowClickthrough = true;
 
-            // v0.4.9: Dalamud標準タイトルバーへOFUSE支援ボタンを追加。
-            TitleBarButtons.Add(new TitleBarButton
-            {
-                Icon = FontAwesomeIcon.Heart,
-                IconColor = new Vector4(1.00f, 0.78f, 0.42f, 1.00f),
-                Priority = 10,
-                AvailableClickthrough = true,
-                ShowTooltip = () => ImGui.SetTooltip("OFUSEでElpaを支援"),
-                Click = mouseButton =>
-                {
-                    if (mouseButton != ImGuiMouseButton.Left)
-                        return;
-
-                    try
-                    {
-                        Process.Start(new ProcessStartInfo
-                        {
-                            FileName = "https://ofuse.me/elpa",
-                            UseShellExecute = true
-                        });
-                    }
-                    catch (Exception ex)
-                    {
-                        owner.csvStatus = $"OFUSEを開けませんでした: {ex.Message}";
-                    }
-                },
-            });
         }
 
         public override void PreDraw()
@@ -2390,6 +3338,8 @@ public sealed unsafe class Plugin : IDalamudPlugin
 
     private void EnsureCommunityUpdateRefresh()
     {
+        // 自動確認はDalamudのrepo読込と競合させない。
+        if (!pluginInstallerModule.IsSafeForBackgroundNetworkWork()) return;
         var now = Environment.TickCount64;
         var last = Interlocked.Read(ref communityLastAttemptTick);
         if (communityDictionaryBusy || (last != 0 && now - last < UpdateCheckIntervalMs)) return;
@@ -3121,6 +4071,8 @@ public sealed unsafe class Plugin : IDalamudPlugin
 
     private void EnsureOfficialNoticeRefresh()
     {
+        // 自動確認はDalamudのrepo読込と競合させない。
+        if (!pluginInstallerModule.IsSafeForBackgroundNetworkWork()) return;
         var now = Environment.TickCount64;
         var last = Interlocked.Read(ref officialNoticeLastAttemptTick);
         if (officialNoticeBusy || (last != 0 && now - last < UpdateCheckIntervalMs)) return;
@@ -3190,7 +4142,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
 
     private string BuildMainWindowTitle()
     {
-        const string baseTitle = "Plugin JP Helper v0.4.12";
+        const string baseTitle = "Plugin JP Helper v0.5.0";
         var officialNotice = officialNoticeText?.Trim() ?? string.Empty;
         var communityNotice = communityNoticePending ? "コミュニティ辞書に更新があります。" : string.Empty;
         var notice = string.Empty;
@@ -3618,25 +4570,6 @@ public sealed unsafe class Plugin : IDalamudPlugin
     private void DrawHelpTab()
     {
         ImGui.TextWrapped("Plugin JP Helper は、他のDalamudプラグインの表示文字列をCSV辞書で日本語化する補助プラグインです。");
-        ImGui.Spacing();
-
-        ImGui.TextWrapped("開発を応援していただける場合は、OFUSEからご支援いただけます。");
-        if (ActionButton("OFUSEで支援する", ButtonRole.Success))
-        {
-            try
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = "https://ofuse.me/elpa",
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception ex)
-            {
-                csvStatus = $"OFUSEを開けませんでした: {ex.Message}";
-            }
-        }
-        ImGui.TextDisabled("https://ofuse.me/elpa");
         ImGui.Spacing();
 
         if (ImGui.CollapsingHeader("Plugin Installerの日本語化：使い方・仕様"))
@@ -6010,6 +6943,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
     private void SaveConfig()
     {
         InvalidateDictionaryUiCache();
+        MojibakeSafety.Configure(config);
         pluginInterface.SavePluginConfig(config);
     }
 
@@ -6017,7 +6951,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
     {
         captureEnabled = false; baselineCaptureEnabled = false;
         contextMenu.OnMenuOpened -= OnContextMenuOpened;
-        pluginInterface.UiBuilder.Draw -= pluginInstallerModule.Tick; pluginInterface.UiBuilder.Draw -= windowSystem.Draw; pluginInterface.UiBuilder.Draw -= DrainMainThreadWork; pluginInterface.UiBuilder.OpenConfigUi -= OpenUi; pluginInterface.UiBuilder.OpenMainUi -= OpenUi; commandManager.RemoveHandler(Command);
+        pluginInterface.UiBuilder.Draw -= ProcessMojibakeSafetyIncidents; pluginInterface.UiBuilder.Draw -= pluginInstallerModule.Tick; pluginInterface.UiBuilder.Draw -= windowSystem.Draw; pluginInterface.UiBuilder.Draw -= DrainMainThreadWork; pluginInterface.UiBuilder.OpenConfigUi -= OpenUi; pluginInterface.UiBuilder.OpenMainUi -= OpenUi; commandManager.RemoveHandler(Command);
         windowSystem.RemoveAllWindows();
         pluginInstallerModule.Dispose();
         officialDictionaryHttp.Dispose();

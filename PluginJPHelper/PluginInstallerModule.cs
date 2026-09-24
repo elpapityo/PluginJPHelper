@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Net;
@@ -37,6 +37,10 @@ internal sealed class PluginInstallerModule : IDisposable
     private readonly IDalamudPluginInterface pluginInterface;
     private readonly ICommandManager commandManager;
     private readonly IPluginLog log;
+    private readonly Action<MojibakeIncident>? mojibakeSafetyCallback;
+    private readonly Action<MojibakeIncident>? mojibakeRepairHistoryCallback;
+    private volatile bool mojibakeSafetySaveRequested;
+    private volatile bool mojibakeSafetyRestoreRequested;
     private readonly PluginInstallerSettings config;
     private readonly string settingsPath;
     private readonly MainWindow mainWindow;
@@ -73,6 +77,13 @@ internal sealed class PluginInstallerModule : IDisposable
     private readonly string manifestSnapshotPath;
     private readonly string configDirectory;
     private readonly HashSet<object> translatedManifests = new(ReferenceEqualityComparer.Instance);
+    private readonly HashSet<string> allowedMojibakeIncidentKeys = new(StringComparer.Ordinal);
+    // Installer側は文字化け項目だけ原文へ戻し、同一内容の警告はPJH起動中1回だけにする。
+    private readonly HashSet<string> reportedMojibakeIncidentKeys = new(StringComparer.Ordinal);
+    // v0.4.26: 設定画面で確定保存するまでのInstaller文字化け後処理をメモリ上に保持する。
+    private readonly Dictionary<string, string> stagedMojibakeTranslations = new(StringComparer.OrdinalIgnoreCase);
+    private readonly HashSet<string> stagedMojibakeNoTranslate = new(StringComparer.OrdinalIgnoreCase);
+    private string mojibakeRepairStageStatus = "未処理";
 
     private object? pluginInstallerWindow;
     private Type? serviceGenericType;
@@ -96,10 +107,22 @@ internal sealed class PluginInstallerModule : IDisposable
     // さらに短い猶予を置いてから翻訳を開始する。
     private object? pluginManager;
     private Type? pluginManagerType;
+    private object? observedRepoRefreshTask;
+    private object? dalamudInterface;
+    private Type? dalamudInterfaceType;
     private long installerReadySinceTick;
     private bool installerTranslationReady;
     private bool installerWaitLogged;
-    private const long InstallerReadyGraceMs = 2_500;
+    // v0.4.32 PrivateTest: repo読込とPJHのManifest書き込みが重ならないよう、
+    // repoRefreshTaskの完了後も十分な安定時間を置き、Dalamud/他Repoの後処理と重ならないようにする。
+    private const long InstallerReadyGraceMs = 10_000;
+
+    // 自動の外部通信（公式/コミュニティ辞書確認）はさらに受け身にする。
+    // PluginManagerのrepo更新が完全に終わり、10秒安定した時だけ許可する。
+    // 手動ボタンからの通信はこの判定を使わない。
+    private object? backgroundObservedRepoRefreshTask;
+    private long backgroundNetworkReadySinceTick;
+    private const long BackgroundNetworkGraceMs = 10_000;
 
     private int translatedManifestCount;
     private int manifestCount;
@@ -148,6 +171,11 @@ internal sealed class PluginInstallerModule : IDisposable
     internal bool UsePrivateServer => string.Equals(this.config.TranslationProvider, "PrivateServer", StringComparison.OrdinalIgnoreCase);
     internal string TranslationProviderName => this.UsePrivateServer ? "PJH中継サーバー" : "Google翻訳";
     internal string EffectiveTranslationProviderName => this.UsePrivateServer && this.relayGoogleAvailable == true ? "Google翻訳" : this.TranslationProviderName;
+    internal string MojibakeRepairStageStatus => this.mojibakeRepairStageStatus;
+    internal bool HasStagedMojibakeRepairs
+    {
+        get { lock (this.sync) return this.stagedMojibakeTranslations.Count > 0 || this.stagedMojibakeNoTranslate.Count > 0; }
+    }
     internal string PrivateServerUrl
     {
         get => PjhRelayBaseUrl;
@@ -271,11 +299,18 @@ internal sealed class PluginInstallerModule : IDisposable
         ["HaselTweaks"] = "HaselTweaks",
     };
 
-    public PluginInstallerModule(IDalamudPluginInterface pluginInterface, ICommandManager commandManager, IPluginLog log)
+    public PluginInstallerModule(
+        IDalamudPluginInterface pluginInterface,
+        ICommandManager commandManager,
+        IPluginLog log,
+        Action<MojibakeIncident>? mojibakeSafetyCallback = null,
+        Action<MojibakeIncident>? mojibakeRepairHistoryCallback = null)
     {
         this.pluginInterface = pluginInterface;
         this.commandManager = commandManager;
         this.log = log;
+        this.mojibakeSafetyCallback = mojibakeSafetyCallback;
+        this.mojibakeRepairHistoryCallback = mojibakeRepairHistoryCallback;
         this.settingsPath = Path.Combine(pluginInterface.GetPluginConfigDirectory(), "plugin-installer-settings.json");
         this.config = PluginInstallerSettings.Load(this.settingsPath, log);
         var configDir = pluginInterface.GetPluginConfigDirectory();
@@ -625,6 +660,12 @@ internal sealed class PluginInstallerModule : IDisposable
 
     public void Tick()
     {
+        if (this.mojibakeSafetySaveRequested)
+        {
+            this.mojibakeSafetySaveRequested = false;
+            this.SaveConfig();
+        }
+
         while (this.pendingDictionarySelection.TryDequeue(out var selectedDictionary))
         {
             this.dictionaryPathInput = selectedDictionary;
@@ -637,6 +678,12 @@ internal sealed class PluginInstallerModule : IDisposable
         if (!this.IsPluginInstallerReadyForTranslation())
             return;
 
+        if (this.mojibakeSafetyRestoreRequested)
+        {
+            this.mojibakeSafetyRestoreRequested = false;
+            this.RestoreAll();
+        }
+
         this.ApplyCompletedTranslations();
         this.ApplyCompletedCommandTranslations();
         this.ApplyCompletedChangelogTranslations();
@@ -645,24 +692,27 @@ internal sealed class PluginInstallerModule : IDisposable
 
         if (this.config.TranslateInstallerDescriptions)
         {
-            var intervalMs = Math.Max(1, this.config.DiffCheckMinutes) * 60_000L;
-            var now = Environment.TickCount64;
-
-            // v0.4.7: 差分チェックとは別に、現在Plugin Installerが保持している表示用Manifest全件へ
-            // 既存辞書だけを2秒間隔で再適用する。Google/PJH中継サーバーへの送信は一切行わない。
-            // v0.4.12: この処理もPluginManagerの読込完了＋安全待機後にだけ実行する。
-            if (now - this.lastDisplayReapplyTick >= DisplayReapplyIntervalMs)
+            // Plugin Installerが閉じている間は内部Window/Manifestへの定期アクセスを止める。
+            // これにより、閉じた状態で2秒ごとに内部UIへ触れてDebugウィンドウが瞬間表示される経路を避ける。
+            // Dalamudアセンブリはコンパイル時参照から直接取得し、AppDomain列挙は行わない。
+            if (this.TryIsPluginInstallerOpen(out var installerOpen) && installerOpen)
             {
-                this.lastDisplayReapplyTick = now;
-                this.ReapplyDictionaryToCurrentRemoteManifests();
-            }
+                var intervalMs = Math.Max(1, this.config.DiffCheckMinutes) * 60_000L;
+                var now = Environment.TickCount64;
 
-            // 重い差分走査は手動要求、または設定された通常間隔が来た時だけ実行する。
-            if (this.forceDiffCheck || now - this.lastDiffCheckTick >= intervalMs)
-            {
-                this.forceDiffCheck = false;
-                this.lastDiffCheckTick = now;
-                this.ScanAllInstallerManifests();
+                if (now - this.lastDisplayReapplyTick >= DisplayReapplyIntervalMs)
+                {
+                    this.lastDisplayReapplyTick = now;
+                    this.ReapplyDictionaryToCurrentRemoteManifests();
+                }
+
+                // 重い差分走査は手動要求、または設定された通常間隔が来た時だけ実行する。
+                if (this.forceDiffCheck || now - this.lastDiffCheckTick >= intervalMs)
+                {
+                    this.forceDiffCheck = false;
+                    this.lastDiffCheckTick = now;
+                    this.ScanAllInstallerManifests();
+                }
             }
         }
 
@@ -683,9 +733,12 @@ internal sealed class PluginInstallerModule : IDisposable
             var pluginsReady = ReadBool(type, manager, "PluginsReady", false);
             var reposReady = ReadBool(type, manager, "ReposReady", false);
             var safeMode = ReadBool(type, manager, "SafeMode", false);
+            var repoRefreshTask = ReadFieldOrProperty(type, manager, "repoRefreshTask");
+            var repoTaskRunning = repoRefreshTask is Task task && !task.IsCompleted;
 
-            if (!pluginsReady || !reposReady || safeMode)
+            if (!pluginsReady || !reposReady || repoTaskRunning || safeMode)
             {
+                this.observedRepoRefreshTask = repoRefreshTask;
                 this.ResetInstallerReadyGate(safeMode
                     ? "Dalamudセーフモード中"
                     : "Dalamud Plugin Installer読み込み完了待ち");
@@ -693,6 +746,17 @@ internal sealed class PluginInstallerModule : IDisposable
             }
 
             var now = Environment.TickCount64;
+
+            // 新しいrepo更新タスクへ差し替わった直後も、安全待機を最初からやり直す。
+            if (!ReferenceEquals(this.observedRepoRefreshTask, repoRefreshTask))
+            {
+                this.observedRepoRefreshTask = repoRefreshTask;
+                this.installerReadySinceTick = now;
+                this.installerTranslationReady = false;
+                this.reflectionStatus = "Dalamud読み込み完了 / 翻訳安全待機中";
+                return false;
+            }
+
             if (this.installerReadySinceTick == 0)
             {
                 this.installerReadySinceTick = now;
@@ -722,6 +786,53 @@ internal sealed class PluginInstallerModule : IDisposable
         {
             this.ResetInstallerReadyGate("PluginManager状態確認エラー");
             this.log.Debug(ex, "[PJH/PluginInstaller] PluginManagerの準備状態確認に失敗");
+            return false;
+        }
+    }
+
+    public bool IsSafeForBackgroundNetworkWork()
+    {
+        try
+        {
+            if (!this.TryResolvePluginManager(out var manager))
+            {
+                this.backgroundNetworkReadySinceTick = 0;
+                return false;
+            }
+
+            var type = manager.GetType();
+            var pluginsReady = ReadBool(type, manager, "PluginsReady", false);
+            var reposReady = ReadBool(type, manager, "ReposReady", false);
+            var safeMode = ReadBool(type, manager, "SafeMode", false);
+            var repoRefreshTask = ReadFieldOrProperty(type, manager, "repoRefreshTask");
+            var repoTaskRunning = repoRefreshTask is Task task && !task.IsCompleted;
+
+            if (!pluginsReady || !reposReady || repoTaskRunning || safeMode)
+            {
+                this.backgroundObservedRepoRefreshTask = repoRefreshTask;
+                this.backgroundNetworkReadySinceTick = 0;
+                return false;
+            }
+
+            var now = Environment.TickCount64;
+            if (!ReferenceEquals(this.backgroundObservedRepoRefreshTask, repoRefreshTask))
+            {
+                this.backgroundObservedRepoRefreshTask = repoRefreshTask;
+                this.backgroundNetworkReadySinceTick = now;
+                return false;
+            }
+
+            if (this.backgroundNetworkReadySinceTick == 0)
+            {
+                this.backgroundNetworkReadySinceTick = now;
+                return false;
+            }
+
+            return now - this.backgroundNetworkReadySinceTick >= BackgroundNetworkGraceMs;
+        }
+        catch
+        {
+            this.backgroundNetworkReadySinceTick = 0;
             return false;
         }
     }
@@ -759,6 +870,52 @@ internal sealed class PluginInstallerModule : IDisposable
 
         manager = this.pluginManager;
         return true;
+    }
+
+    private bool TryIsPluginInstallerOpen(out bool isOpen)
+    {
+        isOpen = false;
+        try
+        {
+            this.serviceGenericType ??= DalamudAssembly.GetType(ServiceGenericTypeName);
+            this.dalamudInterfaceType ??= DalamudAssembly.GetType("Dalamud.Interface.Internal.DalamudInterface");
+            if (this.serviceGenericType == null || this.dalamudInterfaceType == null) return false;
+
+            if (this.dalamudInterface == null)
+            {
+                var serviceType = this.serviceGenericType.MakeGenericType(this.dalamudInterfaceType);
+                var getMethod = serviceType.GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
+                    .FirstOrDefault(m => m.Name == "Get" && m.GetParameters().Length == 0);
+                this.dalamudInterface = getMethod?.Invoke(null, null);
+                if (this.dalamudInterface == null) return false;
+            }
+
+            var property = this.dalamudInterfaceType.GetProperty("IsPluginInstallerOpen",
+                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            if (property?.GetValue(this.dalamudInterface) is not bool value) return false;
+
+            isOpen = value;
+            return true;
+        }
+        catch (Exception ex)
+        {
+            this.log.Debug(ex, "[PJH/PluginInstaller] Plugin Installer表示状態の確認に失敗");
+            this.dalamudInterface = null;
+            return false;
+        }
+    }
+
+    private static object? ReadFieldOrProperty(Type type, object instance, string name)
+    {
+        try
+        {
+            return type.GetField(name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)?.GetValue(instance)
+                ?? type.GetProperty(name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)?.GetValue(instance);
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     private static bool ReadBool(Type type, object instance, string propertyName, bool fallback)
@@ -826,8 +983,8 @@ internal sealed class PluginInstallerModule : IDisposable
 
                 if (this.dictionary.TryGetValue(internalName, out var entry))
                 {
-                    var punchChanged = !string.Equals(entry.PunchlineSource ?? string.Empty, punchline, StringComparison.Ordinal);
-                    var descChanged = !string.Equals(entry.DescriptionSource ?? string.Empty, description, StringComparison.Ordinal);
+                    var punchChanged = !IsMojibakeNoTranslate(internalName, "Punchline") && !string.Equals(entry.PunchlineSource ?? string.Empty, punchline, StringComparison.Ordinal);
+                    var descChanged = !IsMojibakeNoTranslate(internalName, "Description") && !string.Equals(entry.DescriptionSource ?? string.Empty, description, StringComparison.Ordinal);
                     if (!punchChanged && !descChanged)
                     {
                         this.ApplyDictionaryEntry(manifest, entry);
@@ -866,7 +1023,9 @@ internal sealed class PluginInstallerModule : IDisposable
                     missing++;
                     this.UpsertUpdateRow(internalName, name, "[新規]", "プラグイン説明 / 詳細説明", "[待機]", "未保存", "新規検出");
                     this.AddUiLog("新規", "辞書にないプラグインを検出", internalName);
-                    if (allowAutoGoogle && this.QueueWork(new TranslationWork(manifest, internalName, name, version, punchline, description, true, true, null)))
+                    var translatePunch = !IsMojibakeNoTranslate(internalName, "Punchline");
+                    var translateDesc = !IsMojibakeNoTranslate(internalName, "Description");
+                    if (allowAutoGoogle && (translatePunch || translateDesc) && this.QueueWork(new TranslationWork(manifest, internalName, name, version, punchline, description, translatePunch, translateDesc, null)))
                         queued++;
                 }
             }
@@ -1432,6 +1591,17 @@ internal sealed class PluginInstallerModule : IDisposable
                 jpDesc = string.Empty;
             }
 
+            if (work.TranslatePunchline && !string.IsNullOrWhiteSpace(jpPunch) && RejectMojibakeTranslation(work.InternalName, "Punchline", work.Punchline, jpPunch))
+            {
+                this.completed.Enqueue(new TranslationResult(work.Manifest, work.QueueKey, null, "文字化け検知で安全停止"));
+                return;
+            }
+            if (work.TranslateDescription && !string.IsNullOrWhiteSpace(jpDesc) && RejectMojibakeTranslation(work.InternalName, "Description", work.Description, jpDesc))
+            {
+                this.completed.Enqueue(new TranslationResult(work.Manifest, work.QueueKey, null, "文字化け検知で安全停止"));
+                return;
+            }
+
             var entry = new TranslationDictionaryEntry
             {
                 InternalName = work.InternalName,
@@ -1969,10 +2139,240 @@ internal sealed class PluginInstallerModule : IDisposable
         }
     }
 
+    internal bool TryUpdateMojibakeTranslation(MojibakeIncident incident, string corrected, out string status)
+    {
+        status = string.Empty;
+        if (incident.TargetKind != MojibakeTargetKind.PluginInstaller)
+        {
+            status = "Plugin Installerの検知項目ではありません。";
+            return false;
+        }
+
+        lock (this.sync)
+        {
+            if (!this.dictionary.TryGetValue(incident.TargetName, out var entry))
+            {
+                status = "Plugin Installer翻訳辞書に対象が見つかりません。";
+                return false;
+            }
+
+            if (string.Equals(incident.FieldName, "Punchline", StringComparison.Ordinal))
+                entry.PunchlineJapanese = corrected ?? string.Empty;
+            else if (string.Equals(incident.FieldName, "Description", StringComparison.Ordinal))
+                entry.DescriptionJapanese = corrected ?? string.Empty;
+            else
+            {
+                status = "対象フィールドを特定できません。";
+                return false;
+            }
+
+            entry.AutoTranslated = false;
+            entry.UpdatedAt = DateTimeOffset.Now;
+        }
+
+        this.SaveDictionary();
+        status = "Plugin Installer辞書へ保存しました。Installer翻訳は停止したままです。確認後に手動でONにしてください。";
+        return true;
+    }
+
+    internal void AllowMojibakeForSessionAndResume(MojibakeIncident incident)
+    {
+        if (incident.TargetKind != MojibakeTargetKind.PluginInstaller) return;
+        lock (this.sync)
+            this.allowedMojibakeIncidentKeys.Add(incident.DedupeKey);
+
+        this.config.TranslateInstallerDescriptions = true;
+        this.stopWorkerAfterProviderFailure = false;
+        this.workerStopReason = string.Empty;
+        this.forceDiffCheck = true;
+        this.mojibakeSafetySaveRequested = true;
+    }
+
+    private static string MojibakeFieldKey(string internalName, string fieldName)
+        => (internalName ?? string.Empty).Trim() + "|" + (fieldName ?? string.Empty).Trim();
+
+    private bool IsMojibakeNoTranslate(string internalName, string fieldName)
+    {
+        var key = MojibakeFieldKey(internalName, fieldName);
+        lock (this.sync)
+            return this.stagedMojibakeNoTranslate.Contains(key)
+                || (this.config.MojibakeNoTranslateFields?.Contains(key, StringComparer.OrdinalIgnoreCase) ?? false);
+    }
+
+    internal void StageMojibakeDoNotTranslate(IEnumerable<InstallerMojibakeRepairRecord> records)
+    {
+        var count = 0;
+        lock (this.sync)
+        {
+            foreach (var record in records)
+            {
+                if (record == null || string.IsNullOrWhiteSpace(record.PluginName) || string.IsNullOrWhiteSpace(record.FieldName)) continue;
+                var key = MojibakeFieldKey(record.PluginName, record.FieldName);
+                this.stagedMojibakeNoTranslate.Add(key);
+                this.stagedMojibakeTranslations.Remove(key);
+                count++;
+            }
+        }
+        this.forceDiffCheck = true;
+        this.mojibakeRepairStageStatus = count > 0
+            ? $"{count}件を『今後は翻訳しない』として仮設定しました。まだファイルには保存していません。"
+            : "対象項目がありません。";
+    }
+
+    internal async Task StageMojibakeRetranslateAsync(IEnumerable<InstallerMojibakeRepairRecord> records)
+    {
+        var targets = records?.Where(x => x != null && !string.IsNullOrWhiteSpace(x.PluginName) && !string.IsNullOrWhiteSpace(x.FieldName)).ToList()
+            ?? new List<InstallerMojibakeRepairRecord>();
+        if (targets.Count == 0)
+        {
+            this.mojibakeRepairStageStatus = "再翻訳する対象がありません。";
+            return;
+        }
+
+        var success = 0;
+        var failed = 0;
+        this.mojibakeRepairStageStatus = $"再翻訳中: 0/{targets.Count}";
+        foreach (var record in targets)
+        {
+            try
+            {
+                var source = record.RestoredSourceText ?? string.Empty;
+                if (string.IsNullOrWhiteSpace(source)) { failed++; continue; }
+                var protectedText = ProtectTechnicalText(source, record.PluginName, out var tokens);
+                string translatedRaw;
+                try
+                {
+                    translatedRaw = await this.TranslateSelectedAsync(
+                        protectedText, "en", "ja", record.PluginName, record.FieldName).ConfigureAwait(false);
+                }
+                catch (HttpRequestException ex) when (!this.UsePrivateServer && ex.Message.Contains("429", StringComparison.OrdinalIgnoreCase))
+                {
+                    // 文字化け修復の再翻訳だけは、Google選択中でも429時にPJH中継へ1回だけ切り替える。
+                    // 429後にGoogleへ自動再試行はしない。
+                    this.AddUiLog("文字化け修復", "Google翻訳がHTTP 429のためPJH中継サーバーへ切替", record.PluginName);
+                    translatedRaw = await this.TranslatePrivateServerAsync(
+                        protectedText, "en", "ja", record.PluginName, record.FieldName).ConfigureAwait(false);
+                }
+                var translated = PostProcessJapanese(RestoreTechnicalText(translatedRaw, tokens));
+                if (string.IsNullOrWhiteSpace(translated) || MojibakeSafety.TryDetectTranslatedText(translated, out _))
+                {
+                    failed++;
+                    continue;
+                }
+                var key = MojibakeFieldKey(record.PluginName, record.FieldName);
+                lock (this.sync)
+                {
+                    this.stagedMojibakeTranslations[key] = translated;
+                    this.stagedMojibakeNoTranslate.Remove(key);
+                }
+                success++;
+            }
+            catch (Exception ex)
+            {
+                failed++;
+                this.log.Warning(ex, "[PJH/PluginInstaller] 文字化け修復の再翻訳に失敗: {Plugin} / {Field}", record.PluginName, record.FieldName);
+            }
+            this.mojibakeRepairStageStatus = $"再翻訳中: {success + failed}/{targets.Count}";
+        }
+        this.forceDiffCheck = true;
+        this.mojibakeRepairStageStatus = $"再翻訳の仮処理完了: 成功 {success}件 / 失敗 {failed}件。まだファイルには保存していません。";
+    }
+
+    internal bool CommitStagedMojibakeRepairs()
+    {
+        try
+        {
+            lock (this.sync)
+            {
+                this.config.MojibakeNoTranslateFields ??= new List<string>();
+                foreach (var key in this.stagedMojibakeNoTranslate)
+                {
+                    if (!this.config.MojibakeNoTranslateFields.Contains(key, StringComparer.OrdinalIgnoreCase))
+                        this.config.MojibakeNoTranslateFields.Add(key);
+
+                    var sep = key.LastIndexOf('|');
+                    if (sep <= 0) continue;
+                    var internalName = key[..sep];
+                    var fieldName = key[(sep + 1)..];
+                    if (!this.dictionary.TryGetValue(internalName, out var entry)) continue;
+                    if (fieldName.Equals("Punchline", StringComparison.OrdinalIgnoreCase))
+                        entry.PunchlineJapanese = entry.PunchlineSource ?? string.Empty;
+                    else if (fieldName.Equals("Description", StringComparison.OrdinalIgnoreCase))
+                        entry.DescriptionJapanese = entry.DescriptionSource ?? string.Empty;
+                    entry.UpdatedAt = DateTimeOffset.Now;
+                }
+
+                foreach (var pair in this.stagedMojibakeTranslations)
+                {
+                    var sep = pair.Key.LastIndexOf('|');
+                    if (sep <= 0) continue;
+                    var internalName = pair.Key[..sep];
+                    var fieldName = pair.Key[(sep + 1)..];
+                    if (!this.dictionary.TryGetValue(internalName, out var entry)) continue;
+                    if (fieldName.Equals("Punchline", StringComparison.OrdinalIgnoreCase))
+                        entry.PunchlineJapanese = pair.Value;
+                    else if (fieldName.Equals("Description", StringComparison.OrdinalIgnoreCase))
+                        entry.DescriptionJapanese = pair.Value;
+                    entry.AutoTranslated = true;
+                    entry.UpdatedAt = DateTimeOffset.Now;
+                    this.config.MojibakeNoTranslateFields.RemoveAll(x => x.Equals(pair.Key, StringComparison.OrdinalIgnoreCase));
+                }
+
+                this.stagedMojibakeNoTranslate.Clear();
+                this.stagedMojibakeTranslations.Clear();
+            }
+            this.SaveDictionary();
+            this.SaveConfig();
+            this.forceDiffCheck = true;
+            this.mojibakeRepairStageStatus = "現在のPlugin Installer翻訳ファイルへ上書き保存しました。";
+            return true;
+        }
+        catch (Exception ex)
+        {
+            this.log.Error(ex, "[PJH/PluginInstaller] 文字化け修復結果の保存に失敗");
+            this.mojibakeRepairStageStatus = "保存に失敗しました: " + ex.Message;
+            return false;
+        }
+    }
+
+    private bool RejectMojibakeTranslation(string internalName, string fieldName, string source, string translated)
+    {
+        if (!MojibakeSafety.TryDetectTranslatedText(translated, out var reason)) return false;
+
+        var incident = new MojibakeIncident(
+            MojibakeTargetKind.PluginInstaller,
+            internalName,
+            fieldName,
+            source ?? string.Empty,
+            translated ?? string.Empty,
+            reason,
+            this.dictionaryPath);
+
+        lock (this.sync)
+        {
+            // 「文字化けのまま使用」を明示した項目だけは従来どおり通す。
+            if (this.allowedMojibakeIncidentKeys.Contains(incident.DedupeKey))
+                return false;
+
+            // 表示は毎回原文へ戻すが、同じ内容の警告・履歴追加はPJH起動中1回だけ。
+            if (this.reportedMojibakeIncidentKeys.Add(incident.DedupeKey))
+            {
+                this.mojibakeRepairHistoryCallback?.Invoke(incident);
+                this.mojibakeSafetyCallback?.Invoke(incident);
+            }
+        }
+
+        // Installer全体は止めない。呼び出し側がこのフィールドだけ元Manifestの原文へ差し戻す。
+        this.log.Warning("[PJH/PluginInstaller] 文字化け検知で該当項目のみ原文へ復元: {Plugin} / {Field} / {Reason}", internalName, fieldName, reason);
+        return true;
+    }
+
     private void ApplyDictionaryEntry(object manifest, TranslationDictionaryEntry entry)
     {
         try
         {
+            if (!this.config.TranslateInstallerDescriptions) return;
+
             OriginalManifest? original;
             lock (this.sync)
                 this.originals.TryGetValue(manifest, out original);
@@ -1981,11 +2381,29 @@ internal sealed class PluginInstallerModule : IDisposable
 
             var punch = entry.PunchlineJapanese ?? string.Empty;
             var desc = entry.DescriptionJapanese ?? string.Empty;
+            lock (this.sync)
+            {
+                if (this.stagedMojibakeTranslations.TryGetValue(MojibakeFieldKey(entry.InternalName, "Punchline"), out var stagedPunch)) punch = stagedPunch;
+                if (this.stagedMojibakeTranslations.TryGetValue(MojibakeFieldKey(entry.InternalName, "Description"), out var stagedDesc)) desc = stagedDesc;
+            }
+            if (IsMojibakeNoTranslate(entry.InternalName, "Punchline")) punch = original.Punchline;
+            if (IsMojibakeNoTranslate(entry.InternalName, "Description")) desc = original.Description;
+
+            // Installerは全体停止せず、壊れたフィールドだけ元Manifestの原文へ戻す。
+            // 片方が壊れていても、もう片方の正常な翻訳はそのまま維持する。
+            var punchRejected = !IsMojibakeNoTranslate(entry.InternalName, "Punchline") && !string.IsNullOrWhiteSpace(punch)
+                && RejectMojibakeTranslation(entry.InternalName, "Punchline", entry.PunchlineSource, punch);
+            var descRejected = !IsMojibakeNoTranslate(entry.InternalName, "Description") && !string.IsNullOrWhiteSpace(desc)
+                && RejectMojibakeTranslation(entry.InternalName, "Description", entry.DescriptionSource, desc);
+
+            if (punchRejected) punch = original.Punchline;
+            if (descRejected) desc = original.Description;
+
             if (this.config.ShowOriginalBelowTranslation)
             {
-                if (!string.IsNullOrWhiteSpace(original.Punchline) && !string.IsNullOrWhiteSpace(punch))
+                if (!punchRejected && !string.IsNullOrWhiteSpace(original.Punchline) && !string.IsNullOrWhiteSpace(punch))
                     punch += "\n[EN] " + original.Punchline;
-                if (!string.IsNullOrWhiteSpace(original.Description) && !string.IsNullOrWhiteSpace(desc))
+                if (!descRejected && !string.IsNullOrWhiteSpace(original.Description) && !string.IsNullOrWhiteSpace(desc))
                     desc += "\n\n[原文]\n" + original.Description;
             }
             WriteString(manifest, "Punchline", punch);

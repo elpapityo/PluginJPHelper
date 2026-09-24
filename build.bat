@@ -5,7 +5,7 @@ cd /d "%~dp0"
 title Plugin JP Helper Build
 
 set "PLUGIN=PluginJPHelper"
-set "VERSION=0.4.12"
+set "VERSION=0.5.0"
 set "CONFIG=Release"
 set "PROJECT=%~dp0PluginJPHelper\PluginJPHelper.csproj"
 set "SOURCEICON=%~dp0images\icon.png"

@@ -1,4 +1,22 @@
-﻿# CHANGELOG
+# CHANGELOG
+
+## v0.5.0
+
+- v0.4.32 を基準に、既存の翻訳・辞書・文字化け保護ロジックを維持した最小差分。
+- 起動直後の公式辞書・コミュニティ辞書の自動HTTP確認を停止。
+- 自動更新確認はPJHメイン画面表示中かつDalamudのrepo読込完了後10秒安定してから実行。
+- Plugin Installer翻訳の安全待機を5秒から10秒へ延長し、Dalamud/他Repoの後処理と重なりにくくした。
+- Plugin Installerが閉じている間は2秒周期のManifest再適用・差分走査を行わない既存対策を維持。
+- 手動の辞書一覧取得・ダウンロード操作は従来どおり維持。
+- 他プラグインやDalamudへの影響を抑えるため、起動直後の外部通信とPlugin Installer処理を低干渉化。
+
+## v0.4.31 PrivateTest SafeBase
+
+- v0.4.12 の Plugin Installer 読込待ち・安全待機・Manifest再適用の流れを基準に再構成。
+- v0.4.28 で追加されていた毎フレームの `AppDomain.CurrentDomain.GetAssemblies()` / `GetTypes()` による Plugin Installer 開閉判定を削除。
+- 文字化け検知・修復UIを維持。
+- 文字化け再翻訳で Google が HTTP 429 の場合、PJH中継サーバーへ1回フォールバック。
+- `pluginmaster.json` は公開版を変更しない。
 
 ## v0.4.12
 
@@ -26,8 +44,6 @@
 - 辞書内の `@Window` 記述から関連付けを自動適用。
 - 新しく開いたウィンドウをリアルタイム検出し、検索して関連付けできる機能を追加。
 - Pawprint / Beastmaster / Automaton などの同梱辞書を更新。
-- タイトルバーにハート型のOFUSE支援ボタンを追加。
-- OFUSEボタンはDalamud標準の `TitleBarButtons` を使用。
 
 ## v0.4.8
 
@@ -41,7 +57,6 @@
 - 「検出開始」後に新しく開いたウィンドウをリアルタイム候補として表示し、検索して関連付け可能。
 - Popup / Combo / Tooltip は従来どおり親ウィンドウの所有者を自動継承。
 - Plugin InstallerのRemote Manifest再適用処理を改善し、表示更新後に英語へ戻るケースを抑制。
-- タイトルバーにハート型のOFUSE支援ボタンを追加。クリックすると `https://ofuse.me/elpa` を開きます。
 - Pawprint / Beastmaster / Automaton などの同梱辞書を更新。
 
 ## v0.4.7
