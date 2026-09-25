@@ -135,6 +135,15 @@
       "sha": "e983decee61d03e4e2a8778fba9aed33a2e6a1d2",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/YesAlready.csv",
       "deleteKeyHash": "521ac5af53f1b485762099f4c0cd6ceaa5c21b28c46abb88395a7c6caf6ed469"
+    },
+    {
+      "fileName": "LazyCrucible.csv",
+      "pluginName": "LazyCrucible",
+      "owner": "天使",
+      "updated": "2026-09-25",
+      "sha": "0381c12e4bcbbe4e2267b93d71d52a297add28ff",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/LazyCrucible.csv",
+      "deleteKeyHash": "228f66f35809e8e2daf472c2d7fe517b216071fdcafefeaf3aaef01c56dc1c6a"
     }
   ]
 }
