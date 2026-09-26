@@ -6,7 +6,7 @@
     "Description": "Dalamudプラグインの表示文字列を日本語化する補助プラグインです。Plugin Installerの説明翻訳・日本語検索にも対応します。",
     "Changelog": "v0.5.1: 翻訳辞書の更新表示の一部を修正。",
     "InternalName": "PluginJPHelper",
-    "AssemblyVersion": "0.5.1.0",
+    "AssemblyVersion": "0.5.2.0",
     "RepoUrl": "https://github.com/elpapityo/PluginJPHelper",
     "ApplicableVersion": "any",
     "Tags": [
@@ -17,9 +17,9 @@
     "LoadPriority": 0,
     "IconUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/images/icon.png?v=0.5.0",
     "ImageUrls": [],
-    "DownloadLinkInstall": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.5.1/PluginJPHelper_v0.5.1.zip",
-    "DownloadLinkUpdate": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.5.1/PluginJPHelper_v0.5.1.zip",
-    "DownloadLinkTesting": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.5.1/PluginJPHelper_v0.5.1.zip",
+    "DownloadLinkInstall": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.5.2/PluginJPHelper_v0.5.2.zip",
+    "DownloadLinkUpdate": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.5.2/PluginJPHelper_v0.5.2.zip",
+    "DownloadLinkTesting": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.5.2/PluginJPHelper_v0.5.2.zip",
     "IsHide": false,
     "IsTestingExclusive": false
   }
