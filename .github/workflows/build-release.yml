@@ -52,7 +52,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Source patch apply failed.' }
 
           $version = (Get-Content VERSION.txt -Raw).Trim([char]0xFEFF).Trim()
-          if ($version -ne '0.5.0') { throw "Unexpected promoted version: $version" }
+          if ($version -ne '0.5.1') { throw "Unexpected promoted version: $version" }
           Remove-Item $parts.FullName -Force
 
           git config user.name "github-actions[bot]"
