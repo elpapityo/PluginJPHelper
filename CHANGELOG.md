@@ -128,4 +128,163 @@
 - 標準辞書・公式辞書・未翻訳取得結果・他プラグインの状態は保持。
 - ImSharp / Luna 系UIが直接使用する `igButtonEx` の取得・翻訳に対応。Penumbraのサポートボタン、チュートリアル操作ボタンなどをPJHで取得・翻訳できるよう改善。
 
-- Explorer's Icebox の...
+- Explorer's Icebox の内部Window ID `Explorer'sIceboxMainWindow` を所属判定へ追加。
+- `BeginCombo` のラベルと選択中表示の両方を翻訳対象へ追加。
+- `SliderInt` の表示ラベルを共通翻訳対象へ追加。
+- `TableSetupColumn` の列見出しを共通翻訳対象へ追加。
+- Widget/Table ID は `###` で元ラベルを保持し、設定値や内部IDを変更しない。
+
+
+
+### ローカルテスト
+
+- Explorer's Icebox の内部ImGui Window ID `Explorer'sIceboxMainWindow` を所属判定へ追加。
+- Explorer's Icebox の未翻訳取得が「その他取得」へ流れる問題の切り分け用。
+- その他のプラグイン判定処理は変更しない。
+
+## v0.4.1
+
+### 修正・改善
+
+- Plugin JP Helper本体のVer表記をv0.4.1へ更新。
+- Plugin Installerの更新確認間隔の既定値を999分へ変更。
+- 旧既定値10分を使用している環境は999分へ移行し、手動変更済みの値は維持。
+- ヘルプタブに「Plugin Installerの日本語化：使い方・仕様」を追加。
+- Plugin Installer翻訳の基本操作、差分翻訳、辞書ファイル、Google翻訳、Local-only / private Pluginの扱い、トラブル時の確認方法を記載。
+
+## v0.4.0
+- Plugin Installer説明翻訳をPJH本体へ統合。
+- Remote Manifestのみを自動翻訳対象とし、Local-only/privateの説明はGoogleへ送信しない。
+- インストール済み公開プラグインの表示翻訳に対応。
+- 日本語検索、Google状態表示、更新一覧、詳細ログを追加。
+- FFXIV Plugin Translation Glossary v1.0を用語保護辞書として反映。
+- 重複Remote Manifestを決定的に選択し、往復再翻訳を抑制。
+- 手動辞書の原文変更は「要確認」として1回だけ通知。
+
+﻿# CHANGELOG
+
+## v0.3.4 ローカルテスト
+
+- PJH設定画面をDalamud WindowSystem管理へ移行。
+- PJH設定画面の背景を完全不透明化し、背景ブラーを無効化。
+- 背後のDalamud Styleや他ウィンドウがPJH越しに透けて見える問題を修正。
+
+
+## v0.3.4 ローカルテスト
+
+- PJHメインUIを Dalamud.Windowing.WindowSystem 経由へ変更。
+- Dalamud Style の背景ブラー／ウィンドウ管理が正しく適用されるよう修正。
+- ContextMenu 日本語化テスト機能は維持。
+
+## v0.3.4
+
+### ローカルテスト
+
+- PJHメインウィンドウをDalamud標準のWindowSystem管理へ移行。
+- タイトルバーの標準ウィンドウ設定（透明度・背景ブラー・ピン留め・クリック透過）を利用可能に変更。
+- PJH側での強制不透明化を廃止し、Dalamud標準設定へ委ねる。
+
+### ローカルテスト・未公開
+
+- Dalamudのゲーム内ContextMenuへ他プラグインが追加した項目を、表示前の `MenuItem.Name` 段階で日本語化するテスト処理を追加。
+- 対象プラグイン、プレフィックス、英語原文をExact Matchし、PJHで対象プラグインの日本語化がONの場合だけ適用。
+- 初期テスト対象はMarketBoardPlugin、GatherBuddyReborn、Artisanの右クリック項目。
+- GatherBuddyRebornの `Add to Crafting List` は、実機差を考慮してC/Vプレフィックスの両方を原文Exact Matchで許可。
+- Artisanの `Artisan Crafting List` サブメニューを、元のクリック処理を保持したまま表示前に日本語化。
+- `Add to Current/New Artisan Crafting List` と各 `(with Sub-crafts)` 表示に対応。
+- クリック処理そのものは変更せず、表示名だけを差し替える。
+
+## v0.3.3
+
+### 追加・改善
+
+- 公式辞書／コミュニティ辞書に対応プラグイン名と詳細状態表示を追加。
+- 詳細状態として「翻訳辞書登録」「未翻訳登録」「日本語化」「導入」「プラグインスイッチ」を個別表示可能に変更。
+- 「最小表示」「全部表示」で詳細列を一括切替できるよう追加。
+- 公式辞書・コミュニティ辞書・未翻訳一覧へ並び順／昇順・降順のソートを追加。翻訳辞書の既存ソートも維持。
+- 公式辞書・コミュニティ辞書・翻訳辞書・未翻訳一覧のテーブルを横スクロール型へ統一。列を広げても他列を押し縮めない方式に変更。
+- 「インストール済みプラグインから追加」で、すでに登録済みのプラグインを候補から除外。
+
+### 修正
+
+- BossMod / RSRなどで、登録済み・日本語化ONにもかかわらず「無し / OFF」と表示される状態判定を修正。
+- 略称・InternalName・旧登録名など一致する設定を全件集約して判定する方式へ変更。
+- RSR / RotationSolverReborn、BMR / BossModReborn、BM / BossMod の別名判定を追加。
+- 状態列ソート追加時の型不整合によるビルドエラーを修正。
+- PJH本体でユーザーに見えるUI表記を日本語優先へ整理し、「Help」タブを「ヘルプ」へ変更。
+- ImGui標準テーブルヘッダー由来の英語右クリックメニューをPJH内では日本語メニューへ置換。「この列を内容に合わせる」「すべての列を内容に合わせる」を追加し、標準と同じ列幅自動調整処理を維持。
+
+### 維持
+
+- v0.3.1のArtisan `List Editor` / `Processing List` 認識と可変表示翻訳。
+- Exact Match主体、ImGui `##` / `###` ID保持、他プラグインへ汎用部分一致を広げない方針。
+
+## v0.3.1
+
+### 修正・改善
+
+- Artisanの製作リスト画面 `List Editor` / `Processing List` をArtisan所属として認識するよう修正。
+- 既に登録済みのArtisan設定にも、`Artisan|List Editor|Processing List` の判定キーワードを起動時に自動補完するよう改善。
+- Artisan製作リストの動的表示をPJH本体側で翻訳する専用処理を追加。
+- `Approximate List Time`、`Difficulty / Durability / Quality`、`Current Item Progress`、`Overall List Progress`、`Approximate Remaining Duration`、`Crafting: アイテム名` の可変表示に対応。
+- `Craft completed and minimum quality required met in XXs!` と `Craft completed with full quality in XXs!` の秒数可変表示に対応。
+- 動的翻訳では数値・アイテム名を保持し、`##` / `###` のImGui内部IDを変更しない方式で処理。
+- `Retainer Item: ...` は固定部分だけ日本語化し、後続のアイテム名・個数など可変情報を保持。
+- Artisan専用処理として実装し、他プラグインへ汎用部分一致翻訳を広げない方針を維持。
+
+### 実機確認
+
+- Artisan `List Editor` の製作リスト画面で翻訳反映を確認。
+- `Craft completed with full quality in 6s!` の秒数可変表示が日本語化されることを確認。
+
+
+## v0.3.0
+
+### 追加
+
+- GitHubアカウント不要のコミュニティ辞書Web投稿に対応。
+- PJHからコミュニティ辞書投稿ページを直接開く機能を追加。
+- Web投稿時に任意の投稿者名を設定できるように追加。
+- 「自分の投稿名」を設定し、コミュニティ辞書一覧で自分の投稿を `[自分]` として表示する機能を追加。
+- 投稿時の削除用パスワードによるコミュニティ辞書削除機能を追加。
+- `community-index.json` を利用したコミュニティ辞書一覧・更新管理に対応。
+- コミュニティ辞書の更新通知を追加。
+- 公式辞書の更新通知をOfficialフォルダーの変更検知方式に変更。
+- 起動時＋1時間ごとの公式／コミュニティ辞書更新確認を追加。
+- ヘルプにコミュニティ辞書の投稿方法・削除方法を追加。
+- ヘルプにCSV公開前の個人情報確認に関する注意事項を追加。
+
+### 変更・改善
+
+- コミュニティ辞書のユーザー識別をGitHubアカウント名から「投稿名」方式へ変更。
+- 公式辞書の更新判定を `notice.txt` の文面ではなく `Dictionaries/Official/` 内CSVの追加・更新・削除を基準に変更。
+- タイトルバーの更新通知を `【公式辞書に更新があります。】【コミュニティ辞書に更新があります。】` 形式に統一。
+- 公式／コミュニティの更新チェック間隔を1時間に統一し、起動時にも確認するよう整理。
+- コミュニティ辞書投稿ページではCSVの `Plugin` 列から対象プラグイン名を自動取得し、アップロード元のファイル名をそのまま使用する方式に統一。
+- コミュニティ投稿CSVの引用符・セル内改行を含む形式に対応。
+- `index` 列あり／なしのCSVを扱えるよう投稿側の互換性を改善。
+- 同名のコミュニティ辞書は意図しない上書きを避けるため投稿時に拒否するように変更。
+- `community-index.json` が存在しない場合に投稿側で自動作成できるよう改善。
+
+### 公開時の注意
+
+- コミュニティ辞書CSVには、プラグインによってキャラクター名・サーバー名・FC名・ログ・座標・時刻などが含まれる可能性があります。
+- 投稿前に自分のキャラクター名やサーバー名などでCSVを検索し、該当行を削除してから公開することを推奨します。
+
+## v0.2.0
+
+- 公式辞書配布機能を追加。
+- ヘルプを追加。
+- フォルダーを開く操作を追加。
+- 未翻訳取得の自動／手動切替を追加。
+- 未翻訳取得一覧・翻訳辞書の各行削除と検索結果一括削除を追加。
+
+### Build / release safety
+- `VERSION.txt` を唯一のビルド版番号として使用し、build.bat が csproj / PluginJPHelper.json / pluginmaster.json / ZIP名を同期するよう変更。
+- Release ZIP内の `PluginJPHelper.json` の AssemblyVersion をビルド終了時に再検証し、不一致なら成功扱いにしない。
+- GitHub公開時もアップロードZIP名とZIP内AssemblyVersionを照合し、pluginmaster.json の AssemblyVersion / DownloadLink を自動同期する方針。
+
+### v0.4.3 local test fix9
+- 翻訳辞書と未翻訳・取得の対象プラグイン選択を相互に同期できる補助ボタンを追加。
+- ボタンは各プラグイン選択プルダウンの右横に配置し、タブ移動や辞書内容の変更は行わない。
+- 取得・自動翻訳・確認待ちなどの作業中は同期ボタンを無効化。
