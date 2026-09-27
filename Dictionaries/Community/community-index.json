@@ -144,6 +144,15 @@
       "sha": "4663c4861d6120b781f01e59a78870fee05f9118",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/YesAlready.csv",
       "deleteKeyHash": "521ac5af53f1b485762099f4c0cd6ceaa5c21b28c46abb88395a7c6caf6ed469"
+    },
+    {
+      "fileName": "XASlave_v0.1.csv",
+      "pluginName": "XASlave",
+      "owner": "田中",
+      "updated": "2026-09-27",
+      "sha": "f2765022226fd2574fb83dfdb9270da0b78848ea",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/XASlave_v0.1.csv",
+      "deleteKeyHash": "75abd7eaedaeb2498fe1d06be90265cc97544ee80ae36ad5c2158b7c1c4f81be"
     }
   ]
 }
