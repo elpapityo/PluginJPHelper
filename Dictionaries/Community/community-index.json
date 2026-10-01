@@ -164,6 +164,16 @@
       "sha": "f1d2a9da633c4b4ab7f3afb0d6ca7016dbe2cf2b",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/YAO_SomethingNeedDoing.csv",
       "deleteKeyHash": "036d663012e9f4c534f1fb3e5b505b9280c5183e93b9e74d0ac41361e002ff2f"
+    },
+    {
+      "fileName": "YAO_visland.csv",
+      "pluginName": "visland",
+      "owner": "ヤオ",
+      "note": "",
+      "updated": "2026-10-01",
+      "sha": "376f46380469f9456724df171b7dc66c0b45ded6",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/YAO_visland.csv",
+      "deleteKeyHash": "59c0dcbc52e731389e520c4b827d1e12c1712ae6930033ff09af8341fca49e32"
     }
   ]
 }
