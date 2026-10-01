@@ -204,6 +204,16 @@
       "sha": "92127426f73cd5ac72ce766838697a4e5cd08014",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/Beastmaster_JP.csv",
       "deleteKeyHash": "d56304d740e914fa374c75a662d47e46403eedf2609d1be6b0ea6bfe19ca8dde"
+    },
+    {
+      "fileName": "AutoDuty.csv",
+      "pluginName": "AutoDuty",
+      "owner": "えび",
+      "note": "",
+      "updated": "2026-10-01",
+      "sha": "117125c0c92ca9f2064ffc84aead7028fa72abdd",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/AutoDuty.csv",
+      "deleteKeyHash": "db11038e5fda2f25a6fbb8b664d24c598130eb25c50970561a4d0ef69ea6cd5f"
     }
   ]
 }
