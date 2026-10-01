@@ -194,6 +194,16 @@
       "sha": "e84f74db1085675f27bca3983a8b21bfc6f30b7f",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/Pawprint_JP.csv",
       "deleteKeyHash": "056a91c4e815ed36a0f1d7ad8f852765a23567251b6715de92d1f3171edd4cb3"
+    },
+    {
+      "fileName": "Beastmaster_JP.csv",
+      "pluginName": "Beastmaster",
+      "owner": "えび",
+      "note": "",
+      "updated": "2026-10-01",
+      "sha": "92127426f73cd5ac72ce766838697a4e5cd08014",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/Beastmaster_JP.csv",
+      "deleteKeyHash": "d56304d740e914fa374c75a662d47e46403eedf2609d1be6b0ea6bfe19ca8dde"
     }
   ]
 }
