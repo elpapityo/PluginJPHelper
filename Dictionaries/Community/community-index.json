@@ -184,6 +184,16 @@
       "sha": "c9d4a6f592ab4b469d1920491dfb79c1435ff7a3",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/YAO_YesAlready.csv",
       "deleteKeyHash": "904bf4e7b6835797ecff2dd34932881fdca21a5c98bc2765dbc4ba8a1d8b395e"
+    },
+    {
+      "fileName": "Pawprint_JP.csv",
+      "pluginName": "Pawprint",
+      "owner": "えび",
+      "note": "",
+      "updated": "2026-10-01",
+      "sha": "e84f74db1085675f27bca3983a8b21bfc6f30b7f",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/Pawprint_JP.csv",
+      "deleteKeyHash": "056a91c4e815ed36a0f1d7ad8f852765a23567251b6715de92d1f3171edd4cb3"
     }
   ]
 }
