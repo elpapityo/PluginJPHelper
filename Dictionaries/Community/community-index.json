@@ -154,6 +154,16 @@
       "sha": "2beecd690a8a274f60f327ad79849ee1411e8383",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/%E2%80%BBGatherBuddyReborn_v0.1.csv",
       "deleteKeyHash": "8acb6dc3cb0fbead037b79b63a676858b049356a457a7c763146c1640bde1ac1"
+    },
+    {
+      "fileName": "YAO_SomethingNeedDoing.csv",
+      "pluginName": "SomethingNeedDoing",
+      "owner": "ヤオ",
+      "note": "",
+      "updated": "2026-10-01",
+      "sha": "f1d2a9da633c4b4ab7f3afb0d6ca7016dbe2cf2b",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/YAO_SomethingNeedDoing.csv",
+      "deleteKeyHash": "036d663012e9f4c534f1fb3e5b505b9280c5183e93b9e74d0ac41361e002ff2f"
     }
   ]
 }
