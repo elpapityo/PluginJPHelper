@@ -224,6 +224,16 @@
       "sha": "3c5c559fc91eab8d9c437bae181986a278f7b8ed",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/PromeRotation_v0.1.csv",
       "deleteKeyHash": "57e289696081628cbb0a4c76aac936f2dde01c2830fe18b652adb533483d20be"
+    },
+    {
+      "fileName": "bmr_中華版v0.1.csv",
+      "pluginName": "BossModReborn",
+      "owner": "Mumei",
+      "note": "BMR中華版オートで取得できた部分のみ",
+      "updated": "2026-10-02",
+      "sha": "15e9b90188d3421e2a695296ece47e739276c830",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/bmr_%E4%B8%AD%E8%8F%AF%E7%89%88v0.1.csv",
+      "deleteKeyHash": "08762ba290733ff611132f73bbd40d09165dccab43e00b6e2c9e5163ce96dd0c"
     }
   ]
 }
