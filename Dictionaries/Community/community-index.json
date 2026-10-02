@@ -214,6 +214,16 @@
       "sha": "117125c0c92ca9f2064ffc84aead7028fa72abdd",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/AutoDuty.csv",
       "deleteKeyHash": "db11038e5fda2f25a6fbb8b664d24c598130eb25c50970561a4d0ef69ea6cd5f"
+    },
+    {
+      "fileName": "PromeRotation_v0.1.csv",
+      "pluginName": "PromeRotation",
+      "owner": "Mumei",
+      "note": "メインの設定画面のみ翻訳、戦闘ログ画面は未翻訳",
+      "updated": "2026-10-02",
+      "sha": "3c5c559fc91eab8d9c437bae181986a278f7b8ed",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/PromeRotation_v0.1.csv",
+      "deleteKeyHash": "57e289696081628cbb0a4c76aac936f2dde01c2830fe18b652adb533483d20be"
     }
   ]
 }
