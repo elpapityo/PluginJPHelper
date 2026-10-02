@@ -234,6 +234,16 @@
       "sha": "15e9b90188d3421e2a695296ece47e739276c830",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/bmr_%E4%B8%AD%E8%8F%AF%E7%89%88v0.1.csv",
       "deleteKeyHash": "08762ba290733ff611132f73bbd40d09165dccab43e00b6e2c9e5163ce96dd0c"
+    },
+    {
+      "fileName": "Dropbox.csv",
+      "pluginName": "Dropbox",
+      "owner": "えび",
+      "note": "",
+      "updated": "2026-10-02",
+      "sha": "ce481cdf7e7064f82303bc9b2616b62619b6e7bb",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/Dropbox.csv",
+      "deleteKeyHash": "b1c645f5856bdc87699188559b03ce2c37e21c3376b00ed42bfc97c1bfa427fe"
     }
   ]
 }
