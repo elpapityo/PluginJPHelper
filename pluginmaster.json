@@ -1,26 +1,24 @@
-[
-  {
-    "Author": "Elpa",
-    "Name": "Plugin JP Helper",
-    "Punchline": "Dalamudプラグインの固定辞書日本語化支援",
-    "Description": "Dalamudプラグインの表示文字列を日本語化する補助プラグインです。Plugin Installerの説明翻訳・日本語検索にも対応します。",
-    "Changelog": "v0.5.4: GitHub APIの残回数・リセット時刻表示、レート制限時の再送抑止、公式辞書一覧取得のAPIアクセス削減。",
-    "InternalName": "PluginJPHelper",
-    "AssemblyVersion": "0.5.4.0",
-    "RepoUrl": "https://github.com/elpapityo/PluginJPHelper",
-    "ApplicableVersion": "any",
-    "Tags": [
-      "translation",
-      "japanese"
-    ],
-    "DalamudApiLevel": 15,
-    "LoadPriority": 0,
-    "IconUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/images/icon.png?v=0.5.4",
-    "ImageUrls": [],
-    "DownloadLinkInstall": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.5.4/PluginJPHelper_v0.5.4.zip",
-    "DownloadLinkUpdate": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.5.4/PluginJPHelper_v0.5.4.zip",
-    "DownloadLinkTesting": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.5.4/PluginJPHelper_v0.5.4.zip",
-    "IsHide": false,
-    "IsTestingExclusive": false
-  }
-]
+{
+  "Author": "Elpa",
+  "Name": "Plugin JP Helper",
+  "Punchline": "Dalamudプラグインの固定辞書日本語化支援",
+  "Description": "Dalamudプラグインの表示文字列を日本語化する補助プラグインです。Plugin Installerの説明翻訳・日本語検索にも対応します。",
+  "Changelog": "v0.5.4: GitHub APIの残回数・リセット時刻表示、レート制限時の再送抑止、公式辞書一覧取得のAPIアクセス削減。",
+  "InternalName": "PluginJPHelper",
+  "AssemblyVersion": "0.5.4.0",
+  "RepoUrl": "https://github.com/elpapityo/PluginJPHelper",
+  "ApplicableVersion": "any",
+  "Tags": [
+    "translation",
+    "japanese"
+  ],
+  "DalamudApiLevel": 15,
+  "LoadPriority": 0,
+  "IconUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/images/icon.png?v=0.5.4",
+  "ImageUrls": [],
+  "DownloadLinkInstall": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.5.4/PluginJPHelper_v0.5.4.zip",
+  "DownloadLinkUpdate": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.5.4/PluginJPHelper_v0.5.4.zip",
+  "DownloadLinkTesting": "https://github.com/elpapityo/PluginJPHelper/releases/download/V0.5.4/PluginJPHelper_v0.5.4.zip",
+  "IsHide": false,
+  "IsTestingExclusive": false
+}
