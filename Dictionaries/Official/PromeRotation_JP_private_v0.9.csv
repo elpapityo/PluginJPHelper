@@ -1,0 +1,2601 @@
+﻿Plugin,Menu,Section,Type,English,Japanese
+PromeRotation,,,,An advanced combat rotation platform for FFXIV high-end content.,FFXIV高難易度コンテンツ向けの高度な戦闘ローテーション支援プラットフォームです。
+PromeRotation,,,,设置,設定
+PromeRotation,,,,优先级,優先度
+PromeRotation,,,,延迟秒数,遅延秒数
+PromeRotation,,,,命中持续秒数,命中継続秒数
+PromeRotation,,,,是否有效,有効
+PromeRotation,,,,小数位,小数点以下桁数
+PromeRotation,,,,坐标,座標
+PromeRotation,,,,原点,原点
+PromeRotation,,,,起点,開始点
+PromeRotation,,,,终点,終了点
+PromeRotation,,,,世界点,ワールド座標点
+PromeRotation,,,,局部点,ローカル座標点
+PromeRotation,,,,世界点列,ワールド座標点リスト
+PromeRotation,,,,局部点列,ローカル座標点リスト
+PromeRotation,,,,实体锚点,対象アンカー
+PromeRotation,,,,世界锚点,ワールドアンカー
+PromeRotation,,,,锚点A,アンカーA
+PromeRotation,,,,锚点B,アンカーB
+PromeRotation,,,,目标实体Id,対象エンティティID
+PromeRotation,,,,固定位置朝向实体,固定位置から対象へ向く
+PromeRotation,,,,跟随实体位置,対象の位置に追従
+PromeRotation,,,,跟随实体位置和朝向,対象の位置と向きに追従
+PromeRotation,,,,跟随主玩家,自分に追従
+PromeRotation,,,,跟随主玩家朝向,自分の向きに追従
+PromeRotation,,,,实体丢失策略,対象を見失った時の処理
+PromeRotation,,,,实体丢失则禁用,対象を見失ったら無効化
+PromeRotation,,,,实体丢失则自动移除,対象を見失ったら自動削除
+PromeRotation,,,,实体丢失则保持上次解析,対象を見失っても直前の結果を維持
+PromeRotation,,,,实体丢失时朝向弧度,対象を見失った時の向き（ラジアン）
+PromeRotation,,,,自动移动已启用,自動移動：有効
+PromeRotation,,,,安全区已启用,安全エリア：有効
+PromeRotation,,,,注册中心,中心を登録
+PromeRotation,,,,注册障碍,障害物を登録
+PromeRotation,,,,清空所有障碍,すべての障害物をクリア
+PromeRotation,,,,注册目标区序列,対象エリア列を登録
+PromeRotation,,,,注册危险区序列,危険エリア列を登録
+PromeRotation,,,,注册永久目标区,常設対象エリアを登録
+PromeRotation,,,,注册延迟开始目标区,遅延開始の対象エリアを登録
+PromeRotation,,,,注册限时目标区,時間制限付き対象エリアを登録
+PromeRotation,,,,清空所有目标区,すべての対象エリアをクリア
+PromeRotation,,,,注册延迟命中危险区,遅延判定の危険エリアを登録
+PromeRotation,,,,注册永久危险区,常設危険エリアを登録
+PromeRotation,,,,注册延迟开始危险区,遅延開始の危険エリアを登録
+PromeRotation,,,,注册限时危险区,時間制限付き危険エリアを登録
+PromeRotation,,,,清空所有危险区,すべての危険エリアをクリア
+PromeRotation,,,,设置圆形副本边界,円形のコンテンツ境界を設定
+PromeRotation,,,,设置矩形副本边界,矩形のコンテンツ境界を設定
+PromeRotation,,,,设置副本边界,コンテンツ境界を設定
+PromeRotation,,,,清除副本边界,コンテンツ境界をクリア
+PromeRotation,,,,圆形,円形
+PromeRotation,,,,扇形_弧度,扇形（ラジアン）
+PromeRotation,,,,扇形_角度,扇形（角度）
+PromeRotation,,,,射线矩形,直線矩形
+PromeRotation,,,,射线矩形_左右不对称,直線矩形（左右非対称）
+PromeRotation,,,,世界多边形,ワールド多角形
+PromeRotation,,,,局部多边形,ローカル多角形
+PromeRotation,,,,多边形点,多角形の点
+PromeRotation,,,,点在多边形内,点が多角形内にある
+PromeRotation,,,,内半径,内側半径
+PromeRotation,,,,外半径,外側半径
+PromeRotation,,,,右半宽,右側半幅
+PromeRotation,,,,左半宽,左側半幅
+PromeRotation,,,,容差,許容値
+PromeRotation,,,,相对角度,相対角度
+PromeRotation,,,,开角角度,開き角度
+PromeRotation,,,,开角弧度,開き角（ラジアン）
+PromeRotation,,,,弧度转角度,ラジアンを角度へ変換
+PromeRotation,,,,方向编号转弧度,方向番号をラジアンへ変換
+PromeRotation,,,,逆时针角度转弧度,反時計回り角度をラジアンへ変換
+PromeRotation,,,,顺时针角度转弧度,時計回り角度をラジアンへ変換
+PromeRotation,,,,局部转世界,ローカル座標をワールド座標へ変換
+PromeRotation,,,,世界转局部,ワールド座標をローカル座標へ変換
+PromeRotation,,,,取平面坐标XZ,平面座標XZを取得
+PromeRotation,,,,世界偏移XZ,ワールド座標オフセットXZ
+PromeRotation,,,,局部偏移XZ,ローカル座標オフセットXZ
+PromeRotation,,,,平面距离,平面距離
+PromeRotation,,,,平面距离平方,平面距離の二乗
+PromeRotation,,,,偏好自定义,カスタム優先
+PromeRotation,,,,偏好中心,中心を優先
+PromeRotation,,,,偏好最近,最も近いものを優先
+PromeRotation,,,,偏好最深处,最も奥を優先
+PromeRotation,,,,落点偏好,着地点の優先設定
+PromeRotation,,,,清空全部,すべてクリア
+PromeRotation,,,,绑定,固定
+PromeRotation,,,,静态,固定
+PromeRotation,,,,防御,防御
+PromeRotation,,,,护盾,バリア
+PromeRotation,,,,模板,テンプレート
+PromeRotation,,,,Pr码获取点击加入Discord：https://discord.gg/XqyxjNE94Z（本插件完全免费）,PRコードを取得するにはDiscordへ参加してください：https://discord.gg/XqyxjNE94Z（このプラグインは完全無料です）
+PromeRotation,,,,Pr码：,PRコード：
+PromeRotation,,,,var1：未配置选项,var1：オプション未設定
+PromeRotation,,,,从 Timelines 目录中加载已保存的时间轴文件,Timelinesフォルダーから保存済みタイムラインを読み込む
+PromeRotation,,,,使用认证（CN服务器）,認証を使用（CNサーバー）
+PromeRotation,,,,使用认证（GL/TC服务器）,認証を使用（GL/TCサーバー）
+PromeRotation,,,,保存当前身份；名称改变时同步改名，GUID 保持不变。,現在の識別情報を保存します。名前を変更した場合は同期して変更し、GUIDは維持されます。
+PromeRotation,,,,关闭时间轴编辑器,タイムラインエディターを閉じる
+PromeRotation,,,,关闭触发轴编辑器,トリガータイムラインエディターを閉じる
+PromeRotation,,,,删除变量,変数を削除
+PromeRotation,,,,时间轴编辑器,タイムラインエディター
+PromeRotation,,,,清空当前编辑内容，创建一个全新的空时间轴,現在の編集内容を消去し、新しい空のタイムラインを作成します
+PromeRotation,,,,触发轴编辑器,トリガータイムラインエディター
+PromeRotation,,,,认证,認証
+PromeRotation,,,,认证服务器选择,認証サーバー選択
+PromeRotation,,,,Cactbot Timeline 文本：,Cactbot Timeline テキスト：
+PromeRotation,,,,Cactbot导入,Cactbotインポート
+PromeRotation,,,,GitHub 在线浏览,GitHubオンライン参照
+PromeRotation,,,,PTL: (未加载),PTL:（未読み込み）
+PromeRotation,,,,[1] 串行节点↓ - 主时间轴,[1] 直列ノード↓ - メインタイムライン
+PromeRotation,,,,[2] 串行节点↓ - 子节点,[2] 直列ノード↓ - 子ノード
+PromeRotation,,,,[3] 并行节点>> - 子节点,[3] 並列ノード>> - 子ノード
+PromeRotation,,,,[4] 条件节点 - 条件示例,[4] 条件ノード - 条件例
+PromeRotation,,,,[5] 行为节点 - 行为示例,[5] アクションノード - アクション例
+PromeRotation,,,,[6] 延迟节点 - 延迟示例,[6] 遅延ノード - 遅延例
+PromeRotation,,,,[OK] 锚点校验通过,[OK] アンカー検証成功
+PromeRotation,,,,[S] 0.0 开始,[S] 0.0 開始
+PromeRotation,,,,[同] 0.0s  开始,[同] 0.0s  開始
+PromeRotation,,,,[未保存],[未保存]
+PromeRotation,,,,[末] 600.0s  结束,[末] 600.0s  終了
+PromeRotation,,,,不由 PTL 覆盖起手,PTLで開幕設定を上書きしない
+PromeRotation,,,,串行节点,直列ノード
+PromeRotation,,,,为变量配置选项；时间轴编辑和运行时只显示选项名称。,変数のオプションを設定します。タイムライン編集時と実行時にはオプション名だけ表示されます。
+PromeRotation,,,,主时间轴,メインタイムライン
+PromeRotation,,,,从节点扫描变量##ptl_editor,ノードから変数をスキャン##ptl_editor
+PromeRotation,,,,从节点扫描变量##timeline_editor,ノードから変数をスキャン##timeline_editor
+PromeRotation,,,,保存##seg_remark_save,保存##seg_remark_save
+PromeRotation,,,,保存当前,現在の内容を保存
+PromeRotation,,,,元数据,メタデータ
+PromeRotation,,,,关闭,閉じる
+PromeRotation,,,,关闭：显示为「下方添加 >」子菜单（默认）,OFF：「下に追加 >」のサブメニューとして表示（既定）
+PromeRotation,,,,删除锚点,アンカーを削除
+PromeRotation,,,,加载,読み込み
+PromeRotation,,,,包含被注释行,コメントアウトされた行を含める
+PromeRotation,,,,区域 ID,エリアID
+PromeRotation,,,,区间编辑器,区間エディター
+PromeRotation,,,,单行显示##seg_lanes,1行表示##seg_lanes
+PromeRotation,,,,去重连续同ID校准,連続する同一IDの同期を重複排除
+PromeRotation,,,,发布版本,公開バージョン
+PromeRotation,,,,变量名：,変数名：
+PromeRotation,,,,变量管理##ptl_editor,変数管理##ptl_editor
+PromeRotation,,,,变量管理##timeline_editor,変数管理##timeline_editor
+PromeRotation,,,,另存为,名前を付けて保存
+PromeRotation,,,,右键下方添加直接展开所有节点类型,右クリックの「下に追加」で全ノード種類を直接展開
+PromeRotation,,,,各种参数,各種パラメータ
+PromeRotation,,,,名称##anc,名前##anc
+PromeRotation,,,,后一区间: 0.0s → 600.0s（6001s）,次の区間: 0.0s → 600.0s（6001s）
+PromeRotation,,,,启用校准,同期を有効化
+PromeRotation,,,,在中间刻度列单击查看，或右键刻度空白处添加。,中央の目盛り列をクリックして確認するか、目盛りの空白部分を右クリックして追加します。
+PromeRotation,,,,基础设置,基本設定
+PromeRotation,,,,备注,メモ
+PromeRotation,,,,备注：,メモ：
+PromeRotation,,,,导入到当前时间轴,現在のタイムラインへインポート
+PromeRotation,,,,尚未保存。,まだ保存されていません。
+PromeRotation,,,,尚未加载任何时间轴。,タイムラインはまだ読み込まれていません。
+PromeRotation,,,,尚未定义变量。,変数はまだ定義されていません。
+PromeRotation,,,,尚未添加选项。,オプションはまだ追加されていません。
+PromeRotation,,,,并行节点,並列ノード
+PromeRotation,,,,延迟节点,遅延ノード
+PromeRotation,,,,开启：直接在菜单中列出所有添加类型,ON：メニューに追加可能な全種類を直接表示
+PromeRotation,,,,当前职业暂无可用起手模板。,現在のジョブで利用できる開幕テンプレートはありません。
+PromeRotation,,,,手动开始,手動開始
+PromeRotation,,,,手动结束,手動終了
+PromeRotation,,,,拖拽节点悬停于合法放置位置时显示的横线颜色,ノードをドラッグして有効な配置位置へ重ねた時に表示する横線の色
+PromeRotation,,,,拖放,ドラッグ＆ドロップ
+PromeRotation,,,,拖放热区高亮示例：,ドラッグ＆ドロップ領域のハイライト例：
+PromeRotation,,,,搜索,検索
+PromeRotation,,,,文本粘贴导入,テキスト貼り付けインポート
+PromeRotation,,,,新建,新規作成
+PromeRotation,,,,时间轴名称,タイムライン名
+PromeRotation,,,,时间轴备注,タイムラインメモ
+PromeRotation,,,,时间轴竖轴,タイムライン縦軸
+PromeRotation,,,,显示分隔线##seg_div,区切り線を表示##seg_div
+PromeRotation,,,,显示技术锚点##seg_tech,テクニカルアンカーを表示##seg_tech
+PromeRotation,,,,未加载 PTL，无法显示时间轴。,PTLが読み込まれていないため、タイムラインを表示できません。
+PromeRotation,,,,未绑定职业,ジョブ未設定
+PromeRotation,,,,条件节点,条件ノード
+PromeRotation,,,,校准类型,同期タイプ
+PromeRotation,,,,校准规则,同期ルール
+PromeRotation,,,,没有活动测试脚本。,実行中のテストスクリプトはありません。
+PromeRotation,,,,没有结束历史。,終了履歴はありません。
+PromeRotation,,,,活动 / 历史,実行中 / 履歴
+PromeRotation,,,,活动脚本 (0),実行中のスクリプト (0)
+PromeRotation,,,,测试编译,テストコンパイル
+PromeRotation,,,,测试黑板,テスト用ブラックボード
+PromeRotation,,,,添加变量##ptl_editor,変数を追加##ptl_editor
+PromeRotation,,,,添加变量##timeline_editor,変数を追加##timeline_editor
+PromeRotation,,,,添加锚点,アンカーを追加
+PromeRotation,,,,清除历史,履歴をクリア
+PromeRotation,,,,热区高亮线条,配置領域のハイライト線
+PromeRotation,,,,特殊场景,特殊シーン
+PromeRotation,,,,特殊场景##ptl_special,特殊シーン##ptl_special
+PromeRotation,,,,状态: Idle,状態: 待機中
+PromeRotation,,,,留空代表不覆盖起手,空欄の場合は開幕設定を上書きしません
+PromeRotation,,,,粘贴 cactbot timeline 文本，解析后导入为基础时间轴锚点。,cactbot timelineのテキストを貼り付け、解析後に基本タイムラインのアンカーとしてインポートします。
+PromeRotation,,,,精度##seg,精度##seg
+PromeRotation,,,,结束历史 (0),終了履歴 (0)
+PromeRotation,,,,编辑器习惯,エディター操作設定
+PromeRotation,,,,编辑器设置,エディター設定
+PromeRotation,,,,缩放,ズーム
+PromeRotation,,,,职能,ロール
+PromeRotation,,,,职能未标注,ロール未設定
+PromeRotation,,,,职能（可多选，空值表示未标注）,ロール（複数選択可。空欄は未設定）
+PromeRotation,,,,脚本测试,スクリプトテスト
+PromeRotation,,,,自动定位,自動位置合わせ
+PromeRotation,,,,自动标记技术锚点,テクニカルアンカーを自動マーク
+PromeRotation,,,,自动补充读条锚点,詠唱アンカーを自動補完
+PromeRotation,,,,自定义起手,カスタム開幕
+PromeRotation,,,,节点粘贴板：无,ノードクリップボード：なし
+PromeRotation,,,,节点编辑,ノード編集
+PromeRotation,,,,节点颜色,ノード色
+PromeRotation,,,,行为组粘贴板：无,アクショングループのクリップボード：なし
+PromeRotation,,,,行为节点,アクションノード
+PromeRotation,,,,该职业暂无可用起手模板。,このジョブで利用できる開幕テンプレートはありません。
+PromeRotation,,,,请先添加选项,先にオプションを追加してください
+PromeRotation,,,,调试信息,デバッグ情報
+PromeRotation,,,,调试目标轴,デバッグ対象タイムライン
+PromeRotation,,,,起手模板,開幕テンプレート
+PromeRotation,,,,起手空值：PTL 不覆盖起手，运行时回退旧 Timeline。选择具体起手：PTL 作为唯一来源。,開幕設定が空欄の場合：PTLは開幕を上書きせず、実行時は旧Timelineへ戻ります。開幕を指定した場合：PTLのみを参照します。
+PromeRotation,,,,轴作者,タイムライン作者
+PromeRotation,,,,输出日志,ログ出力
+PromeRotation,,,,进入战斗,戦闘開始
+PromeRotation,,,,进入战斗时自动匹配，无需配置参数。,戦闘開始時に自動で同期します。パラメータ設定は不要です。
+PromeRotation,,,,选中: 开始 (t=0.0s),選択中: 開始 (t=0.0s)
+PromeRotation,,,,选择一个 *.json 文件加载：,読み込む *.json ファイルを選択：
+PromeRotation,,,,选择一个行为组以编辑属性和节点树。,アクショングループを選択して、プロパティとノードツリーを編集します。
+PromeRotation,,,,选择行为组后，在此编辑节点属性。,アクショングループを選択すると、ここでノードのプロパティを編集できます。
+PromeRotation,,,,逻辑时间 (秒),論理時間（秒）
+PromeRotation,,,,配对 ACR 作者,対応ACR作者
+PromeRotation,,,,重新加载,再読み込み
+PromeRotation,,,,重置颜色为默认,色を既定値へ戻す
+PromeRotation,,,,锚点 / 区间,アンカー / 区間
+PromeRotation,,,,锚点列表,アンカー一覧
+PromeRotation,,,,锚点属性,アンカー属性
+PromeRotation,,,,预览：,プレビュー：
+PromeRotation,,,,预解析,事前解析
+PromeRotation,,,,首锚点必须启用「进入战斗」校准，不可关闭。,先頭アンカーは「戦闘開始」同期を有効にする必要があり、無効化できません。
+PromeRotation,,,,首锚点逻辑时间固定为 0，不可修改。,先頭アンカーの論理時間は0固定で変更できません。
+PromeRotation,,,,"首锚点：逻辑时间=0, 校准类型=进入战斗，均不可修改。",先頭アンカー：論理時間=0、同期タイプ=戦闘開始。どちらも変更できません。
+PromeRotation,,,,骑士 (19),ナイト (19)
+PromeRotation,,,,黑板变量,ブラックボード変数
+PromeRotation,,,,默认选项：,既定オプション：
+PromeRotation,,,,（无错误）,（エラーなし）
+PromeRotation,,,,  [0.0s]  开始  ↓,  [0.0s]  開始  ↓
+PromeRotation,,,,  [600.0s]  结束,  [600.0s]  終了
+PromeRotation,,,,  [600.0] 结束 (END),  [600.0] 終了 (END)
+PromeRotation,,,,全部 Run,すべて実行
+PromeRotation,,,,创建新 GUID 的副本并保留原文件；版本和内部引用保持不变。,新しいGUIDのコピーを作成して元ファイルを残します。バージョンと内部参照は変更されません。
+PromeRotation,,,,"单击下载并导入
+1.1 KB
+02-arr/raid/t4
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+1.1 KB
+02-arr/raid/t4
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+1.7 KB
+99-other//test
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+1.7 KB
+99-other//test
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+10.1 KB
+02-arr/raid/t13
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+10.1 KB
+02-arr/raid/t13
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+10.1 KB
+03-hw/raid/a5s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+10.1 KB
+03-hw/raid/a5s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+10.1 KB
+06-ew/raid/p9n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+10.1 KB
+06-ew/raid/p9n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+10.2 KB
+04-sb/raid/o12n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+10.2 KB
+04-sb/raid/o12n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+10.2 KB
+06-ew/raid/p11s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+10.2 KB
+06-ew/raid/p11s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+10.2 KB
+06-ew/raid/p1s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+10.2 KB
+06-ew/raid/p1s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+10.2 KB
+07-dt/dungeon/vanguard
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+10.2 KB
+07-dt/dungeon/vanguard
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+10.3 KB
+03-hw/dungeon/the_vault
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+10.3 KB
+03-hw/dungeon/the_vault
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+10.3 KB
+03-hw/raid/a3s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+10.3 KB
+03-hw/raid/a3s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+10.3 KB
+04-sb/raid/o8s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+10.3 KB
+04-sb/raid/o8s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+10.4 KB
+02-arr/trial/shiva-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+10.4 KB
+02-arr/trial/shiva-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+10.5 KB
+07-dt/trial/doomtrain-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+10.5 KB
+07-dt/trial/doomtrain-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+10.6 KB
+06-ew/trial/zeromus
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+10.6 KB
+06-ew/trial/zeromus
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+10.8 KB
+03-hw/raid/a11s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+10.8 KB
+03-hw/raid/a11s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+10.8 KB
+06-ew/trial/barbariccia
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+10.8 KB
+06-ew/trial/barbariccia
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+10.8 KB
+07-dt/raid/r8n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+10.8 KB
+07-dt/raid/r8n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+11.0 KB
+04-sb/dungeon/castrum_abania
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+11.0 KB
+04-sb/dungeon/castrum_abania
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+11.0 KB
+07-dt/dungeon/alexandria
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+11.0 KB
+07-dt/dungeon/alexandria
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+11.0 KB
+07-dt/trial/enuo
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+11.0 KB
+07-dt/trial/enuo
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+11.1 KB
+03-hw/trial/zurvan-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+11.1 KB
+03-hw/trial/zurvan-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+11.1 KB
+06-ew/raid/p4s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+11.1 KB
+06-ew/raid/p4s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+11.1 KB
+06-ew/trial/hydaelyn
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+11.1 KB
+06-ew/trial/hydaelyn
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+11.1 KB
+07-dt/dungeon/mistwake
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+11.1 KB
+07-dt/dungeon/mistwake
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+11.2 KB
+04-sb/trial/tsukuyomi-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+11.2 KB
+04-sb/trial/tsukuyomi-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+11.3 KB
+06-ew/trial/zurvan-un
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+11.3 KB
+06-ew/trial/zurvan-un
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+11.3 KB
+07-dt/raid/r10n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+11.3 KB
+07-dt/raid/r10n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+11.3 KB
+07-dt/trial/zelenia-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+11.3 KB
+07-dt/trial/zelenia-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+11.4 KB
+07-dt/trial/tsukuyomi-un
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+11.4 KB
+07-dt/trial/tsukuyomi-un
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+11.5 KB
+04-sb/dungeon/ala_mhigo
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+11.5 KB
+04-sb/dungeon/ala_mhigo
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+11.5 KB
+04-sb/dungeon/ghimlyt_dark
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+11.5 KB
+04-sb/dungeon/ghimlyt_dark
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+11.5 KB
+05-shb/raid/e11s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+11.5 KB
+05-shb/raid/e11s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+11.5 KB
+06-ew/dungeon/lapis_manalis
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+11.5 KB
+06-ew/dungeon/lapis_manalis
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+11.5 KB
+06-ew/dungeon/the_lunar_subterrane
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+11.5 KB
+06-ew/dungeon/the_lunar_subterrane
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+12.0 KB
+06-ew/trial/hydaelyn-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+12.0 KB
+06-ew/trial/hydaelyn-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+12.3 KB
+06-ew/trial/zeromus-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+12.3 KB
+06-ew/trial/zeromus-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+12.4 KB
+06-ew/dungeon/the_aitiascope
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+12.4 KB
+06-ew/dungeon/the_aitiascope
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+12.5 KB
+04-sb/raid/o4s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+12.5 KB
+04-sb/raid/o4s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+12.6 KB
+07-dt/dungeon/yuweyawata
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+12.6 KB
+07-dt/dungeon/yuweyawata
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+12.7 KB
+07-dt/trial/enuo-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+12.7 KB
+07-dt/trial/enuo-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+12.8 KB
+04-sb/alliance/ridorana_lighthouse
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+12.8 KB
+04-sb/alliance/ridorana_lighthouse
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+12.9 KB
+07-dt/raid/r11n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+12.9 KB
+07-dt/raid/r11n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+12.9 KB
+07-dt/raid/r7s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+12.9 KB
+07-dt/raid/r7s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+13.0 KB
+07-dt/trial/valigarmanda
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+13.0 KB
+07-dt/trial/valigarmanda
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+13.5 KB
+05-shb/raid/e12s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+13.5 KB
+05-shb/raid/e12s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+13.8 KB
+03-hw/trial/thordan-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+13.8 KB
+03-hw/trial/thordan-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+13.9 KB
+03-hw/raid/a10s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+13.9 KB
+03-hw/raid/a10s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+13.9 KB
+06-ew/trial/barbariccia-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+13.9 KB
+06-ew/trial/barbariccia-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+14.0 KB
+06-ew/trial/thordan-un
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+14.0 KB
+06-ew/trial/thordan-un
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+14.0 KB
+07-dt/trial/necron-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+14.0 KB
+07-dt/trial/necron-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+14.3 KB
+07-dt/raid/r1s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+14.3 KB
+07-dt/raid/r1s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+14.5 KB
+03-hw/raid/a8s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+14.5 KB
+03-hw/raid/a8s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+14.7 KB
+07-dt/trial/arkveld
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+14.7 KB
+07-dt/trial/arkveld
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+14.8 KB
+07-dt/trial/queen-eternal
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+14.8 KB
+07-dt/trial/queen-eternal
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+15.0 KB
+02-arr/raid/t9
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+15.0 KB
+02-arr/raid/t9
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+15.0 KB
+07-dt/raid/r10s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+15.0 KB
+07-dt/raid/r10s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+15.3 KB
+06-ew/dungeon/another_sildihn_subterrane-savage
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+15.3 KB
+06-ew/dungeon/another_sildihn_subterrane-savage
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+15.4 KB
+05-shb/ultimate/the_epic_of_alexander
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+15.4 KB
+05-shb/ultimate/the_epic_of_alexander
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+15.4 KB
+06-ew/trial/ultima-un
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+15.4 KB
+06-ew/trial/ultima-un
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+15.7 KB
+02-arr/raid/t7
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+15.7 KB
+02-arr/raid/t7
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+15.7 KB
+02-arr/trial/ultima-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+15.7 KB
+02-arr/trial/ultima-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+15.7 KB
+07-dt/raid/r5s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+15.7 KB
+07-dt/raid/r5s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+15.8 KB
+05-shb/trial/varis-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+15.8 KB
+05-shb/trial/varis-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+15.8 KB
+06-ew/raid/p9s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+15.8 KB
+06-ew/raid/p9s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+15.9 KB
+04-sb/raid/o12s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+15.9 KB
+04-sb/raid/o12s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+16.0 KB
+06-ew/raid/p8n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+16.0 KB
+06-ew/raid/p8n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+16.1 KB
+07-dt/raid/r4s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+16.1 KB
+07-dt/raid/r4s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+161.9 KB
+07-dt/eureka/occult_crescent_south_horn
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+161.9 KB
+07-dt/eureka/occult_crescent_south_horn
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+17.0 KB
+06-ew/trial/golbez-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+17.0 KB
+06-ew/trial/golbez-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+17.4 KB
+04-sb/raid/o7s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+17.4 KB
+04-sb/raid/o7s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+17.8 KB
+04-sb/ultimate/ultima_weapon_ultimate
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+17.8 KB
+04-sb/ultimate/ultima_weapon_ultimate
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+18.1 KB
+07-dt/raid/r9s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+18.1 KB
+07-dt/raid/r9s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+19.0 KB
+07-dt/raid/r8s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+19.0 KB
+07-dt/raid/r8s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+19.5 KB
+04-sb/eureka/eureka_hydatos
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+19.5 KB
+04-sb/eureka/eureka_hydatos
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+19.5 KB
+05-shb/eureka/bozjan_southern_front
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+19.5 KB
+05-shb/eureka/bozjan_southern_front
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+19.6 KB
+04-sb/alliance/orbonne_monastery
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+19.6 KB
+04-sb/alliance/orbonne_monastery
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+19.9 KB
+06-ew/ultimate/the_omega_protocol
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+19.9 KB
+06-ew/ultimate/the_omega_protocol
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+192 B
+07-dt/trial/zelenia
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+192 B
+07-dt/trial/zelenia
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+2.4 KB
+02-arr/trial/ifrit-nm
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+2.4 KB
+02-arr/trial/ifrit-nm
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+20.2 KB
+06-ew/raid/p12s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+20.2 KB
+06-ew/raid/p12s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+20.6 KB
+03-hw/alliance/weeping_city
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+20.6 KB
+03-hw/alliance/weeping_city
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+20.7 KB
+07-dt/alliance/cloud_of_darkness_chaotic
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+20.7 KB
+07-dt/alliance/cloud_of_darkness_chaotic
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+21.8 KB
+07-dt/deepdungeon/the_final_verse_quantum
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+21.8 KB
+07-dt/deepdungeon/the_final_verse_quantum
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+21.9 KB
+07-dt/trial/arkveld-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+21.9 KB
+07-dt/trial/arkveld-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+22.4 KB
+06-ew/alliance/euphrosyne
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+22.4 KB
+06-ew/alliance/euphrosyne
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+23.0 KB
+03-hw/dungeon/aetherochemical_research_facility
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+23.0 KB
+03-hw/dungeon/aetherochemical_research_facility
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+23.3 KB
+06-ew/dungeon/another_aloalo_island
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+23.3 KB
+06-ew/dungeon/another_aloalo_island
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+23.5 KB
+06-ew/dungeon/another_aloalo_island-savage
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+23.5 KB
+06-ew/dungeon/another_aloalo_island-savage
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+23.7 KB
+06-ew/raid/p8s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+23.7 KB
+06-ew/raid/p8s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+24.8 KB
+07-dt/ultimate/futures_rewritten
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+24.8 KB
+07-dt/ultimate/futures_rewritten
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+25.5 KB
+04-sb/alliance/royal_city_of_rabanastre
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+25.5 KB
+04-sb/alliance/royal_city_of_rabanastre
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+25.6 KB
+05-shb/alliance/the_copied_factory
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+25.6 KB
+05-shb/alliance/the_copied_factory
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+26.0 KB
+03-hw/alliance/dun_scaith
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+26.0 KB
+03-hw/alliance/dun_scaith
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+26.2 KB
+05-shb/eureka/zadnor
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+26.2 KB
+05-shb/eureka/zadnor
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+26.9 KB
+05-shb/trial/wol-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+26.9 KB
+05-shb/trial/wol-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+27.8 KB
+06-ew/ultimate/dragonsongs_reprise_ultimate
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+27.8 KB
+06-ew/ultimate/dragonsongs_reprise_ultimate
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+29.7 KB
+06-ew/dungeon/another_mount_rokkon
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+29.7 KB
+06-ew/dungeon/another_mount_rokkon
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+29.9 KB
+05-shb/alliance/the_tower_at_paradigms_breach
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+29.9 KB
+05-shb/alliance/the_tower_at_paradigms_breach
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+29.9 KB
+06-ew/dungeon/another_mount_rokkon-savage
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+29.9 KB
+06-ew/dungeon/another_mount_rokkon-savage
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+3.1 KB
+02-arr/raid/t10
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+3.1 KB
+02-arr/raid/t10
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+3.3 KB
+04-sb/raid/o5n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+3.3 KB
+04-sb/raid/o5n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+3.5 KB
+04-sb/raid/o6n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+3.5 KB
+04-sb/raid/o6n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+3.6 KB
+02-arr/raid/t5
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+3.6 KB
+02-arr/raid/t5
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+3.6 KB
+04-sb/raid/o8n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+3.6 KB
+04-sb/raid/o8n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+3.6 KB
+05-shb/raid/e5n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+3.6 KB
+05-shb/raid/e5n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+3.7 KB
+05-shb/raid/e2n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+3.7 KB
+05-shb/raid/e2n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+3.9 KB
+03-hw/raid/a6n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+3.9 KB
+03-hw/raid/a6n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+30.4 KB
+06-ew/alliance/aglaia
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+30.4 KB
+06-ew/alliance/aglaia
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+30.5 KB
+05-shb/alliance/the_puppets_bunker
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+30.5 KB
+05-shb/alliance/the_puppets_bunker
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+34.0 KB
+07-dt/alliance/windurst-third-walk
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+34.0 KB
+07-dt/alliance/windurst-third-walk
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+34.8 KB
+04-sb/ultimate/unending_coil_ultimate
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+34.8 KB
+04-sb/ultimate/unending_coil_ultimate
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+36.9 KB
+05-shb/eureka/delubrum_reginae
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+36.9 KB
+05-shb/eureka/delubrum_reginae
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+4.0 KB
+05-shb/raid/e9n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+4.0 KB
+05-shb/raid/e9n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+4.0 KB
+06-ew/raid/p2n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+4.0 KB
+06-ew/raid/p2n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+4.1 KB
+05-shb/dungeon/paglthan
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+4.1 KB
+05-shb/dungeon/paglthan
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+4.1 KB
+05-shb/raid/e10n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+4.1 KB
+05-shb/raid/e10n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+4.2 KB
+05-shb/raid/e9s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+4.2 KB
+05-shb/raid/e9s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+4.3 KB
+04-sb/raid/o7n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+4.3 KB
+04-sb/raid/o7n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+4.3 KB
+06-ew/raid/p5n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+4.3 KB
+06-ew/raid/p5n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+4.4 KB
+04-sb/raid/o10n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+4.4 KB
+04-sb/raid/o10n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+4.4 KB
+05-shb/dungeon/amaurot
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+4.4 KB
+05-shb/dungeon/amaurot
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+4.5 KB
+02-arr/trial/titan-nm
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+4.5 KB
+02-arr/trial/titan-nm
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+4.5 KB
+04-sb/raid/o5s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+4.5 KB
+04-sb/raid/o5s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+4.6 KB
+04-sb/trial/shinryu
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+4.6 KB
+04-sb/trial/shinryu
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+4.6 KB
+04-sb/trial/susano
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+4.6 KB
+04-sb/trial/susano
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+4.6 KB
+07-dt/raid/r2n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+4.6 KB
+07-dt/raid/r2n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+4.7 KB
+05-shb/trial/titania
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+4.7 KB
+05-shb/trial/titania
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+4.8 KB
+04-sb/dungeon/the_burn
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+4.8 KB
+04-sb/dungeon/the_burn
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+4.8 KB
+05-shb/dungeon/qitana_ravel
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+4.8 KB
+05-shb/dungeon/qitana_ravel
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+4.8 KB
+05-shb/raid/e1s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+4.8 KB
+05-shb/raid/e1s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+4.8 KB
+06-ew/raid/p10n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+4.8 KB
+06-ew/raid/p10n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+4.9 KB
+03-hw/raid/a3n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+4.9 KB
+03-hw/raid/a3n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+4.9 KB
+04-sb/trial/lakshmi-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+4.9 KB
+04-sb/trial/lakshmi-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+4.9 KB
+05-shb/raid/e1n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+4.9 KB
+05-shb/raid/e1n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+4.9 KB
+05-shb/raid/e3n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+4.9 KB
+05-shb/raid/e3n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+41.8 KB
+07-dt/ultimate/dancing_mad
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+41.8 KB
+07-dt/ultimate/dancing_mad
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+45.2 KB
+06-ew/alliance/thaleia
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+45.2 KB
+06-ew/alliance/thaleia
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+46.0 KB
+07-dt/alliance/jeuno-first-walk
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+46.0 KB
+07-dt/alliance/jeuno-first-walk
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+5.0 KB
+05-shb/raid/e2s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+5.0 KB
+05-shb/raid/e2s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+5.1 KB
+05-shb/trial/innocence
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+5.1 KB
+05-shb/trial/innocence
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+5.2 KB
+04-sb/raid/o4n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+5.2 KB
+04-sb/raid/o4n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+5.2 KB
+05-shb/dungeon/malikahs_well
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+5.2 KB
+05-shb/dungeon/malikahs_well
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+5.2 KB
+05-shb/raid/e11n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+5.2 KB
+05-shb/raid/e11n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+5.2 KB
+05-shb/raid/e6n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+5.2 KB
+05-shb/raid/e6n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+5.3 KB
+05-shb/dungeon/twinning
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+5.3 KB
+05-shb/dungeon/twinning
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+5.3 KB
+05-shb/trial/diamond_weapon
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+5.3 KB
+05-shb/trial/diamond_weapon
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+5.4 KB
+03-hw/dungeon/sohm_al_hard
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+5.4 KB
+03-hw/dungeon/sohm_al_hard
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+5.4 KB
+04-sb/dungeon/sirensong_sea
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+5.4 KB
+04-sb/dungeon/sirensong_sea
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+5.4 KB
+05-shb/dungeon/matoyas_relict
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+5.4 KB
+05-shb/dungeon/matoyas_relict
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+5.4 KB
+05-shb/trial/ruby_weapon
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+5.4 KB
+05-shb/trial/ruby_weapon
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+5.5 KB
+02-arr/raid/t12
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+5.5 KB
+02-arr/raid/t12
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+5.5 KB
+03-hw/dungeon/baelsars_wall
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+5.5 KB
+03-hw/dungeon/baelsars_wall
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+5.5 KB
+06-ew/raid/p4n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+5.5 KB
+06-ew/raid/p4n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+5.6 KB
+02-arr/raid/t6
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+5.6 KB
+02-arr/raid/t6
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+5.6 KB
+03-hw/raid/a12n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+5.6 KB
+03-hw/raid/a12n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+5.6 KB
+04-sb/dungeon/hells_lid
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+5.6 KB
+04-sb/dungeon/hells_lid
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+5.6 KB
+06-ew/trial/endsinger
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+5.6 KB
+06-ew/trial/endsinger
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+5.7 KB
+04-sb/raid/o11n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+5.7 KB
+04-sb/raid/o11n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+5.7 KB
+04-sb/trial/byakko
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+5.7 KB
+04-sb/trial/byakko
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+5.7 KB
+04-sb/trial/suzaku
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+5.7 KB
+04-sb/trial/suzaku
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+5.7 KB
+05-shb/raid/e8n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+5.7 KB
+05-shb/raid/e8n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+5.8 KB
+04-sb/trial/yojimbo
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+5.8 KB
+04-sb/trial/yojimbo
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+5.8 KB
+05-shb/trial/emerald_weapon-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+5.8 KB
+05-shb/trial/emerald_weapon-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+5.8 KB
+06-ew/trial/golbez
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+5.8 KB
+06-ew/trial/golbez
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+5.8 KB
+07-dt/raid/r3n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+5.8 KB
+07-dt/raid/r3n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+5.9 KB
+05-shb/dungeon/dohn_mheg
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+5.9 KB
+05-shb/dungeon/dohn_mheg
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+5.9 KB
+06-ew/trial/rubicante
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+5.9 KB
+06-ew/trial/rubicante
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+51.8 KB
+06-ew/dungeon/aloalo_island
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+51.8 KB
+06-ew/dungeon/aloalo_island
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+549 B
+07-dt/eureka/occult_crescent_north_horn
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+549 B
+07-dt/eureka/occult_crescent_north_horn
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.0 KB
+03-hw/dungeon/xelphatol
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.0 KB
+03-hw/dungeon/xelphatol
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.0 KB
+03-hw/raid/a1s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.0 KB
+03-hw/raid/a1s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.0 KB
+04-sb/trial/suzaku-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.0 KB
+04-sb/trial/suzaku-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.0 KB
+05-shb/dungeon/holminster_switch
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.0 KB
+05-shb/dungeon/holminster_switch
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.0 KB
+05-shb/dungeon/mt_gulg
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.0 KB
+05-shb/dungeon/mt_gulg
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.0 KB
+05-shb/raid/e3s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.0 KB
+05-shb/raid/e3s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.0 KB
+06-ew/dungeon/stigma_dreamscape
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.0 KB
+06-ew/dungeon/stigma_dreamscape
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.0 KB
+06-ew/raid/p3n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.0 KB
+06-ew/raid/p3n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.1 KB
+04-sb/raid/o6s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.1 KB
+04-sb/raid/o6s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.2 KB
+04-sb/dungeon/st_mocianne_hard
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.2 KB
+04-sb/dungeon/st_mocianne_hard
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.2 KB
+04-sb/raid/o11s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.2 KB
+04-sb/raid/o11s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.2 KB
+04-sb/trial/shinryu-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.2 KB
+04-sb/trial/shinryu-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.2 KB
+05-shb/raid/e5s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.2 KB
+05-shb/raid/e5s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.2 KB
+06-ew/raid/p6n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.2 KB
+06-ew/raid/p6n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.2 KB
+07-dt/trial/suzaku-un
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.2 KB
+07-dt/trial/suzaku-un
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.3 KB
+05-shb/trial/titania-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.3 KB
+05-shb/trial/titania-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.4 KB
+04-sb/raid/o1s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.4 KB
+04-sb/raid/o1s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.4 KB
+04-sb/trial/seiryu
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.4 KB
+04-sb/trial/seiryu
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.4 KB
+05-shb/raid/e7n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.4 KB
+05-shb/raid/e7n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.4 KB
+07-dt/trial/shinryu-un
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.4 KB
+07-dt/trial/shinryu-un
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.5 KB
+04-sb/raid/o2n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.5 KB
+04-sb/raid/o2n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.6 KB
+03-hw/trial/sophia-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.6 KB
+03-hw/trial/sophia-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.6 KB
+04-sb/trial/tsukuyomi
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.6 KB
+04-sb/trial/tsukuyomi
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.6 KB
+06-ew/dungeon/smileton
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.6 KB
+06-ew/dungeon/smileton
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.7 KB
+04-sb/dungeon/temple_of_the_fist
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.7 KB
+04-sb/dungeon/temple_of_the_fist
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.7 KB
+04-sb/trial/susano-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.7 KB
+04-sb/trial/susano-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.7 KB
+05-shb/trial/hades
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.7 KB
+05-shb/trial/hades
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.7 KB
+06-ew/raid/p7n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.7 KB
+06-ew/raid/p7n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.7 KB
+06-ew/trial/endsinger-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.7 KB
+06-ew/trial/endsinger-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.7 KB
+06-ew/trial/zodiark
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.7 KB
+06-ew/trial/zodiark
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.8 KB
+02-arr/raid/t11
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.8 KB
+02-arr/raid/t11
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.8 KB
+02-arr/raid/t8
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.8 KB
+02-arr/raid/t8
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.8 KB
+05-shb/dungeon/akadaemia_anyder
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.8 KB
+05-shb/dungeon/akadaemia_anyder
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.8 KB
+05-shb/dungeon/the_grand_cosmos
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.8 KB
+05-shb/dungeon/the_grand_cosmos
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.8 KB
+05-shb/trial/wol
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.8 KB
+05-shb/trial/wol
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.8 KB
+06-ew/trial/sophia-un
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.8 KB
+06-ew/trial/sophia-un
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.9 KB
+04-sb/raid/o2s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.9 KB
+04-sb/raid/o2s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.9 KB
+04-sb/raid/o9n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.9 KB
+04-sb/raid/o9n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+6.9 KB
+05-shb/dungeon/heroes_gauntlet
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+6.9 KB
+05-shb/dungeon/heroes_gauntlet
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+61.9 KB
+06-ew/dungeon/the_sildihn_subterrane
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+61.9 KB
+06-ew/dungeon/the_sildihn_subterrane
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.0 KB
+04-sb/dungeon/kugane_castle
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.0 KB
+04-sb/dungeon/kugane_castle
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.0 KB
+04-sb/dungeon/swallows_compass
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.0 KB
+04-sb/dungeon/swallows_compass
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.2 KB
+03-hw/raid/a2s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.2 KB
+03-hw/raid/a2s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.2 KB
+06-ew/trial/rubicante-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.2 KB
+06-ew/trial/rubicante-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.3 KB
+02-arr/trial/titan-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.3 KB
+02-arr/trial/titan-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.3 KB
+03-hw/dungeon/sohm_al
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.3 KB
+03-hw/dungeon/sohm_al
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.3 KB
+04-sb/trial/seiryu-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.3 KB
+04-sb/trial/seiryu-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.3 KB
+05-shb/raid/e10s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.3 KB
+05-shb/raid/e10s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.3 KB
+05-shb/raid/e6s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.3 KB
+05-shb/raid/e6s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.3 KB
+06-ew/raid/p2s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.3 KB
+06-ew/raid/p2s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.3 KB
+07-dt/dungeon/ihuykatumu
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.3 KB
+07-dt/dungeon/ihuykatumu
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.4 KB
+03-hw/dungeon/fractal_continuum
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.4 KB
+03-hw/dungeon/fractal_continuum
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.4 KB
+03-hw/raid/a10n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.4 KB
+03-hw/raid/a10n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.4 KB
+05-shb/raid/e12n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.4 KB
+05-shb/raid/e12n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.4 KB
+05-shb/trial/diamond_weapon-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.4 KB
+05-shb/trial/diamond_weapon-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.4 KB
+05-shb/trial/titan-un
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.4 KB
+05-shb/trial/titan-un
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.4 KB
+06-ew/dungeon/ktisis_hyperboreia
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.4 KB
+06-ew/dungeon/ktisis_hyperboreia
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.5 KB
+02-arr/trial/shiva-hm
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.5 KB
+02-arr/trial/shiva-hm
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.5 KB
+05-shb/dungeon/anamnesis_anyder
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.5 KB
+05-shb/dungeon/anamnesis_anyder
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.5 KB
+06-ew/dungeon/the_fell_court_of_troia
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.5 KB
+06-ew/dungeon/the_fell_court_of_troia
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.5 KB
+07-dt/trial/seiryu-un
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.5 KB
+07-dt/trial/seiryu-un
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.6 KB
+04-sb/raid/o9s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.6 KB
+04-sb/raid/o9s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.7 KB
+04-sb/trial/byakko-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.7 KB
+04-sb/trial/byakko-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.7 KB
+06-ew/dungeon/aetherfont
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.7 KB
+06-ew/dungeon/aetherfont
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.8 KB
+05-shb/trial/ruby_weapon-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.8 KB
+05-shb/trial/ruby_weapon-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.8 KB
+07-dt/raid/r4n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.8 KB
+07-dt/raid/r4n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.8 KB
+07-dt/trial/doomtrain
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.8 KB
+07-dt/trial/doomtrain
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.8 KB
+07-dt/trial/zoraal-ja
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.8 KB
+07-dt/trial/zoraal-ja
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.9 KB
+06-ew/dungeon/alzadaals_legacy
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.9 KB
+06-ew/dungeon/alzadaals_legacy
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.9 KB
+06-ew/trial/zodiark-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.9 KB
+06-ew/trial/zodiark-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+7.9 KB
+07-dt/trial/byakko-un
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+7.9 KB
+07-dt/trial/byakko-un
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+73 B
+99-other//readme","クリックしてダウンロード＆インポート
+73 B
+99-other//readme"
+PromeRotation,,,,"单击下载并导入
+8.0 KB
+05-shb/trial/hades-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+8.0 KB
+05-shb/trial/hades-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+8.0 KB
+06-ew/dungeon/the_dead_ends
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+8.0 KB
+06-ew/dungeon/the_dead_ends
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+8.0 KB
+06-ew/raid/p11n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+8.0 KB
+06-ew/raid/p11n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+8.0 KB
+06-ew/raid/p7s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+8.0 KB
+06-ew/raid/p7s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+8.1 KB
+04-sb/dungeon/bardams_mettle
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+8.1 KB
+04-sb/dungeon/bardams_mettle
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+8.1 KB
+06-ew/dungeon/vanaspati
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+8.1 KB
+06-ew/dungeon/vanaspati
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+8.2 KB
+04-sb/dungeon/doma_castle
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+8.2 KB
+04-sb/dungeon/doma_castle
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+8.3 KB
+03-hw/dungeon/gubal_library_hard
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+8.3 KB
+03-hw/dungeon/gubal_library_hard
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+8.3 KB
+05-shb/raid/e8s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+8.3 KB
+05-shb/raid/e8s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+8.3 KB
+06-ew/trial/asura
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+8.3 KB
+06-ew/trial/asura
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+8.3 KB
+07-dt/raid/r6s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+8.3 KB
+07-dt/raid/r6s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+8.4 KB
+03-hw/dungeon/the_lost_city_of_amdapor_hard
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+8.4 KB
+03-hw/dungeon/the_lost_city_of_amdapor_hard
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+8.4 KB
+03-hw/raid/a7s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+8.4 KB
+03-hw/raid/a7s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+8.4 KB
+03-hw/trial/sephirot-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+8.4 KB
+03-hw/trial/sephirot-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+8.4 KB
+04-sb/dungeon/fractal_continuum_hard
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+8.4 KB
+04-sb/dungeon/fractal_continuum_hard
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+8.4 KB
+04-sb/raid/o10s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+8.4 KB
+04-sb/raid/o10s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+8.4 KB
+05-shb/raid/e4n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+8.4 KB
+05-shb/raid/e4n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+8.4 KB
+05-shb/raid/e4s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+8.4 KB
+05-shb/raid/e4s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+8.4 KB
+05-shb/trial/emerald_weapon
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+8.4 KB
+05-shb/trial/emerald_weapon
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+8.4 KB
+06-ew/trial/sephirot-un
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+8.4 KB
+06-ew/trial/sephirot-un
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+8.5 KB
+02-arr/trial/levi-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+8.5 KB
+02-arr/trial/levi-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+8.5 KB
+04-sb/raid/o1n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+8.5 KB
+04-sb/raid/o1n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+8.5 KB
+06-ew/raid/p3s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+8.5 KB
+06-ew/raid/p3s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+8.6 KB
+05-shb/trial/levi-un
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+8.6 KB
+05-shb/trial/levi-un
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+8.6 KB
+07-dt/dungeon/meso-terminal
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+8.6 KB
+07-dt/dungeon/meso-terminal
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+8.7 KB
+07-dt/raid/r1n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+8.7 KB
+07-dt/raid/r1n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+8.8 KB
+06-ew/raid/p6s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+8.8 KB
+06-ew/raid/p6s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+8.9 KB
+04-sb/raid/o3n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+8.9 KB
+04-sb/raid/o3n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+9.0 KB
+02-arr/trial/titan-hm
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+9.0 KB
+02-arr/trial/titan-hm
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+9.0 KB
+05-shb/raid/e7s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+9.0 KB
+05-shb/raid/e7s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+9.0 KB
+06-ew/raid/p5s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+9.0 KB
+06-ew/raid/p5s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+9.0 KB
+07-dt/dungeon/skydeep-cenote
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+9.0 KB
+07-dt/dungeon/skydeep-cenote
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+9.1 KB
+03-hw/raid/a12s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+9.1 KB
+03-hw/raid/a12s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+9.1 KB
+03-hw/raid/a8n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+9.1 KB
+03-hw/raid/a8n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+9.1 KB
+04-sb/raid/o3s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+9.1 KB
+04-sb/raid/o3s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+9.2 KB
+07-dt/raid/r3s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+9.2 KB
+07-dt/raid/r3s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+9.3 KB
+03-hw/trial/ravana-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+9.3 KB
+03-hw/trial/ravana-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+9.4 KB
+03-hw/raid/a9s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+9.4 KB
+03-hw/raid/a9s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+9.4 KB
+07-dt/dungeon/the_underkeep
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+9.4 KB
+07-dt/dungeon/the_underkeep
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+9.4 KB
+07-dt/trial/zoraal-ja-ex
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+9.4 KB
+07-dt/trial/zoraal-ja-ex
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+9.5 KB
+03-hw/raid/a6s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+9.5 KB
+03-hw/raid/a6s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+9.5 KB
+04-sb/dungeon/shisui_of_the_violet_tides
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+9.5 KB
+04-sb/dungeon/shisui_of_the_violet_tides
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+9.5 KB
+04-sb/dungeon/shisui_of_the_violet_tides74
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+9.5 KB
+04-sb/dungeon/shisui_of_the_violet_tides74
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+9.5 KB
+06-ew/dungeon/the_tower_of_zot
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+9.5 KB
+06-ew/dungeon/the_tower_of_zot
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+9.8 KB
+06-ew/raid/p10s
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+9.8 KB
+06-ew/raid/p10s
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+9.8 KB
+07-dt/dungeon/origenics
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+9.8 KB
+07-dt/dungeon/origenics
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+9.8 KB
+07-dt/dungeon/worqor-zormor
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+9.8 KB
+07-dt/dungeon/worqor-zormor
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+9.9 KB
+05-shb/trial/shiva-un
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+9.9 KB
+05-shb/trial/shiva-un
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+9.9 KB
+07-dt/dungeon/strayborough-deadwalk
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+9.9 KB
+07-dt/dungeon/strayborough-deadwalk
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+9.9 KB
+07-dt/raid/r9n
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+9.9 KB
+07-dt/raid/r9n
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,"单击下载并导入
+92.5 KB
+05-shb/eureka/delubrum_reginae_savage
+将自动应用中文本地化","クリックしてダウンロード＆インポート
+92.5 KB
+05-shb/eureka/delubrum_reginae_savage
+中国語ローカライズが自動適用されます"
+PromeRotation,,,,在结束锚点之前插入新锚点（逻辑时间 = 最后锚点 + 5s）。,終了アンカーの前に新しいアンカーを挿入します（論理時間 = 最後のアンカー + 5秒）。
+PromeRotation,,,,显示 cactbot 导入的 Label 与 --sync-- 等技术锚点。默认隐藏，不影响运行时同步。,cactbotから取り込んだLabelや--sync--などのテクニカルアンカーを表示します。既定では非表示で、実行時の同期には影響しません。
+PromeRotation,,,,(无),（なし）
+PromeRotation,,,,(未加载),（未読み込み）
+PromeRotation,,,,Sync 日志,同期ログ
+PromeRotation,,,,Sync 状态,同期状態
+PromeRotation,,,,24人 (2),24人 (2)
+PromeRotation,,,,24人 (3),24人 (3)
+PromeRotation,,,,99-other  其他  (2),99-other  その他  (2)
+PromeRotation,,,,02-arr  2.0 重生之境  (18),02-arr  2.0 新生エオルゼア  (18)
+PromeRotation,,,,03-hw  3.0 苍穹之禁城  (33),03-hw  3.0 蒼天のイシュガルド  (33)
+PromeRotation,,,,04-sb  4.0 红莲之狂潮  (61),04-sb  4.0 紅蓮のリベレーター  (61)
+PromeRotation,,,,05-shb  5.0 暗影之逆焰  (63),05-shb  5.0 漆黒のヴィランズ  (63)
+PromeRotation,,,,06-ew  6.0 晓月之终途  (71),06-ew  6.0 暁月のフィナーレ  (71)
+PromeRotation,,,,07-dt  7.0 金曦之遗辉  (63),07-dt  7.0 黄金のレガシー  (63)
+PromeRotation,,,,1行表示##seg_lanes###单行显示##seg_lanes,1行表示##seg_lanes###1行表示##seg_lanes
+PromeRotation,,,,/pr → 打开主窗口。输入 /pr help 查看详细用法。,/pr → メインウィンドウを開きます。詳しい使い方は /pr help を入力してください。
+PromeRotation,,,,/pr qt list -> 列出当前职业 QT,/pr qt list -> 現在のジョブのQT一覧を表示
+PromeRotation,,,,/pr qt <当前职业QT名> true/false -> 开启或关闭当前职业 QT,/pr qt <現在のジョブのQT名> true/false -> 現在のジョブのQTをON/OFF
+PromeRotation,,,,/pr qt <当前职业QT名> toggle -> 切换当前职业 QT,/pr qt <現在のジョブのQT名> toggle -> 現在のジョブのQTを切り替え
+PromeRotation,,,,/pr autopull <on|off|toggle> -> 主动攻击开关,/pr autopull <on|off|toggle> -> 自動攻撃のON/OFF切り替え
+PromeRotation,,,,/pr hotkey list -> 列出当前职业所有 Hotkey,/pr hotkey list -> 現在のジョブのHotkey一覧を表示
+PromeRotation,,,,/pr hotkey <hotkey名> -> 执行当前职业的 Hotkey,/pr hotkey <hotkey名> -> 現在のジョブのHotkeyを実行
+PromeRotation,,,,/prcameramodealign → 校准玩家面向到最近的一个正方向,/prcameramodealign → プレイヤーの向きを最も近い基準方向へ補正
+PromeRotation,,,,/PromeGreenMoveStop → 停止绿玩移动,/PromeGreenMoveStop → GreenMoveの移動を停止
+PromeRotation,,,,/PromeGreenMoveTo → 绿玩移动到指定坐标：/PromeGreenMoveTo x y z,/PromeGreenMoveTo → GreenMoveを指定座標へ移動：/PromeGreenMoveTo x y z
+PromeRotation,,,,/prometp → TP到鼠标指针位置,/prometp → マウスカーソル位置へテレポート
+PromeRotation,,,,名称,名前
+PromeRotation,,,,启用,有効
+PromeRotation,,,,编辑：[1] 串行节点,編集：[1] 直列ノード
+PromeRotation,,,,该节点类型无额外属性。,このノード種類には追加プロパティがありません。
+PromeRotation,,,,复制,コピー
+PromeRotation,,,,展开所有,すべて展開
+PromeRotation,,,,折叠所有,すべて折りたたむ
+PromeRotation,,,,粘贴,貼り付け
+PromeRotation,,,,时间轴未运行，无黑板数据。,タイムラインが実行されていないため、ブラックボードデータはありません。
+PromeRotation,,,,Bool (0),真偽値 (0)
+PromeRotation,,,,Float (0),浮動小数 (0)
+PromeRotation,,,,Int (0),整数 (0)
+PromeRotation,,,,Stop All,すべて停止
+PromeRotation,,,,String (0),文字列 (0)
+PromeRotation,,,,Vector2 (0),Vector2 (0)
+PromeRotation,,,,Vector3 (0),Vector3 (0)
+PromeRotation,,,,[1] 串行节点 - 主时间轴,[1] 直列ノード - メインタイムライン
+PromeRotation,,,,全部来源,すべてのソース
+PromeRotation,,,,全部级别,すべてのレベル
+PromeRotation,,,,取消,キャンセル
+PromeRotation,,,,启动、停止和重新运行不会自动清空。,開始・停止・再実行では自動的にクリアされません。
+PromeRotation,,,,当前时间轴有未保存内容。继续将放弃这些修改。,現在のタイムラインには未保存の変更があります。続行すると変更は破棄されます。
+PromeRotation,,,,放弃修改并继续,変更を破棄して続行
+PromeRotation,,,,无变量。,変数はありません。
+PromeRotation,,,,时间,時間
+PromeRotation,,,,显示 0 / 0，缓冲上限 2000。,表示 0 / 0、バッファ上限 2000。
+PromeRotation,,,,来源,ソース
+PromeRotation,,,,清空日志,ログをクリア
+PromeRotation,,,,清空测试黑板,テスト用ブラックボードをクリア
+PromeRotation,,,,级别,レベル
+PromeRotation,,,,节点粘贴板：[串行节点] 主时间轴,ノードクリップボード：[直列ノード] メインタイムライン
+PromeRotation,,,,+ 新建视图,+ 新しいビュー
+PromeRotation,,,,0=直线，1=最弯,0=直線、1=最大カーブ
+PromeRotation,,,,ACR下载,ACRダウンロード
+PromeRotation,,,,GCD偏移设置：,GCDオフセット設定：
+PromeRotation,,,,GCD内最大能力技数量,GCD内の最大アビリティ数
+PromeRotation,,,,GCD生效等待网络包判定,GCD発動時にネットワークパケット判定を待つ
+PromeRotation,,,,GCD锁定超时(ms),GCDロックタイムアウト(ms)
+PromeRotation,,,,GCD队列窗口(ms),GCDキュー受付時間(ms)
+PromeRotation,,,,MapEffect 单次发送,MapEffect 単発送信
+PromeRotation,,,,MapEffect 批量测试,MapEffect 一括テスト
+PromeRotation,,,,MapEffect 测试,MapEffect テスト
+PromeRotation,,,,OGCD生效等待网络包判定,OGCD発動時にネットワークパケット判定を待つ
+PromeRotation,,,,PVE能力技设置：,PvEアビリティ設定：
+PromeRotation,,,,PVP能力技设置：,PvPアビリティ設定：
+PromeRotation,,,,上传时间轴,タイムラインをアップロード
+PromeRotation,,,,上传额度：加载中…,アップロード上限：読み込み中…
+PromeRotation,,,,上传额度：暂不可用,アップロード上限：現在利用不可
+PromeRotation,,,,下载,ダウンロード
+PromeRotation,,,,中心X,中心X
+PromeRotation,,,,中心Z,中心Z
+PromeRotation,,,,主触发轴,メイントリガー軸
+PromeRotation,,,,事件类型,イベント種別
+PromeRotation,,,,仅可选中,選択可能のみ
+PromeRotation,,,,仅显示当前职业可用##ptl_job_filter,現在のジョブで使用可能なものだけ表示##ptl_job_filter
+PromeRotation,,,,以当前角色为中心,現在のキャラクターを中心にする
+PromeRotation,,,,位置,位置
+PromeRotation,,,,停止绿色移动,緑プレイヤー移動を停止
+PromeRotation,,,,全不选,すべて選択解除
+PromeRotation,,,,全选,すべて選択
+PromeRotation,,,,全部副本,すべてのコンテンツ
+PromeRotation,,,,全部职业,すべてのジョブ
+PromeRotation,,,,全部职能,すべてのロール
+PromeRotation,,,,共 5 个时间轴,タイムライン 5件
+PromeRotation,,,,关闭 PTL 编辑器,PTLエディターを閉じる
+PromeRotation,,,,关闭所有热键窗口,すべてのホットキーウィンドウを閉じる
+PromeRotation,,,,其他##PluginDownloadFilterOther,その他##PluginDownloadFilterOther
+PromeRotation,,,,分离当前视图,現在のビューを分離
+PromeRotation,,,,刷新,更新
+PromeRotation,,,,刷新##AcrDownloadRefresh,更新##AcrDownloadRefresh
+PromeRotation,,,,刷新##library_catalog,更新##library_catalog
+PromeRotation,,,,刷新##library_upload,更新##library_upload
+PromeRotation,,,,刷新##PluginDownloadRefresh,更新##PluginDownloadRefresh
+PromeRotation,,,,刷新列表,一覧を更新
+PromeRotation,,,,刷新本地ACR,ローカルACRを更新
+PromeRotation,,,,副时间轴 1,サブタイムライン 1
+PromeRotation,,,,加载模式：手动加载,読み込みモード：手動
+PromeRotation,,,,加载状态：,読み込み状態：
+PromeRotation,,,,半径,半径
+PromeRotation,,,,危险色,危険色
+PromeRotation,,,,原版,従来版
+PromeRotation,,,,发送 MapEffect,MapEffectを送信
+PromeRotation,,,,可更新##PluginDownloadFilterUpdateAvailable,更新あり##PluginDownloadFilterUpdateAvailable
+PromeRotation,,,,可选中,選択可能
+PromeRotation,,,,启用优化GCD偏移,最適化GCDオフセットを有効化
+PromeRotation,,,,启用曲线,曲線を有効化
+PromeRotation,,,,周围实体对象信息（所有类型）,周囲のエンティティ情報（全種類）
+PromeRotation,,,,地面圆圈RGB炫彩,地面サークルをRGBレインボー表示
+PromeRotation,,,,复制原始数据,生データをコピー
+PromeRotation,,,,安全色,安全色
+PromeRotation,,,,安装,インストール
+PromeRotation,,,,实体,エンティティ
+PromeRotation,,,,实体信息覆盖层,エンティティ情報オーバーレイ
+PromeRotation,,,,实体查看,エンティティ表示
+PromeRotation,,,,实时打印 PR 日志,PRログをリアルタイム表示
+PromeRotation,,,,尚未生成 ACR 发布包。,ACR配布パッケージはまだ生成されていません。
+PromeRotation,,,,尚未生成插件发布包。,プラグイン配布パッケージはまだ生成されていません。
+PromeRotation,,,,工具,ツール
+PromeRotation,,,,工具##PluginDownloadFilterUtility,ツール##PluginDownloadFilterUtility
+PromeRotation,,,,已安装##PluginDownloadFilterInstalled,インストール済み##PluginDownloadFilterInstalled
+PromeRotation,,,,帧补偿(ms),フレーム補正(ms)
+PromeRotation,,,,常规,一般
+PromeRotation,,,,序号,番号
+PromeRotation,,,,开发##PluginDownloadFilterDevelopment,開発##PluginDownloadFilterDevelopment
+PromeRotation,,,,开发模式,開発モード
+PromeRotation,,,,开发调试,開発デバッグ
+PromeRotation,,,,开始,開始
+PromeRotation,,,,开始批量测试,一括テスト開始
+PromeRotation,,,,开始采集模式,収集モード開始
+PromeRotation,,,,开源,オープンソース
+PromeRotation,,,,当前使用日志视图过滤：Default,現在のログ表示フィルター：Default
+PromeRotation,,,,当前使用起手：,現在使用中のオープナー：
+PromeRotation,,,,当前无任何起手实现,現在利用できるオープナーはありません
+PromeRotation,,,,当前没有可打包的外部 ACR。,現在パッケージ化できる外部ACRはありません。
+PromeRotation,,,,当前没有可打包的本地插件。,現在パッケージ化できるローカルプラグインはありません。
+PromeRotation,,,,当前筛选下没有可用的 API 15 插件。,現在のフィルター条件では利用可能なAPI 15プラグインはありません。
+PromeRotation,,,,当前职能##ptl_role,現在のロール##ptl_role
+PromeRotation,,,,我的上传##library_mine,自分のアップロード##library_mine
+PromeRotation,,,,战斗##PluginDownloadFilterCombat,戦闘##PluginDownloadFilterCombat
+PromeRotation,,,,战斗日志,戦闘ログ
+PromeRotation,,,,打包工具,パッケージ作成ツール
+PromeRotation,,,,打开 ACR 发布工具目录,ACR配布ツールのフォルダーを開く
+PromeRotation,,,,打开 PTL 目录,PTLフォルダーを開く
+PromeRotation,,,,打开 PTL 编辑器,PTLエディターを開く
+PromeRotation,,,,打开ACR目录,ACRフォルダーを開く
+PromeRotation,,,,打开插件打包工具目录,プラグインパッケージ作成ツールのフォルダーを開く
+PromeRotation,,,,打开插件文件夹,プラグインフォルダーを開く
+PromeRotation,,,,技能是否生效判定设置：,スキル発動判定設定：
+PromeRotation,,,,技能调试,スキルデバッグ
+PromeRotation,,,,拓展##PluginDownloadFilterExtension,拡張##PluginDownloadFilterExtension
+PromeRotation,,,,拖动排序小队顺位,ドラッグしてPT順を並べ替え
+PromeRotation,,,,按类型,種類別
+PromeRotation,,,,提前偏移(ms),事前オフセット(ms)
+PromeRotation,,,,插件,プラグイン
+PromeRotation,,,,插件下载,プラグインダウンロード
+PromeRotation,,,,插件列表 (0),プラグイン一覧 (0)
+PromeRotation,,,,插件管理器,プラグイン管理
+PromeRotation,,,,摘要,概要
+PromeRotation,,,,操作,操作
+PromeRotation,,,,新版浅色（实验）,新ライトテーマ（実験）
+PromeRotation,,,,新版深色（实验）,新ダークテーマ（実験）
+PromeRotation,,,,无可用 ACR,利用可能なACRなし
+PromeRotation,,,,日志,ログ
+PromeRotation,,,,时间轴下载,タイムラインダウンロード
+PromeRotation,,,,是否显示路径点,経路点を表示する
+PromeRotation,,,,显示地面圆圈,地面サークルを表示
+PromeRotation,,,,显示实体,エンティティを表示
+PromeRotation,,,,显示最近秒数,直近の秒数を表示
+PromeRotation,,,,显示绿玩移动路径,緑プレイヤーの移動経路を表示
+PromeRotation,,,,暂停记录,記録を一時停止
+PromeRotation,,,,暂无发送记录。,送信履歴はありません。
+PromeRotation,,,,暂无本地时间轴。,ローカルタイムラインはありません。
+PromeRotation,,,,暂无路径点,経路点はありません
+PromeRotation,,,,曲线强度,曲線強度
+PromeRotation,,,,最大等待读条时间(ms),最大詠唱待機時間(ms)
+PromeRotation,,,,最近,最近
+PromeRotation,,,,未加载：当前职业可能无任何ACR实现,未読み込み：現在のジョブにはACR実装がない可能性があります
+PromeRotation,,,,未设置,未設定
+PromeRotation,,,,正在刷新…,更新中…
+PromeRotation,,,,正在加载时间轴目录,タイムライン一覧を読み込み中
+PromeRotation,,,,测试,テスト
+PromeRotation,,,,测试技能 对目标↑,スキルテスト 対象へ↑
+PromeRotation,,,,测试技能 对自己↑,スキルテスト 自分へ↑
+PromeRotation,,,,清空,クリア
+PromeRotation,,,,清空当前路径点,現在の経路点をクリア
+PromeRotation,,,,点击刷新获取时间轴。,更新を押してタイムラインを取得してください。
+PromeRotation,,,,状态: Stopped,状態: 停止
+PromeRotation,,,,状态数,状態数
+PromeRotation,,,,界面##PluginDownloadFilterUi,UI##PluginDownloadFilterUi
+PromeRotation,,,,界面主题：,UIテーマ：
+PromeRotation,,,,登录,ログイン
+PromeRotation,,,,登录自动认证,ログイン時に自動認証
+PromeRotation,,,,登录角色后，用上次认证成功的 Pr 码自动认证一次。,キャラクターログイン後、前回認証に成功したPRコードで自動認証します。
+PromeRotation,,,,直接执行,直接実行
+PromeRotation,,,,等待队列读条,キューの詠唱を待つ
+PromeRotation,,,,筛选：,フィルター：
+PromeRotation,,,,类型,種類
+PromeRotation,,,,类型（18/18）,種類（18/18）
+PromeRotation,,,,精选,おすすめ
+PromeRotation,,,,纷争前线小助手,フロントライン補助
+PromeRotation,,,,结束,終了
+PromeRotation,,,,绘制,描画
+PromeRotation,,,,绿玩移动中等待读条使用游戏队列,緑プレイヤー移動中の詠唱待機にゲームキューを使用
+PromeRotation,,,,能力技不卡GCD,アビリティでGCDを阻害しない
+PromeRotation,,,,能力技不卡GCD##pvp,アビリティでGCDを阻害しない##pvp
+PromeRotation,,,,自动,自動
+PromeRotation,,,,自动化##PluginDownloadFilterAutomation,自動化##PluginDownloadFilterAutomation
+PromeRotation,,,,自动滚动,自動スクロール
+PromeRotation,,,,自定义批量:,カスタム一括:
+PromeRotation,,,,视图名,ビュー名
+PromeRotation,,,,认证服务器,認証サーバー
+PromeRotation,,,,请输入有效技能 ID。,有効なスキルIDを入力してください。
+PromeRotation,,,,请选择左侧插件查看详情。,左側のプラグインを選択して詳細を確認してください。
+PromeRotation,,,,调试,デバッグ
+PromeRotation,,,,路径移速倍率,経路移動速度倍率
+PromeRotation,,,,路径调试,経路デバッグ
+PromeRotation,,,,过本,クリア
+PromeRotation,,,,连接上传服务,アップロードサービスに接続
+PromeRotation,,,,适配职业：,対応ジョブ：
+PromeRotation,,,,选择时间轴,タイムラインを選択
+PromeRotation,,,,选择要上传的时间轴,アップロードするタイムラインを選択
+PromeRotation,,,,通用,共通
+PromeRotation,,,,重置所有热键窗口,すべてのホットキーウィンドウをリセット
+PromeRotation,,,,重置默认,初期値に戻す
+PromeRotation,,,,重载所有插件,すべてのプラグインを再読み込み
+PromeRotation,,,,闭源,クローズドソース
+PromeRotation,,,,间隔(ms),間隔(ms)
+PromeRotation,,,,隐藏玩家,プレイヤーを非表示
+PromeRotation,,,,默认 0，不等待当前读条,既定値 0：現在の詠唱を待たない
+PromeRotation,,,,默认绘制模式,既定の描画モード
+PromeRotation,,,,（当前目录中没有任何 PTL 文件）,（現在のフォルダーにPTLファイルはありません）
+PromeRotation,,,,下载##download_1ebb1e43-049f-4609-aa94-b9c18560d5e2,ダウンロード##download_1ebb1e43-049f-4609-aa94-b9c18560d5e2
+PromeRotation,,,,下载##download_5191b7e0-7447-4b8f-a43b-fb1ef98b2c68,ダウンロード##download_5191b7e0-7447-4b8f-a43b-fb1ef98b2c68
+PromeRotation,,,,下载##download_5d7edfaa-d3b7-498d-9431-80dd23b5370d,ダウンロード##download_5d7edfaa-d3b7-498d-9431-80dd23b5370d
+PromeRotation,,,,下载##download_91013e38-65e6-44da-833a-d0acae023fe8,ダウンロード##download_91013e38-65e6-44da-833a-d0acae023fe8
+PromeRotation,,,,删除本地##delete_1ebb1e43-049f-4609-aa94-b9c18560d5e2,ローカル削除##delete_1ebb1e43-049f-4609-aa94-b9c18560d5e2
+PromeRotation,,,,删除本地##delete_5191b7e0-7447-4b8f-a43b-fb1ef98b2c68,ローカル削除##delete_5191b7e0-7447-4b8f-a43b-fb1ef98b2c68
+PromeRotation,,,,删除本地##delete_5d7edfaa-d3b7-498d-9431-80dd23b5370d,ローカル削除##delete_5d7edfaa-d3b7-498d-9431-80dd23b5370d
+PromeRotation,,,,删除本地##delete_91013e38-65e6-44da-833a-d0acae023fe8,ローカル削除##delete_91013e38-65e6-44da-833a-d0acae023fe8
+PromeRotation,,,,仅显示当前职业可用##tl_job_filter,現在のジョブで使用可能なものだけ表示##tl_job_filter
+PromeRotation,,,,作者暂未填写赞助链接,作者はスポンサーリンクをまだ登録していません
+PromeRotation,,,,停止,停止
+PromeRotation,,,,刷新完成：1 个插件。,更新完了：プラグイン 1件。
+PromeRotation,,,,刷新完成：7 个 ACR。,更新完了：ACR 7件。
+PromeRotation,,,,占星术士 · 日常 / 高难,占星術師 · デイリー / 高難度
+PromeRotation,,,,占星术士 · 高难,占星術師 · 高難度
+PromeRotation,,,,召唤师 · 高难,召喚士 · 高難度
+PromeRotation,,,,场上实体: 1,フィールド上のオブジェクト：1
+PromeRotation,,,,处理中...,処理中...
+PromeRotation,,,,学者 · 日常 / 高难,学者 · デイリー / 高難度
+PromeRotation,,,,学者 · 高难,学者 · 高難度
+PromeRotation,,,,已下载,ダウンロード済み
+PromeRotation,,,,已认证开源：该项目的源码仓库已通过社区认证。,認証済みオープンソース：このプロジェクトのソースリポジトリはコミュニティ認証済みです。
+PromeRotation,,,,开启触发轴 Dev,トリガータイムライン Dev を開く
+PromeRotation,,,,开启触发轴编辑器,トリガータイムラインエディターを開く
+PromeRotation,,,,当前筛选下没有可用的 API 15 ACR。,現在の絞り込み条件では利用可能なAPI 15 ACRはありません。
+PromeRotation,,,,忍者 · 高难,忍者 · 高難度
+PromeRotation,,,,"快速测试 (Position 1-127, Param1=1):","クイックテスト (Position 1-127, Param1=1):"
+PromeRotation,,,,战士 · 高难,戦士 · 高難度
+PromeRotation,,,,打开时间轴目录,タイムラインフォルダーを開く
+PromeRotation,,,,显示 0 条 / 行 0 / 缓存 0 条，最多保留 50000 条,表示 0件 / 行 0 / キャッシュ 0件、最大 50000件保持
+PromeRotation,,,,暗黑骑士 · 高难,暗黒騎士 · 高難度
+PromeRotation,,,,机工士 · 高难,機工士 · 高難度
+PromeRotation,,,,根据技能数据逆推并补充读条开始锚点。可能产生很短的行为区间，默认关闭。,アクションデータから逆算して詠唱開始アンカーを補完します。非常に短いアクション区間が生成される場合があるため、初期設定ではOFFです。
+PromeRotation,,,,正在获取 ACR 清单...,ACR一覧を取得中...
+PromeRotation,,,,武僧 · 高难,モンク · 高難度
+PromeRotation,,,,武士 · 高难,侍 · 高難度
+PromeRotation,,,,每次刷新 ACR 目录后，自动安装该精选 ACR 的可用更新,ACR一覧を更新するたびに、このおすすめACRの利用可能な更新を自動インストール
+PromeRotation,,,,由PromeRotation社区精选的内置ACR,PromeRotationコミュニティ選定の内蔵ACR
+PromeRotation,,,,白魔法师 · 日常 / 高难,白魔道士 · デイリー / 高難度
+PromeRotation,,,,白魔法师 · 高难,白魔道士 · 高難度
+PromeRotation,,,,确定,決定
+PromeRotation,,,,管理社区 ACR JSON 来源,コミュニティACRのJSONソースを管理
+PromeRotation,,,,职能：H2    需要 ACR：YouShu,ロール：H2    必要ACR：YouShu
+PromeRotation,,,,职能：通用    需要 ACR：XSZYYS,ロール：汎用    必要ACR：XSZYYS
+PromeRotation,,,,自动更新：,自動更新：
+PromeRotation,,,,舞者 · 高难,踊り子 · 高難度
+PromeRotation,,,,蝰蛇剑士 · 高难,ヴァイパー · 高難度
+PromeRotation,,,,该项目未填写源码仓库地址，请自行判断。,このプロジェクトにはソースリポジトリのURLが登録されていません。各自で判断してください。
+PromeRotation,,,,贤者 · 日常 / 高难,賢者 · デイリー / 高難度
+PromeRotation,,,,贤者 · 高难,賢者 · 高難度
+PromeRotation,,,,赞助,支援
+PromeRotation,,,,重新获取全部已启用来源,有効なすべてのソースを再取得
+PromeRotation,,,,骑士 · 高难,ナイト · 高難度
+PromeRotation,,,,龙骑士 · 高难,竜騎士 · 高難度
+PromeRotation,,,,（当前目录中没有任何时间轴文件）,（現在のフォルダーにタイムラインファイルはありません）
+PromeRotation,,,,描述：The Dark Side of the FFXIV,説明：The Dark Side of the FFXIV
+PromeRotation,,,,描述：一个全等级黑魔ACR 支持日随/高难,説明：全レベル帯対応の黒魔道士ACR。デイリー／高難度に対応
+PromeRotation,,,,描述：一个简单的只支持高难的ACR， DNC暂时不可使用,説明：高難度専用のシンプルなACRです。DNCは現在使用できません
+PromeRotation,,,,描述：可以选择P4分摊方式,説明：P4の頭割り方式を選択できます
+PromeRotation,,,,描述：可以选择p4分摊方式,説明：P4の頭割り方式を選択できます
+PromeRotation,,,,描述：测试中,説明：テスト中
+PromeRotation,,,,描述：网恋低手骑士acr，cpdd只保你一个,説明：ナイト用ACR
+PromeRotation,,,,描述：这是一个官方临时的高难 ACR 包，学者、占星术士与贤者由 RyougiS 制作。因目前维护时间有限，暂时合并为一个整合包；待社区 ACR 生态发展成熟后，将逐步由优秀的社区 ACR 替换。,説明：公式の暫定高難度ACRパックです。学者・占星術師・賢者はRyougiS制作。現在は保守時間の都合で統合パックとして提供されており、コミュニティACRが成熟次第、優れたコミュニティ製ACRへ順次置き換えられる予定です。
+PromeRotation,,,,当前加载主触发轴：无    状态：已停止,現在のメイントリガータイムライン：なし    状態：停止
+PromeRotation,,,,当前加载主时间轴：无    状态：Stopped,現在のメインタイムライン：なし    状態：停止
+PromeRotation,,,,当前加载副时间轴 1：无    状态：未加载,現在のサブタイムライン 1：なし    状態：未読み込み
