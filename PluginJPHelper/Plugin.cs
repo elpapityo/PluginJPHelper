@@ -102,6 +102,14 @@ public sealed unsafe class Plugin : IDalamudPlugin
     private string officialNoticeSha = string.Empty;
     private long officialNoticeLastAttemptTick;
     private long communityLastAttemptTick;
+    // GitHub REST API のレート制限を公式／コミュニティ辞書で共有して抑止する。
+    // githubApiRateLimitResetUnixSeconds は「制限中の再送禁止時刻」。
+    // 表示用の残数／上限／通常リセット時刻は別フィールドで保持する。
+    private long githubApiRateLimitResetUnixSeconds;
+    private long githubApiRateLimitRemaining = -1;
+    private long githubApiRateLimitLimit = -1;
+    private long githubApiRateLimitDisplayResetUnixSeconds;
+    private const long GithubApiRateLimitFallbackSeconds = 300;
     private const long UpdateCheckIntervalMs = 3_600_000; // 起動時 + 1時間ごとに確認
     private const string OfficialDictionaryApiUrl = "https://api.github.com/repos/elpapityo/PluginJPHelper/contents/Dictionaries/Official?ref=main";
     private const string OfficialNoticeUrl = "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/notice.txt";
@@ -3115,7 +3123,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
         private int selectedAction;
 
         internal MojibakeAlertWindow(Plugin owner)
-            : base("文字化けを検知 v0.5.0###PluginJPHelperMojibakeAlert")
+            : base("文字化けを検知 v0.5.4###PluginJPHelperMojibakeAlert")
         {
             this.owner = owner;
             Size = new Vector2(760, 560);
@@ -3326,6 +3334,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
     {
         var path = CommunityCsvPath(item.FileName);
         if (!File.Exists(path)) return "未取得";
+        if (string.IsNullOrWhiteSpace(item.Sha)) return "導入済み";
         var shaPath = CommunityShaPath(item.FileName);
         if (!File.Exists(shaPath)) return "導入済み";
         try
@@ -3336,10 +3345,121 @@ public sealed unsafe class Plugin : IDalamudPlugin
         catch { return "導入済み"; }
     }
 
+    private void CaptureGitHubApiRateLimitHeaders(HttpResponseMessage response)
+    {
+        if (response.Headers.TryGetValues("X-RateLimit-Remaining", out var remainingValues)
+            && long.TryParse(remainingValues.FirstOrDefault(), out var remaining))
+        {
+            Interlocked.Exchange(ref githubApiRateLimitRemaining, remaining);
+            if (remaining > 0)
+                Interlocked.Exchange(ref githubApiRateLimitResetUnixSeconds, 0);
+        }
+
+        if (response.Headers.TryGetValues("X-RateLimit-Limit", out var limitValues)
+            && long.TryParse(limitValues.FirstOrDefault(), out var limit))
+            Interlocked.Exchange(ref githubApiRateLimitLimit, limit);
+
+        if (response.Headers.TryGetValues("X-RateLimit-Reset", out var resetValues)
+            && long.TryParse(resetValues.FirstOrDefault(), out var resetUnix))
+            Interlocked.Exchange(ref githubApiRateLimitDisplayResetUnixSeconds, resetUnix);
+    }
+
+    private string GetGitHubApiRateLimitStatusText()
+    {
+        var remaining = Interlocked.Read(ref githubApiRateLimitRemaining);
+        var limit = Interlocked.Read(ref githubApiRateLimitLimit);
+        var displayResetUnix = Interlocked.Read(ref githubApiRateLimitDisplayResetUnixSeconds);
+
+        var countText = remaining >= 0 && limit > 0
+            ? $"残り {remaining}/{limit}"
+            : "残数 未取得";
+
+        var resetText = string.Empty;
+        if (displayResetUnix > DateTimeOffset.UtcNow.ToUnixTimeSeconds())
+        {
+            try
+            {
+                var resetLocal = DateTimeOffset.FromUnixTimeSeconds(displayResetUnix).ToLocalTime();
+                resetText = $"・リセット {resetLocal:HH:mm}ごろ";
+            }
+            catch { }
+        }
+
+        if (TryGetGitHubApiRateLimitMessage(out _))
+            return $"GitHub API（公式・コミュニティ共通）: {countText}{resetText}・レート制限中";
+
+        return $"GitHub API（公式・コミュニティ共通）: {countText}{resetText}";
+    }
+
+    private void DrawGitHubApiRateLimitStatus()
+    {
+        var text = GetGitHubApiRateLimitStatusText();
+        if (TryGetGitHubApiRateLimitMessage(out _))
+            ImGui.TextColored(new Vector4(1.00f, 0.48f, 0.38f, 1.00f), text);
+        else
+            ImGui.TextDisabled(text);
+    }
+
+    private bool TryGetGitHubApiRateLimitMessage(out string message)
+    {
+        var resetUnix = Interlocked.Read(ref githubApiRateLimitResetUnixSeconds);
+        if (resetUnix <= 0)
+        {
+            message = string.Empty;
+            return false;
+        }
+
+        var nowUnix = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+        if (resetUnix <= nowUnix)
+        {
+            Interlocked.CompareExchange(ref githubApiRateLimitResetUnixSeconds, 0, resetUnix);
+            message = string.Empty;
+            return false;
+        }
+
+        var resetLocal = DateTimeOffset.FromUnixTimeSeconds(resetUnix).ToLocalTime();
+        message = $"GitHub APIのレート制限中です。{resetLocal:HH:mm}ごろ再試行できます。";
+        return true;
+    }
+
+    private bool TryRegisterGitHubApiRateLimit(HttpResponseMessage response, string responseBody, out string message)
+    {
+        CaptureGitHubApiRateLimitHeaders(response);
+        message = string.Empty;
+        var status = (int)response.StatusCode;
+        if (status != 403 && status != 429) return false;
+
+        long? remaining = null;
+        if (response.Headers.TryGetValues("X-RateLimit-Remaining", out var remainingValues)
+            && long.TryParse(remainingValues.FirstOrDefault(), out var parsedRemaining))
+            remaining = parsedRemaining;
+
+        var rateLimitText = responseBody.Contains("rate limit", StringComparison.OrdinalIgnoreCase);
+        if (status != 429 && remaining != 0 && !rateLimitText) return false;
+
+        var nowUnix = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+        var resetUnix = 0L;
+        if (response.Headers.TryGetValues("X-RateLimit-Reset", out var resetValues))
+            long.TryParse(resetValues.FirstOrDefault(), out resetUnix);
+        if (resetUnix <= nowUnix)
+            resetUnix = nowUnix + GithubApiRateLimitFallbackSeconds;
+
+        Interlocked.Exchange(ref githubApiRateLimitResetUnixSeconds, resetUnix);
+        Interlocked.Exchange(ref githubApiRateLimitDisplayResetUnixSeconds, resetUnix);
+        Interlocked.Exchange(ref githubApiRateLimitRemaining, 0);
+        Interlocked.Exchange(ref officialNoticeLastAttemptTick, 0);
+        Interlocked.Exchange(ref communityLastAttemptTick, 0);
+
+        var resetLocal = DateTimeOffset.FromUnixTimeSeconds(resetUnix).ToLocalTime();
+        message = $"GitHub APIのレート制限に達しました。{resetLocal:HH:mm}ごろ再試行できます。解除時刻までは再取得を停止します。";
+        return true;
+    }
+
     private void EnsureCommunityUpdateRefresh()
     {
         // 自動確認はDalamudのrepo読込と競合させない。
         if (!pluginInstallerModule.IsSafeForBackgroundNetworkWork()) return;
+        if (TryGetGitHubApiRateLimitMessage(out _)) return;
         var now = Environment.TickCount64;
         var last = Interlocked.Read(ref communityLastAttemptTick);
         if (communityDictionaryBusy || (last != 0 && now - last < UpdateCheckIntervalMs)) return;
@@ -3348,6 +3468,11 @@ public sealed unsafe class Plugin : IDalamudPlugin
 
     private Task RefreshCommunityDictionariesAsync(bool acknowledge)
     {
+        if (TryGetGitHubApiRateLimitMessage(out var rateLimitMessage))
+        {
+            if (acknowledge) communityStatus = rateLimitMessage;
+            return Task.CompletedTask;
+        }
         if (communityDictionaryBusy) return Task.CompletedTask;
         communityDictionaryBusy = true;
         Interlocked.Exchange(ref communityLastAttemptTick, Environment.TickCount64);
@@ -3358,10 +3483,19 @@ public sealed unsafe class Plugin : IDalamudPlugin
             try
             {
                 using var apiReq = new HttpRequestMessage(HttpMethod.Get, CommunityIndexApiUrl);
-                apiReq.Headers.UserAgent.ParseAdd("PluginJPHelper/0.4.4");
+                apiReq.Headers.UserAgent.ParseAdd("PluginJPHelper/0.5.4");
                 using var apiRes = officialDictionaryHttp.SendAsync(apiReq).GetAwaiter().GetResult();
-                apiRes.EnsureSuccessStatusCode();
+                CaptureGitHubApiRateLimitHeaders(apiRes);
                 var apiJson = apiRes.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                if (!apiRes.IsSuccessStatusCode)
+                {
+                    if (TryRegisterGitHubApiRateLimit(apiRes, apiJson, out var rateMessage))
+                    {
+                        if (acknowledge) communityStatus = rateMessage;
+                        return;
+                    }
+                    apiRes.EnsureSuccessStatusCode();
+                }
                 using var apiDoc = JsonDocument.Parse(apiJson);
                 var root = apiDoc.RootElement;
                 var indexSha = root.TryGetProperty("sha", out var shaProp) ? shaProp.GetString() ?? string.Empty : string.Empty;
@@ -3440,7 +3574,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
                 {
                     communityStatus = $"{item.FileName} をダウンロードしています...";
                     using var req = new HttpRequestMessage(HttpMethod.Get, item.DownloadUrl);
-                    req.Headers.UserAgent.ParseAdd("PluginJPHelper/0.4.4");
+                    req.Headers.UserAgent.ParseAdd("PluginJPHelper/0.5.4");
                     using var res = officialDictionaryHttp.SendAsync(req).GetAwaiter().GetResult();
                     res.EnsureSuccessStatusCode();
                     var text = res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
@@ -3548,6 +3682,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
         if (communityDictionaryBusy) { ImGui.SameLine(); ImGui.TextDisabled("通信中..."); }
 
         if (!string.IsNullOrWhiteSpace(communityStatus)) ImGui.TextWrapped(communityStatus);
+        DrawGitHubApiRateLimitStatus();
         if (!communityListLoaded)
         {
             ImGui.TextDisabled("「コミュニティ辞書一覧を取得」を押すとGitHub上の一覧を表示します。");
@@ -4073,6 +4208,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
     {
         // 自動確認はDalamudのrepo読込と競合させない。
         if (!pluginInstallerModule.IsSafeForBackgroundNetworkWork()) return;
+        if (TryGetGitHubApiRateLimitMessage(out _)) return;
         var now = Environment.TickCount64;
         var last = Interlocked.Read(ref officialNoticeLastAttemptTick);
         if (officialNoticeBusy || (last != 0 && now - last < UpdateCheckIntervalMs)) return;
@@ -4081,6 +4217,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
 
     private Task RefreshOfficialNoticeAsync()
     {
+        if (TryGetGitHubApiRateLimitMessage(out _)) return Task.CompletedTask;
         if (officialNoticeBusy) return Task.CompletedTask;
         officialNoticeBusy = true;
         Interlocked.Exchange(ref officialNoticeLastAttemptTick, Environment.TickCount64);
@@ -4091,11 +4228,16 @@ public sealed unsafe class Plugin : IDalamudPlugin
             {
                 // 公式辞書の更新判定は notice.txt ではなく Dictionaries/Official 配下のCSV構成で行う。
                 using var dirReq = new HttpRequestMessage(HttpMethod.Get, OfficialDictionaryApiUrl);
-                dirReq.Headers.UserAgent.ParseAdd("PluginJPHelper/0.4.4");
+                dirReq.Headers.UserAgent.ParseAdd("PluginJPHelper/0.5.4");
                 dirReq.Headers.Accept.ParseAdd("application/vnd.github+json");
                 using var dirRes = officialDictionaryHttp.SendAsync(dirReq).GetAwaiter().GetResult();
-                dirRes.EnsureSuccessStatusCode();
+                CaptureGitHubApiRateLimitHeaders(dirRes);
                 var dirJson = dirRes.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                if (!dirRes.IsSuccessStatusCode)
+                {
+                    if (TryRegisterGitHubApiRateLimit(dirRes, dirJson, out _)) return;
+                    dirRes.EnsureSuccessStatusCode();
+                }
                 using var dirDoc = JsonDocument.Parse(dirJson);
 
                 var parts = new List<string>();
@@ -4113,7 +4255,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
 
                 // 表示文は notice.txt の1行目を利用する。フォルダー更新が無い限り通知は出さない。
                 using var req = new HttpRequestMessage(HttpMethod.Get, OfficialNoticeUrl);
-                req.Headers.UserAgent.ParseAdd("PluginJPHelper/0.4.4");
+                req.Headers.UserAgent.ParseAdd("PluginJPHelper/0.5.4");
                 using var res = officialDictionaryHttp.SendAsync(req).GetAwaiter().GetResult();
                 res.EnsureSuccessStatusCode();
                 var text = res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
@@ -4142,7 +4284,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
 
     private string BuildMainWindowTitle()
     {
-        const string baseTitle = "Plugin JP Helper v0.5.0";
+        const string baseTitle = "Plugin JP Helper v0.5.4";
         var officialNotice = officialNoticeText?.Trim() ?? string.Empty;
         var communityNotice = communityNoticePending ? "コミュニティ辞書に更新があります。" : string.Empty;
         var notice = string.Empty;
@@ -4412,6 +4554,11 @@ public sealed unsafe class Plugin : IDalamudPlugin
 
     private Task RefreshOfficialDictionariesAsync()
     {
+        if (TryGetGitHubApiRateLimitMessage(out var rateLimitMessage))
+        {
+            officialDictionaryStatus = rateLimitMessage;
+            return Task.CompletedTask;
+        }
         if (officialDictionaryBusy) return Task.CompletedTask;
         officialDictionaryBusy = true;
         officialDictionaryStatus = "GitHubの公式辞書一覧を確認しています...";
@@ -4421,11 +4568,20 @@ public sealed unsafe class Plugin : IDalamudPlugin
             try
             {
                 using var req = new HttpRequestMessage(HttpMethod.Get, OfficialDictionaryApiUrl);
-                req.Headers.UserAgent.ParseAdd("PluginJPHelper/0.4.4");
+                req.Headers.UserAgent.ParseAdd("PluginJPHelper/0.5.4");
                 req.Headers.Accept.ParseAdd("application/vnd.github+json");
                 using var res = officialDictionaryHttp.SendAsync(req).GetAwaiter().GetResult();
-                res.EnsureSuccessStatusCode();
+                CaptureGitHubApiRateLimitHeaders(res);
                 var json = res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                if (!res.IsSuccessStatusCode)
+                {
+                    if (TryRegisterGitHubApiRateLimit(res, json, out var rateMessage))
+                    {
+                        officialDictionaryStatus = rateMessage;
+                        return;
+                    }
+                    res.EnsureSuccessStatusCode();
+                }
                 using var doc = JsonDocument.Parse(json);
                 var list = new List<OfficialDictionaryEntry>();
                 foreach (var item in doc.RootElement.EnumerateArray())
@@ -4445,9 +4601,35 @@ public sealed unsafe class Plugin : IDalamudPlugin
                 }
                 lock (officialDictionaryLock)
                     officialDictionaryEntries = list.OrderBy(x => x.Name, StringComparer.OrdinalIgnoreCase).ToList();
+
+                var signatureParts = list.Select(x => $"{x.Name}:{x.Sha}")
+                    .OrderBy(x => x, StringComparer.OrdinalIgnoreCase);
+                var signatureSource = string.Join("|", signatureParts);
+                var latestSignature = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(signatureSource)));
+                officialNoticeSha = latestSignature;
+
+                var noticeToAcknowledge = string.Empty;
+                try
+                {
+                    using var noticeReq = new HttpRequestMessage(HttpMethod.Get, OfficialNoticeUrl);
+                    noticeReq.Headers.UserAgent.ParseAdd("PluginJPHelper/0.5.4");
+                    using var noticeRes = officialDictionaryHttp.SendAsync(noticeReq).GetAwaiter().GetResult();
+                    if (noticeRes.IsSuccessStatusCode)
+                    {
+                        var noticeText = noticeRes.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                        noticeToAcknowledge = noticeText.Replace("\r\n", "\n", StringComparison.Ordinal)
+                            .Replace('\r', '\n')
+                            .Split('\n', StringSplitOptions.RemoveEmptyEntries)
+                            .FirstOrDefault()?.Trim() ?? string.Empty;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    log.Debug(ex, "[PluginJPHelper] official notice text fetch failed");
+                }
+
                 officialDictionaryStatus = $"公式辞書 {list.Count}件を確認しました。";
-                var noticeToAcknowledge = officialNoticeText?.Trim() ?? string.Empty;
-                var folderSignatureToAcknowledge = officialNoticeSha?.Trim() ?? string.Empty;
+                var folderSignatureToAcknowledge = latestSignature;
                 if (!string.IsNullOrWhiteSpace(folderSignatureToAcknowledge))
                 {
                     officialNoticeText = string.Empty;
@@ -4496,7 +4678,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
                     officialDictionaryStatus = $"{item.Name} をダウンロードしています...";
                     if (string.IsNullOrWhiteSpace(item.DownloadUrl)) continue;
                     using var req = new HttpRequestMessage(HttpMethod.Get, item.DownloadUrl);
-                    req.Headers.UserAgent.ParseAdd("PluginJPHelper/0.4.4");
+                    req.Headers.UserAgent.ParseAdd("PluginJPHelper/0.5.4");
                     using var res = officialDictionaryHttp.SendAsync(req).GetAwaiter().GetResult();
                     res.EnsureSuccessStatusCode();
                     var text = res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
@@ -4557,6 +4739,7 @@ public sealed unsafe class Plugin : IDalamudPlugin
     {
         var path = OfficialCsvPath(item.Name);
         if (!File.Exists(path)) return "未導入";
+        if (string.IsNullOrWhiteSpace(item.Sha)) return "導入済み";
         var shaPath = OfficialShaPath(item.Name);
         if (!File.Exists(shaPath)) return "導入済み";
         try
@@ -4949,10 +5132,11 @@ public sealed unsafe class Plugin : IDalamudPlugin
     {
         ImGui.TextWrapped("GitHubの公式CSV辞書を確認し、必要なものだけダウンロード／更新できます。使用方法は「ヘルプ」タブを確認してください。");
         ImGui.Separator();
+        DrawGitHubApiRateLimitStatus();
+        ImGui.Spacing();
         if (ActionButton("公式辞書一覧を取得", ButtonRole.Primary) && !officialDictionaryBusy)
         {
             _ = RefreshOfficialDictionariesAsync();
-            _ = RefreshOfficialNoticeAsync();
         }
         ImGui.SameLine();
         if (ActionButton("公式辞書フォルダーを開く", ButtonRole.Success))
