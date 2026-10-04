@@ -154,6 +154,16 @@
       "sha": "2beecd690a8a274f60f327ad79849ee1411e8383",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/%E2%80%BBGatherBuddyReborn_v0.1.csv",
       "deleteKeyHash": "8acb6dc3cb0fbead037b79b63a676858b049356a457a7c763146c1640bde1ac1"
+    },
+    {
+      "fileName": "AcrylicXIV.csv",
+      "pluginName": "AcrylicXIV",
+      "owner": "天使",
+      "note": "",
+      "updated": "2026-10-04",
+      "sha": "076944bb7b78d4eaa62271f74a78e1513771d87f",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/AcrylicXIV.csv",
+      "deleteKeyHash": "13df0688c0976e4e902bae37c23ab3967e33d9ba73c9f649da4e163ae81dd53a"
     }
   ]
 }
