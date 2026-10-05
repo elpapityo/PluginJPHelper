@@ -164,6 +164,16 @@
       "sha": "076944bb7b78d4eaa62271f74a78e1513771d87f",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/AcrylicXIV.csv",
       "deleteKeyHash": "13df0688c0976e4e902bae37c23ab3967e33d9ba73c9f649da4e163ae81dd53a"
+    },
+    {
+      "fileName": "StatsDamageMeter.csv",
+      "pluginName": "StatsDamageMeter",
+      "owner": "天使",
+      "note": "",
+      "updated": "2026-10-05",
+      "sha": "a3a87561063a7da9f93c74de913dbd29992bc445",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/StatsDamageMeter.csv",
+      "deleteKeyHash": "311fcdc20566b752f59b0bca293996b01970346a1abf1b76b088ccb6556f662a"
     }
   ]
 }
