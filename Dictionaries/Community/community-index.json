@@ -137,15 +137,6 @@
       "deleteKeyHash": "75abd7eaedaeb2498fe1d06be90265cc97544ee80ae36ad5c2158b7c1c4f81be"
     },
     {
-      "fileName": "YesAlready.csv",
-      "pluginName": "YesAlready",
-      "owner": "より良い辞書",
-      "updated": "2026-09-28",
-      "sha": "53917a51acc0f71554fcde4b0aed0ed031d06e8d",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/YesAlready.csv",
-      "deleteKeyHash": "521ac5af53f1b485762099f4c0cd6ceaa5c21b28c46abb88395a7c6caf6ed469"
-    },
-    {
       "fileName": "※GatherBuddyReborn_v0.1.csv",
       "pluginName": "GatherBuddyReborn",
       "owner": "エルパ(テスト)",
