@@ -175,16 +175,6 @@
       "sha": "b1cb2fa056fbced61273095eb142e7a4b905ea48",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/Mappy.csv",
       "deleteKeyHash": "e16c2f485fccb3bcfb76cf60c28d7f96d3d73cfad5a6947839ba40ffd634e4fa"
-    },
-    {
-      "fileName": "YesAlready.csv",
-      "pluginName": "YesAlready",
-      "owner": "より良い辞書",
-      "note": "",
-      "updated": "2026-10-07",
-      "sha": "348a6b2dd2eced31ddfbe2363cef2cf39ddf99d6",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/YesAlready.csv",
-      "deleteKeyHash": "521ac5af53f1b485762099f4c0cd6ceaa5c21b28c46abb88395a7c6caf6ed469"
     }
   ]
 }
