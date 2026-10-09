@@ -185,6 +185,16 @@
       "sha": "348a6b2dd2eced31ddfbe2363cef2cf39ddf99d6",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/YesAlready.csv",
       "deleteKeyHash": "521ac5af53f1b485762099f4c0cd6ceaa5c21b28c46abb88395a7c6caf6ed469"
+    },
+    {
+      "fileName": "SimpleHUD.csv",
+      "pluginName": "SimpleHUD",
+      "owner": "天使",
+      "note": "",
+      "updated": "2026-10-09",
+      "sha": "f638881422952fb2026a3b0375f568264a72e18f",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/SimpleHUD.csv",
+      "deleteKeyHash": "dc7cb74b44cf1c184c4b4e37a339f031aa4489413d5effddb109c827aafdc377"
     }
   ]
 }
