@@ -205,6 +205,16 @@
       "sha": "f65ab46cb453aae314a8c1a1abeca0e7fdad7f11",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/LogogramHelper.csv",
       "deleteKeyHash": "7560d2cb8a15bd9822563575b17ff376a432e8fc4219ebf1d865cbc47b75fc46"
+    },
+    {
+      "fileName": "HunterV2.csv",
+      "pluginName": "HunterV2",
+      "owner": "エルパ",
+      "note": "未対応個所もあるかもです",
+      "updated": "2026-11-02",
+      "sha": "189ce911d50d4c127829ab7f640c137088be7d41",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/HunterV2.csv",
+      "deleteKeyHash": "debea2bdddfc2963bf78fd038f66d4ff7c517c57fed90919ddb15aab125aa9bc"
     }
   ]
 }
