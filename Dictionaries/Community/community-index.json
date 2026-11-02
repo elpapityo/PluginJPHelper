@@ -195,6 +195,16 @@
       "sha": "f638881422952fb2026a3b0375f568264a72e18f",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/SimpleHUD.csv",
       "deleteKeyHash": "dc7cb74b44cf1c184c4b4e37a339f031aa4489413d5effddb109c827aafdc377"
+    },
+    {
+      "fileName": "LogogramHelper.csv",
+      "pluginName": "LogogramHelper",
+      "owner": "Yusuke",
+      "note": "",
+      "updated": "2026-11-02",
+      "sha": "f65ab46cb453aae314a8c1a1abeca0e7fdad7f11",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/LogogramHelper.csv",
+      "deleteKeyHash": "7560d2cb8a15bd9822563575b17ff376a432e8fc4219ebf1d865cbc47b75fc46"
     }
   ]
 }
