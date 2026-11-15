@@ -245,6 +245,16 @@
       "sha": "795ac36965819b8123ef99539a09f39d1cd39318",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/AcrylicXIV_shidare.csv",
       "deleteKeyHash": "1f925b5a3c4c560661bd4e0f61739e8e3b1b4ff657a9fd04fa61ad672f7e9d8f"
+    },
+    {
+      "fileName": "Artisan_ja.csv",
+      "pluginName": "Artisan",
+      "owner": "shidare",
+      "note": "",
+      "updated": "2026-11-15",
+      "sha": "c90e4faf0bde4310e60aeba2a9d28091ec7d44a7",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/Artisan_ja.csv",
+      "deleteKeyHash": "e26bafed06854db84ac102a89e36dbf8c5d9bc38c78aaff08a83f4e75737b0dd"
     }
   ]
 }
