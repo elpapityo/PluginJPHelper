@@ -215,6 +215,16 @@
       "sha": "189ce911d50d4c127829ab7f640c137088be7d41",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/HunterV2.csv",
       "deleteKeyHash": "debea2bdddfc2963bf78fd038f66d4ff7c517c57fed90919ddb15aab125aa9bc"
+    },
+    {
+      "fileName": "AetherBlackbox.csv",
+      "pluginName": "AetherBlackbox",
+      "owner": "shidare",
+      "note": "一部仮通訳",
+      "updated": "2026-11-15",
+      "sha": "9ed9564dd606269a037130919bde0be585713e82",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/AetherBlackbox.csv",
+      "deleteKeyHash": "6fa7ada640b6d7fec2a61422fd098d0332505261251d956ad6443983f0ddf3a0"
     }
   ]
 }
