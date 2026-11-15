@@ -225,6 +225,16 @@
       "sha": "9ed9564dd606269a037130919bde0be585713e82",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/AetherBlackbox.csv",
       "deleteKeyHash": "6fa7ada640b6d7fec2a61422fd098d0332505261251d956ad6443983f0ddf3a0"
+    },
+    {
+      "fileName": "PandorasBox.csv",
+      "pluginName": "PandorasBox",
+      "owner": "shidare",
+      "note": "",
+      "updated": "2026-11-15",
+      "sha": "17bc3c63d78ed46bea3c9a38462b80b7227db6fc",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/PandorasBox.csv",
+      "deleteKeyHash": "709b436fa264b17114cc9be7492e603bb5a842f675c5fdd1d75ed23c7b231502"
     }
   ]
 }
