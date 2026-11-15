@@ -255,6 +255,16 @@
       "sha": "c90e4faf0bde4310e60aeba2a9d28091ec7d44a7",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/Artisan_ja.csv",
       "deleteKeyHash": "e26bafed06854db84ac102a89e36dbf8c5d9bc38c78aaff08a83f4e75737b0dd"
+    },
+    {
+      "fileName": "NotificationMaster.csv",
+      "pluginName": "NotificationMaster",
+      "owner": "shidare",
+      "note": "",
+      "updated": "2026-11-15",
+      "sha": "914d6e203ff7a24d7c0464c8b567dcba9c204aa7",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/NotificationMaster.csv",
+      "deleteKeyHash": "0a3ba5930c080c5c07fd59598b39526ac29c15d6dcbfebdd3a64f4dee7534eb9"
     }
   ]
 }
