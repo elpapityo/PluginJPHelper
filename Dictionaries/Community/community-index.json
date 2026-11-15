@@ -235,6 +235,16 @@
       "sha": "17bc3c63d78ed46bea3c9a38462b80b7227db6fc",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/PandorasBox.csv",
       "deleteKeyHash": "709b436fa264b17114cc9be7492e603bb5a842f675c5fdd1d75ed23c7b231502"
+    },
+    {
+      "fileName": "AcrylicXIV_shidare.csv",
+      "pluginName": "AcrylicXIV",
+      "owner": "shidare",
+      "note": "既存のものの未通訳項目が多かったため通訳をし直しました。",
+      "updated": "2026-11-15",
+      "sha": "795ac36965819b8123ef99539a09f39d1cd39318",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/AcrylicXIV_shidare.csv",
+      "deleteKeyHash": "1f925b5a3c4c560661bd4e0f61739e8e3b1b4ff657a9fd04fa61ad672f7e9d8f"
     }
   ]
 }
