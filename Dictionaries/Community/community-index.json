@@ -2,112 +2,44 @@
   "version": 1,
   "entries": [
     {
-      "fileName": "ExplorersIcebox_v0.1.csv",
-      "pluginName": "ExplorersIcebox",
-      "owner": "LiA",
-      "updated": "2026-09-09",
-      "sha": "00bfedbd0f4280e874720e3414ca7bba0dafb636",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/ExplorersIcebox_v0.1.csv",
-      "deleteKeyHash": "bb727a7d3f0ef7f10248b73a1bec76675726ffe0354f9f5254b10bb0bb320e8b"
-    },
-    {
-      "fileName": "QuestAWAY.csv",
-      "pluginName": "QuestAWAY",
-      "owner": "colo",
-      "updated": "2026-09-11",
-      "sha": "67d7df4763ba02e64087bb81e72a57fffc487f10",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/QuestAWAY.csv",
-      "deleteKeyHash": "2c3772fc94c51b3ea407adfdf5a22213b8a14b249d395083349c2869721545ec"
-    },
-    {
-      "fileName": "DeserokUtils.csv",
-      "pluginName": "DeserokUtils",
+      "fileName": "AcrylicXIV.csv",
+      "pluginName": "AcrylicXIV",
       "owner": "天使",
-      "updated": "2026-09-15",
-      "sha": "0881d082c3c351cef271afa31102990b57cd941e",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/DeserokUtils.csv",
-      "deleteKeyHash": "df92a223edeb80a4a491947932cffcfcd02de4329954dbb25002225176088a23"
+      "updated": "2026-10-04",
+      "sha": "076944bb7b78d4eaa62271f74a78e1513771d87f",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/AcrylicXIV.csv"
+    },
+    {
+      "fileName": "AcrylicXIV_shidare.csv",
+      "pluginName": "AcrylicXIV",
+      "owner": "shidare",
+      "updated": "2026-11-16",
+      "sha": "795ac36965819b8123ef99539a09f39d1cd39318",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/AcrylicXIV_shidare.csv"
+    },
+    {
+      "fileName": "AetherBlackbox.csv",
+      "pluginName": "AetherBlackbox",
+      "owner": "shidare",
+      "updated": "2026-11-15",
+      "sha": "9ed9564dd606269a037130919bde0be585713e82",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/AetherBlackbox.csv"
+    },
+    {
+      "fileName": "Artisan_ja.csv",
+      "pluginName": "Artisan",
+      "owner": "shidare",
+      "updated": "2026-11-16",
+      "sha": "c90e4faf0bde4310e60aeba2a9d28091ec7d44a7",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/Artisan_ja.csv"
     },
     {
       "fileName": "BeastMasterHelper.csv",
       "pluginName": "BeastMasterHelper",
       "owner": "天使",
-      "updated": "2026-09-15",
+      "updated": "2026-09-16",
       "sha": "dcbf1485692242e20c0d4555ad80619c8f26a552",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/BeastMasterHelper.csv",
-      "deleteKeyHash": "172a207c85a5ee828facf3409aec40732454d9d75739d451f79aad4830312358"
-    },
-    {
-      "fileName": "WaymarkStudio.csv",
-      "pluginName": "WaymarkPresetPlugin",
-      "owner": "天使",
-      "updated": "2026-09-15",
-      "sha": "b81f6b8433a522263e5afb840648c27e71578c2c",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/WaymarkStudio.csv",
-      "deleteKeyHash": "3bd550e92ccfcec93904e34a9392afac041ddaf847f67424f159f6dc2600dcd6"
-    },
-    {
-      "fileName": "SomethingNeedDoing.csv",
-      "pluginName": "SomethingNeedDoing",
-      "owner": "天使",
-      "updated": "2026-09-15",
-      "sha": "a59857143f545bc182dba7216e45bad2a9d330ed",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/SomethingNeedDoing.csv",
-      "deleteKeyHash": "9cc08c0aae148424527a2c0979573ec51f7c681f802d07107dd50e76aa6b1371"
-    },
-    {
-      "fileName": "TextToTalk.csv",
-      "pluginName": "TextToTalk",
-      "owner": "天使",
-      "updated": "2026-09-15",
-      "sha": "c312abccc12454af60c1533dac7d456b13371674",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/TextToTalk.csv",
-      "deleteKeyHash": "413ff6a9592ae2c4d0d19ac329223b7b2d85d09119fa0cf95fccffbf6ff4cb45"
-    },
-    {
-      "fileName": "MarketBoardPlugin_v0.1.csv",
-      "pluginName": "MarketBoardPlugin",
-      "owner": "田中",
-      "updated": "2026-09-16",
-      "sha": "27973bc1778d08a3b42a758d42bb27b22fa44985",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/MarketBoardPlugin_v0.1.csv",
-      "deleteKeyHash": "e828adf171c7b16d70839a101b9bd4e4c29e88ad5ff9ac20f138b622c1b6b907"
-    },
-    {
-      "fileName": "NearbyPlayerList.csv",
-      "pluginName": "NearbyPlayerList",
-      "owner": "天使",
-      "updated": "2026-09-16",
-      "sha": "c46d42006868d0c59ade6c88fd648b90511785d2",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/NearbyPlayerList.csv",
-      "deleteKeyHash": "45566afe1d0bce82b7eb10913a053628ee08211f17299033871b7fe21a8fb92e"
-    },
-    {
-      "fileName": "CactBridge.csv",
-      "pluginName": "CactBridge",
-      "owner": "天使",
-      "updated": "2026-09-18",
-      "sha": "4d457b8c08a13f3737a4e0fc7e547d7c167aa1de",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/CactBridge.csv",
-      "deleteKeyHash": "5dd7467f7437fde581408dd3df288f4f8a1ed307917fc60150a0651f19a7b394"
-    },
-    {
-      "fileName": "CBT(Automaton).csv",
-      "pluginName": "Automaton",
-      "owner": "天使",
-      "updated": "2026-09-19",
-      "sha": "a4db3483e9c05c2f062664d11295d87b6df74cca",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/CBT(Automaton).csv",
-      "deleteKeyHash": "2de391d4b00f195afb385201e7b9aa820b2d16cd1bd2eb2ef486af6ef6f69737"
-    },
-    {
-      "fileName": "CBT_v69.218.csv",
-      "pluginName": "Automaton",
-      "owner": "CBT",
-      "updated": "2026-09-19",
-      "sha": "54884e7fc25737c32a3159eb4c0b7fd4ec62919c",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/CBT_v69.218.csv",
-      "deleteKeyHash": "b9eb1b087120d9c02de5c3fe3dbcbdb85491000e7b97059cffc29707ff7884f6"
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/BeastMasterHelper.csv"
     },
     {
       "fileName": "BossModReborn.csv",
@@ -115,17 +47,167 @@
       "owner": "より良い辞書",
       "updated": "2026-09-23",
       "sha": "e931a759be48de162b859ebf3de543ed999ce55a",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/BossModReborn.csv",
-      "deleteKeyHash": "c8da03245369f7b21d89d6d456ed8291ead3811c3b9053a5279ef7674db64b59"
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/BossModReborn.csv"
+    },
+    {
+      "fileName": "CactBridge.csv",
+      "pluginName": "CactBridge",
+      "owner": "天使",
+      "updated": "2026-09-19",
+      "sha": "4d457b8c08a13f3737a4e0fc7e547d7c167aa1de",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/CactBridge.csv"
+    },
+    {
+      "fileName": "CBT(Automaton).csv",
+      "pluginName": "Automaton",
+      "owner": "天使",
+      "updated": "2026-09-19",
+      "sha": "a4db3483e9c05c2f062664d11295d87b6df74cca",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/CBT%28Automaton%29.csv"
+    },
+    {
+      "fileName": "CBT_v69.218.csv",
+      "pluginName": "Automaton",
+      "owner": "CBT",
+      "updated": "2026-09-19",
+      "sha": "54884e7fc25737c32a3159eb4c0b7fd4ec62919c",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/CBT_v69.218.csv"
+    },
+    {
+      "fileName": "DailyRoutines.csv",
+      "pluginName": "DailyRoutines",
+      "owner": "elpapityo",
+      "updated": "2026-11-16",
+      "sha": "4de5363af0136b133a34860178fad3dcaa1cd273",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/DailyRoutines.csv"
+    },
+    {
+      "fileName": "DeserokUtils.csv",
+      "pluginName": "DeserokUtils",
+      "owner": "天使",
+      "updated": "2026-09-16",
+      "sha": "0881d082c3c351cef271afa31102990b57cd941e",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/DeserokUtils.csv"
+    },
+    {
+      "fileName": "ExplorersIcebox_v0.1.csv",
+      "pluginName": "ExplorersIcebox",
+      "owner": "LiA",
+      "updated": "2026-09-10",
+      "sha": "00bfedbd0f4280e874720e3414ca7bba0dafb636",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/ExplorersIcebox_v0.1.csv"
+    },
+    {
+      "fileName": "HunterV2.csv",
+      "pluginName": "HunterV2",
+      "owner": "エルパ",
+      "updated": "2026-11-03",
+      "sha": "189ce911d50d4c127829ab7f640c137088be7d41",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/HunterV2.csv"
     },
     {
       "fileName": "LazyCrucible.csv",
       "pluginName": "LazyCrucible",
       "owner": "天使",
-      "updated": "2026-09-25",
+      "updated": "2026-09-26",
       "sha": "0381c12e4bcbbe4e2267b93d71d52a297add28ff",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/LazyCrucible.csv",
-      "deleteKeyHash": "228f66f35809e8e2daf472c2d7fe517b216071fdcafefeaf3aaef01c56dc1c6a"
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/LazyCrucible.csv"
+    },
+    {
+      "fileName": "LogogramHelper.csv",
+      "pluginName": "LogogramHelper",
+      "owner": "Yusuke",
+      "updated": "2026-11-03",
+      "sha": "f65ab46cb453aae314a8c1a1abeca0e7fdad7f11",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/LogogramHelper.csv"
+    },
+    {
+      "fileName": "Mappy.csv",
+      "pluginName": "Mappy",
+      "owner": "天使",
+      "updated": "2026-10-07",
+      "sha": "b1cb2fa056fbced61273095eb142e7a4b905ea48",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/Mappy.csv"
+    },
+    {
+      "fileName": "MarketBoardPlugin_v0.1.csv",
+      "pluginName": "MarketBoardPlugin",
+      "owner": "田中",
+      "updated": "2026-09-17",
+      "sha": "27973bc1778d08a3b42a758d42bb27b22fa44985",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/MarketBoardPlugin_v0.1.csv"
+    },
+    {
+      "fileName": "NearbyPlayerList.csv",
+      "pluginName": "NearbyPlayerList",
+      "owner": "天使",
+      "updated": "2026-09-17",
+      "sha": "c46d42006868d0c59ade6c88fd648b90511785d2",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/NearbyPlayerList.csv"
+    },
+    {
+      "fileName": "NotificationMaster.csv",
+      "pluginName": "NotificationMaster",
+      "owner": "shidare",
+      "updated": "2026-11-16",
+      "sha": "914d6e203ff7a24d7c0464c8b567dcba9c204aa7",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/NotificationMaster.csv"
+    },
+    {
+      "fileName": "PandorasBox.csv",
+      "pluginName": "PandorasBox",
+      "owner": "shidare",
+      "updated": "2026-11-16",
+      "sha": "17bc3c63d78ed46bea3c9a38462b80b7227db6fc",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/PandorasBox.csv"
+    },
+    {
+      "fileName": "QuestAWAY.csv",
+      "pluginName": "QuestAWAY",
+      "owner": "colo",
+      "updated": "2026-09-11",
+      "sha": "67d7df4763ba02e64087bb81e72a57fffc487f10",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/QuestAWAY.csv"
+    },
+    {
+      "fileName": "SimpleHUD.csv",
+      "pluginName": "SimpleHUD",
+      "owner": "天使",
+      "updated": "2026-10-10",
+      "sha": "f638881422952fb2026a3b0375f568264a72e18f",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/SimpleHUD.csv"
+    },
+    {
+      "fileName": "SomethingNeedDoing.csv",
+      "pluginName": "SomethingNeedDoing",
+      "owner": "天使",
+      "updated": "2026-09-16",
+      "sha": "a59857143f545bc182dba7216e45bad2a9d330ed",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/SomethingNeedDoing.csv"
+    },
+    {
+      "fileName": "StatsDamageMeter.csv",
+      "pluginName": "StatsDamageMeter",
+      "owner": "天使",
+      "updated": "2026-10-06",
+      "sha": "a3a87561063a7da9f93c74de913dbd29992bc445",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/StatsDamageMeter.csv"
+    },
+    {
+      "fileName": "TextToTalk.csv",
+      "pluginName": "TextToTalk",
+      "owner": "天使",
+      "updated": "2026-09-16",
+      "sha": "c312abccc12454af60c1533dac7d456b13371674",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/TextToTalk.csv"
+    },
+    {
+      "fileName": "WaymarkStudio.csv",
+      "pluginName": "WaymarkPresetPlugin",
+      "owner": "天使",
+      "updated": "2026-09-16",
+      "sha": "b81f6b8433a522263e5afb840648c27e71578c2c",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/WaymarkStudio.csv"
     },
     {
       "fileName": "XASlave_v0.1.csv",
@@ -133,138 +215,23 @@
       "owner": "田中",
       "updated": "2026-09-27",
       "sha": "f2765022226fd2574fb83dfdb9270da0b78848ea",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/XASlave_v0.1.csv",
-      "deleteKeyHash": "75abd7eaedaeb2498fe1d06be90265cc97544ee80ae36ad5c2158b7c1c4f81be"
-    },
-    {
-      "fileName": "※GatherBuddyReborn_v0.1.csv",
-      "pluginName": "GatherBuddyReborn",
-      "owner": "エルパ(テスト)",
-      "note": "備考のテストです。ファイルは以前のものと変わりなしです。\r\n改行テスト",
-      "updated": "2026-09-29",
-      "sha": "2beecd690a8a274f60f327ad79849ee1411e8383",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/%E2%80%BBGatherBuddyReborn_v0.1.csv",
-      "deleteKeyHash": "8acb6dc3cb0fbead037b79b63a676858b049356a457a7c763146c1640bde1ac1"
-    },
-    {
-      "fileName": "AcrylicXIV.csv",
-      "pluginName": "AcrylicXIV",
-      "owner": "天使",
-      "note": "",
-      "updated": "2026-10-04",
-      "sha": "076944bb7b78d4eaa62271f74a78e1513771d87f",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/AcrylicXIV.csv",
-      "deleteKeyHash": "13df0688c0976e4e902bae37c23ab3967e33d9ba73c9f649da4e163ae81dd53a"
-    },
-    {
-      "fileName": "StatsDamageMeter.csv",
-      "pluginName": "StatsDamageMeter",
-      "owner": "天使",
-      "note": "",
-      "updated": "2026-10-05",
-      "sha": "a3a87561063a7da9f93c74de913dbd29992bc445",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/StatsDamageMeter.csv",
-      "deleteKeyHash": "311fcdc20566b752f59b0bca293996b01970346a1abf1b76b088ccb6556f662a"
-    },
-    {
-      "fileName": "Mappy.csv",
-      "pluginName": "Mappy",
-      "owner": "天使",
-      "note": "",
-      "updated": "2026-10-07",
-      "sha": "b1cb2fa056fbced61273095eb142e7a4b905ea48",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/Mappy.csv",
-      "deleteKeyHash": "e16c2f485fccb3bcfb76cf60c28d7f96d3d73cfad5a6947839ba40ffd634e4fa"
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/XASlave_v0.1.csv"
     },
     {
       "fileName": "YesAlready.csv",
       "pluginName": "YesAlready",
       "owner": "より良い辞書",
-      "note": "",
-      "updated": "2026-10-07",
+      "updated": "2026-10-08",
       "sha": "348a6b2dd2eced31ddfbe2363cef2cf39ddf99d6",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/YesAlready.csv",
-      "deleteKeyHash": "521ac5af53f1b485762099f4c0cd6ceaa5c21b28c46abb88395a7c6caf6ed469"
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/YesAlready.csv"
     },
     {
-      "fileName": "SimpleHUD.csv",
-      "pluginName": "SimpleHUD",
-      "owner": "天使",
-      "note": "",
-      "updated": "2026-10-09",
-      "sha": "f638881422952fb2026a3b0375f568264a72e18f",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/SimpleHUD.csv",
-      "deleteKeyHash": "dc7cb74b44cf1c184c4b4e37a339f031aa4489413d5effddb109c827aafdc377"
-    },
-    {
-      "fileName": "LogogramHelper.csv",
-      "pluginName": "LogogramHelper",
-      "owner": "Yusuke",
-      "note": "",
-      "updated": "2026-11-02",
-      "sha": "f65ab46cb453aae314a8c1a1abeca0e7fdad7f11",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/LogogramHelper.csv",
-      "deleteKeyHash": "7560d2cb8a15bd9822563575b17ff376a432e8fc4219ebf1d865cbc47b75fc46"
-    },
-    {
-      "fileName": "HunterV2.csv",
-      "pluginName": "HunterV2",
-      "owner": "エルパ",
-      "note": "未対応個所もあるかもです",
-      "updated": "2026-11-02",
-      "sha": "189ce911d50d4c127829ab7f640c137088be7d41",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/HunterV2.csv",
-      "deleteKeyHash": "debea2bdddfc2963bf78fd038f66d4ff7c517c57fed90919ddb15aab125aa9bc"
-    },
-    {
-      "fileName": "AetherBlackbox.csv",
-      "pluginName": "AetherBlackbox",
-      "owner": "shidare",
-      "note": "一部仮通訳",
-      "updated": "2026-11-15",
-      "sha": "9ed9564dd606269a037130919bde0be585713e82",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/AetherBlackbox.csv",
-      "deleteKeyHash": "6fa7ada640b6d7fec2a61422fd098d0332505261251d956ad6443983f0ddf3a0"
-    },
-    {
-      "fileName": "PandorasBox.csv",
-      "pluginName": "PandorasBox",
-      "owner": "shidare",
-      "note": "",
-      "updated": "2026-11-15",
-      "sha": "17bc3c63d78ed46bea3c9a38462b80b7227db6fc",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/PandorasBox.csv",
-      "deleteKeyHash": "709b436fa264b17114cc9be7492e603bb5a842f675c5fdd1d75ed23c7b231502"
-    },
-    {
-      "fileName": "AcrylicXIV_shidare.csv",
-      "pluginName": "AcrylicXIV",
-      "owner": "shidare",
-      "note": "既存のものの未通訳項目が多かったため通訳をし直しました。",
-      "updated": "2026-11-15",
-      "sha": "795ac36965819b8123ef99539a09f39d1cd39318",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/AcrylicXIV_shidare.csv",
-      "deleteKeyHash": "1f925b5a3c4c560661bd4e0f61739e8e3b1b4ff657a9fd04fa61ad672f7e9d8f"
-    },
-    {
-      "fileName": "Artisan_ja.csv",
-      "pluginName": "Artisan",
-      "owner": "shidare",
-      "note": "",
-      "updated": "2026-11-15",
-      "sha": "c90e4faf0bde4310e60aeba2a9d28091ec7d44a7",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/Artisan_ja.csv",
-      "deleteKeyHash": "e26bafed06854db84ac102a89e36dbf8c5d9bc38c78aaff08a83f4e75737b0dd"
-    },
-    {
-      "fileName": "NotificationMaster.csv",
-      "pluginName": "NotificationMaster",
-      "owner": "shidare",
-      "note": "",
-      "updated": "2026-11-15",
-      "sha": "914d6e203ff7a24d7c0464c8b567dcba9c204aa7",
-      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/NotificationMaster.csv",
-      "deleteKeyHash": "0a3ba5930c080c5c07fd59598b39526ac29c15d6dcbfebdd3a64f4dee7534eb9"
+      "fileName": "※GatherBuddyReborn_v0.1.csv",
+      "pluginName": "GatherBuddyReborn",
+      "owner": "エルパ(テスト)",
+      "updated": "2026-09-30",
+      "sha": "2beecd690a8a274f60f327ad79849ee1411e8383",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/%E2%80%BBGatherBuddyReborn_v0.1.csv"
     }
   ]
 }
