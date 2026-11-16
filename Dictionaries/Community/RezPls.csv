@@ -1,0 +1,305 @@
+Plugin,Menu,Section,Type,English,Japanese
+RezPls,,,@Window,RezPls,
+RezPls,,,, by Ottermandias,
+RezPls,,,,Already Raised,蘇生済み
+RezPls,,,,Cleanse Settings,弱体解除設定
+RezPls,,,,Colors,色
+RezPls,,,,Currently Being Cleansed,弱体解除中
+RezPls,,,,Currently Being Raised,蘇生中
+RezPls,,,,Default##Already Raised,デフォルト##Already Raised
+RezPls,,,,Default##Currently Being Cleansed,デフォルト##Currently Being Cleansed
+RezPls,,,,Default##Currently Being Raised,デフォルト##Currently Being Raised
+RezPls,,,,Default##Has Monitored Status Effect,デフォルト##Has Monitored Status Effect
+RezPls,,,,Default##In World Background,デフォルト##In World Background
+RezPls,,,,Default##In World Background (Cleanse),デフォルト##In World Background (Cleanse)
+RezPls,,,,Default##Redundant Cast,デフォルト##Redundant Cast
+RezPls,,,,Disable All Statuses,すべてのステータスを無効化
+RezPls,,,,Disabled Statuses,無効化したステータス
+RezPls,,,,Draw a debuff icon on players that have a removable detrimental status effect.,解除可能な弱体効果が付いているプレイヤーに、弱体アイコンを表示します。
+RezPls,,,,Draw a Raised icon on corpses that are already raised or currently being raised.,すでに蘇生済み、または現在蘇生中の死体に、蘇生アイコンを表示します。
+RezPls,,,,Draw In World Icon,ワールド内アイコンを表示
+RezPls,,,,Draw In World Icon##Dispel,ワールド内アイコンを表示##Dispel
+RezPls,,,,Draw In World Text,ワールド内テキストを表示
+RezPls,,,,Draw In World Text##Dispel,ワールド内テキストを表示##Dispel
+RezPls,,,,Enable All Statuses,すべてのステータスを有効化
+RezPls,,,,Enable Cleanse Highlighting,弱体解除のハイライトを有効化
+RezPls,,,,Enable or disable the plugin.,プラグインを有効化または無効化します。
+RezPls,,,,Enable Raise Highlighting,蘇生のハイライトを有効化
+RezPls,,,,Enabled,有効
+RezPls,,,,Fill and Full Alpha Outline,塗りつぶしと不透明アウトライン
+RezPls,,,,General Settings,全般設定
+RezPls,,,,Has Monitored Status Effect,監視中のステータス効果あり
+RezPls,,,,Hide Symbols on Self,自分にはシンボルを表示しない
+RezPls,,,,Hide the symbol and/or text drawn into the world on the player character.,プレイヤーキャラクターにワールド内で描画されるシンボルやテキストを非表示にします。
+RezPls,,,,Highlight in Alliance Frames,アライアンスリストでハイライト
+RezPls,,,,Highlight in Party Frames,パーティリストでハイライト
+RezPls,,,,Highlight players being raised.,蘇生中のプレイヤーをハイライトします。
+RezPls,,,,Highlight players with removable detrimental status effects.,解除可能な弱体効果が付いているプレイヤーをハイライトします。
+RezPls,,,,Highlights players in your alliance frames according to your color and state selection.,色と状態の選択に応じて、アライアンスリスト内のプレイヤーをハイライトします。
+RezPls,,,,Highlights players in your party frames according to your color and state selection.,色と状態の選択に応じて、パーティリスト内のプレイヤーをハイライトします。
+RezPls,,,,In World Background,ワールド内背景
+RezPls,,,,In World Background (Cleanse),ワールド内背景（弱体解除）
+RezPls,,,,In World Icon Scale,ワールド内アイコンの大きさ
+RezPls,,,,Monitored Statuses,監視中のステータス
+RezPls,,,,"Only display the resurrecting information when you are a job with inherent raise capabilities.
+CNJ, WHM, ACN, SCH, SMN, AST, BLU, RDM (at 64+).Ignores Lost and Logos Actions.
+","蘇生アクションを標準で使えるジョブのときだけ、蘇生情報を表示します。
+CNJ, WHM, ACN, SCH, SMN, AST, BLU, RDM（64レベル以上）。ロストアクションとロゴスアクションは対象外です。
+"
+RezPls,,,,"Only displays the cleansing information when you are a job with inherent cleanse capabilities.
+CNJ, WHM, SCH, AST, BRD (at 35+), BLU","弱体解除を標準で使えるジョブのときだけ、弱体解除情報を表示します。
+CNJ, WHM, SCH, AST, BRD（35レベル以上）, BLU"
+RezPls,,,,Raise Settings,蘇生設定
+RezPls,,,,Rectangle Type,矩形の種類
+RezPls,,,,Redundant Cast,重複詠唱
+RezPls,,,,Reset to default: #00FF0060,デフォルトに戻す: #00FF0060
+RezPls,,,,Reset to default: #00FFD260,デフォルトに戻す: #00FFD260
+RezPls,,,,Restrict to cleansing Jobs,弱体解除ができるジョブに限定
+RezPls,,,,Restrict to resurrecting Jobs,蘇生ができるジョブに限定
+RezPls,,,,RezPls,
+RezPls,,,,Set the scale of the Raised icon that is drawn into the world on raised corpses.,蘇生された死体にワールド内で描画される蘇生アイコンの大きさを設定します。
+RezPls,,,,"Should show the active ""Already Raised"" effects on the player character and party frames.",プレイヤーキャラクターとパーティリストに、有効な「蘇生済み」の効果を表示します。
+RezPls,,,,"Should show the active ""Currently Being Cleaned"" effects on the player character, as if it is being cleansed by its current target.",プレイヤーキャラクターに、有効な「弱体解除中」の効果を、現在のターゲットに弱体解除されているものとして表示します。
+RezPls,,,,"Should show the active ""Currently Being Raised"" effects on the player character and party frames, as if the caster is its current target.",プレイヤーキャラクターとパーティリストに、有効な「蘇生中」の効果を、詠唱者が現在のターゲットであるものとして表示します。
+RezPls,,,,"Should show the active ""Has Monitored Status Effect"" effects on the player character, as if the player character has a monitored condition.",プレイヤーキャラクターに、有効な「監視中のステータス効果あり」の効果を、監視中のステータス効果が付いているものとして表示します。
+RezPls,,,,"Should show the active ""Unnecessary Cleanse"" effects on the player character, as if it uses a double cleanse or a cleanse with no monitored status.",プレイヤーキャラクターに、有効な「不要な弱体解除」の効果を、二重に弱体解除した、または監視中のステータスがない状態で弱体解除したものとして表示します。
+RezPls,,,,"Should show the active ""Unnecessary Raise"" effects on the player character, as if the player character and its current target raise it.",プレイヤーキャラクターに、有効な「不要な蘇生」の効果を、プレイヤーキャラクターと現在のターゲットの両方が蘇生したものとして表示します。
+RezPls,,,,Show Cast Progress,詠唱の進行状況を表示
+RezPls,,,,Show the progress of raise casts compared to the total cast time. This only works with the filled cast box styles. ,蘇生の詠唱の進行状況を、総詠唱時間と比較して表示します。これは塗りつぶし形式の詠唱ボックススタイルでのみ動作します。 
+RezPls,,,,Test Player Being Raised by Target,テスト用プレイヤー：蘇生中（ターゲットによる）
+RezPls,,,,Test Player Negative Status Effect,テスト用プレイヤー：弱体効果あり
+RezPls,,,,Test Player Negative Status Effect Being Cleansed,テスト用プレイヤー：弱体効果を解除中
+RezPls,,,,Test Player Raised,テスト用プレイヤー：蘇生済み
+RezPls,,,,Test Player Unnecessary Cleanse,テスト用プレイヤー：不要な弱体解除
+RezPls,,,,Test Player Unnecessary Raise,テスト用プレイヤー：不要な蘇生
+RezPls,,,,Testing,テスト
+RezPls,,,,The background color for text that is drawn into the world on characters that are afflicted by a watched detrimental status effect.,監視中の弱体効果が付いているキャラクターに、ワールド内で描画されるテキストの背景色です。
+RezPls,,,,The background color for text that is drawn into the world on corpses for raises.,蘇生対象の死体に、ワールド内で描画されるテキストの背景色です。
+RezPls,,,,The highlight color for a player that has any monitored detrimental status effect.,監視中の弱体効果が付いているプレイヤーのハイライト色です。
+RezPls,,,,The highlight color for a player that is already raised and not also currently being raised by yourself.,すでに蘇生済みで、自分による蘇生を受けていないプレイヤーのハイライト色です。
+RezPls,,,,The highlight color for a player that is currently being cleansed by other players or only by yourself.,他のプレイヤー、または自分だけが弱体解除中のプレイヤーのハイライト色です。
+RezPls,,,,The highlight color for a player that is currently being raised by other players or only by yourself.,他のプレイヤー、または自分だけが蘇生中のプレイヤーのハイライト色です。
+RezPls,,,,"The highlight color for a player that you are currently raising if they are already raised or someone else is also raising them,
+if you and another player cleanse them, or if you cleanse someone without monitored detrimental status effects.","すでに蘇生済み、または他のプレイヤーも蘇生しているプレイヤーを自分が蘇生しているとき、
+自分と他のプレイヤーがそのプレイヤーを弱体解除しているとき、または監視中の弱体効果が付いていないプレイヤーを弱体解除したときのハイライト色です。"
+RezPls,,,,"When highlighting players, also write the name of a caster resurrecting or cleansing them in the frame.",プレイヤーをハイライトする際、そのプレイヤーを蘇生または弱体解除している詠唱者の名前もフレーム内に表示します。
+RezPls,,,,Write Caster Names,詠唱者の名前を表示
+RezPls,,,,"Writes the current caster under an afflicted player currently being cleansed, or that he has a removable detrimental status effect.",現在弱体解除中のプレイヤー、または解除可能な弱体効果が付いているプレイヤーの下に、現在の詠唱者を表示します。
+RezPls,,,,"Writes the current resurrector under a corpse currently being raised, or that he is already raised.",現在蘇生中の死体、またはすでに蘇生済みの死体の下に、現在の蘇生者を表示します。
+RezPls,,,,すでに蘇生済みで、自分による蘇生を受けていないプレイヤーのハイライト色です。,すでに蘇生済みで、自分による蘇生を受けていないプレイヤーのハイライト色です。
+RezPls,,,,ふらつき##status2501,ふらつき##status2501
+RezPls,,,,アイ・フォー・アイ：効果##status186,アイ・フォー・アイ：効果##status186
+RezPls,,,,アシディックバイト##status2073,アシディックバイト##status2073
+RezPls,,,,アドル##status1203,アドル##status1203
+RezPls,,,,アビリティ不可##status5,アビリティ不可##status5
+RezPls,,,,アライアンスリストでハイライト###Highlight in Alliance Frames,アライアンスリストでハイライト###Highlight in Alliance Frames
+RezPls,,,,アラガンポイズン##status453,アラガンポイズン##status453
+RezPls,,,,ウィンドバイト##status129,ウィンドバイト##status129
+RezPls,,,,ウイルス##status182,ウイルス##status182
+RezPls,,,,ウェポンブレイク##status860,ウェポンブレイク##status860
+RezPls,,,,エアロ##status143,エアロ##status143
+RezPls,,,,エアロガ##status798,エアロガ##status798
+RezPls,,,,エアロラ##status144,エアロラ##status144
+RezPls,,,,エウクラシア・ディスクラシア##status3897,エウクラシア・ディスクラシア##status3897
+RezPls,,,,エウクラシア・ドシス##status2614,エウクラシア・ドシス##status2614
+RezPls,,,,エウクラシア・ドシスII##status2615,エウクラシア・ドシスII##status2615
+RezPls,,,,エウクラシア・ドシスIII##status2616,エウクラシア・ドシスIII##status2616
+RezPls,,,,カーナルチル##status869,カーナルチル##status869
+RezPls,,,,ガードオファ##status1717,ガードオファ##status1717
+RezPls,,,,キャンディケーン##status3642,キャンディケーン##status3642
+RezPls,,,,コンバガ##status1881,コンバガ##status1881
+RezPls,,,,コンバス##status838,コンバス##status838
+RezPls,,,,コンバラ##status843,コンバラ##status843
+RezPls,,,,コースティックバイト##status1200,コースティックバイト##status1200
+RezPls,,,,ゴアブレード##status725,ゴアブレード##status725
+RezPls,,,,サンダガ##status163,サンダガ##status163
+RezPls,,,,サンダジャ##status1210,サンダジャ##status1210
+RezPls,,,,サンダラ##status162,サンダラ##status162
+RezPls,,,,サンダー##status161,サンダー##status161
+RezPls,,,,サークル・オブ・ドゥーム##status248,サークル・オブ・ドゥーム##status248
+RezPls,,,,サークル・オブ・ライトネス##status2795,サークル・オブ・ライトネス##status2795
+RezPls,,,,シュトルムヴィント##status408,シュトルムヴィント##status408
+RezPls,,,,シードサワー##status4622,シードサワー##status4622
+RezPls,,,,スカージ##status741,スカージ##status741
+RezPls,,,,スタン##status2,スタン##status2
+RezPls,,,,ストームバイト##status1201,ストームバイト##status1201
+RezPls,,,,スロウ##status9,スロウ##status9
+RezPls,,,,スロウガ##status3493,スロウガ##status3493
+RezPls,,,,ソニックブレイク##status1837,ソニックブレイク##status1837
+RezPls,,,,ダメージ低下##status62,ダメージ低下##status62
+RezPls,,,,テスト用プレイヤー：不要な弱体解除###Test Player Unnecessary Cleanse,テスト用プレイヤー：不要な弱体解除###Test Player Unnecessary Cleanse
+RezPls,,,,テスト用プレイヤー：不要な蘇生###Test Player Unnecessary Raise,テスト用プレイヤー：不要な蘇生###Test Player Unnecessary Raise
+RezPls,,,,テスト用プレイヤー：弱体効果あり###Test Player Negative Status Effect,テスト用プレイヤー：弱体効果あり###Test Player Negative Status Effect
+RezPls,,,,テスト用プレイヤー：弱体効果を解除中###Test Player Negative Status Effect Being Cleansed,テスト用プレイヤー：弱体効果を解除中###Test Player Negative Status Effect Being Cleansed
+RezPls,,,,テスト用プレイヤー：蘇生中（ターゲットによる）###Test Player Being Raised by Target,テスト用プレイヤー：蘇生中（ターゲットによる）###Test Player Being Raised by Target
+RezPls,,,,テスト用プレイヤー：蘇生済み###Test Player Raised,テスト用プレイヤー：蘇生済み###Test Player Raised
+RezPls,,,,ディア##status1871,ディア##status1871
+RezPls,,,,ディセムボウル##status121,ディセムボウル##status121
+RezPls,,,,デリリアムブレード##status748,デリリアムブレード##status748
+RezPls,,,,トゥルー・リプライザル##status2798,トゥルー・リプライザル##status2798
+RezPls,,,,トンベリ病##status785,トンベリ病##status785
+RezPls,,,,ドンアク##status844,ドンアク##status844
+RezPls,,,,ハイサンダラ##status3872,ハイサンダラ##status3872
+RezPls,,,,ハイサンダー##status3871,ハイサンダー##status3871
+RezPls,,,,バイオ##status179,バイオ##status179
+RezPls,,,,バイオガ##status1214,バイオガ##status1214
+RezPls,,,,バイオブラスト##status1866,バイオブラスト##status1866
+RezPls,,,,バイオラ##status189,バイオラ##status189
+RezPls,,,,バインド##status13,バインド##status13
+RezPls,,,,バウショック##status1838,バウショック##status1838
+RezPls,,,,パーティリストでハイライト###Highlight in Party Frames,パーティリストでハイライト###Highlight in Party Frames
+RezPls,,,,フラクチャー##status244,フラクチャー##status244
+RezPls,,,,ブレード・オブ・ヴァラー##status2721,ブレード・オブ・ヴァラー##status2721
+RezPls,,,,ヘヴィ##status14,ヘヴィ##status14
+RezPls,,,,ベノムバイト##status124,ベノムバイト##status124
+RezPls,,,,ペイン##status273,ペイン##status273
+RezPls,,,,マインドウイルス##status183,マインドウイルス##status183
+RezPls,,,,マインドブレイク##status859,マインドブレイク##status859
+RezPls,,,,マジカルブレス##status3712,マジカルブレス##status3712
+RezPls,,,,マジカルブレス：氷##status3634,マジカルブレス：氷##status3634
+RezPls,,,,マジカルブレス：火##status3635,マジカルブレス：火##status3635
+RezPls,,,,マジカルブレス：雷##status3633,マジカルブレス：雷##status3633
+RezPls,,,,マスタードペイン##status2499,マスタードペイン##status2499
+RezPls,,,,ミアズガ##status1215,ミアズガ##status1215
+RezPls,,,,ミアズマ##status180,ミアズマ##status180
+RezPls,,,,ミアズラ##status188,ミアズラ##status188
+RezPls,,,,ミスティヴェール##status419,ミスティヴェール##status419
+RezPls,,,,ミラクル・オブ・ネイチャー##status3085,ミラクル・オブ・ネイチャー##status3085
+RezPls,,,,モグルグル##status473,モグルグル##status473
+RezPls,,,,リプライザル##status753,リプライザル##status753
+RezPls,,,,ルイネーション##status1291,ルイネーション##status1291
+RezPls,,,,ルヴェユール・ドシスIII##status2650,ルヴェユール・ドシスIII##status2650
+RezPls,,,,レイン・オブ・デス##status247,レイン・オブ・デス##status247
+RezPls,,,,レッドショット##status854,レッドショット##status854
+RezPls,,,,ロゴス・スピリットダート##status1654,ロゴス・スピリットダート##status1654
+RezPls,,,,ロゴス・バニシュ##status1655,ロゴス・バニシュ##status1655
+RezPls,,,,ロゴス・ポイズン##status1650,ロゴス・ポイズン##status1650
+RezPls,,,,ロスト・アーマーブレイク##status2441,ロスト・アーマーブレイク##status2441
+RezPls,,,,ロスト・ウェポンブレイク##status2442,ロスト・ウェポンブレイク##status2442
+RezPls,,,,ロスト・バニシュ##status2340,ロスト・バニシュ##status2340
+RezPls,,,,ロスト・バースト##status2558,ロスト・バースト##status2558
+RezPls,,,,ロスト・フレアスター##status2440,ロスト・フレアスター##status2440
+RezPls,,,,ロスト・ランページ##status2559,ロスト・ランページ##status2559
+RezPls,,,,ロネークの威嚇##status3945,ロネークの威嚇##status3945
+RezPls,,,,ワールド内アイコンを表示###Draw In World Icon,ワールド内アイコンを表示###Draw In World Icon
+RezPls,,,,ワールド内アイコンを表示##Dispel###Draw In World Icon##Dispel,ワールド内アイコンを表示##Dispel###Draw In World Icon##Dispel
+RezPls,,,,ワールド内テキストを表示###Draw In World Text,ワールド内テキストを表示###Draw In World Text
+RezPls,,,,ワールド内テキストを表示##Dispel###Draw In World Text##Dispel,ワールド内テキストを表示##Dispel###Draw In World Text##Dispel
+RezPls,,,,ワールド内背景,ワールド内背景
+RezPls,,,,ワールド内背景（弱体解除）,ワールド内背景（弱体解除）
+RezPls,,,,不思議な光##status1721,不思議な光##status1721
+RezPls,,,,二段突き##status119,二段突き##status119
+RezPls,,,,他のプレイヤー、または自分だけが蘇生中のプレイヤーのハイライト色です。,他のプレイヤー、または自分だけが蘇生中のプレイヤーのハイライト色です。
+RezPls,,,,免疫低下##status323,免疫低下##status323
+RezPls,,,,凍傷##status268,凍傷##status268
+RezPls,,,,切傷##status264,切傷##status264
+RezPls,,,,刺傷##status265,刺傷##status265
+RezPls,,,,双竜脚##status98,双竜脚##status98
+RezPls,,,,吐き気##status2388,吐き気##status2388
+RezPls,,,,命中率ダウン##status28,命中率ダウン##status28
+RezPls,,,,回避力ダウン##status32,回避力ダウン##status32
+RezPls,,,,回避率ダウン##status2403,回避率ダウン##status2403
+RezPls,,,,地獄の火炎##status314,地獄の火炎##status314
+RezPls,,,,埋伏の毒##status3883,埋伏の毒##status3883
+RezPls,,,,妖異の血##status784,妖異の血##status784
+RezPls,,,,弱体解除ができるジョブに限定###Restrict to cleansing Jobs,弱体解除ができるジョブに限定###Restrict to cleansing Jobs
+RezPls,,,,弱体解除のハイライトを有効化###Enable Cleanse Highlighting,弱体解除のハイライトを有効化###Enable Cleanse Highlighting
+RezPls,,,,弱体解除中,弱体解除中
+RezPls,,,,影牙##status508,影牙##status508
+RezPls,,,,彼岸花##status1228,彼岸花##status1228
+RezPls,,,,徐々に氷結##status2251,徐々に氷結##status2251
+RezPls,,,,徐々に睡眠##status3022,徐々に睡眠##status3022
+RezPls,,,,恐怖##status3942,恐怖##status3942
+RezPls,,,,悪夢##status423,悪夢##status423
+RezPls,,,,感電##status271,感電##status271
+RezPls,,,,打属性耐性低下##status821,打属性耐性低下##status821
+RezPls,,,,打撲傷##status266,打撲傷##status266
+RezPls,,,,拘束装置：スロウ##status10,拘束装置：スロウ##status10
+RezPls,,,,斬属性耐性低下##status819,斬属性耐性低下##status819
+RezPls,,,,星極性耐性低下##status2121,星極性耐性低下##status2121
+RezPls,,,,暗闇##status15,暗闇##status15
+RezPls,,,,最大ＨＰダウン##status22,最大ＨＰダウン##status22
+RezPls,,,,最大ＭＰダウン##status24,最大ＭＰダウン##status24
+RezPls,,,,有効###Enabled,有効###Enabled
+RezPls,,,,有頂天##status402,有頂天##status402
+RezPls,,,,桜華狂咲##status118,桜華狂咲##status118
+RezPls,,,,死の宣告##status910,死の宣告##status910
+RezPls,,,,死腐毒##status2965,死腐毒##status2965
+RezPls,,,,毒##status18,毒##status18
+RezPls,,,,水毒##status272,水毒##status272
+RezPls,,,,氷結##status3219,氷結##status3219
+RezPls,,,,汚泥##status270,汚泥##status270
+RezPls,,,,沈黙##status7,沈黙##status7
+RezPls,,,,泥汚れ##status3636,泥汚れ##status3636
+RezPls,,,,混乱##status1047,混乱##status1047
+RezPls,,,,火傷##status267,火傷##status267
+RezPls,,,,無効化したステータス,無効化したステータス
+RezPls,,,,無双旋##status492,無双旋##status492
+RezPls,,,,物理ダメージ低下##status54,物理ダメージ低下##status54
+RezPls,,,,物理攻撃力ダウン##status26,物理攻撃力ダウン##status26
+RezPls,,,,物理防御力ダウン##status30,物理防御力ダウン##status30
+RezPls,,,,牽制##status1195,牽制##status1195
+RezPls,,,,猛毒##status3982,猛毒##status3982
+RezPls,,,,病気##status181,病気##status181
+RezPls,,,,瘴気##status191,瘴気##status191
+RezPls,,,,監視中のステータス,監視中のステータス
+RezPls,,,,監視中のステータス効果あり,監視中のステータス効果あり
+RezPls,,,,監視中の弱体効果が付いているプレイヤーのハイライト色です。,監視中の弱体効果が付いているプレイヤーのハイライト色です。
+RezPls,,,,睡眠##status3,睡眠##status3
+RezPls,,,,矩形の種類###Rectangle Type,矩形の種類###Rectangle Type
+RezPls,,,,石化##status1511,石化##status1511
+RezPls,,,,破砕拳##status246,破砕拳##status246
+RezPls,,,,秘孔拳##status106,秘孔拳##status106
+RezPls,,,,移動速度低下##status1394,移動速度低下##status1394
+RezPls,,,,突属性耐性低下##status820,突属性耐性低下##status820
+RezPls,,,,窒息##status700,窒息##status700
+RezPls,,,,粘液##status569,粘液##status569
+RezPls,,,,紫陽花##status1779,紫陽花##status1779
+RezPls,,,,継続ダメージ##status3359,継続ダメージ##status3359
+RezPls,,,,脳しんとう##status997,脳しんとう##status997
+RezPls,,,,腐臭##status1715,腐臭##status1715
+RezPls,,,,自分にはシンボルを表示しない###Hide Symbols on Self,自分にはシンボルを表示しない###Hide Symbols on Self
+RezPls,,,,舞踏刃##status491,舞踏刃##status491
+RezPls,,,,薄闇##status476,薄闇##status476
+RezPls,,,,蘇生ができるジョブに限定###Restrict to resurrecting Jobs,蘇生ができるジョブに限定###Restrict to resurrecting Jobs
+RezPls,,,,蘇生された死体にワールド内で描画される蘇生アイコンの大きさを設定します。,蘇生された死体にワールド内で描画される蘇生アイコンの大きさを設定します。
+RezPls,,,,蘇生のハイライトを有効化###Enable Raise Highlighting,蘇生のハイライトを有効化###Enable Raise Highlighting
+RezPls,,,,"蘇生アクションを標準で使えるジョブのときだけ、蘇生情報を表示します。
+CNJ, WHM, ACN, SCH, SMN, AST, BLU, RDM（64レベル以上）。ロストアクションとロゴスアクションは対象外です。
+","蘇生アクションを標準で使えるジョブのときだけ、蘇生情報を表示します。
+CNJ, WHM, ACN, SCH, SMN, AST, BLU, RDM（64レベル以上）。ロストアクションとロゴスアクションは対象外です。
+"
+RezPls,,,,蘇生・解除可能デバフを見やすく表示します。,蘇生・解除可能デバフを見やすく表示します。
+RezPls,,,,蘇生中,蘇生中
+RezPls,,,,蘇生中のプレイヤーをハイライトします。,蘇生中のプレイヤーをハイライトします。
+RezPls,,,,蘇生済み,蘇生済み
+RezPls,,,,虚弱##status498,虚弱##status498
+RezPls,,,,蠱毒法##status1895,蠱毒法##status1895
+RezPls,,,,被ダメージ上昇##status64,被ダメージ上昇##status64
+RezPls,,,,被回復低下##status3967,被回復低下##status3967
+RezPls,,,,被物理ダメージ増加##status56,被物理ダメージ増加##status56
+RezPls,,,,被魔法ダメージ増加##status60,被魔法ダメージ増加##status60
+RezPls,,,,裂傷##status269,裂傷##status269
+RezPls,,,,解除可能な弱体効果が付いているプレイヤーをハイライトします。,解除可能な弱体効果が付いているプレイヤーをハイライトします。
+RezPls,,,,詠唱の進行状況を表示###Show Cast Progress,詠唱の進行状況を表示###Show Cast Progress
+RezPls,,,,詠唱者の名前を表示###Write Caster Names,詠唱者の名前を表示###Write Caster Names
+RezPls,,,,連環計##status1221,連環計##status1221
+RezPls,,,,重複詠唱,重複詠唱
+RezPls,,,,閃光##status3740,閃光##status3740
+RezPls,,,,雪風##status1227,雪風##status1227
+RezPls,,,,霊極性耐性低下##status2122,霊極性耐性低下##status2122
+RezPls,,,,風と歌う蛇##status2962,風と歌う蛇##status2962
+RezPls,,,,風と踊る狼##status2963,風と踊る狼##status2963
+RezPls,,,,風属性耐性低下##status894,風属性耐性低下##status894
+RezPls,,,,魔力汚染##status1780,魔力汚染##status1780
+RezPls,,,,魔法ダメージ低下##status58,魔法ダメージ低下##status58
+RezPls,,,,魔法回復力ダウン##status36,魔法回復力ダウン##status36
+RezPls,,,,魔法攻撃力ダウン##status34,魔法攻撃力ダウン##status34
+RezPls,,,,魔法防御力ダウン##status38,魔法防御力ダウン##status38
+RezPls,,,,魔爆弾##status509,魔爆弾##status509
+RezPls,,,,麻痺##status17,麻痺##status17
+RezPls,,,,ＩＮＴ・ＭＮＤ低下##status2115,ＩＮＴ・ＭＮＤ低下##status2115
+RezPls,,,,ＳＴＲダウン##status51,ＳＴＲダウン##status51
+RezPls,,,,ＴＰ継続ダメージ##status20,ＴＰ継続ダメージ##status20
+RezPls,,,,ＶＩＴダウン##status52,ＶＩＴダウン##status52
+RezPls,,,,ＷＳ不可##status6,ＷＳ不可##status6
