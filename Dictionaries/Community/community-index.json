@@ -242,6 +242,16 @@
       "sha": "c9ac1386f21339a23061b136945e77c5fb966f86",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/SimpleTweaksPlugin.csv",
       "deleteKeyHash": "753ec35497097e7e057a2dd1035d283821bd52d7e80efee8d21bcfb107f609ae"
+    },
+    {
+      "fileName": "RezPls.csv",
+      "pluginName": "RezPls",
+      "owner": "shidare",
+      "note": "",
+      "updated": "2026-11-16",
+      "sha": "743a8be49cb83342ef7c45792b11f958ffe657bd",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/RezPls.csv",
+      "deleteKeyHash": "20feaf80e6cd586a0f5f59e202723b0d3b95fc0366ab3f976fbdd67c87aa46d7"
     }
   ]
 }
