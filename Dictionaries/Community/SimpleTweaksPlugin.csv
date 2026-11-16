@@ -1,0 +1,242 @@
+Plugin,Menu,Section,Type,English,Japanese
+SimpleTweaksPlugin,,,@Window,Simple Tweaks Plugin,
+SimpleTweaksPlugin,,,@Window,SimpleTweaksPlugin,
+SimpleTweaksPlugin,,,,  by aers,
+SimpleTweaksPlugin,,,,  by Aireil,
+SimpleTweaksPlugin,,,,  by Anna,
+SimpleTweaksPlugin,,,,  by Asriel,
+SimpleTweaksPlugin,,,,  by BoredDan,
+SimpleTweaksPlugin,,,,  by Chalkos,
+SimpleTweaksPlugin,,,,  by Chivalrik,
+SimpleTweaksPlugin,,,,  by croizat,
+SimpleTweaksPlugin,,,,  by darkarchon,
+SimpleTweaksPlugin,,,,  by dlpoc,
+SimpleTweaksPlugin,,,,  by img,
+SimpleTweaksPlugin,,,,  by Iryoku,
+SimpleTweaksPlugin,,,,  by KazWolfe,
+SimpleTweaksPlugin,,,,  by LINKAD0,
+SimpleTweaksPlugin,,,,  by MidoriKami,
+SimpleTweaksPlugin,,,,  by NotNite,
+SimpleTweaksPlugin,,,,  by Sythiri,
+SimpleTweaksPlugin,,,,  by UnknownX,
+SimpleTweaksPlugin,,,, by Caraxi,
+SimpleTweaksPlugin,,,,'COMBO' テキストを非表示##NoComboText_ComboTimer_1,'COMBO' テキストを非表示##NoComboText_ComboTimer_1
+SimpleTweaksPlugin,,,,Add Number Separators,数字に桁区切りを追加
+SimpleTweaksPlugin,,,,Add separators for various numbers shown in the UI,UIに表示されるさまざまな数字に桁区切りを追加します。
+SimpleTweaksPlugin,,,,Adds a configurable background to the Duty List,目的リストに設定可能な背景を追加します。
+SimpleTweaksPlugin,,,,Adds a search bar to the friend list.,フレンドリストに検索バーを追加します。
+SimpleTweaksPlugin,,,,Adds a window for adding special characters to text inputs.,テキスト入力に特殊文字を追加するためのウィンドウを追加します。
+SimpleTweaksPlugin,,,,Allow chat bubbles to be displayed while in combat.,戦闘中もチャットバブルを表示できるようにします。
+SimpleTweaksPlugin,,,,Allow clicking on classes to switch to gearsets.,クラスをクリックしてギアセットに切り替えられるようにします。
+SimpleTweaksPlugin,,,,Allow using specific Icon IDs when using '/macroicon # id' inside of a macro.,マクロ内で '/macroicon # id' を使うときに、特定のアイコンIDを使えるようにします。
+SimpleTweaksPlugin,,,,Allows clicking the alarm icon in the server bar to open the alarm window.,サーバーバー内のアラームアイコンをクリックしてアラームウィンドウを開けるようにします。
+SimpleTweaksPlugin,,,,Allows disabling of the target function on left and right mouse clicks.,マウスの左右クリックによるターゲット機能を無効化できるようにします。
+SimpleTweaksPlugin,,,,Allows further customisation to the Talk addon.,Talkアドオンをさらにカスタマイズできるようにします。
+SimpleTweaksPlugin,,,,Allows renaming of each tab in the Free Company chest.,フリーカンパニーチェストの各タブの名前を変更できるようにします。
+SimpleTweaksPlugin,,,,Allows setting a custom amount to deposit or withdraw when using the 'Retrieve Quantity' and 'Entrust Quantity' options.,'Retrieve Quantity' と 'Entrust Quantity' オプションを使うときに、預け入れや引き出しの数量を任意に設定できるようにします。
+SimpleTweaksPlugin,,,,Allows setting a custom position for dialogue boxes used in cutscenes.,カットシーンで使われるダイアログボックスの位置を任意に設定できるようにします。
+SimpleTweaksPlugin,,,,"Allows taking higher resolution screenshots, Hiding Dalamud & Game UIs and removing the copyright notice from screenshots.",より高解像度のスクリーンショットを撮影したり、DalamudとゲームのUIを隠したり、スクリーンショットからコピーライト表記を削除したりできるようにします。
+SimpleTweaksPlugin,,,,"Allows you to change the buff/debuff vertical justification, enabling the list to grow from bottom to top.",バフ／デバフの縦方向の配置を変更し、リストを下から上へ伸ばせるようにします。
+SimpleTweaksPlugin,,,,Allows you to define a list of items that can not be sold to a vendor.,ショップに売却できないアイテムのリストを定義できるようにします。
+SimpleTweaksPlugin,,,,"Allows zooming in near infinitely on character preview views, such as Try On and Examine.",試着や装備確認などのキャラクタープレビューで、ほぼ無限にズームインできるようにします。
+SimpleTweaksPlugin,,,,Alternative UI Attachment##UseScreenText_ComboTimer_3,代替UIアタッチメント##UseScreenText_ComboTimer_3
+SimpleTweaksPlugin,,,,Auto Focus Market Board Item Search,マーケットボードのアイテム検索に自動フォーカス
+SimpleTweaksPlugin,,,,Auto Focus Recipe Search,レシピ検索に自動フォーカス
+SimpleTweaksPlugin,,,,Automatically focus the item search when opening the market board.,マーケットボードを開いたときに、アイテム検索に自動でフォーカスします。
+SimpleTweaksPlugin,,,,Automatically focus the recipe search when opening the crafting log.,製作手帳を開いたときに、レシピ検索に自動でフォーカスします。
+SimpleTweaksPlugin,,,,Automatically locks action bars when certain conditions are met.,特定の条件を満たしたときに、ホットバーを自動でロックします。
+SimpleTweaksPlugin,,,,Automatically refreshes the raw material list and recipe tree windows.,原材料リストとレシピツリーのウィンドウを自動で更新します。
+SimpleTweaksPlugin,,,,Block Alt-Tab and other keys to keep you in the game.,Alt-Tabなどのキーをブロックして、ゲームから離れないようにします。
+SimpleTweaksPlugin,,,,Casting Text Visibility,詠唱テキストの表示
+SimpleTweaksPlugin,,,,Change the file name format for screenshots.,スクリーンショットのファイル名の形式を変更します。
+SimpleTweaksPlugin,,,,"Change the font size, color, and background of the casting text.",詠唱テキストのフォントサイズ、色、背景を変更します。
+SimpleTweaksPlugin,,,,Changes the time displayed on chronometer furniture.,クロノメーター系調度品に表示される時刻を変更します。
+SimpleTweaksPlugin,,,,Cleans up the world visit menu and shows your current location in order on the list.,ワールド間テレポのメニューを整理し、現在の所在地をリストの順序通りに表示します。
+SimpleTweaksPlugin,,,,Click 'Previous' class icon in Duty Ready window to switch class.,突入確認ウィンドウの 'Previous' クラスアイコンをクリックしてクラスを切り替えます。
+SimpleTweaksPlugin,,,,Clickable Alarm Icon,クリック可能なアラームアイコン
+SimpleTweaksPlugin,,,,Confirm (num 0)を使用する場合は、デフォルトカーソルを「はい」に設定します。,Confirm (num 0)を使用する場合は、デフォルトカーソルを「はい」に設定します。
+SimpleTweaksPlugin,,,,Customize default deposit and withdraw quantity,預け入れと引き出しのデフォルト数量をカスタマイズ
+SimpleTweaksPlugin,,,,Decimal Places##DecimalPlaces_ComboTimer_7,小数点以下の桁数##DecimalPlaces_ComboTimer_7
+SimpleTweaksPlugin,,,,Disable targeting for enemies that are part of another players Treasure Hunt duty.,他のプレイヤーの宝の地図コンテンツに登場する敵をターゲットできなくします。
+SimpleTweaksPlugin,,,,Disables all control of the camera using the mouse.,マウスによるカメラ操作をすべて無効にします。
+SimpleTweaksPlugin,,,,Disables automatically selecting novice network when logging in or transferring to another server.,ログイン時や他のサーバーへ移動したときに、ビギナーチャンネルが自動で選択されるのを無効にします。
+SimpleTweaksPlugin,,,,Display Eorzea Time,エオルゼア時間を表示
+SimpleTweaksPlugin,,,,Duty Ready Class Switching,突入確認時のクラス切り替え
+SimpleTweaksPlugin,,,,Duty Timer,コンテンツタイマー
+SimpleTweaksPlugin,,,,Emote Log Status in Server Bar,サーバーバー内のエモートログ状態
+SimpleTweaksPlugin,,,,Enable chat bubbles in combat,戦闘中もチャットバブルを表示
+SimpleTweaksPlugin,,,,Enable superfast searches for the market board & crafting log.,マーケットボードと製作手帳の検索を超高速化します。
+SimpleTweaksPlugin,,,,Enables the ability to equip items assigned to hotbars.,ホットバーに登録したアイテムを装備できるようにします。
+SimpleTweaksPlugin,,,,Ensure tooltips remain on screen,ツールチップが画面内に収まるようにする
+SimpleTweaksPlugin,,,,Equip items from Hotbars,ホットバーからアイテムを装備
+SimpleTweaksPlugin,,,,Extended Macro Icons,マクロアイコンの拡張
+SimpleTweaksPlugin,,,,Fast Item Search,アイテム検索の高速化
+SimpleTweaksPlugin,,,,GPが最大になるまでの時間,GPが最大になるまでの時間
+SimpleTweaksPlugin,,,,Grow Buff List Vertically,バフリストを縦方向に伸ばす
+SimpleTweaksPlugin,,,,H##hideTweak_UiAdjustments@FadeUnavailableActions,
+SimpleTweaksPlugin,,,,H##hideTweak_UiAdjustments@LootWindowSelectNext,
+SimpleTweaksPlugin,,,,H##hideTweak_UiAdjustments@SubmarineDestinationLetters,
+SimpleTweaksPlugin,,,,Hide 'Character not found' Message,「Character not found」メッセージを非表示
+SimpleTweaksPlugin,,,,Hide Guildhest Objective Popup,ギルドリーヴの目的ポップアップを非表示
+SimpleTweaksPlugin,,,,Hides the objective popup when starting a guildhest.,ギルドリーヴ開始時に目的ポップアップを非表示にします。
+SimpleTweaksPlugin,,,,Hold a modifier key to sell items from your inventory in one click.,修飾キーを押しながら、所持品内のアイテムをワンクリックで売却します。
+SimpleTweaksPlugin,,,,Housing Lottery Timer,ハウジング抽選タイマー
+SimpleTweaksPlugin,,,,HPバーにおおよそのバリア量を表示します。,HPバーにおおよそのバリア量を表示します。
+SimpleTweaksPlugin,,,,HPバーにバリアを表示,HPバーにバリアを表示
+SimpleTweaksPlugin,,,,HQ品や収集品にできないアイテムを作成している際、合成ウィンドウ内の品質バーを非表示にします。,HQ品や収集品にできないアイテムを作成している際、合成ウィンドウ内の品質バーを非表示にします。
+SimpleTweaksPlugin,,,,Improved Crafting Log,製作手帳の改善
+SimpleTweaksPlugin,,,,Increased zoom on character previews,キャラクタープレビューのズーム拡大
+SimpleTweaksPlugin,,,,"Intelligently switches keyboard controls between strafing and turning.
+(Legacy type movement only)","キーボード操作をストレイフと旋回で賢く切り替えます。
+（レガシータイプ移動のみ）"
+SimpleTweaksPlugin,,,,Island Sanctuary Sprint Replacer,無人島スプリント置き換え
+SimpleTweaksPlugin,,,,Keyboard Gaming Mode,キーボードゲーミングモード
+SimpleTweaksPlugin,,,,Leading Zero##LeadingZero_ComboTimer_2,先行ゼロ##LeadingZero_ComboTimer_2
+SimpleTweaksPlugin,,,,Long Veil,ロングヴェール
+SimpleTweaksPlugin,,,,Loot Window Select Next Item,ロットウィンドウで次のアイテムを選択
+SimpleTweaksPlugin,,,,"Modifies the Synthesize button in the Crafting Log to switch job or stand up from the crafting position, allowing you to stop crafting without closing the crafting log.",製作手帳の製作開始ボタンを変更し、ジョブの切り替えや製作姿勢からの立ち上がりができるようにして、製作手帳を閉じずに製作をやめられるようにします。
+SimpleTweaksPlugin,,,,Move chain bonus text above bar##MoveChainBonus_ExpPercentage_4,チェインボーナステキストをバーの上へ移動##MoveChainBonus_ExpPercentage_4
+SimpleTweaksPlugin,,,,Move EXP text above bar##MoveExp_ExpPercentage_3,経験値テキストをバーの上へ移動##MoveExp_ExpPercentage_3
+SimpleTweaksPlugin,,,,No Sell List,売却禁止リスト
+SimpleTweaksPlugin,,,,NO-HQアイテムを制作中は品質バーを非表示にします。,NO-HQアイテムを制作中は品質バーを非表示にします。
+SimpleTweaksPlugin,,,,Open Glamour Dresser to Current Job,ミラージュドレッサーを現在のジョブで開く
+SimpleTweaksPlugin,,,,Open the commendation window upon completion of a duty.,コンテンツ完了時にMIP推薦ウィンドウを開きます。
+SimpleTweaksPlugin,,,,Open the loot rolling window when new items are added to be rolled on.,ロット対象の新しいアイテムが追加されたときに、ロットウィンドウを開きます。
+SimpleTweaksPlugin,,,,Padding##Padding_EnsureTooltipRemainsOnScreen_0,パディング##Padding_EnsureTooltipRemainsOnScreen_0
+SimpleTweaksPlugin,,,,Position,位置
+SimpleTweaksPlugin,,,,Pressing Alt + F4 will cause the game to close safely.,Alt + F4を押すとゲームを安全に終了します。
+SimpleTweaksPlugin,,,,"Prevent the game from displaying the ""The character you last logged out with could not be found on the current data center."" message.",「The character you last logged out with could not be found on the current data center.」というメッセージが表示されるのを防ぎます。
+SimpleTweaksPlugin,,,,Prevents tooltips from extending below the bottom of the screen. Useful when using tweaks that make the tooltips longer.,ツールチップが画面下端からはみ出すのを防ぎます。ツールチップを長くする調整と併用すると便利です。
+SimpleTweaksPlugin,,,,Remembers quick gathering status even after gathering at unspoiled nodes.,未知の採集ポイントで採集した後も、クイック採集の状態を記憶します。
+SimpleTweaksPlugin,,,,Remembers which world was selected for each datacentre.,データセンターごとに選択したワールドを記憶します。
+SimpleTweaksPlugin,,,,Removes the randomization from the data center visit world list.,データセンター移動時のワールドリストからランダム要素を取り除きます。
+SimpleTweaksPlugin,,,,Rename Free Company Chest Tabs,フリーカンパニーチェストのタブ名を変更
+SimpleTweaksPlugin,,,,Replaces the normal Sprint action with Isle Sprint while in the Island Sanctuary.,無人島開拓内では、通常のスプリントをアイルスプリントに置き換えます。
+SimpleTweaksPlugin,,,,Replaces the wedding veils with their long variants that are usually only shown in the sanctum of the twelve.,ウェディングヴェールを、通常は十二神大聖堂でのみ表示されるロングタイプに置き換えます。
+SimpleTweaksPlugin,,,,Retries to get prices upon receiving the 'Please wait and try your search again' message,「Please wait and try your search again」メッセージを受け取ったときに、価格の取得をリトライします。
+SimpleTweaksPlugin,,,,Scenario Progression Display,シナリオ進行度の表示
+SimpleTweaksPlugin,,,,Searchable Friend List,検索可能なフレンドリスト
+SimpleTweaksPlugin,,,,Set movement type between Standard and Legacy when in/out of combat or when weapon is drawn/sheathed.,戦闘中／非戦闘中、または抜刀／納刀時に、移動タイプをスタンダードとレガシーで切り替えます。
+SimpleTweaksPlugin,,,,Sets the job selection dropdown to your current job when opening the Glamour Dresser.,ミラージュドレッサーを開いたときに、ジョブ選択ドロップダウンを現在のジョブに設定します。
+SimpleTweaksPlugin,,,,Show a hint on the tooltip of items stored in the glamour dresser when they could be stored in armoire.,ミラージュドレッサーに収納されているアイテムが愛蔵品キャビネットにも収納できる場合、そのヒントをツールチップに表示します。
+SimpleTweaksPlugin,,,,Show an icon over squadron members who have a new chemistry available.,新しい相性が利用できる小隊員の上にアイコンを表示します。
+SimpleTweaksPlugin,,,,Show Rested Experience##ShowRestedExperience_ExpPercentage_2,レスト経験値を表示##ShowRestedExperience_ExpPercentage_2
+SimpleTweaksPlugin,,,,Show Service Account Number##ShowServiceAccountIndex_DataCentreOnTitleScreen_0,サービスアカウント番号を表示##ShowServiceAccountIndex_DataCentreOnTitleScreen_0
+SimpleTweaksPlugin,,,,Show the correct item when trying on a glamoured item.,ミラプリされたアイテムを試着するときに、正しいアイテムを表示します。
+SimpleTweaksPlugin,,,,Show the emote log status in the server bar.,エモートログの状態をサーバー情報バーに表示します。
+SimpleTweaksPlugin,,,,Show the time remaining until the current lottery period ends in the timers window.,現在の抽選期間が終了するまでの残り時間をタイマーウィンドウに表示します。
+SimpleTweaksPlugin,,,,Shows the percentage of completion of the main scenario.,メインシナリオの完了率を表示します。
+SimpleTweaksPlugin,,,,Simple Tweaks Plugin,
+SimpleTweaksPlugin,,,,Squadron Chemistry Available Icon,小隊相性利用可能アイコン
+SimpleTweaksPlugin,,,,Target GP##timeUntilGpMax,目標GP##timeUntilGpMax
+SimpleTweaksPlugin,,,,This tweak has been removed. An alternative may be found in the VanillaPlus Plugin.,この調整は削除されました。代替機能はVanillaPlus Pluginにある場合があります。
+SimpleTweaksPlugin,,,,Tweak was implemented into the base game as of 7.4,この調整は7.4で本体に実装されました
+SimpleTweaksPlugin,,,,Tweaks that change or interact with the game's UI in some way.,ゲームのUIを変更したり、UIに作用したりする調整です。
+SimpleTweaksPlugin,,,,Tweaks that haven't been given a specific category.,特定のカテゴリが割り当てられていない調整です。
+SimpleTweaksPlugin,,,,"When completing a duty, tells you how much time the duty took.",コンテンツ完了時に、そのコンテンツにかかった時間を知らせます。
+SimpleTweaksPlugin,,,,X座標のオフセット##OffsetX_ComboTimer_5,X座標のオフセット##OffsetX_ComboTimer_5
+SimpleTweaksPlugin,,,,Y座標のオフセット##OffsetY_ComboTimer_6,Y座標のオフセット##OffsetY_ComboTimer_6
+SimpleTweaksPlugin,,,,「Venture Complete」や「Levequest Accepted」などの情報バナーを非表示にする,「Venture Complete」や「Levequest Accepted」などの情報バナーを非表示にする
+SimpleTweaksPlugin,,,,ほぼすべてのUIウィンドウの位置を固定できるようにします。,ほぼすべてのUIウィンドウの位置を固定できるようにします。
+SimpleTweaksPlugin,,,,アイテムを手に入れることができず、すでにアイテムをアンロックしたままにします。,アイテムを手に入れることができず、すでにアイテムをアンロックしたままにします。
+SimpleTweaksPlugin,,,,アイテムレベルを調査,アイテムレベルを調査
+SimpleTweaksPlugin,,,,ウィンドウを開いたままにする,ウィンドウを開いたままにする
+SimpleTweaksPlugin,,,,ウィンドウ位置の固定,ウィンドウ位置の固定
+SimpleTweaksPlugin,,,,キャストバーの特定のパーツを非表示または移動できます。,キャストバーの特定のパーツを非表示または移動できます。
+SimpleTweaksPlugin,,,,キャストバー調整,キャストバー調整
+SimpleTweaksPlugin,,,,キャラクターウィンドウで装備の位置を再配置し、全体的なレイアウトを整理します。,キャラクターウィンドウで装備の位置を再配置し、全体的なレイアウトを整理します。
+SimpleTweaksPlugin,,,,ギャザラーの時、GPが最大になるまでの推定時間を表示します。,ギャザラーの時、GPが最大になるまでの推定時間を表示します。
+SimpleTweaksPlugin,,,,クエストマーカーの上限を解除,クエストマーカーの上限を解除
+SimpleTweaksPlugin,,,,ゲーム内の時計にカスタム時間フォーマットを設定します。C#フォーマット文字列を使用します。,ゲーム内の時計にカスタム時間フォーマットを設定します。C#フォーマット文字列を使用します。
+SimpleTweaksPlugin,,,,コミュニティを探すボタンを削除,コミュニティを探すボタンを削除
+SimpleTweaksPlugin,,,,コンテンツ突入待機時のタイマー,コンテンツ突入待機時のタイマー
+SimpleTweaksPlugin,,,,コンテンツ突入選択後の待機画面で、45秒のカウントダウンを表示します。,コンテンツ突入選択後の待機画面で、45秒のカウントダウンを表示します。
+SimpleTweaksPlugin,,,,コンボアクションのカウントダウンを表示します。,コンボアクションのカウントダウンを表示します。
+SimpleTweaksPlugin,,,,シンプルな表示##SimpleDisplay_AccurateVentureTimes_0,シンプルな表示##SimpleDisplay_AccurateVentureTimes_0
+SimpleTweaksPlugin,,,,ジョブゲージを非表示,ジョブゲージを非表示
+SimpleTweaksPlugin,,,,ステータスタイマーの色のカラーリングを許可します。,ステータスタイマーの色のカラーリングを許可します。
+SimpleTweaksPlugin,,,,ソーシャルウィンドウのコミュニティを探すボタンを非表示にします。,ソーシャルウィンドウのコミュニティを探すボタンを非表示にします。
+SimpleTweaksPlugin,,,,タイトル画面にデータセンターを表示,タイトル画面にデータセンターを表示
+SimpleTweaksPlugin,,,,タイトル画面に選択中のデータセンターを表示します。,タイトル画面に選択中のデータセンターを表示します。
+SimpleTweaksPlugin,,,,ターゲットに表示されるステータス効果の表示数を制限します。,ターゲットに表示されるステータス効果の表示数を制限します。
+SimpleTweaksPlugin,,,,ターゲットのHP,ターゲットのHP
+SimpleTweaksPlugin,,,,ターゲットのHPの正確な(または丸められた)値を表示します。,ターゲットのHPの正確な(または丸められた)値を表示します。
+SimpleTweaksPlugin,,,,ターゲットのステータス効果の表示数を制限,ターゲットのステータス効果の表示数を制限
+SimpleTweaksPlugin,,,,ターゲットの詠唱バー上のテキストを移動し、見やすくします。,ターゲットの詠唱バー上のテキストを移動し、見やすくします。
+SimpleTweaksPlugin,,,,ターゲットアビリティキャストに残り時間を表示します。,ターゲットアビリティキャストに残り時間を表示します。
+SimpleTweaksPlugin,,,,ターゲットサークルを非表示,ターゲットサークルを非表示
+SimpleTweaksPlugin,,,,ターゲット詠唱バーのテキストを移動,ターゲット詠唱バーのテキストを移動
+SimpleTweaksPlugin,,,,ディープダンジョン内の情報ウィンドウから冗長な情報を削除します。,ディープダンジョン内の情報ウィンドウから冗長な情報を削除します。
+SimpleTweaksPlugin,,,,ディープダンジョン情報の削減,ディープダンジョン情報の削減
+SimpleTweaksPlugin,,,,デューティファインダーの設定をボタンに変えます。,デューティファインダーの設定をボタンに変えます。
+SimpleTweaksPlugin,,,,デューティファインダー設定の改善,デューティファインダー設定の改善
+SimpleTweaksPlugin,,,,ネームプレートの変更を元に戻します。,ネームプレートの変更を元に戻します。
+SimpleTweaksPlugin,,,,ネームプレート上のステータスアイコンと文字名の間の距離が長くなります。,ネームプレート上のステータスアイコンと文字名の間の距離が長くなります。
+SimpleTweaksPlugin,,,,パラメータバー(HPとMPバー)の一部の位置を変更、または非表示にします。,パラメータバー(HPとMPバー)の一部の位置を変更、または非表示にします。
+SimpleTweaksPlugin,,,,パラメータバーの調整,パラメータバーの調整
+SimpleTweaksPlugin,,,,フォントサイズ##FontSize_ComboTimer_4,フォントサイズ##FontSize_ComboTimer_4
+SimpleTweaksPlugin,,,,フリーカンパニーとWandererタグの非表示やカスタマイズを可能にします。,フリーカンパニーとWandererタグの非表示やカスタマイズを可能にします。
+SimpleTweaksPlugin,,,,ホットバーのキーバインドヒントを複製,ホットバーのキーバインドヒントを複製
+SimpleTweaksPlugin,,,,ホットバーのクールダウンカウンターを拡大します。,ホットバーのクールダウンカウンターを拡大します。
+SimpleTweaksPlugin,,,,ホットバーのロックボタンを非表示にします。SHIFTを押したまま表示するオプションがあります。,ホットバーのロックボタンを非表示にします。SHIFTを押したまま表示するオプションがあります。
+SimpleTweaksPlugin,,,,ホットバーロックを隠す,ホットバーロックを隠す
+SimpleTweaksPlugin,,,,ポップアップ通知の調整,ポップアップ通知の調整
+SimpleTweaksPlugin,,,,マップとミニマップに、5つ以上のアクティブなクエストマーカーを表示できるようにします。,マップとミニマップに、5つ以上のアクティブなクエストマーカーを表示できるようにします。
+SimpleTweaksPlugin,,,,マップの領域の色を変更,マップの領域の色を変更
+SimpleTweaksPlugin,,,,マップ上に表示されるクエストの目的地やFATeなどの範囲の色を変更します。,マップ上に表示されるクエストの目的地やFATeなどの範囲の色を変更します。
+SimpleTweaksPlugin,,,,マーケットの機能強化,マーケットの機能強化
+SimpleTweaksPlugin,,,,マーケットボードのUIを拡張し、表示価格に税を含めたり店売り価格よりも高い出品をハイライト表示したりすることができます。,マーケットボードのUIを拡張し、表示価格に税を含めたり店売り価格よりも高い出品をハイライト表示したりすることができます。
+SimpleTweaksPlugin,,,,ミニマップに表示する要素を調整します。,ミニマップに表示する要素を調整します。
+SimpleTweaksPlugin,,,,リテイナーリストにリテイナーベンチャーの完了までのライブカウントダウンを表示します。,リテイナーリストにリテイナーベンチャーの完了までのライブカウントダウンを表示します。
+SimpleTweaksPlugin,,,,レベルが最大の場合、経験値バーを非表示にします。,レベルが最大の場合、経験値バーを非表示にします。
+SimpleTweaksPlugin,,,,レベルが最大の時に経験値バーを非表示,レベルが最大の時に経験値バーを非表示
+SimpleTweaksPlugin,,,,ログイン直後やエリア移動後の達成間近なアチーブメントの通知を完全に非表示にします。,ログイン直後やエリア移動後の達成間近なアチーブメントの通知を完全に非表示にします。
+SimpleTweaksPlugin,,,,不要なバナーを非表示,不要なバナーを非表示
+SimpleTweaksPlugin,,,,"他のプレイヤーのアイテムレベルを計算します。
+赤の値はそのプレイヤーが自分のレベルに合わせた装備の最大レベルを表示しています。","他のプレイヤーのアイテムレベルを計算します。
+赤の値はそのプレイヤーが自分のレベルに合わせた装備の最大レベルを表示しています。"
+SimpleTweaksPlugin,,,,使用時に同じ能力を持つすべてのホットバースロットには、アクションプレスパルスが表示されます。,使用時に同じ能力を持つすべてのホットバースロットには、アクションプレスパルスが表示されます。
+SimpleTweaksPlugin,,,,"分解ウィンドウにて現在の分解レベルとそのアイテムの分解適正レベルを表示します。
+また、そのアイテムがギアセットに登録済みか表示、オプションでギアセット登録中のアイテムを選択できなくします。","分解ウィンドウにて現在の分解レベルとそのアイテムの分解適正レベルを表示します。
+また、そのアイテムがギアセットに登録済みか表示、オプションでギアセット登録中のアイテムを選択できなくします。"
+SimpleTweaksPlugin,,,,利用できないアクションをフェードする,利用できないアクションをフェードする
+SimpleTweaksPlugin,,,,制限区切りの調整,制限区切りの調整
+SimpleTweaksPlugin,,,,制限区切りバーの簡単なカスタマイズ,制限区切りバーの簡単なカスタマイズ
+SimpleTweaksPlugin,,,,割り込み可能なキャストバーの横にアイコンを表示します,割り込み可能なキャストバーの横にアイコンを表示します
+SimpleTweaksPlugin,,,,同じアクションをセットした時に、キーバインドヒントをキーバインドされていないホットバーにも表示します。,同じアクションをセットした時に、キーバインドヒントをキーバインドされていないホットバーにも表示します。
+SimpleTweaksPlugin,,,,名前プレートアイコンの間隔,名前プレートアイコンの間隔
+SimpleTweaksPlugin,,,,多数の小さなQoL改善をまとめています。,多数の小さなQoL改善をまとめています。
+SimpleTweaksPlugin,,,,大きなクールタイムカウンター,大きなクールタイムカウンター
+SimpleTweaksPlugin,,,,少数点##Decimals_ExpPercentage_0,少数点##Decimals_ExpPercentage_0
+SimpleTweaksPlugin,,,,常にはい,常にはい
+SimpleTweaksPlugin,,,,常に表示##AlwaysVisible_ComboTimer_0,常に表示##AlwaysVisible_ComboTimer_0
+SimpleTweaksPlugin,,,,強化された戦利品ウィンドウ,強化された戦利品ウィンドウ
+SimpleTweaksPlugin,,,,戦闘中に表示されるセリフのダイアログの位置を変更します。,戦闘中に表示されるセリフのダイアログの位置を変更します。
+SimpleTweaksPlugin,,,,戦闘中のセリフダイアログ調整,戦闘中のセリフダイアログ調整
+SimpleTweaksPlugin,,,,戦闘中やコンテンツ中ではない場合、ジョブゲージを隠せるようにします。,戦闘中やコンテンツ中ではない場合、ジョブゲージを隠せるようにします。
+SimpleTweaksPlugin,,,,手紙で潜水艦の目的地にラベルを付ける,手紙で潜水艦の目的地にラベルを付ける
+SimpleTweaksPlugin,,,,拡張されたアイテム分解ウィンドウ,拡張されたアイテム分解ウィンドウ
+SimpleTweaksPlugin,,,,拡張通貨表示,拡張通貨表示
+SimpleTweaksPlugin,,,,改善された割り込みキャストバー,改善された割り込みキャストバー
+SimpleTweaksPlugin,,,,文字の色,文字の色
+SimpleTweaksPlugin,,,,文字の輪郭の色,文字の輪郭の色
+SimpleTweaksPlugin,,,,旧ネームプレート表示,旧ネームプレート表示
+SimpleTweaksPlugin,,,,時間フォーマットのカスタム,時間フォーマットのカスタム
+SimpleTweaksPlugin,,,,様々な局面で画面中央に表示される通知の位置を変更、または非表示にします。,様々な局面で画面中央に表示される通知の位置を変更、または非表示にします。
+SimpleTweaksPlugin,,,,特定の条件下で、戦闘中に他のプレイヤーのネームプレートを非表示にします。,特定の条件下で、戦闘中に他のプレイヤーのネームプレートを非表示にします。
+SimpleTweaksPlugin,,,,特定の状況下で特定のウィンドウを隠すことを防ぎます。,特定の状況下で特定のウィンドウを隠すことを防ぎます。
+SimpleTweaksPlugin,,,,獲得率のみを表示##PercentageOnly_ExpPercentage_1,獲得率のみを表示##PercentageOnly_ExpPercentage_1
+SimpleTweaksPlugin,,,,称号リストで選択した並び替え順を保存します。,称号リストで選択した並び替え順を保存します。
+SimpleTweaksPlugin,,,,称号リストの並び替えを保存,称号リストの並び替えを保存
+SimpleTweaksPlugin,,,,経験値の獲得率を表示,経験値の獲得率を表示
+SimpleTweaksPlugin,,,,経験値バーに現在の経験値の獲得率を表示します。,経験値バーに現在の経験値の獲得率を表示します。
+SimpleTweaksPlugin,,,,経験値バーのサイズ変更,経験値バーのサイズ変更
+SimpleTweaksPlugin,,,,経験値バーの水平方向の大きさを変更します。,経験値バーの水平方向の大きさを変更します。
+SimpleTweaksPlugin,,,,義務リストの背景,義務リストの背景
+SimpleTweaksPlugin,,,,自分のステータスタイマーをカラーにする,自分のステータスタイマーをカラーにする
+SimpleTweaksPlugin,,,,色のデューティルーレットの名前は、その完了状態を示します,色のデューティルーレットの名前は、その完了状態を示します
+SimpleTweaksPlugin,,,,色のルーレット名,色のルーレット名
+SimpleTweaksPlugin,,,,装備の位置を調整,装備の位置を調整
+SimpleTweaksPlugin,,,,詳細なリテイナーベンチャー時間,詳細なリテイナーベンチャー時間
+SimpleTweaksPlugin,,,,追加の通貨を表示できます。,追加の通貨を表示できます。
+SimpleTweaksPlugin,,,,達成間近なアチーブメントの通知を非表示,達成間近なアチーブメントの通知を非表示
