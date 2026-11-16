@@ -232,6 +232,16 @@
       "updated": "2026-09-30",
       "sha": "2beecd690a8a274f60f327ad79849ee1411e8383",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/%E2%80%BBGatherBuddyReborn_v0.1.csv"
+    },
+    {
+      "fileName": "SimpleTweaksPlugin.csv",
+      "pluginName": "SimpleTweaksPlugin",
+      "owner": "shidare",
+      "note": "一部用語未通訳\r\n（englishで利用してください）",
+      "updated": "2026-11-16",
+      "sha": "c9ac1386f21339a23061b136945e77c5fb966f86",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/SimpleTweaksPlugin.csv",
+      "deleteKeyHash": "753ec35497097e7e057a2dd1035d283821bd52d7e80efee8d21bcfb107f609ae"
     }
   ]
 }
