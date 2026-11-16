@@ -1,0 +1,2533 @@
+Plugin,Menu,Section,Type,English,Japanese
+DailyRoutines,,,@Window,Daily Routines,
+DailyRoutines,,,@Window,DailyRoutines,
+DailyRoutines,,,, by AtmoOmen,
+DailyRoutines,,,,"""|"" could be used as separators in all the parameters except for <duty type>, in order to select several duties or apply multiple Duty Finder settings.
+For example, /pdrduty n Tribute|Emanation unrest|minil
+That is, to register on Duty Finder with these two duty selected, ""The Pool of Tribute"" and ""Emanation"", enabling the Duty Finder settings ""Unrestricted Party"" and ""Minimum IL"".","""|"" は、<duty type> 以外のすべてのパラメーターで区切り文字として使用でき、複数のコンテンツを選択したり、複数のコンテンツファインダー設定を適用したりできます。
+例えば、/pdrduty n Tribute|Emanation unrest|minil
+つまり、「The Pool of Tribute」と「Emanation」の2つのコンテンツを選択し、コンテンツファインダー設定の「制限解除」と「下限IL」を有効にしてコンテンツファインダーに申請します。"
+DailyRoutines,,,,/pdr agentevent <agent name> <event type (type ulong)> <parameter(s)> to send an event to the specified agent.,/pdr agentevent <agent name> <event type (type ulong)> <parameter(s)> 指定したエージェントにイベントを送信します。
+DailyRoutines,,,,/pdr callback <UI internal name> <parameter(s)> for direct control of the specified interface.,/pdr callback <UI internal name> <parameter(s)> 指定したインターフェースを直接操作します。
+DailyRoutines,,,,"/pdr gce <Item name (case insensitive)> (<quantity>) to exchange for the specified item in Grand Company Seal Exchange. (Set the item name to ""default"" to run the preset in the floating window, in which case the quantity is no longer required)","/pdr gce <Item name (case insensitive)> (<quantity>) グランドカンパニーの軍票交換で指定したアイテムと交換します。(アイテム名を ""default"" に設定するとフローティングウィンドウ内のプリセットを実行します。その場合、数量は不要です)"
+DailyRoutines,,,,/pdr inn to access the nearest Inn immediately or leave the current Inn.,/pdr inn 最寄りの宿屋にすぐに入るか、現在の宿屋から出ます。
+DailyRoutines,,,,"/pdr insc to access or hide the dedicated shortcut interface for instance switching.
+/pdr insc <instance index> to switch to the specified instance of the current zone. The index starts from 1.
+/pdr insc abort to terminate the ongoing switching process.","/pdr insc インスタンス切り替え専用のショートカットインターフェースを表示または非表示にします。
+/pdr insc <instance index> 現在のゾーンの指定したインスタンスに切り替えます。インデックスは1から始まります。
+/pdr insc abort 進行中の切り替え処理を終了します。"
+DailyRoutines,,,,/pdr leaveduty You have left the duty.,/pdr leaveduty コンテンツを退出しました。
+DailyRoutines,,,,/pdr pbuff Auto Phantom Action For Durable Buff,/pdr pbuff 持続バフ用のファントムアクションを自動で使用します。
+DailyRoutines,,,,"/pdr pce ( <abort> ) to navigate to the CE in the current zone, or to abort an ongoing process.",/pdr pce ( <abort> ) 現在のゾーンのCEまで案内するか、進行中の処理を中止します。
+DailyRoutines,,,,"/pdr pfate ( <abort> ) to navigate to the FATE with the least progress in the current zone or the magic pot quest via wayfinding, or to abort an ongoing process.",/pdr pfate ( <abort> ) 現在のゾーンで最も進行度の低いFATE、またはマジックポットのクエストまで経路案内で移動するか、進行中の処理を中止します。
+DailyRoutines,,,,"/pdr ptp <index / name (case insensitive, partial inclusive)> to teleport to the specified occult aetheryte.","/pdr ptp <index / name (case insensitive, partial inclusive)> 指定したオカルトエーテライトにテレポします。"
+DailyRoutines,,,,/pdr resetallsd → Reset All,/pdr resetallsd → すべてリセット
+DailyRoutines,,,,/pdr scards → Automatically navigate to Card Buyer and sell cards.,/pdr scards → カード買取業者まで自動で移動し、カードを売却します。
+DailyRoutines,,,,/pdr tmap -> to display the treasure location of the current timeworn map.,/pdr tmap -> 現在の古ぼけた地図の宝の場所を表示します。
+DailyRoutines,,,,/pdr ugm → to access Unified Glamour Manager.,/pdr ugm → 統合ミラージュマネージャーにアクセスします。
+DailyRoutines,,,,"/pdr worldtravel → to access or hide the World Visit interface.
+/pdr worldtravel <world name> (case insensitive and partial match)","/pdr worldtravel → ワールド間テレポのインターフェースを表示または非表示にします。
+/pdr worldtravel <world name> (大文字小文字を区別せず、部分一致)"
+DailyRoutines,,,,/pdrduty <duty type> <duty ID/duty name> (<Duty Finder settings>),
+DailyRoutines,,,,/pdrfe → <Parameter/Instance Name> (Case insensitive / Partial match for the latter) Enter specified field operation,/pdrfe → <Parameter/Instance Name> (Case insensitive / Partial match for the latter) 指定したフィールド作戦に入ります。
+DailyRoutines,,,,/pdrsplit → <item ID>/<item name> to execute an item preset.,/pdrsplit → <item ID>/<item name> アイテムプリセットを実行します。
+DailyRoutines,,,,1. /pdr wt,
+DailyRoutines,,,,2. Click the weather icon on the minimap.,2. ミニマップの天気アイコンをクリックします。
+DailyRoutines,,,,<deadmember>,
+DailyRoutines,,,,<dispellablemeandmember>,
+DailyRoutines,,,,<dispellablemember>,
+DailyRoutines,,,,<enemystatus:ID>,
+DailyRoutines,,,,<farenemy>,
+DailyRoutines,,,,<farmember>,
+DailyRoutines,,,,<lowesthateenemy>,
+DailyRoutines,,,,<lowesthateinlistenemy>,
+DailyRoutines,,,,<lowhpenemy>,
+DailyRoutines,,,,<lowhpmeandmember>,
+DailyRoutines,,,,<lowhpmember>,
+DailyRoutines,,,,<meandmemberstatus:ID>,
+DailyRoutines,,,,<memberstatus:ID>,
+DailyRoutines,,,,<nearenemy>,
+DailyRoutines,,,,<nearmember>,
+DailyRoutines,,,,"A duplicate check will be performed before
+executing certain actions in order to prevent
+some status from being applied repeatedly in a
+short time.","特定のアクションを実行する前に
+重複チェックを行い、短時間に同じ
+ステータスが繰り返し付与されるのを
+防ぎます。"
+DailyRoutines,,,,"A floating window will be displayed below
+Cosmic Exploration Exotablet for rolling Cosmic
+Fortune if the current amount of Lunar Credits is
+enough for at least one roll. A command /pdr
+cosfortune for the same purpose will also be
+provided. Rolls could also be performed after the
+given credit threshold is reached.","現在のルナクレジットが1回以上回せる分ある場合、
+コズミックエクスプロレーションのエクソタブレットの下に
+コズミックフォーチュンを回すためのフローティング
+ウィンドウを表示します。同じ用途のコマンド /pdr
+cosfortune も用意されます。指定したクレジットの
+しきい値に達した後に回すこともできます。"
+DailyRoutines,,,,"A new command /pdrduty for better Duty Finder
+registrations.","コンテンツファインダーへの申請をより便利にする
+新しいコマンド /pdrduty を追加します。"
+DailyRoutines,,,,AB5D47673AD0B114D129F3F5E3F45B65A##AID (Account Cred),
+DailyRoutines,,,,About,概要
+DailyRoutines,,,,"Accelerate all intra-zone loading in order to
+reduce character downtime.
+(For example, aethernet shards, shortcuts and
+ferry skippers)","ゾーン内のすべての読み込みを高速化し、
+キャラクターの待ち時間を短縮します。
+(例: 都市内エーテライト、ショートカット、
+渡し守など)"
+DailyRoutines,,,,Action,アクション
+DailyRoutines,,,,Action Queueing For Macros,マクロのアクション先行入力
+DailyRoutines,,,,Actual Coordinate Below Minimap,ミニマップ下への実際の座標表示
+DailyRoutines,,,,Actual Item Icon At Vendors,販売店での実際のアイテムアイコン
+DailyRoutines,,,,Actual Position In Queue,キューでの実際の順番
+DailyRoutines,,,,"Add a button to check the adventure plate while
+inspecting a player.","プレイヤーを調べているときに
+アドベンチャラープレートを確認するボタンを追加します。"
+DailyRoutines,,,,"Add a following button   to every message in
+chat, in order to quickly repeat the message.","チャットのすべてのメッセージに   追従ボタンを追加し、
+メッセージをすばやく繰り返せるようにします。"
+DailyRoutines,,,,"Add a quick search bar to the upper left corner of
+Blue Magic Spellbook, to search in real time
+based on action names.","青魔道書の左上にクイック検索バーを追加し、
+アクション名に基づいてリアルタイムで
+検索できるようにします。"
+DailyRoutines,,,,"Add more parameters available in macros which
+could be used to refer to various targets in
+different situations or scenarios.","マクロで使用できるパラメーターを追加し、
+さまざまな状況や場面で各種ターゲットを
+参照できるようにします。"
+DailyRoutines,,,,"Added /pdrfe <Parameter/Instance Name> (Case
+insensitive / Partial match for the latter), to enter
+specified field operation","/pdrfe <Parameter/Instance Name> (Case
+insensitive / Partial match for the latter) を追加し、指定した
+フィールド作戦に入れるようにします。"
+DailyRoutines,,,,Addon,アドオン
+DailyRoutines,,,,Adjust the size of the floating window,フローティングウィンドウのサイズ調整
+DailyRoutines,,,,Adjust the transparency of the floating window,フローティングウィンドウの透明度調整
+DailyRoutines,,,,"Aetherial reduction will be performed
+automatically for all the items with this option
+available after the user starts aetherial reduction
+in the interface.","インターフェースで精製を開始すると、
+精製可能なすべてのアイテムに対して
+自動で精製を行います。"
+DailyRoutines,,,,"After configuration, automatically trade the
+specified amount of gils in bulk with the
+designated targets","設定後、指定した対象と指定した金額のギルを
+自動でまとめて取引します。"
+DailyRoutines,,,,"After configurations, given prefixes or suffixes
+would be automatically added to chat messages
+while they're sent.",設定後、チャットメッセージ送信時に、指定した接頭辞や接尾辞が自動で追加されます。
+DailyRoutines,,,,"After configuring and entering an eight-player
+duty, if there is a Pet summoned by the user, the
+Pet will automatically move according to the
+positions set in the timeline.",設定して8人コンテンツに入ると、ユーザーが召喚したペットがいる場合、そのペットはタイムラインで設定した位置に従って自動で移動します。
+DailyRoutines,,,,After deciphering,解読後
+DailyRoutines,,,,"After entering a duty, try to open all the available
+treasure coffers around automatically.",コンテンツに入った後、周囲にある開けられる宝箱をすべて自動で開けようとします。
+DailyRoutines,,,,"After entering Frontline, the location of all
+players could be detected nearby would be
+marked and displayed on the screen.",フロントラインに入った後、近くで検出できるすべてのプレイヤーの位置にマーカーを表示し、画面に表示します。
+DailyRoutines,,,,"After entering Frontline, the location of all players
+could be detected nearby would be marked and
+displayed on the screen.",フロントラインに入った後、近くで検出できるすべてのプレイヤーの位置にマーカーを表示し、画面に表示します。
+DailyRoutines,,,,"After joining Cosmic Exploration, regularly check
+whether the Star Contributor status has been
+applied, and cancel it if that's the case.",コズミックエクスプロレーション参加後、スターコントリビューターのステータスが付与されているか定期的に確認し、付与されている場合は解除します。
+DailyRoutines,,,,"After summoning a creature in a duty or after
+entering a duty, automatically move the Pet to
+the center of the current zone.",コンテンツ内でペットを召喚した後、またはコンテンツに入った後、ペットを現在のゾーンの中央に自動で移動させます。
+DailyRoutines,,,,"After summoning a creature in a duty or after
+entering a duty, automatically move the Pet to the
+center of the current zone.",コンテンツ内でペットを召喚した後、またはコンテンツに入った後、ペットを現在のゾーンの中央に自動で移動させます。
+DailyRoutines,,,,AID (Account Cred),
+DailyRoutines,,,,All,すべて
+DailyRoutines,,,,"All the ""DR"" prefixes before chat messages and menu options will be removed. By enabling the option, chat messages and menu options may look more in line with the vanilla game style. However, it could also cause some confusion.
+※ Reboot Daily Routines to apply the option.","チャットメッセージやメニュー項目の前にある「DR」接頭辞をすべて削除します。このオプションを有効にすると、チャットメッセージやメニュー項目がバニラのゲームスタイルにより近い見た目になります。ただし、混乱を招く可能性もあります。
+※ オプションを適用するにはDaily Routinesを再起動してください。"
+DailyRoutines,,,,"All the navigation across zones will take the most economical route if the option is enabled, meaning it would minimize gil costs as much as possible by introducing a considerable amount of free transportation and zone connections. Please be aware that navigation processes could be unbearably lengthy in some extreme cases.",このオプションを有効にすると、ゾーンをまたぐすべての案内が最も経済的なルートを通ります。つまり、無料の移動手段やゾーン接続を多数利用し、ギルのコストを可能な限り抑えます。ただし、極端な場合、案内プロセスが耐えられないほど長くなることがある点に注意してください。
+DailyRoutines,,,,"All the requests related to the authentication will be directly sent to the authentication server bypassing the system proxy if the option is enabled. However, it has no effect if running any kind of global transparent proxy, for example, a virtual network adapter.
+※ Reboot Daily Routines to apply the option.","このオプションを有効にすると、認証に関するすべてのリクエストはシステムプロキシを経由せず、認証サーバーに直接送信されます。ただし、仮想ネットワークアダプターなどのグローバルな透過プロキシを使用している場合は効果がありません。
+※ オプションを適用するにはDaily Routinesを再起動してください。"
+DailyRoutines,,,,"Allow command input starting with a half-width
+forward slash only in the chat bar.",チャットバーでのみ半角のスラッシュで始まるコマンドを入力できるようにします。
+DailyRoutines,,,,"Allow system sound effects (<se.x>) to be played
+on all the channels and to be repeated more
+than three times.",システムサウンドエフェクト (<se.x>) をすべてのチャンネルで再生でき、3回を超えて繰り返せるようにします。
+DailyRoutines,,,,"Allow the names of items of interest in
+Collection to be the parameter for the command
+/coll and /collection.
+(For example, /coll Mogpendium and /coll
+""Unending Codex"")","コレクションで注目しているアイテム名を、コマンド /coll と /collection のパラメーターとして使用できるようにします。
+(例: /coll Mogpendium や /coll
+""Unending Codex"")"
+DailyRoutines,,,,"Allow the PvP actions that cannot be assigned to
+a hotbar to be the parameter for the command
+/pvpac and /pvpaction.
+(For example, /pvpac ""Glare IV"" and /pvpac ""Riot
+Blade"")","ホットバーに割り当てできないPvPアクションを、コマンド /pvpac と /pvpaction のパラメーターとして使用できるようにします。
+(例: /pvpac ""Glare IV"" や /pvpac ""Riot
+Blade"")"
+DailyRoutines,,,,"Allow the user to run multiple game instances
+simultaneously. The original cap is 2.",ゲームインスタンスを同時に複数実行できるようにします。元の上限は2つです。
+DailyRoutines,,,,"Allow to access Chat Log while playing Keybound
+Brawler.",Keybound Brawlerのプレイ中にチャットログにアクセスできるようにします。
+DailyRoutines,,,,"Allow to alter the summon size via options in the
+right-click menu of summons or the character
+self.",召喚獣またはキャラクター自身の右クリックメニューのオプションから、召喚獣のサイズを変更できるようにします。
+DailyRoutines,,,,"Allow to apply theme settings immediately
+without rebooting the game.",ゲームを再起動せずにテーマ設定を即座に適用できるようにします。
+DailyRoutines,,,,"Allow to assign any icon to a macro using the
+command /pdr micon <icon ID>.",コマンド /pdr micon <icon ID> を使用して、マクロに任意のアイコンを割り当てられるようにします。
+DailyRoutines,,,,Allow to batch store in the Armoire.,愛蔵品キャビネットにまとめて収納できるようにします。
+DailyRoutines,,,,"Allow to batch use stackable items via an option
+in the right-click menu of items.",アイテムの右クリックメニューのオプションから、スタック可能なアイテムをまとめて使用できるようにします。
+DailyRoutines,,,,"Allow to create one-click presets for seal
+exchange. The feature comes with a command
+""/pdr gce"" to execute a exchange preset or
+exchange for a specific item.","軍票交換用のワンクリックプリセットを作成できるようにします。この機能には、交換プリセットを実行したり、特定のアイテムと交換したりするためのコマンド ""/pdr gce"" が含まれます。"
+DailyRoutines,,,,"Allow to customize the information in Target Info
+while targeting.",ターゲット中にターゲット情報に表示する情報をカスタマイズできるようにします。
+DailyRoutines,,,,"Allow to customize the interface scaling of input
+method editors for accessible texts.",入力可能なテキストの入力メソッドエディターのインターフェース倍率をカスタマイズできるようにします。
+DailyRoutines,,,,"Allow to customize the number of recruitment
+per page in Party Finder. 100 per page at
+maximum.",パーティ募集で1ページあたりの募集数をカスタマイズできるようにします。最大で1ページあたり100件です。
+DailyRoutines,,,,"Allow to customize the number of recruitment per
+page in Party Finder. 100 per page at maximum.",パーティ募集で1ページあたりの募集数をカスタマイズできるようにします。最大で1ページあたり100件です。
+DailyRoutines,,,,"Allow to customize the queue time for a specific
+or all the actions. The queue time is the duration
+that an action could be queued before the next
+global cooldown.",特定のアクションまたはすべてのアクションの先行入力時間をカスタマイズできるようにします。先行入力時間とは、次のグローバルクールダウンの前にアクションを先行入力できる時間のことです。
+DailyRoutines,,,,"Allow to expert deliver items in batch and set a
+default tab for the Expert Delivery interface.",稀少品調達でアイテムをまとめて納品でき、稀少品調達インターフェースのデフォルトタブを設定できるようにします。
+DailyRoutines,,,,"Allow to forward the emote frame by frame while
+editing a portrait.",ポートレート編集中にエモートをコマ送りできるようにします。
+DailyRoutines,,,,"Allow to keep targeting even when the target is
+out of range and to target via the Focus Target
+interface. Targeting won't be canceled as long as
+the data related to the target is still recorded in
+memory.",ターゲットが範囲外になってもターゲットを維持でき、フォーカスターゲットインターフェース経由でターゲットできるようにします。ターゲットに関するデータがメモリに記録されている限り、ターゲットは解除されません。
+DailyRoutines,,,,"Allow to reset enmity of all the Striking Dummies
+by resetting any of them, and provide a
+command /pdr resetallsd for manually resetting.",いずれかの木人をリセットすることで、すべての木人の敵対心をリセットできるようにし、手動でリセットするためのコマンド /pdr resetallsd を提供します。
+DailyRoutines,,,,"Allow to save an unlimited number of chat filters
+and apply filters to chat tabs via the
+configuration interface or the right-click menu.",チャットフィルターを無制限に保存でき、設定インターフェースまたは右クリックメニューからチャットタブにフィルターを適用できるようにします。
+DailyRoutines,,,,"Allow to save more Blue Mage active sets in the
+new floating window next to Blue Magic
+Spellbook, and provide a command /pdr
+exblueset to switch among the active sets.","青魔道書の横にある新しいフローティングウィンドウに、より多くの青魔道士のアクティブセットを保存できるようにし、アクティブセットを切り替えるためのコマンド /pdr
+exblueset を提供します。"
+DailyRoutines,,,,Allow to send and receive /tell in duty.,コンテンツ内で /tell を送受信できるようにします。
+DailyRoutines,,,,"Allow to set the frame rate cap to any value
+rather than the several fixed options provided by
+the game. The feature comes with real-time
+statistics in Server Info Bar and a vanilla-style
+shortcut to adjust the frame rate cap on the fly.",フレームレートの上限を、ゲームが提供するいくつかの固定オプションではなく、任意の値に設定できるようにします。この機能には、サーバー情報バーでのリアルタイム統計と、その場でフレームレート上限を調整できるバニラ風ショートカットが含まれます。
+DailyRoutines,,,,"Allow to split items into groups containing a
+specified number of items via an option in the
+right-click menu or premade presets.",右クリックメニューのオプションまたは作成済みプリセットを使用して、アイテムを指定した数ずつのグループに分割できるようにします。
+DailyRoutines,,,,Allow To Teleport To The Current Aetheryte Or Shard,現在のエーテライトまたはシャードへのテレポ
+DailyRoutines,,,,"Allow users to teleport to the aetheryte or
+aethernet shard they're currently at.",ユーザーが現在いるエーテライトまたは都市内エーテライトにテレポできるようにします。
+DailyRoutines,,,,Alphascape V3.0 Helper,アルファスケープ V3.0 ヘルパー
+DailyRoutines,,,,Always Collectable If Available,収集可能な場合は常に収集品
+DailyRoutines,,,,"Always display detailed remaining time for status
+and shorten the interval between updates after
+proper configurations.",適切に設定すると、ステータスの詳細な残り時間を常に表示し、更新間隔を短縮します。
+DailyRoutines,,,,Always display UI,常にUIを表示
+DailyRoutines,,,,Always Targetable,常にターゲット可能
+DailyRoutines,,,,anemos,
+DailyRoutines,,,,"Apply custom aliases for in-game commands
+after proper configurations.",適切に設定すると、ゲーム内コマンドにカスタムエイリアスを適用します。
+DailyRoutines,,,,ardorum,
+DailyRoutines,,,,Assistance,支援
+DailyRoutines,,,,AtmoOmen,
+DailyRoutines,,,,Attempted Times:,試行回数:
+DailyRoutines,,,,Auth,
+DailyRoutines,,,,Authentication,認証
+DailyRoutines,,,,Authentication Notification,認証通知
+DailyRoutines,,,,Author: AtmoOmen,
+DailyRoutines,,,,Author: AtmoOmen / KirisameVanilla,
+DailyRoutines,,,,Author: Bill,
+DailyRoutines,,,,Author: BoxingBunny,
+DailyRoutines,,,,Author: Cindy-Master,
+DailyRoutines,,,,Author: Cyf5119,
+DailyRoutines,,,,Author: decorwdyun,
+DailyRoutines,,,,Author: Due,
+DailyRoutines,,,,Author: Errer,
+DailyRoutines,,,,Author: ErxCharlotte,
+DailyRoutines,,,,Author: Fragile,
+DailyRoutines,,,,Author: Fragile / AtmoOmen,
+DailyRoutines,,,,Author: HaKu,
+DailyRoutines,,,,Author: HSS,
+DailyRoutines,,,,Author: HSS / Xww,
+DailyRoutines,,,,Author: JiaXX,
+DailyRoutines,,,,Author: KirisameVanilla,
+DailyRoutines,,,,Author: Marsh,
+DailyRoutines,,,,Author: Middo,
+DailyRoutines,,,,Author: Middo / Xww,
+DailyRoutines,,,,Author: Nukoooo,
+DailyRoutines,,,,Author: Nyy / YLCHEN,
+DailyRoutines,,,,Author: Ponta,
+DailyRoutines,,,,Author: qingsiweisan,
+DailyRoutines,,,,Author: Rorinnn,
+DailyRoutines,,,,Author: Shiyuvi,
+DailyRoutines,,,,Author: Shiyuvi / AtmoOmen,
+DailyRoutines,,,,Author: Siren,
+DailyRoutines,,,,Author: status102,
+DailyRoutines,,,,Author: ToxicStar,
+DailyRoutines,,,,Author: Veever,
+DailyRoutines,,,,Author: Wotou,
+DailyRoutines,,,,Author: XSZYYS,
+DailyRoutines,,,,Author: Xww,
+DailyRoutines,,,,Author: yamiYori,
+DailyRoutines,,,,Author: Yangdoubao,
+DailyRoutines,,,,Author: Yarukon,
+DailyRoutines,,,,Author: YLCHEN,
+DailyRoutines,,,,Author: 逆光,
+DailyRoutines,,,,Author: 逆光 / Bill,
+DailyRoutines,,,,Author: 逆光 / Nukoooo,
+DailyRoutines,,,,Author: 那年雪落,
+DailyRoutines,,,,"Auto ""Offensive Aria""##BardOffensiveAria","自動 ""Offensive Aria""##BardOffensiveAria"
+DailyRoutines,,,,Auto Accept Party Invitation,パーティ招待の自動承認
+DailyRoutines,,,,Auto Active Time Maneuvers,アクティブタイムマヌーバの自動化
+DailyRoutines,,,,Auto add chat prefixes and suffixes,チャットの接頭辞と接尾辞の自動追加
+DailyRoutines,,,,Auto Adjust Battle Effect Visibility,バトルエフェクト表示の自動調整
+DailyRoutines,,,,Auto Adjust Signs,マーカーの自動調整
+DailyRoutines,,,,Auto Adventurer In Need Notification,不足ロールボーナスの自動通知
+DailyRoutines,,,,Auto Aetherial Reduction,精製の自動化
+DailyRoutines,,,,Auto Aetheric Mimicry,エーテルコピーの自動化
+DailyRoutines,,,,Auto Allow Multiple Game Instances,複数ゲームインスタンスの自動許可
+DailyRoutines,,,,"Auto avoid and change snipe quests into
+complete when starting snipe quests.",スナイプクエスト開始時に自動で回避し、クエストを完了に変更します。
+DailyRoutines,,,,Auto Block Fire Or Blizzard,ファイアまたはブリザドの自動ブロック
+DailyRoutines,,,,Auto Block Pop-ups,ポップアップの自動ブロック
+DailyRoutines,,,,Auto Block Solid Reason And Ageless Words,Solid ReasonとAgeless Wordsの自動ブロック
+DailyRoutines,,,,Auto Block System Announcement,システムアナウンスの自動ブロック
+DailyRoutines,,,,Auto Block Unnecessary Pop-ups,不要なポップアップの自動ブロック
+DailyRoutines,,,,Auto Cancel Cast,詠唱の自動キャンセル
+DailyRoutines,,,,"Auto cancel cast when the target is dead or
+cannot be selected.",ターゲットが死亡しているか選択できない場合、詠唱を自動でキャンセルします。
+DailyRoutines,,,,"Auto cancel cast when the target is dead or cannot
+be selected.",ターゲットが死亡しているか選択できない場合、詠唱を自動でキャンセルします。
+DailyRoutines,,,,Auto Cancel Mount Cast,マウント詠唱の自動キャンセル
+DailyRoutines,,,,Auto Cancel NPC Emotes,NPCエモートの自動キャンセル
+DailyRoutines,,,,"Auto cancel NPC emotes and the waiting time
+they caused during cutscenes.",カットシーン中のNPCエモートと、それによって生じる待ち時間を自動でキャンセルします。
+DailyRoutines,,,,Auto Cancel NPC Fade-in And Fade-out,NPCのフェードインとフェードアウトの自動キャンセル
+DailyRoutines,,,,Auto Cancel NPC Turn And Sight Adjustments,NPCの振り向きと視線調整の自動キャンセル
+DailyRoutines,,,,Auto Cancel Star Contributor,スターコントリビューターの自動解除
+DailyRoutines,,,,Auto Chaotic Alliance Bonus Notification,滅アライアンスレイド・ボーナスの自動通知
+DailyRoutines,,,,Auto Chat Bot Reply,チャットボットの自動返信
+DailyRoutines,,,,Auto Check Beast Settings,ビースト設定の自動確認
+DailyRoutines,,,,Auto Check Self Food Status,自分の食事効果の自動確認
+DailyRoutines,,,,Auto Claim Trophy Crystals,トロフィークリスタルの自動受け取り
+DailyRoutines,,,,Auto Clear Teleportation Stuck,テレポ中のスタック自動解消
+DailyRoutines,,,,"Auto click the ""Continue"" button when the Item
+Appraisal Result interface appears",アイテム鑑定結果のインターフェースが表示されたら、「続行」ボタンを自動でクリックします。
+DailyRoutines,,,,"Auto clicks the confirm button when the quest
+access interface appears",クエスト受注インターフェースが表示されたら、確認ボタンを自動でクリックします。
+DailyRoutines,,,,"Auto clicks the confirm button when the quest
+complete interface appears",クエスト完了インターフェースが表示されたら、確認ボタンを自動でクリックします。
+DailyRoutines,,,,Auto Collect Coffers,宝箱の自動回収
+DailyRoutines,,,,Auto Collect Subaquatic Voyages,サブマリンボイジャーの自動回収
+DailyRoutines,,,,Auto Commands While Joining & Leaving,参加時と退出時の自動コマンド
+DailyRoutines,,,,Auto Commend Party Member,パーティメンバーの自動MIP推薦
+DailyRoutines,,,,Auto Complete Hunting Log,討伐手帳の自動完了
+DailyRoutines,,,,"Auto completely FATEs in specified areas
+according to presets made by the user after
+proper configurations and clicking start.",適切に設定して開始をクリックすると、ユーザーが作成したプリセットに従って、指定したエリアのFATEを自動で完了させます。
+DailyRoutines,,,,"Auto completely FATEs in specified areas according
+to presets made by the user after proper
+configurations and clicking start.",適切に設定して開始をクリックすると、ユーザーが作成したプリセットに従って、指定したエリアのFATEを自動で完了させます。
+DailyRoutines,,,,Auto Confirm Interaction In Duty,コンテンツ内インタラクトの自動確認
+DailyRoutines,,,,Auto Confirm Materia Meld & Retrieval,マテリア装着と回収の自動確認
+DailyRoutines,,,,"Auto confirm Materia melding/retrieval/meld
+request and remove delay restrictions before and
+after melding",マテリア装着／回収／装着依頼を自動で確認し、装着前後の遅延制限を解除します。
+DailyRoutines,,,,Auto Confirm Portrait Update,ポートレート更新の自動確認
+DailyRoutines,,,,Auto Confirm Quest Acceptance,クエスト受注の自動確認
+DailyRoutines,,,,Auto Confirm Quest Result,クエスト完了の自動確認
+DailyRoutines,,,,Auto confirm the commencing duty window,コンテンツ開始ウィンドウを自動で承認します。
+DailyRoutines,,,,Auto Convert Texts With Coordinates,座標付きテキストの自動変換
+DailyRoutines,,,,Auto Cosmic Fortune,コズミックフォーチュンの自動実行
+DailyRoutines,,,,Auto Countdown Notification,カウントダウンの自動通知
+DailyRoutines,,,,Auto Critical & Direct Hit Notification,クリティカル＆ダイレクトヒットの自動通知
+DailyRoutines,,,,Auto Crystal Tower Striker,クリスタルタワー・ストライカーの自動化
+DailyRoutines,,,,Auto Cuff-a-Cur,Cuff-a-Curの自動化
+DailyRoutines,,,,Auto Cutscene Finishing Notification,カットシーン終了の自動通知
+DailyRoutines,,,,Auto Dance Combo,ダンスコンボの自動化
+DailyRoutines,,,,Auto Diadem Weather Notification,ディアデム天候の自動通知
+DailyRoutines,,,,Auto Disable Battle Music,戦闘BGMの自動無効化
+DailyRoutines,,,,Auto Discard Items,アイテムの自動廃棄
+DailyRoutines,,,,Auto Dismount,マウントの自動解除
+DailyRoutines,,,,Auto Display Character Hitbox,キャラクターの当たり判定の自動表示
+DailyRoutines,,,,Auto Display Hidden Casts,隠れた詠唱の自動表示
+DailyRoutines,,,,Auto Display IDs,IDの自動表示
+DailyRoutines,,,,Auto Display Item Info At NPCs,NPCでのアイテム情報の自動表示
+DailyRoutines,,,,Auto Display Mitigation Details,軽減詳細の自動表示
+DailyRoutines,,,,Auto Display MSQ Progress,メインクエスト進行度の自動表示
+DailyRoutines,,,,Auto Display Ready Check Remaining Time,レディチェック残り時間の自動表示
+DailyRoutines,,,,Auto Duty Commence,コンテンツ開始の自動承認
+DailyRoutines,,,,Auto Duty Commencement Notification,コンテンツ開始確認の自動通知
+DailyRoutines,,,,Auto Duty Info Notification,コンテンツ情報の自動通知
+DailyRoutines,,,,Auto Duty Start Notification,コンテンツ開始の自動通知
+DailyRoutines,,,,Auto Earth's Reply,Earth's Replyの自動使用
+DailyRoutines,,,,Auto Enable Attack,オートアタックの自動有効化
+DailyRoutines,,,,"Auto enable Auto-Attack for all jobs when
+entering combat",戦闘開始時に、全ジョブのオートアタックを自動で有効にします。
+DailyRoutines,,,,Auto Enable Quick Gathering,クイックギャザリングの自動有効化
+DailyRoutines,,,,Auto Expert Delivery,稀少品調達の自動化
+DailyRoutines,,,,Auto Extract Materia,マテリア精製の自動化
+DailyRoutines,,,,Auto FATE,FATEの自動化
+DailyRoutines,,,,Auto FATE Bonus Notification,FATEボーナスの自動通知
+DailyRoutines,,,,Auto FATE Sync,FATEへの自動レベルシンク
+DailyRoutines,,,,Auto FC Workshop Deliver Items,FC製作施設へのアイテム自動納品
+DailyRoutines,,,,Auto Filter Log Message,ログメッセージの自動フィルター
+DailyRoutines,,,,"Auto finish all of today's Jumbo Cactpot after
+opening its interface",ジャンボ・くじテンダーの画面を開いた後、本日分をすべて自動で完了します。
+DailyRoutines,,,,"Auto finish all of today's Mini Cactpot after
+opening its interface",ミニ・くじテンダーの画面を開いた後、本日分をすべて自動で完了します。
+DailyRoutines,,,,Auto Finish Snipe Quest,スナイプクエストの自動完了
+DailyRoutines,,,,Auto Finish Tradecraft Leves,製作リーヴの自動完了
+DailyRoutines,,,,Auto Force Actions To Camera Direction,アクション方向のカメラへの自動強制
+DailyRoutines,,,,Auto Game Config Backup,ゲーム設定の自動バックアップ
+DailyRoutines,,,,Auto Gardening,園芸の自動化
+DailyRoutines,,,,Auto Gather In Diadem,ディアデムでの自動採集
+DailyRoutines,,,,Auto Gather In Island Sanctuary ,無人島での自動採集
+DailyRoutines,,,,Auto Gil Trade,ギル取引の自動化
+DailyRoutines,,,,Auto Hide Exp Bar,経験値バーの自動非表示
+DailyRoutines,,,,Auto Hide Game Objects,ゲームオブジェクトの自動非表示
+DailyRoutines,,,,Auto Highlight Cursor,カーソルの自動ハイライト
+DailyRoutines,,,,Auto Highlight Map Flag,マップフラグの自動ハイライト
+DailyRoutines,,,,Auto Highlight Quest Object,クエスト対象の自動ハイライト
+DailyRoutines,,,,Auto Highlight Sprint,スプリントの自動ハイライト
+DailyRoutines,,,,Auto Highlight Status Action,ステータスアクションの自動ハイライト
+DailyRoutines,,,,Auto Hold Party Finder Interface,パーティ募集画面の自動保持
+DailyRoutines,,,,Auto Hold Teleportation In Combat,戦闘中のテレポの自動保留
+DailyRoutines,,,,Auto Holmgang Self,自分へのホルムギャング自動使用
+DailyRoutines,,,,Auto Ignore Lvl And Job Warnings While Purchasing,購入時のレベル・ジョブ警告の自動スキップ
+DailyRoutines,,,,Auto Ignore Minimum Window Size,ウィンドウ最小サイズ制限の自動スキップ
+DailyRoutines,,,,Auto Ignore Portrait Restrictions,ポートレート制限の自動スキップ
+DailyRoutines,,,,Auto Initiate FATE,FATEの自動開始
+DailyRoutines,,,,Auto Item Appraisal,アイテム鑑定の自動化
+DailyRoutines,,,,Auto Item Level Check,アイテムレベルチェックの自動化
+DailyRoutines,,,,Auto Join Novice Network,ビギナーチャンネルへの自動参加
+DailyRoutines,,,,Auto Jumbo Cactpot,ジャンボ・くじテンダーの自動化
+DailyRoutines,,,,Auto Keybound Brawler,キーバウンドブローラーの自動化
+DailyRoutines,,,,Auto Leave Duty,コンテンツからの自動退出
+DailyRoutines,,,,Auto leave non-cross-world party,クロスワールドではないパーティから自動で離脱します。
+DailyRoutines,,,,Auto Leve Allowance Notification,リーヴ受注権の自動通知
+DailyRoutines,,,,Auto List Dye Colours,染色カラー一覧の自動表示
+DailyRoutines,,,,Auto Lock Game Window,ゲームウィンドウの自動ロック
+DailyRoutines,,,,Auto Login,自動ログイン
+DailyRoutines,,,,Auto Login Notification,ログインの自動通知
+DailyRoutines,,,,Auto Logout,自動ログアウト
+DailyRoutines,,,,Auto Lucid Dreaming,ルーシッドドリームの自動使用
+DailyRoutines,,,,Auto Make Pasted Texts Single Line,貼り付けテキストの自動1行化
+DailyRoutines,,,,Auto Manage Glamour Dresser,ミラージュドレッサーの自動管理
+DailyRoutines,,,,Auto Manage Interrupt Actions,妨害アクションの自動管理
+DailyRoutines,,,,Auto Manage Peloton,プロトンの自動管理
+DailyRoutines,,,,Auto Mark Aether Currents,風脈の泉の自動マーク
+DailyRoutines,,,,Auto Mark Map Link,マップリンクの自動マーク
+DailyRoutines,,,,Auto Max In Number Input,数値入力の自動最大化
+DailyRoutines,,,,Auto Maximize Window,ウィンドウの自動最大化
+DailyRoutines,,,,Auto Meditation & Form Shift,黙想とフォームシフトの自動使用
+DailyRoutines,,,,Auto Meld Materia,マテリア装着の自動化
+DailyRoutines,,,,Auto Mentor Roulette Progress Notification,メンタールーレット進行度の自動通知
+DailyRoutines,,,,Auto Mini Cactpot,ミニ・くじテンダーの自動化
+DailyRoutines,,,,Auto Moogle's Paw,Moogle's Pawの自動化
+DailyRoutines,,,,Auto Motif,自動モチーフ
+DailyRoutines,,,,Auto Mount,マウント自動騎乗
+DailyRoutines,,,,Auto Mount Action,マウントアクションの自動化
+DailyRoutines,,,,Auto Move Pet To Center,ペットを中心へ自動移動
+DailyRoutines,,,,Auto Move The Pet,ペットの自動移動
+DailyRoutines,,,,Auto Ninjutsu,忍術の自動化
+DailyRoutines,,,,"Auto notifies when the recruitment ends for any
+reason",何らかの理由で募集が終了したときに自動で通知します。
+DailyRoutines,,,,Auto Open Coffers Nearby,近くの宝箱の自動開封
+DailyRoutines,,,,Auto Open Treasure Coffer,宝箱の自動開封
+DailyRoutines,,,,"Auto or semi-auto finish garden related
+operations, including planting, harvesting,
+fertilization, care, etc",植え付け、収穫、施肥、手入れなど、園芸関連の操作を自動または半自動で完了します。
+DailyRoutines,,,,"Auto Orient For ""Rage""##BerserkerRageAutoFace","""Rage""に合わせて自動で方向転換##BerserkerRageAutoFace"
+DailyRoutines,,,,Auto Orient To Camera Direction,カメラ方向への自動方向転換
+DailyRoutines,,,,Auto Out On A Limb,Out On A Limbの自動化
+DailyRoutines,,,,Auto Peloton,プロトンの自動使用
+DailyRoutines,,,,Auto Pet Following,ペット追従の自動化
+DailyRoutines,,,,Auto Pop Up Loot Interface,ルート画面の自動ポップアップ
+DailyRoutines,,,,Auto Prevent Duplicate Actions,重複アクションの自動防止
+DailyRoutines,,,,Auto prevent game exiting from lobby errors,ロビーエラーによるゲーム終了を自動で防ぎます。
+DailyRoutines,,,,"Auto purchase items from the specified shop list
+after config setup and clicking start",設定後、開始をクリックすると、指定したショップリストからアイテムを自動で購入します。
+DailyRoutines,,,,"Auto re-requests when the market board item
+search result is ""Please wait""","マーケットボードのアイテム検索結果が""Please wait""のとき、自動で再リクエストします。"
+DailyRoutines,,,,Auto Read Dialogue Aloud,会話の自動読み上げ
+DailyRoutines,,,,Auto Ready Check Notification,レディチェックの自動通知
+DailyRoutines,,,,Auto Recruitment End Notification,募集終了の自動通知
+DailyRoutines,,,,Auto Redirect Action Target,アクションターゲットの自動変更
+DailyRoutines,,,,Auto Redirect Ground-Targeted Actions,地面指定アクションのターゲット自動変更
+DailyRoutines,,,,Auto Refocus Target,ターゲットの自動再フォーカス
+DailyRoutines,,,,"Auto refocuses the target if the lost focus target
+appears again in duties",コンテンツ内で失ったフォーカスターゲットが再び現れたとき、自動で再フォーカスします。
+DailyRoutines,,,,Auto Refresh Market Search Results,マーケット検索結果の自動更新
+DailyRoutines,,,,Auto Refresh Party Recruitment,パーティ募集の自動更新
+DailyRoutines,,,,"Auto refreshes the recruitment board at a regular
+interval after opening it",募集ボードを開いた後、一定間隔で自動で更新します。
+DailyRoutines,,,,Auto Refuse Trade Request,トレード申請の自動拒否
+DailyRoutines,,,,Auto Register For Keybound Brawler,キーバウンドブローラーへの自動登録
+DailyRoutines,,,,Auto Remove Action Animation Lock,アクションのアニメーションロック自動解除
+DailyRoutines,,,,Auto Remove Login Cooldown,ログインクールダウンの自動解除
+DailyRoutines,,,,Auto Renew Recruitment,募集の自動継続
+DailyRoutines,,,,Auto Repair,自動修理
+DailyRoutines,,,,Auto Repeat Chat Message,チャットメッセージの自動繰り返し
+DailyRoutines,,,,Auto Repeat Shop Purchase,ショップ購入の自動繰り返し
+DailyRoutines,,,,Auto Replace Action Animation,アクションモーションの自動置換
+DailyRoutines,,,,Auto Replace Low Blow With Interject,ロウブロウのインタージェクトへの自動置換
+DailyRoutines,,,,Auto Replace Low Level Actions,低レベルアクションの自動置換
+DailyRoutines,,,,Auto Replace Race And Gender,種族と性別の自動置換
+DailyRoutines,,,,Auto Reset,自動リセット
+DailyRoutines,,,,Auto Reset Fishing Location Wariness,釣り場警戒の自動リセット
+DailyRoutines,,,,Auto Resume New Game+,ニューゲームプラスの自動再開
+DailyRoutines,,,,Auto Retainer Routines,リテイナー業務の自動化
+DailyRoutines,,,,Auto Retrieve Furniture,家具の自動回収
+DailyRoutines,,,,Auto Retrieve Gears Not In Sets,セット未登録装備の自動回収
+DailyRoutines,,,,Auto Retrieve Materia,マテリアの自動回収
+DailyRoutines,,,,Auto Reveal Treasure Location,宝の場所の自動表示
+DailyRoutines,,,,Auto Reveal Undiscovered Areas,未探索エリアの自動表示
+DailyRoutines,,,,Auto Revival Farm,リバイバルファームの自動化
+DailyRoutines,,,,"Auto select items and complete the submission
+when submitting items",アイテムを納品するとき、アイテムを自動で選択して納品を完了します。
+DailyRoutines,,,,Auto Sell Cards,カードの自動売却
+DailyRoutines,,,,Auto Send Messages As Schedule,スケジュール通りのメッセージ自動送信
+DailyRoutines,,,,Auto Shuttle Between Interfaces,画面間の自動移動
+DailyRoutines,,,,Auto Sightseeing Log,探索記帳の自動化
+DailyRoutines,,,,Auto Skip Cutscenes,カットシーンの自動スキップ
+DailyRoutines,,,,Auto skip cutscenes of feeding Chocobo,チョコボへの餌やりカットシーンを自動でスキップします。
+DailyRoutines,,,,Auto Skip Dialogs,会話の自動スキップ
+DailyRoutines,,,,"Auto skips all skippable cutscenes, and remove
+skip restrictions including but not limited to
+Main Scenario, Ocean Fishing, Crystalline
+Conflict.",スキップ可能なカットシーンをすべて自動でスキップし、メインクエスト、オーシャンフィッシング、クリスタラインコンフリクトを含むがこれらに限らないスキップ制限を解除します。
+DailyRoutines,,,,Auto Sort Items,アイテムの自動ソート
+DailyRoutines,,,,Auto Soulsow,ソウルソウの自動使用
+DailyRoutines,,,,Auto Spam Emote,エモート連打の自動化
+DailyRoutines,,,,Auto Spam Key,キー入力の自動連打
+DailyRoutines,,,,Auto Speed Multiplier,速度倍率の自動設定
+DailyRoutines,,,,Auto Split Items,アイテムの自動分割
+DailyRoutines,,,,Auto Stellar Sprint,ステラースプリントの自動使用
+DailyRoutines,,,,Auto Submit Items,アイテム納品の自動化
+DailyRoutines,,,,Auto Summon Companion,バディの自動呼び出し
+DailyRoutines,,,,Auto Summon Pet,ペットの自動召喚
+DailyRoutines,,,,Auto Switch Keyboard Layout,キーボードレイアウトの自動切替
+DailyRoutines,,,,Auto Tank Stance,タンクスタンスの自動化
+DailyRoutines,,,,Auto Track Players,プレイヤーの自動追跡
+DailyRoutines,,,,Auto Transmute Materia,マテリア変換の自動化
+DailyRoutines,,,,Auto Try Joining When Background,バックグラウンド時の参加自動試行
+DailyRoutines,,,,"Auto try to join the Novice Network after clicking
+""Start""","""Start""をクリックした後、ビギナーチャンネルへの参加を自動で試みます。"
+DailyRoutines,,,,Auto Umbral Soul,アンブラルソウルの自動使用
+DailyRoutines,,,,Auto Unlock All Orchestrions,すべてのオーケストリオンの自動解放
+DailyRoutines,,,,Auto Unlock Expert Delivery,稀少品調達の自動解放
+DailyRoutines,,,,"Auto unlock preview for all orchestrion rolls
+(marks all rolls as obtained)",すべてのオーケストリオン譜のプレビューを自動で解放します（すべての譜面を入手済みとしてマークします）。
+DailyRoutines,,,,Auto Unread Message Notification,未読メッセージの自動通知
+DailyRoutines,,,,Auto Use DoH/DoL Exp Manuals,ギャザラー・クラフター経験値マニュアルの自動使用
+DailyRoutines,,,,Auto Use Gatherer Role Actions,ギャザラーロールアクションの自動使用
+DailyRoutines,,,,Auto Use Quest Event Item,クエストイベントアイテムの自動使用
+DailyRoutines,,,,Auto Very Easy Quest Battles,クエストバトルを自動でベリーイージーに
+DailyRoutines,,,,"Automate or semi-automate retainer routines,
+including adjusting asking prices strategically,
+collecting explorations, managing gils and
+dispatching retainers to another settlement.",リテイナー業務を自動または半自動化します。出品価格の戦略的な調整、探索の回収、ギルの管理、別の拠点へのリテイナーの派遣を含みます。
+DailyRoutines,,,,"Automatically accept party invitations from
+players who satisfy certain conditions after
+proper configurations.",適切な設定を行った後、特定の条件を満たすプレイヤーからのパーティ招待を自動で承認します。
+DailyRoutines,,,,"Automatically accept party invitations from
+players who satisfy certain conditions after proper
+configurations.",適切な設定を行った後、特定の条件を満たすプレイヤーからのパーティ招待を自動で承認します。
+DailyRoutines,,,,"Automatically adjust the cast or recast time of
+the specified actions after proper configurations.",適切な設定を行った後、指定したアクションの詠唱時間またはリキャスト時間を自動で調整します。
+DailyRoutines,,,,"Automatically adjust the cast or recast time of the
+specified actions after proper configurations.",適切な設定を行った後、指定したアクションの詠唱時間またはリキャスト時間を自動で調整します。
+DailyRoutines,,,,"Automatically adjust the character speed under
+various circumstances by applying a dynamic
+multiplier. The feature comes with a command
+/pdrspeed for any temporary adjustment.",さまざまな状況に応じて、動的な倍率を適用してキャラクターの速度を自動で調整します。この機能には、一時的な調整用のコマンド /pdrspeed が付属しています。
+DailyRoutines,,,,"Automatically adjust the scaling and positioning
+of signs above player names after proper
+configurations.",適切な設定を行った後、プレイヤー名の上に表示されるサインの大きさと位置を自動で調整します。
+DailyRoutines,,,,"Automatically adjust the visibility settings of
+battle effects based on the area and the number
+of players nearby after proper configurations.",適切な設定を行った後、エリアと近くにいるプレイヤーの数に基づいて、戦闘エフェクトの表示設定を自動で調整します。
+DailyRoutines,,,,"Automatically and instantly cast ground-targeted
+action at the mouse pointer without requiring
+further confirmation",地面指定アクションを、さらなる確認なしにマウスポインターの位置へ自動で即座に発動します。
+DailyRoutines,,,,"Automatically apply a highlighted background at
+the cursor’s position in order to emphasize it.",カーソルの位置にハイライトされた背景を自動で適用し、強調します。
+DailyRoutines,,,,"Automatically apply a specified combination of
+race and gender on characters in certain
+combinations of race and gender after proper
+configurations.",適切な設定を行った後、種族と性別の特定の組み合わせのキャラクターに、指定した種族と性別の組み合わせを自動で適用します。
+DailyRoutines,,,,"Automatically batch meld materia to gear
+according to imported melding plans from
+external websites.",外部サイトからインポートした装着プランに従って、装備へのマテリア装着を自動で一括実行します。
+DailyRoutines,,,,"Automatically block ""Solid Reason"" and ""Ageless
+Words"" if the status ""Eureka Moment"" has been
+applied to the character.","ステータス""Eureka Moment""がキャラクターに付与されている場合、""Solid Reason""と""Ageless Words""を自動でブロックします。"
+DailyRoutines,,,,"Automatically block all the system
+announcements, which are the chat messages in
+purple.",紫色のチャットメッセージであるシステムアナウンスをすべて自動でブロックします。
+DailyRoutines,,,,"Automatically block pop-ups and their
+accompanying sound effects after proper
+configurations.",適切な設定を行った後、ポップアップとそれに伴う効果音を自動でブロックします。
+DailyRoutines,,,,"Automatically block the action ""ブリザド"" during
+the status ""アストラルファイア"" and the action ""ファイ
+ア"" during the status ""アンブラルブリザード"" in order
+to prevent misclicking if the current job is ""黒魔道
+士"".","現在のジョブが""黒魔道士""の場合、誤クリックを防ぐため、ステータス""アストラルファイア""中はアクション""ブリザド""を、ステータス""アンブラルブリザード""中はアクション""ファイア""を自動でブロックします。"
+DailyRoutines,,,,"Automatically block the action ""ブリザド"" during
+the status ""アストラルファイア"" and the action ""ファイア
+"" during the status ""アンブラルブリザード"" in order to
+prevent misclicking if the current job is ""黒魔道士"".","現在のジョブが""黒魔道士""の場合、誤クリックを防ぐため、ステータス""アストラルファイア""中はアクション""ブリザド""を、ステータス""アンブラルブリザード""中はアクション""ファイア""を自動でブロックします。"
+DailyRoutines,,,,"Automatically cancel mount cast in given
+scenarios after proper configurations.",適切な設定を行った後、指定したシナリオでマウントの詠唱を自動でキャンセルします。
+DailyRoutines,,,,"Automatically check the status of consumed
+food, and replenish specific food when the
+remaining time falls below the threshold",食べた食事の状態を自動で確認し、残り時間がしきい値を下回ったら特定の食事を補充します。
+DailyRoutines,,,,"Automatically check the status of consumed food,
+and replenish specific food when the remaining
+time falls below the threshold",食べた食事の状態を自動で確認し、残り時間がしきい値を下回ったら特定の食事を補充します。
+DailyRoutines,,,,"Automatically claim all the pending series
+rewards after accessing the Series Malmstones
+interface and clicking the Start button.",シリーズマルムストーンの画面にアクセスし、開始ボタンをクリックした後、保留中のシリーズ報酬をすべて自動で受け取ります。
+DailyRoutines,,,,"Automatically claim all the pending series rewards
+after accessing the Series Malmstones interface
+and clicking the Start button.",シリーズマルムストーンの画面にアクセスし、開始ボタンをクリックした後、保留中のシリーズ報酬をすべて自動で受け取ります。
+DailyRoutines,,,,"Automatically collect subaquatic voyages and
+deploy new ones. Provide inventory information
+of Ceruleum Tanks & Magitek Repair Materials
+and a button for auto collection in the voyage
+control panel. Introduce ETA prediction along
+with a optional shortcut notification. The
+automation process could be initiated via related
+buttons, the shortcut notification or the
+command ""/pdr submarine"".","潜水艦の航行を自動で回収し、新しい航行を出発させます。航行コントロールパネルに、青燐水タンクと魔導修理材の所持品情報と、自動回収用のボタンを提供します。到着予定時刻の予測と、任意のショートカット通知も導入します。自動化プロセスは、関連ボタン、ショートカット通知、またはコマンド ""/pdr submarine"" から開始できます。"
+DailyRoutines,,,,"Automatically command the pet to follow after
+combat if the pet is available.",ペットがいる場合、戦闘後にペットに自動で追従するよう命令します。
+DailyRoutines,,,,"Automatically commend the party member in the
+same role after a duty run.",コンテンツ終了後、同じロールのパーティメンバーを自動でMIP推薦します。
+DailyRoutines,,,,"Automatically complete all available entries in
+Sightseeing Log at the moment after clicking
+start. The feature comes with better search in
+Sightseeing Log.",開始をクリックした時点で、探索記帳の利用可能な項目をすべて自動で完了します。この機能には、探索記帳の検索機能の改善も含まれます。
+DailyRoutines,,,,"Automatically complete all available entries in
+Sightseeing Log at the moment after clicking start.
+The feature comes with better search in
+Sightseeing Log.",開始をクリックした時点で、探索記帳の利用可能な項目をすべて自動で完了します。この機能には、探索記帳の検索機能の改善も含まれます。
+DailyRoutines,,,,"Automatically complete all the monster hunting
+entries of the specified job or the specified Grand
+Company, except for those have to be complete
+in duties.","指定したジョブまたはグランドカンパニーの
+モンスター討伐手帳の項目をすべて自動で
+完了します。ただし、コンテンツ内で完了が
+必要なものを除きます。"
+DailyRoutines,,,,"Automatically complete all the monster hunting
+entries of the specified job or the specified Grand
+Company, except for those have to be complete in
+duties.","指定したジョブまたはグランドカンパニーの
+モンスター討伐手帳の項目をすべて自動で
+完了します。ただし、コンテンツ内で完了が
+必要なものを除きます。"
+DailyRoutines,,,,"Automatically confirm, proceed, or answer “Yes”
+to interaction prompts and similar dialogs in
+duty.","コンテンツ内で、インタラクションの確認や
+同様のダイアログに対して、自動で確認、進行、
+または「はい」と回答します。"
+DailyRoutines,,,,"Automatically confirm, proceed, or answer “Yes” to
+interaction prompts and similar dialogs in duty.","コンテンツ内で、インタラクションの確認や同様のダイアログに対して、
+自動で確認、進行、または「はい」と回答します。"
+DailyRoutines,,,,"Automatically continue progress of New Game+
+after logging in or leaving a duty if there is
+suspended progress available.","中断中の進行がある場合、ログイン後または
+コンテンツ退出後に、つづきを遊ぶニューゲーム＋の
+進行を自動で継続します。"
+DailyRoutines,,,,"Automatically converts incorrect case and
+full/half-case commands to correct commands
+when entering commands.","コマンド入力時に、大文字小文字の誤りや
+全角・半角の誤りがあるコマンドを、自動で
+正しいコマンドに変換します。"
+DailyRoutines,,,,Automatically correct all the inconsistency while initiating or ending a dive in order to prevent being unable to interact or being forcibly re-positioned by the server.,ダイブの開始時または終了時のあらゆる不整合を自動で修正し、インタラクトできなくなったり、サーバーによって強制的に位置が戻されたりするのを防ぎます。
+DailyRoutines,,,,"Automatically decline trade requests, send
+notification messages and execute additional
+custom text commands when receiving trade
+requests","トレード申請を自動で拒否し、通知
+メッセージを送信し、トレード申請を
+受けたときに、追加のカスタムテキスト
+コマンドを実行します。"
+DailyRoutines,,,,"Automatically disable battle music during a
+combat and keep playing BGM instead.","戦闘中は、自動でバトル音楽を無効にし、
+代わりにBGMを再生し続けます。"
+DailyRoutines,,,,"Automatically discard or sell stacks of items
+according to the presets.","プリセットに従って、アイテムのスタックを
+自動で破棄または売却します。"
+DailyRoutines,,,,"Automatically dismount while trying to execute
+an action that is not available when the character
+is mounting.","マウント騎乗中には実行できないアクションを
+実行しようとしたときに、自動でマウントを
+降ります。"
+DailyRoutines,,,,"Automatically display casts of all hidden actions
+at the time for better perception.","把握しやすくするため、非表示のアクションの
+キャストをすべてその時点で自動で表示します。"
+DailyRoutines,,,,"Automatically display casts of all hidden actions at
+the time for better perception.","把握しやすくするため、非表示のアクションのキャストを
+すべてその時点で自動で表示します。"
+DailyRoutines,,,,"Automatically display remaining time for Ready
+Check.","レディチェックの残り時間を
+自動で表示します。"
+DailyRoutines,,,,"Automatically display various internal IDs for
+items, weathers, status, actions, etc.","アイテム、天候、ステータス、アクションなどの
+各種内部IDを自動で表示します。"
+DailyRoutines,,,,"Automatically do the combo after executing
+""Standard Step"" and ""Technical Step"" if the
+current job is Dancer.","現在のジョブが踊り子の場合、「Standard Step」と
+「Technical Step」を実行した後、自動で
+コンボを行います。"
+DailyRoutines,,,,"Automatically do the combo after executing
+""Standard Step"" and ""Technical Step"" if the current
+job is Dancer.","現在のジョブが踊り子の場合、「Standard Step」と
+「Technical Step」を実行した後、自動で
+コンボを行います。"
+DailyRoutines,,,,"Automatically draw a customizable icon at the
+hitbox of the character, in order to better
+indicate the exact position.","正確な位置が分かりやすくなるよう、キャラクターの
+当たり判定にカスタマイズ可能なアイコンを
+自動で描画します。"
+DailyRoutines,,,,"Automatically draw a customizable icon at the
+hitbox of the character, in order to better indicate
+the exact position.","正確な位置が分かりやすくなるよう、キャラクターの
+当たり判定にカスタマイズ可能なアイコンを
+自動で描画します。"
+DailyRoutines,,,,"Automatically enable Level Sync while joining a
+FATE.","FATEに参加したときに、自動で
+レベルシンクを有効にします。"
+DailyRoutines,,,,"Automatically enable quick gathering in the
+gathering interface.","採集画面で、自動で一括採集を
+有効にします。"
+DailyRoutines,,,,"Automatically enable the stance after joining a
+duty, experiencing a wipe or leaving combat if
+the current job is a tank.","現在のジョブがタンクの場合、コンテンツ参加後、
+全滅後、または戦闘終了後に、自動で
+スタンスを有効にします。"
+DailyRoutines,,,,"Automatically execute ""Lucid Dreaming"" when
+the character's MP is below the given threshold.
+The module only works when 'Lucid Dreaming'
+has a meaningful impact on the current job.","キャラクターのMPが指定したしきい値を下回ったときに、
+自動で「Lucid Dreaming」を実行します。
+このモジュールは、「Lucid Dreaming」が現在のジョブにとって
+意味のある効果を持つ場合にのみ動作します。"
+DailyRoutines,,,,"Automatically execute ""Lucid Dreaming"" when the
+character's MP is below the given threshold. The
+module only works when 'Lucid Dreaming' has a
+meaningful impact on the current job.","キャラクターのMPが指定したしきい値を下回ったときに、
+自動で「Lucid Dreaming」を実行します。
+このモジュールは、「Lucid Dreaming」が現在のジョブにとって
+意味のある効果を持つ場合にのみ動作します。"
+DailyRoutines,,,,"Automatically execute ""Peloton"" if the current job
+is a ranged DPS.","現在のジョブが遠隔DPSの場合、自動で
+「Peloton」を実行します。"
+DailyRoutines,,,,"Automatically execute ""Soulsow"" after joining a
+duty, experiencing a wipe or leaving combat if
+the current job is Reaper.","現在のジョブがリーパーの場合、コンテンツ参加後、
+全滅後、または戦闘終了後に、自動で
+「Soulsow」を実行します。"
+DailyRoutines,,,,"Automatically execute ""Umbral Soul"" after joining
+a duty, experiencing a wipe or leaving combat if
+the current job is Black Mage.","現在のジョブが黒魔道士の場合、コンテンツ参加後、
+全滅後、または戦闘終了後に、自動で
+「Umbral Soul」を実行します。"
+DailyRoutines,,,,"Automatically execute Meditation actions and
+""Form Shift"" after joining a duty, experiencing a
+wipe or leaving combat if the current job is
+Monk.","現在のジョブがモンクの場合、コンテンツ
+参加後、全滅後、または戦闘終了後に、
+瞑想系アクションと「Form Shift」を
+自動で実行します。"
+DailyRoutines,,,,"Automatically execute Meditation actions and
+""Form Shift"" after joining a duty, experiencing a
+wipe or leaving combat if the current job is Monk.","現在のジョブがモンクの場合、コンテンツ参加後、全滅後、
+または戦闘終了後に、瞑想系アクションと
+「Form Shift」を自動で実行します。"
+DailyRoutines,,,,"Automatically execute Motif actions after joining
+a duty, experiencing a wipe or leaving combat if
+the current job is Pictomancer.","現在のジョブがピクトマンサーの場合、コンテンツ
+参加後、全滅後、または戦闘終了後に、
+モチーフ系アクションを自動で実行します。"
+DailyRoutines,,,,"Automatically execute Motif actions after joining a
+duty, experiencing a wipe or leaving combat if the
+current job is Pictomancer.","現在のジョブがピクトマンサーの場合、コンテンツ
+参加後、全滅後、または戦闘終了後に、
+モチーフ系アクションを自動で実行します。"
+DailyRoutines,,,,"Automatically execute mount actions while
+riding on specified mounts after proper
+configurations.","適切に設定した後、指定したマウントに騎乗中に、
+マウントアクションを自動で
+実行します。"
+DailyRoutines,,,,"Automatically execute mount actions while riding
+on specified mounts after proper configurations.","適切に設定した後、指定したマウントに騎乗中に、
+マウントアクションを自動で実行します。"
+DailyRoutines,,,,"Automatically execute Stellar Sprint in the zones
+related to Cosmic Exploration while the current
+job is a Disciple of the Land or Hand.","現在のジョブがギャザラーまたはクラフターの場合、
+コスモエクスプローラー関連ゾーンで、自動で
+「Stellar Sprint」を実行します。"
+DailyRoutines,,,,"Automatically execute the action ""Earth's Reply""
+when the status ""Earth Resonance"" is about to
+end in PvP areas.","PvPエリアで、ステータス「Earth Resonance」が
+終了間近になったときに、アクション
+「Earth's Reply」を自動で実行します。"
+DailyRoutines,,,,"Automatically execute the action ""Earth's Reply""
+when the status ""Earth Resonance"" is about to end
+in PvP areas.","PvPエリアで、ステータス「Earth Resonance」が
+終了間近になったときに、アクション
+「Earth's Reply」を自動で実行します。"
+DailyRoutines,,,,"Automatically execute the teleportation last time
+if users get stuck in teleportation with the
+message ""別のテレポが実行中のため、テレポはできませ
+ん。"".","「別のテレポが実行中のため、テレポはできません。」という
+メッセージが表示されてテレポが止まってしまった場合に、
+前回のテレポを自動で再実行します。"
+DailyRoutines,,,,"Automatically extract materia from fully
+spiritbond gears and allow to manually extract
+materia from all available gears with one click.","錬精度が最大になった装備から自動でマテリアを
+取り出し、利用可能なすべての装備からワンクリックで
+手動でマテリアを取り出すこともできます。"
+DailyRoutines,,,,"Automatically farm Crystal Tower Striker
+repeatedly after clicking start in Gold Saucer or
+interacting with relevant machines.","ゴールドソーサーで開始をクリックするか、関連する
+筐体を調べた後、自動で繰り返し
+「Crystal Tower Striker」を周回します。"
+DailyRoutines,,,,"Automatically farm Cuff-a-Cur repeatedly after
+clicking start in Gold Saucer or interacting with
+relevant machines.","ゴールドソーサーで開始をクリックするか、関連する
+筐体を調べた後、自動で繰り返し
+「Cuff-a-Cur」を周回します。"
+DailyRoutines,,,,"Automatically farm for revival achievements. One
+will pull high-level enemies as much as possible,
+the other will revive the puller after the puller
+dies. The module requires two players
+simultaneously and proper configurations before
+running it.","蘇生のアチーブメントを自動で稼ぎます。一人が
+できるだけ多くの高レベルな敵を引きつけ、もう一人が
+引きつけた人が倒れた後に蘇生します。このモジュールは
+2人のプレイヤーが同時に使用し、実行前に適切に
+設定しておく必要があります。"
+DailyRoutines,,,,"Automatically farm Monster Toss repeatedly after
+clicking start in Gold Saucer or interacting with
+relevant machines.","ゴールドソーサーで開始をクリックするか、関連する
+筐体を調べた後、自動で繰り返し
+「Monster Toss」を周回します。"
+DailyRoutines,,,,Automatically farm Monster Toss repeatedly after clicking start in Gold Saucer or interacting with relevant machines.,ゴールドソーサーで開始をクリックするか、関連する筐体を調べた後、自動で繰り返し「Monster Toss」を周回します。
+DailyRoutines,,,,"Automatically farm Moogle's Paw repeatedly after
+clicking start in Gold Saucer or interacting with
+relevant machines.","ゴールドソーサーで開始をクリックするか、関連する
+筐体を調べた後、自動で繰り返し
+「Moogle's Paw」を周回します。"
+DailyRoutines,,,,"Automatically farm Out on a Limb repeatedly after
+clicking start in Chocobo Square.","チョコボスクエアで開始をクリックした後、自動で
+繰り返し「Out on a Limb」を周回します。"
+DailyRoutines,,,,"Automatically fire ""Magitek Cannon"" at the
+real-time optimal location while mounting
+""Magitek Reaper"" in the duty ""The Praetorium"".","コンテンツ「The Praetorium」で「Magitek Reaper」に
+騎乗中に、リアルタイムで最適な位置へ自動で
+「Magitek Cannon」を発射します。"
+DailyRoutines,,,,"Automatically gather specified materials for
+skyward score or leveling up after configurations
+and clicking start in The Diadem.","ディアデム諸島で設定して開始をクリックした後、
+スカイワードスコアやレベル上げのために、指定した
+素材を自動で採集します。"
+DailyRoutines,,,,"Automatically gathering all the specified materials
+in Island Sanctuary after proper configurations.","適切に設定した後、無人島開拓地で指定した素材を
+すべて自動で採集します。"
+DailyRoutines,,,,"Automatically get gear repaired when the
+condition is below the given threshold, and
+remove all the animation lock before and after
+the repair.","耐久度が指定したしきい値を下回ったときに、
+自動で装備を修理し、修理の前後に
+あるすべてのアニメーションロックを
+取り除きます。"
+DailyRoutines,,,,"Automatically HD-enhance blurry texts with
+improved rendering in some interfaces, in order
+to make them more accessible.","読みやすくするため、一部の画面で
+レンダリングを改善し、ぼやけたテキストを
+自動でHD化します。"
+DailyRoutines,,,,"Automatically hide the experience bar if the
+current job reaches its full level.","現在のジョブが最大レベルに達している場合、
+経験値バーを自動で非表示にします。"
+DailyRoutines,,,,"Automatically hide the models of specified
+objects after proper configurations, in order to
+improve the game performance and prioritize the
+rendering of important objects.","ゲームのパフォーマンスを向上させ、重要なオブジェクトの
+レンダリングを優先するため、適切に設定した後、
+指定したオブジェクトのモデルを自動で
+非表示にします。"
+DailyRoutines,,,,"Automatically hide unnecessary popups such as
+achievements approaching completion,
+Fellowship Notifications, Playguide,
+Recommended Duties, and Active Help.","達成間近のアチーブメント、フェローシップ通知、
+プレイガイド、おすすめコンテンツ、アクティブヘルプなどの
+不要なポップアップを自動で
+非表示にします。"
+DailyRoutines,,,,"Automatically highlight all the ""Iron Leg Traps""
+that should be avoided and all the mimic coffers
+that should be engaged in the duty ""Hullbreaker
+Isle"".","コンテンツ「Hullbreaker Isle」で、避けるべき
+「Iron Leg Traps」と、戦うべきミミックの
+宝箱をすべて自動で
+ハイライトします。"
+DailyRoutines,,,,"Automatically highlight all the bombs along with
+radius drawings during the duty ""Alexander - The
+Cuff of the Father"". Additionally, make all the
+bombs untargetable if the character is not
+mounting ""Magitek Gobwalker G-VII"".","コンテンツ「Alexander - The Cuff of the Father」で、
+範囲描画とともにすべての爆弾を自動でハイライトします。
+さらに、キャラクターが「Magitek Gobwalker G-VII」に
+騎乗していない場合は、すべての爆弾を
+ターゲットできないようにします。"
+DailyRoutines,,,,"Automatically highlight all the objects of
+ongoing quests in the surrounding area for
+better perception.","把握しやすくするため、周囲で進行中のクエストの
+対象オブジェクトをすべて自動で
+ハイライトします。"
+DailyRoutines,,,,"Automatically highlight all the party members
+with the status ""Terror"" during the duty ""The
+Striking Tree (Hard)"".","コンテンツ「The Striking Tree (Hard)」で、ステータス
+「Terror」が付いたパーティメンバーをすべて
+自動でハイライトします。"
+DailyRoutines,,,,"Automatically highlight an action when its
+corresponding status is going to expire.","対応するステータスが切れそうになったときに、
+アクションを自動でハイライトします。"
+DailyRoutines,,,,"Automatically highlight the action ""スプリント"" if
+it's not in combat in duty.","コンテンツ内で戦闘中でない場合、アクション
+「スプリント」を自動でハイライトします。"
+DailyRoutines,,,,"Automatically highlight the correct coral
+formation along with a notification in the duty
+""Sastasha"".","コンテンツ「Sastasha」で、正しいサンゴの
+組み合わせを、通知とともに自動で
+ハイライトします。"
+DailyRoutines,,,,"Automatically highlight the party member
+trapped in ""Ama-no-iwato"" during the duty ""The
+Pool of Tribute"".","コンテンツ「The Pool of Tribute」で、「Ama-no-iwato」に
+閉じ込められたパーティメンバーを自動で
+ハイライトします。"
+DailyRoutines,,,,"Automatically ignore the restrictions during
+creating a portrait, such as the weapon shouldn't
+cover the character face or the camera position
+shouldn't be too high.","武器がキャラクターの顔を覆ってはいけない、
+カメラ位置が高すぎてはいけないなど、
+ポートレート作成時の制限を
+自動で無視します。"
+DailyRoutines,,,,"Automatically leave the duty upon completion
+after proper configurations.","適切に設定した後、コンテンツ完了時に
+自動でコンテンツから退出します。"
+DailyRoutines,,,,"Automatically limit the playback frequency of
+system sound effects (<se.x>) after proper
+configurations.","適切に設定した後、システム効果音
+（<se.x>）の再生頻度を自動で
+制限します。"
+DailyRoutines,,,,"Automatically list all available colours for the dye
+while hovering over it.","染色剤にカーソルを合わせたときに、利用可能な
+色をすべて自動で一覧表示します。"
+DailyRoutines,,,,"Automatically list item purchase and usage at
+NPC vendors in item tooltip.","アイテムのツールチップに、NPCショップでの
+アイテムの購入と用途を自動で一覧表示します。"
+DailyRoutines,,,,"Automatically list item purchase and usage at NPC
+vendors in item tooltip.","アイテムのツールチップに、NPCショップでのアイテムの
+購入と用途を自動で一覧表示します。"
+DailyRoutines,,,,"Automatically lock the game window after
+starting a combat to prevent accidentally being
+dragged.","戦闘開始後に、誤ってドラッグしてしまうのを防ぐため、
+ゲームウィンドウを自動で
+ロックします。"
+DailyRoutines,,,,"Automatically log out the character, exit the
+game and shut down the device at the given
+time after proper configurations.","適切に設定した後、指定した時刻に
+キャラクターを自動でログアウトさせ、
+ゲームを終了し、デバイスを
+シャットダウンします。"
+DailyRoutines,,,,"Automatically login to the first available
+character based on configured priority after
+entering the main title screen.","メインタイトル画面に入った後、設定した優先順位に
+基づいて、最初に利用可能なキャラクターへ
+自動でログインします。"
+DailyRoutines,,,,"Automatically make the character orient to the
+camera direction.","キャラクターが自動でカメラの方向を
+向くようにします。"
+DailyRoutines,,,,"Automatically mark aether currents on map,
+replace the vanilla UI with Daily Routines UI, and
+allow to customize the display of aether currents
+and to travel to a specific aether current via
+wayfinding or instant movement.","風脈をマップに自動でマークし、
+標準UIをDaily Routines UIに置き換え、
+風脈の表示のカスタマイズと、経路探索や
+瞬間移動による特定の風脈への
+移動を可能にします。"
+DailyRoutines,,,,"Automatically mark orbs to be soaked according
+to the vulnerability status on the character in the
+duty ""Chrysalis"".","コンテンツ「Chrysalis」で、キャラクターの被ダメージ増加
+ステータスに応じて、受けるべきオーブに自動で
+マークを付けます。"
+DailyRoutines,,,,"Automatically mark the location on the map once
+a message containing a map link has been
+received from a designated player or chat
+channel.","指定したプレイヤーまたはチャットチャンネルから、
+マップリンクを含むメッセージを受け取ったときに、
+その位置をマップに自動で
+マークします。"
+DailyRoutines,,,,"Automatically maximize the game window every
+time the module is loaded if the screen mode is
+set to windowed, and provide a command /pdr
+maxwin for the same purpose.","画面モードがウィンドウモードの場合、モジュールが読み込まれる
+たびにゲームウィンドウを自動で最大化し、同じ目的のための
+コマンド /pdr maxwin も提供します。"
+DailyRoutines,,,,Automatically mount if given conditions are met.,指定した条件を満たした場合に、自動でマウントに乗ります。
+DailyRoutines,,,,"Automatically pass all the active time maneuvers
+(also known as QTE) in duty.","コンテンツ内のすべてのアクティブタイムマヌーバー
+（QTEとも呼ばれます）を自動で成功させます。"
+DailyRoutines,,,,"Automatically pop up a dedicated interface to
+choose players around with specified roles if
+casting Aetheric Mimicry without a target.","ターゲットなしでエーテリックミミクリーを詠唱したときに、
+指定したロールを持つ周囲のプレイヤーを選ぶための
+専用画面を自動で表示します。"
+DailyRoutines,,,,"Automatically pop up the loot interface when
+there's a new loot available.","新しい戦利品が利用可能になったときに、戦利品画面を
+自動で表示します。"
+DailyRoutines,,,,"Automatically prevent all dialogs from being
+presented and fast-forward through unskippable
+dialogs as quickly as possible.","すべてのダイアログが表示されるのを自動で防ぎ、
+スキップできないダイアログをできるだけ速く
+早送りします。"
+DailyRoutines,,,,"Automatically prevent executing Peloton if the
+character is in combat.","キャラクターが戦闘中の場合、「Peloton」の実行を
+自動で防ぎます。"
+DailyRoutines,,,,"Automatically prevent log messages from being
+sent and displayed after proper configurations.","適切に設定した後、ログメッセージが送信・表示されるのを
+自動で防ぎます。"
+DailyRoutines,,,,"Automatically prevent targeting and attacking
+""Mist Dragon"" when it's holding the status
+""Vaporize"" in the duty ""Burn"".","コンテンツ「Burn」で、「Mist Dragon」がステータス
+「Vaporize」を保持しているときに、ターゲットしたり
+攻撃したりするのを自動で防ぎます。"
+DailyRoutines,,,,"Automatically prevent the character from
+commencing The Crucible of the Unbroken if
+there're less than 3 beasts available, and
+engaging in combat in The Crucible of the
+Unbroken if there's a battlehorn unassigned.","利用可能な獣が3体未満の場合に、
+「The Crucible of the Unbroken」を開始するのを
+自動で防ぎ、バトルホーンが割り当てられていない
+獣がいる場合に、「The Crucible of the Unbroken」で
+戦闘を行うのを防ぎます。"
+DailyRoutines,,,,"Automatically prevent the character from
+commencing The Crucible of the Unbroken if
+there're less than 3 beasts available, and engaging
+in combat in The Crucible of the Unbroken if
+there's a battlehorn unassigned.","利用可能な獣が3体未満の場合に、
+「The Crucible of the Unbroken」を開始するのを
+自動で防ぎ、バトルホーンが割り当てられていない
+獣がいる場合に、「The Crucible of the Unbroken」で
+戦闘を行うのを防ぎます。"
+DailyRoutines,,,,"Automatically provide key information on the
+map while in Frontline, including health &
+location of loaded players nearby and
+countdown & tactical point of objectives.","フロントラインで、近くの読み込まれたプレイヤーの体力と
+位置、目標のカウントダウンと戦術ポイントなど、
+重要な情報をマップ上に自動で
+提供します。"
+DailyRoutines,,,,"Automatically re-enter the zone and navigate to
+the same location in order to reset the fishing
+wariness after fish grow wise.","魚が警戒するようになった後、漁場の警戒をリセットするため、
+自動でゾーンへ再入場し、同じ場所へ
+移動します。"
+DailyRoutines,,,,"Automatically read dialogue texts aloud using
+Text-To-Speech when there's a dialogue
+available.","ダイアログが利用可能なときに、テキスト読み上げを
+使ってダイアログのテキストを自動で
+読み上げます。"
+DailyRoutines,,,,"Automatically redirect the action to another
+available target according to the configurations
+if an action can not be executed on the current
+target.","現在のターゲットに対してアクションを実行できない場合、
+設定に従って、そのアクションを別の利用可能な
+ターゲットへ自動で向け直します。"
+DailyRoutines,,,,"Automatically redirect the action to another
+available target according to the configurations if
+an action can not be executed on the current
+target.","現在のターゲットに対してアクションを実行できない場合、
+設定に従って、そのアクションを別の利用可能な
+ターゲットへ自動で向け直します。"
+DailyRoutines,,,,"Automatically remove all the placement
+restrictions of indoor and outdoor furnishings,
+allowing to place furnishings as wish.","屋内・屋外の調度品の配置制限をすべて自動で
+取り除き、好きなように調度品を配置できるように
+します。"
+DailyRoutines,,,,"Automatically remove the 100ms animation lock
+that is added to all skills after use, and
+automatically block the mandatory animation
+lock data packets sent by the server to improve
+the smoothness of using and weaving various
+skills","すべてのスキル使用後に追加される100msの
+アニメーションロックを自動で取り除き、サーバーから
+送信される必須のアニメーションロックデータパケットを
+自動でブロックし、各種スキルの使用や挟み込みの
+滑らかさを向上させます。"
+DailyRoutines,,,,"Automatically remove the 15-second login
+cooldown after cancelling a login action, and
+reduce the cooldown of various login requests
+from about 15 or 30 seconds down to 1 second.","ログイン操作をキャンセルした後の15秒間のログイン
+クールダウンを自動で取り除き、各種ログインリクエストの
+クールダウンを約15秒または30秒から1秒に短縮します。"
+DailyRoutines,,,,"Automatically remove the minimum size limit of
+the game window, so that user could resize the
+window even smaller.","ゲームウィンドウの最小サイズ制限を自動で
+取り除き、ウィンドウをさらに小さく
+リサイズできるようにします。"
+DailyRoutines,,,,"Automatically remove the restriction that the
+teleportation menu couldn't be accessed in
+combat, hold teleportation requests received
+during combat for later, and respond to them
+immediately after combat.","戦闘中にテレポメニューを開けない制限を
+自動で取り除き、戦闘中に受けたテレポ
+リクエストを保持して、戦闘終了直後に
+即座に応答します。"
+DailyRoutines,,,,"Automatically renew user's party recruitment
+while the remaining time is running low after
+configurations.","設定した後、残り時間が少なくなっている間に、
+パーティ募集を自動で
+更新します。"
+DailyRoutines,,,,"Automatically repeat selected levequest up to
+max allowances after confirm current settings and
+click ""Start""","現在の設定を確認し、「Start」をクリックした後、選択した
+リーヴクエストを最大受注可能数まで自動で
+繰り返します。"
+DailyRoutines,,,,"Automatically repeat selected levequest up to max
+allowances after confirm current settings and click
+""Start""","現在の設定を確認し、「Start」をクリックした後、
+選択したリーヴクエストを最大受注可能数まで
+自動で繰り返します。"
+DailyRoutines,,,,"Automatically repeat the process of registering
+for Keybound Brawler and leaving upon
+completion.","「Keybound Brawler」への参加登録と、完了時の
+退出の手順を自動で繰り返します。"
+DailyRoutines,,,,"Automatically repeat the process of registering for
+Keybound Brawler and leaving upon completion.","「Keybound Brawler」への参加登録と、完了時の
+退出の手順を自動で繰り返します。"
+DailyRoutines,,,,"Automatically replace the animations of specified
+actions with animations from different actions.","指定したアクションのアニメーションを、別のアクションの
+アニメーションに自動で置き換えます。"
+DailyRoutines,,,,"Automatically reply messages using the specified
+large language model with given prompts after
+proper configurations.","適切に設定した後、指定した大規模言語モデルと
+与えられたプロンプトを使って、メッセージに
+自動で返信します。"
+DailyRoutines,,,,"Automatically retrieve all gears not included in
+any valid set from the Armory Chest after use","使用後、有効なセットに含まれていないすべての装備を
+アーモリーシステムから自動で取り出します。"
+DailyRoutines,,,,"Automatically retrieve all the furniture to the
+inventory or the storeroom after clicking start in
+the furniture interface.","調度品画面で開始をクリックした後、すべての調度品を
+所持品または収納庫へ自動で
+回収します。"
+DailyRoutines,,,,"Automatically reveal all the undiscovered areas in
+local clients so that the character don't have to
+explore personally.","キャラクターが個人的に探索しなくて済むよう、ローカル
+クライアントで未発見エリアをすべて自動で
+開放します。"
+DailyRoutines,,,,"Automatically reveal the treasure location after
+deciphering or checking a timeworn map.","古ぼけた地図を解読または確認した後、宝の場所を
+自動で表示します。"
+DailyRoutines,,,,"Automatically ride pillion after right clicking a
+party member's mount nearby that has seats
+available. The feature comes with a command
+/pdr ridepillion to ride pillion automatically.","空き座席のある近くのパーティメンバーの
+マウントを右クリックした後、自動で相乗りします。
+この機能には、自動で相乗りするための
+コマンド /pdr ridepillion が付属しています。"
+DailyRoutines,,,,"Automatically scan all the party members in
+order to check their character level and item
+level, then highlight ones that barely satisfy the
+duty requirement.","すべてのパーティメンバーを自動でスキャンして、
+キャラクターレベルとアイテムレベルを確認し、
+コンテンツの要件をかろうじて満たしている
+メンバーをハイライトします。"
+DailyRoutines,,,,"Automatically scan all the party members in order
+to check their character level and item level, then
+highlight ones that barely satisfy the duty
+requirement.","すべてのパーティメンバーを自動でスキャンして、
+キャラクターレベルとアイテムレベルを確認し、
+コンテンツの要件をかろうじて満たしている
+メンバーをハイライトします。"
+DailyRoutines,,,,"Automatically scan for Notorious Monsters in the
+given zones after proper configurations, allowing
+to lead hunt trains based on the scan results.","適切に設定した後、指定したゾーンでノートリアスモンスターを
+自動でスキャンし、スキャン結果に基づいてモブハントの
+巡回を主導できるようにします。"
+DailyRoutines,,,,"Automatically sell all the cards to Card Buyer for
+MGP after clicking start in the Card Buyer
+interface, including auto confirmation of card
+selling operations.","カードバイヤー画面で開始をクリックした後、
+すべてのカードを自動でカードバイヤーに売却して
+MGPに換え、カード売却操作の自動確認も
+含みます。"
+DailyRoutines,,,,"Automatically sell all the cards to Card Buyer for
+MGP after clicking start in the Card Buyer interface,
+including auto confirmation of card selling
+operations.","カードバイヤー画面で開始をクリックした後、
+すべてのカードを自動でカードバイヤーに売却して
+MGPに換え、カード売却操作の自動確認も
+含みます。"
+DailyRoutines,,,,"Automatically send a notification about the
+progress of the achievement ""I Hope Mentor Will
+Notice Me"" while commencing ""Duty Roulette:
+Mentor"" if the character hasn't reached the final
+milestone yet.","キャラクターが最終マイルストーンにまだ到達していない場合、
+「Duty Roulette: Mentor」を開始中に、アチーブメント
+「I Hope Mentor Will Notice Me」の進捗についての通知を
+自動で送信します。"
+DailyRoutines,,,,"Automatically send a notification after
+successfully logging in.","ログインに成功した後、自動で
+通知を送信します。"
+DailyRoutines,,,,"Automatically send a notification after a
+countdown has been initiated.","カウントダウンが開始された後、自動で
+通知を送信します。"
+DailyRoutines,,,,"Automatically send a notification after a
+ready-check has been initiated.","レディチェックが開始された後、自動で
+通知を送信します。"
+DailyRoutines,,,,"Automatically send a notification after all the
+party members have finished watching the
+cutscene.","すべてのパーティメンバーがカットシーンの視聴を
+終えた後、自動で通知を
+送信します。"
+DailyRoutines,,,,"Automatically send a notification after any
+monitored weather occurs in The Diadem.","ディアデム諸島で監視対象の天候が発生した後、
+自動で通知を送信します。"
+DailyRoutines,,,,"Automatically send a notification after successfully
+logging in.","ログインに成功した後、自動で
+通知を送信します。"
+DailyRoutines,,,,"Automatically send a notification after the duty
+starts.","コンテンツが開始した後、自動で
+通知を送信します。"
+DailyRoutines,,,,"Automatically send a notification if a FATE with
+bonus is available.","ボーナス付きのFATEが利用可能な場合、自動で
+通知を送信します。"
+DailyRoutines,,,,"Automatically send a notification if a preferred
+role is now Adventurer In Need in any monitored
+Duty Roulette.","監視対象のコンテンツルーレットのいずれかで、希望する
+ロールがボーナス対象になった場合、自動で
+通知を送信します。"
+DailyRoutines,,,,"Automatically send a notification if the bonus for
+Chaotic Alliance Raid is available in the current
+data center or in a monitored data center.","現在のデータセンターまたは監視対象のデータセンターで、
+滅アライアンスレイドのボーナスが利用可能な場合、
+自動で通知を送信します。"
+DailyRoutines,,,,"Automatically send a notification if the count of
+leve allowances reaches the given threshold.","リーヴ受注権の数が指定したしきい値に達した場合、
+自動で通知を送信します。"
+DailyRoutines,,,,"Automatically send a notification including duty
+details while joining a duty.","コンテンツ参加中に、コンテンツの詳細を含む通知を
+自動で送信します。"
+DailyRoutines,,,,"Automatically send a notification using an
+in-duty alert and Text-to-speech if an action
+results in a direct hit, a critical hit or a critical
+direct hit.","アクションがダイレクトヒット、クリティカルヒット、または
+クリティカルダイレクトヒットになった場合、コンテンツ内アラートと
+テキスト読み上げを使って自動で通知を送信します。"
+DailyRoutines,,,,"Automatically send a notification using an in-duty
+alert and Text-to-speech if an action results in a
+direct hit, a critical hit or a critical direct hit.","アクションがダイレクトヒット、クリティカルヒット、または
+クリティカルダイレクトヒットになった場合、コンテンツ内アラートと
+テキスト読み上げを使って自動で通知を送信します。"
+DailyRoutines,,,,"Automatically send a notification while It's ready
+to commence the duty.","コンテンツの参加準備ができたときに、自動で
+通知を送信します。"
+DailyRoutines,,,,"Automatically send a notification while receiving
+a message of a specified type or containing
+specified keywords after proper configurations","適切に設定した後、指定した種類のメッセージ、または
+指定したキーワードを含むメッセージを受け取ったときに、
+自動で通知を送信します。"
+DailyRoutines,,,,"Automatically send a notification while receiving a
+message of a specified type or containing
+specified keywords after proper configurations","適切に設定した後、指定した種類のメッセージ、または
+指定したキーワードを含むメッセージを受け取ったときに、
+自動で通知を送信します。"
+DailyRoutines,,,,"Automatically send given texts after proper
+configurations including beginning time,
+intervals and repetition times.","開始時刻、間隔、繰り返し回数を含む適切な設定をした後、
+指定したテキストを自動で
+送信します。"
+DailyRoutines,,,,"Automatically set it to the maximum value for all
+number inputs, and memorize any input
+adjusted manually.","すべての数値入力を自動で最大値に
+設定し、手動で調整した入力は
+すべて記憶します。"
+DailyRoutines,,,,"Automatically set the difficulty of quest battles
+to ""Very Easy"" before commencing.","開始前に、クエストバトルの難易度を自動で
+「Very Easy」に設定します。"
+DailyRoutines,,,,"Automatically set the difficulty of quest battles to
+""Very Easy"" before commencing.","開始前に、クエストバトルの難易度を自動で
+「Very Easy」に設定します。"
+DailyRoutines,,,,"Automatically sort items in the inventory and
+gear in Armoury Chest while switching zones
+after proper configurations.","適切に設定した後、ゾーン移動時に、所持品内のアイテムと
+アーモリーシステム内の装備を自動で
+ソートします。"
+DailyRoutines,,,,"Automatically spam (click at a high frequency) a
+key while holding it.","キーを長押ししている間、そのキーを自動で
+連打します。"
+DailyRoutines,,,,"Automatically spam the duty action ""Omega
+Jammer"" on ""Conductive Focus"" in the duty
+""Alphascape V3.0"".","コンテンツ「Alphascape V3.0」で、「Conductive Focus」に
+対してコンテンツアクション「Omega Jammer」を自動で
+連打します。"
+DailyRoutines,,,,"Automatically spam the specified emote at a
+fixed interval. Auto spam could be initiated from
+the right-click menu of the emote interface or via
+the command ""/pdr remote"".","指定したエモートを一定間隔で自動で
+連打します。自動連打は、エモート画面の
+右クリックメニューから、またはコマンド
+""/pdr remote"" を使って開始できます。"
+DailyRoutines,,,,"Automatically speak with ""Goblin Pathfinder"" to
+acquire ""Runstop Headgate Key"" in the duty
+""Brayflox's Longstop"".","コンテンツ「Brayflox's Longstop」で、「Runstop Headgate Key」を
+入手するため、「Goblin Pathfinder」と自動で
+会話します。"
+DailyRoutines,,,,"Automatically speak with ""Tonu Vanu"" to acquire
+""Thunder Eggs"" and mark ""Nunyenunc's
+Shadow""'s position during the first boss combat
+""Nunyenunc"" in the duty ""Neverreap"".","コンテンツ「Neverreap」で、「Thunder Eggs」を入手するため
+「Tonu Vanu」と自動で会話し、最初のボス戦「Nunyenunc」で
+「Nunyenunc's Shadow」の位置を
+マークします。"
+DailyRoutines,,,,"Automatically summon the companion
+consuming a bunch of gysahl greens when the
+character is in a non-instanced area and the
+companion is not available or its remaining time
+is less than 5 minutes.","キャラクターがインスタンスエリア外にいて、バディが
+利用できないか、残り時間が5分未満の場合、ギサールの
+野菜をたくさん消費して、バディを自動で
+呼び出します。"
+DailyRoutines,,,,"Automatically summon the companion
+consuming a bunch of gysahl greens when the
+character is in a non-instanced area and the
+companion is not available or its remaining time is
+less than 5 minutes.","キャラクターがインスタンスエリア外にいて、バディが
+利用できないか、残り時間が5分未満の場合、ギサールの
+野菜をたくさん消費して、バディを自動で
+呼び出します。"
+DailyRoutines,,,,"Automatically summon the pet after joining a
+duty or experiencing a wipe if the current job is
+Summoner or Scholar.","現在のジョブが召喚士または学者の場合、コンテンツ参加後
+または全滅後に、ペットを自動で
+呼び出します。"
+DailyRoutines,,,,"Automatically switch to specified keyboard
+layouts while in-game text boxes gain or lose
+focus after proper configurations.","適切に設定した後、ゲーム内のテキストボックスがフォーカスを
+得たり失ったりしたときに、指定したキーボードレイアウトへ
+自動で切り替えます。"
+DailyRoutines,,,,"Automatically synchronize the game
+configuration to GitHub Gist while logging in
+after proper configurations. The feature comes
+with conflict detection and recovery from the
+cloud.","適切に設定した後、ログイン時にゲーム
+設定をGitHub Gistへ自動で同期します。
+この機能には、競合検出とクラウドからの
+復旧が付属しています。"
+DailyRoutines,,,,"Automatically track the given players by
+updating Waymarks at a high frequency after
+proper configurations.","適切に設定した後、フィールドマーカーを高頻度で更新して、
+指定したプレイヤーを自動で
+追跡します。"
+DailyRoutines,,,,"Automatically type in Keybound Brawler in order
+to attack the closest enemy while prioritizing
+barrier reinforcement and cast interruption. Auto
+typing will be suspended during Letterlocked.","バリア強化と詠唱中断を優先しながら、最も近い敵を攻撃するため、
+「Keybound Brawler」で自動で入力します。自動入力は
+Letterlocked中は一時停止します。"
+DailyRoutines,,,,"Automatically use abilities from other gathering
+classes when switching to any gathering class","いずれかのギャザラークラスに切り替えたときに、他の
+ギャザラークラスのアビリティを自動で使用します。"
+DailyRoutines,,,,auxesia,
+DailyRoutines,,,,Background Colour,背景色
+DailyRoutines,,,,Bait Switching Command,餌切り替えコマンド
+DailyRoutines,,,,Batch Store In Armoire,愛蔵品キャビネットへの一括収納
+DailyRoutines,,,,Batch Use Stackable Items,スタック可能アイテムの一括使用
+DailyRoutines,,,,Be Undetectable In Sneaking Quests,隠密クエストで見つからなくなる
+DailyRoutines,,,,Better /coll Command,/coll コマンドの改善
+DailyRoutines,,,,Better /pvpac Command,/pvpac コマンドの改善
+DailyRoutines,,,,Better Aetheryte On Map,マップ上のエーテライト表示の改善
+DailyRoutines,,,,Better Blacklist,ブラックリストの改善
+DailyRoutines,,,,Better BLU Active Set,BLUアクティブセットの改善
+DailyRoutines,,,,Better Borderless Windowed,ボーダーレスウィンドウの改善
+DailyRoutines,,,,Better Category Panel,カテゴリパネルの改善
+DailyRoutines,,,,Better Chat Bubble,チャットバブルの改善
+DailyRoutines,,,,Better Chat Panel,チャットパネルの改善
+DailyRoutines,,,,Better Classes And Jobs Interface,クラス＆ジョブ画面の改善
+DailyRoutines,,,,Better Collectables Exchange,収集品取引の改善
+DailyRoutines,,,,Better Command Input,コマンド入力の改善
+DailyRoutines,,,,Better Command Panel,コマンドパネルの改善
+DailyRoutines,,,,Better Company Chest,カンパニーチェストの改善
+DailyRoutines,,,,Better Crafting Log,製作手帳の改善
+DailyRoutines,,,,Better Custom Delivery Information,お得意様取引情報の改善
+DailyRoutines,,,,Better Desynthesis,アイテム分解の改善
+DailyRoutines,,,,Better Duty Finder,コンテンツファインダーの改善
+DailyRoutines,,,,Better Enmity List,敵視リストの改善
+DailyRoutines,,,,Better FATE Progress UI,FATE進捗UIの改善
+DailyRoutines,,,,Better Following,追従の改善
+DailyRoutines,,,,Better Frame Rate Cap,フレームレート上限の改善
+DailyRoutines,,,,Better Friend List,フレンドリストの改善
+DailyRoutines,,,,Better Furnishing Placement,調度品配置の改善
+DailyRoutines,,,,Better Granaries,グラナリーの改善
+DailyRoutines,,,,Better Inn Access,宿屋へのアクセス改善
+DailyRoutines,,,,Better Instance Switching,インスタンス切り替えの改善
+DailyRoutines,,,,Better Intra-zone Loading,ゾーン内読み込みの改善
+DailyRoutines,,,,Better Isleworks Agenda,無人島工房の予定表の改善
+DailyRoutines,,,,Better Keybound Brawler Interface,キーバウンドブローラーの画面の改善
+DailyRoutines,,,,Better Letters,レターの改善
+DailyRoutines,,,,Better Macro Management,マクロ管理の改善
+DailyRoutines,,,,Better Market Board,マーケットボードの改善
+DailyRoutines,,,,Better Master’s Bestiary,マスターズ・ベスティアリの改善
+DailyRoutines,,,,Better Mount Roulette,マウントルーレットの改善
+DailyRoutines,,,,Better Party Finder Filter,パーティ募集フィルターの改善
+DailyRoutines,,,,Better Party Finder Sorting,パーティ募集の並び替えの改善
+DailyRoutines,,,,Better Phantom Job Repertoire,ファントムジョブレパートリーの改善
+DailyRoutines,,,,Better Progress Bar,進行度バーの改善
+DailyRoutines,,,,Better PvP Role Action,PvPロールアクションの改善
+DailyRoutines,,,,Better Retainer Storage,リテイナー収納の改善
+DailyRoutines,,,,Better Reward Claim,報酬受け取りの改善
+DailyRoutines,,,,Better Ride Pillion,相乗りの改善
+DailyRoutines,,,,Better Sound Effect Parameters,効果音パラメーターの改善
+DailyRoutines,,,,Better Target Bar,ターゲットバーの改善
+DailyRoutines,,,,Better Teleportation,テレポの改善
+DailyRoutines,,,,Better Time Widget In Server Info Bar,サーバー情報バーの時刻ウィジェットの改善
+DailyRoutines,,,,Better Wait Command,ウェイトコマンドの改善
+DailyRoutines,,,,Better Window Minimization,ウィンドウ最小化の改善
+DailyRoutines,,,,Better Wondrous Tails,クロの空想帳の改善
+DailyRoutines,,,,Better World Visit,ワールド間テレポの改善
+DailyRoutines,,,,Bill,
+DailyRoutines,,,,"Block all the operations which may terminate
+fishing status while the character is fishing,
+unless manually executing the action ""中断"" or
+performing an operation while pressing the
+interrupt hotkey.",釣りをしている間、アクション「中断」を手動で実行するか、中断ホットキーを押しながら操作する場合を除き、釣り状態を終了させる可能性のあるすべての操作をブロックします。
+DailyRoutines,,,,Bonus Monitor For Chaotic Alliance Raid,滅アライアンスレイド向けボーナスモニター
+DailyRoutines,,,,BoxingBunny,
+DailyRoutines,,,,bozja,
+DailyRoutines,,,,Brayflox's Longstop Helper,ブレイフロクスの野営地ヘルパー
+DailyRoutines,,,,Burn Helper,Burnヘルパー
+DailyRoutines,,,,Bypass Proxy For Authentication,認証時のプロキシ迂回
+DailyRoutines,,,,CANCEL,キャンセル
+DailyRoutines,,,,"Cancel the waiting time of NPC fading in and
+fading out while talking with NPCs.",NPCと話す際の、NPCのフェードインとフェードアウトにかかる待ち時間をなくします。
+DailyRoutines,,,,"Cancel the waiting time of NPC turning and sight
+adjusting while interacting with NPCs if the user
+isn't within a certain angle in front of NPCs.",NPCの正面から一定の角度内にいない場合、NPCとインタラクトする際の、NPCが向きを変えて視線を調整する待ち時間をなくします。
+DailyRoutines,,,,CAST,キャスト
+DailyRoutines,,,,Cast,キャスト
+DailyRoutines,,,,Cast Time,キャストタイム
+DailyRoutines,,,,Chat Log In Keybound Brawler,Keybound Brawlerのチャットログ
+DailyRoutines,,,,Check Adventurer Plate While Inspecting,プレイヤーを調べる際にアドベンチャラープレートを確認
+DailyRoutines,,,,Chinese Format (1 decimal) (1234.6万),中国式表記（小数第1位）（1234.6万）
+DailyRoutines,,,,Chinese Format (1 decimal) (1234.6万)##FormatSelect,中国式表記（小数第1位）（1234.6万）##FormatSelect
+DailyRoutines,,,,Chinese Format (2 decimals) (1234.57万)##FormatSelect,中国式表記（小数第2位）（1234.57万）##FormatSelect
+DailyRoutines,,,,Chinese Format (round-down) (1235万)##FormatSelect,中国式表記（切り捨て）（1235万）##FormatSelect
+DailyRoutines,,,,Chinese Number Format,中国式数値表記
+DailyRoutines,,,,Chrysalis Helper,クリサリスヘルパー
+DailyRoutines,,,,Cindy-Master,
+DailyRoutines,,,,Clear Focus,フォーカスをクリア
+DailyRoutines,,,,Closest enemy,最も近い敵
+DailyRoutines,,,,Closest party member,最も近いパーティメンバー
+DailyRoutines,,,,Code Cobalt,
+DailyRoutines,,,,Collateral Commands While Leaving,退出時に実行する追加コマンド
+DailyRoutines,,,,Combat,戦闘
+DailyRoutines,,,,Combo Module (0/1),コンボモジュール (0/1)
+DailyRoutines,,,,Combo Module (1/1),コンボモジュール (1/1)
+DailyRoutines,,,,Combo Module (2/2),コンボモジュール (2/2)
+DailyRoutines,,,,Command,コマンド
+DailyRoutines,,,,Command Only Mode In Chat Bar,チャットバーのコマンド専用モード
+DailyRoutines,,,,Command To Cancel Countdown,カウントダウンをキャンセルするコマンド
+DailyRoutines,,,,Command:,コマンド：
+DailyRoutines,,,,Commands While Joining,参加時に実行するコマンド
+DailyRoutines,,,,Complete Chinese Format (1234万5678)##FormatSelect,完全な中国式表記（1234万5678）##FormatSelect
+DailyRoutines,,,,Complete Format (12345678)##FormatSelect,完全表記（12345678）##FormatSelect
+DailyRoutines,,,,"Complete Format (separators) (12,345,678)##FormatSelect","完全表記（区切りあり）（12,345,678）##FormatSelect"
+DailyRoutines,,,,Configuration,設定
+DailyRoutines,,,,Confirm,確認
+DailyRoutines,,,,Conflict Modules (0/1),競合モジュール (0/1)
+DailyRoutines,,,,Conflict Modules (0/2),競合モジュール (0/2)
+DailyRoutines,,,,Conflict Modules (1/1),競合モジュール (1/1)
+DailyRoutines,,,,Content,コンテンツ
+DailyRoutines,,,,ContentColumn,
+DailyRoutines,,,,CONTENTS SUPPORTER,コンテンツサポーター
+DailyRoutines,,,,Control,操作
+DailyRoutines,,,,"Convert any text contains coordinates to actual
+coordinates on the map automatically.",座標を含むテキストを、自動でマップ上の実際の座標に変換します。
+DailyRoutines,,,,Craft & Gather,製作＆採集
+DailyRoutines,,,,Credits,クレジット
+DailyRoutines,,,,Crowdsourcing,クラウドソーシング
+DailyRoutines,,,,Cuff Of Father Helper,機工城アレキサンダー：起動編ヘルパー
+DailyRoutines,,,,Current##SetDefaultPositionEnterZoneNorthHorn,現在##SetDefaultPositionEnterZoneNorthHorn
+DailyRoutines,,,,Current##SetDefaultPositionEnterZoneSouthHorn,現在##SetDefaultPositionEnterZoneSouthHorn
+DailyRoutines,,,,Custom Action Cast / Recast Time,アクションのキャスト／リキャストタイムをカスタム
+DailyRoutines,,,,Custom Action Queue Time,アクションキュー時間をカスタム
+DailyRoutines,,,,Custom Colour,カスタムカラー
+DailyRoutines,,,,Custom Command Alias,カスタムコマンドエイリアス
+DailyRoutines,,,,Custom Entry Count In Party Finder,パーティ募集のカスタム表示件数
+DailyRoutines,,,,Custom Game Object Scale,ゲームオブジェクトのスケールをカスタム
+DailyRoutines,,,,Custom Interface Text Replacement,インターフェーステキストのカスタム置換
+DailyRoutines,,,,Custom Map Marker,カスタムマップマーカー
+DailyRoutines,,,,Custom sight distance,視距離をカスタム
+DailyRoutines,,,,Custom Spawn Location,スポーン位置をカスタム
+DailyRoutines,,,,"Customize the maximum sight distance allowed
+by the current game camera.",現在のゲームカメラで許可される最大視距離をカスタマイズします。
+DailyRoutines,,,,"Customize the scaling of various in-game entities
+according to given presets.",指定されたプリセットに従って、ゲーム内の各種エンティティのスケーリングをカスタマイズします。
+DailyRoutines,,,,Cyf5119,
+DailyRoutines,,,,Daily Routines,
+DailyRoutines,,,,Daily Routines Online Authentication,Daily Routines オンライン認証
+DailyRoutines,,,,decorwdyun,
+DailyRoutines,,,,Default,デフォルト
+DailyRoutines,,,,Default Page,デフォルトページ
+DailyRoutines,,,,Destination Above Dotted Line,点線の上に移動先を表示
+DailyRoutines,,,,Detailed Cast Info,詳細なキャスト情報
+DailyRoutines,,,,Detailed Status Duration,詳細なステータス持続時間
+DailyRoutines,,,,Dev,開発
+DailyRoutines,,,,diadem,
+DailyRoutines,,,,Direct Command Access To Agent,Agentへの直接コマンドアクセス
+DailyRoutines,,,,Direct Command Control For UI,UIの直接コマンド制御
+DailyRoutines,,,,"Disable all the timers that control the AFK status in order to prevent the trailer being played, the character's online status being switched and the character being kicked.",トレーラーが再生されること、キャラクターのオンラインステータスが切り替わること、キャラクターがログアウトさせられることを防ぐため、AFKステータスを制御するすべてのタイマーを無効にします。
+DailyRoutines,,,,Disable Background Rendering,バックグラウンド描画を無効化
+DailyRoutines,,,,Disable Esc Key To Interrupt Casting,Escキーによる詠唱中断を無効化
+DailyRoutines,,,,Disable Facing Direction Change for Ground-Targeted Actions,地面ターゲットアクションでの向き変更を無効化
+DailyRoutines,,,,"Disable game rendering when the client is
+inactive in order to reduce resource
+consumption.",リソース消費を抑えるため、クライアントが非アクティブなときにゲームの描画を無効にします。
+DailyRoutines,,,,"Disable in-game black screens and fade-ins/outs
+used for transitions to reduce unnecessary
+waiting time during loading",読み込み中の不要な待ち時間を減らすため、画面遷移に使われるゲーム内の暗転とフェードイン／アウトを無効にします。
+DailyRoutines,,,,Discord,
+DailyRoutines,,,,"Display numbers in units of ten thousand ""wan""
+and one hundred million ""yi"" and separate the
+numbers by ten thousands instead of thousand
+according to Chinese custom.",数値を万（wan）と億（yi）の単位で表示し、中国の慣習に従って、千単位ではなく万単位で数値を区切ります。
+DailyRoutines,,,,"Display signs in Party List if signs are assigned to
+party members.",パーティメンバーにサインが付与されている場合、パーティリストにサインを表示します。
+DailyRoutines,,,,"Display the actual coordinate of the character
+below the minimap and allow users to mark or
+copy by clicking.",ミニマップの下にキャラクターの実際の座標を表示し、クリックでマーカーを置いたりコピーしたりできるようにします。
+DailyRoutines,,,,"Display the actual position in the queue if it
+suggests ""After #50"" while queuing via Duty
+Finder or World Visit.",コンテンツファインダーやワールド間テレポで待機中に「After #50」と表示される場合、実際の待機列の位置を表示します。
+DailyRoutines,,,,"Display the number of FATE items the character is
+currently possessing and has submitted nearby
+FATE information if the character is engaging a
+FATE involves item collections.",アイテム収集を伴うFATEに参加している場合、キャラクターが現在所持しているFATEアイテムの数と、近くのFATE情報を提出したかどうかを表示します。
+DailyRoutines,,,,Dive Correction,ダイブ補正
+DailyRoutines,,,,Due,期限
+DailyRoutines,,,,Duty,コンテンツ
+DailyRoutines,,,,Duty Finder Command,コンテンツファインダーコマンド
+DailyRoutines,,,,Duty Finder Settings,コンテンツファインダー設定
+DailyRoutines,,,,Duty Joining & Leaving Command,コンテンツ参加・退出コマンド
+DailyRoutines,,,,Duty Leaving Command,コンテンツ退出コマンド
+DailyRoutines,,,,Duty Roulette,コンテンツルーレット
+DailyRoutines,,,,Duty Type,コンテンツタイプ
+DailyRoutines,,,,Dynamic Event,ダイナミックイベント
+DailyRoutines,,,,Emphasized KOs In Frontline,フロントラインでのKOを強調
+DailyRoutines,,,,Enable,有効にする
+DailyRoutines,,,,"Enable action queueing for all the actions, user
+macros and items.",すべてのアクション、ユーザーマクロ、アイテムに対してアクションキューを有効にします。
+DailyRoutines,,,,"Enable moving to target location by
+right-clicking the ground",地面を右クリックして目標地点へ移動できるようにします。
+DailyRoutines,,,,Enable Recommended Modules By Default,おすすめモジュールをデフォルトで有効
+DailyRoutines,,,,"Enable the module if it's a recommended module.
+※ Recommended modules are the modules recommended by Daily Routines developers. These modules could effectively improve the game experience while not excessively changing the gameplay.","おすすめモジュールの場合は、そのモジュールを有効にします。
+※ おすすめモジュールはDaily Routinesの開発者が推奨するモジュールです。これらのモジュールは、ゲームプレイを過度に変えることなく、ゲーム体験を効果的に改善できます。"
+DailyRoutines,,,,"Enable tray notifications if there's no user input for a period of time even when the client is active.
+(Set it to 0 to enable tray notifications only when the client is inactive.)","クライアントがアクティブなときでも、一定時間ユーザーの入力がない場合はトレイ通知を有効にします。
+（0に設定すると、クライアントが非アクティブなときだけトレイ通知を有効にします。）"
+DailyRoutines,,,,Enable##AutoOpenTreasures,有効にする##AutoOpenTreasures
+DailyRoutines,,,,Enabled,有効
+DailyRoutines,,,,Enemy with specified status,指定したステータスを持つ敵
+DailyRoutines,,,,Enemy with the lowest HP percentage,HP割合が最も低い敵
+DailyRoutines,,,,English,英語
+DailyRoutines,,,,English Format (1 decimal) (12.3M)##FormatSelect,英語式表記（小数第1位）（12.3M）##FormatSelect
+DailyRoutines,,,,English Format (2 decimals) (12.35M)##FormatSelect,英語式表記（小数第2位）（12.35M）##FormatSelect
+DailyRoutines,,,,English Format (round-down) (12M),英語式表記（切り捨て）（12M）
+DailyRoutines,,,,English Format (round-down) (12M)##FormatSelect,英語式表記（切り捨て）（12M）##FormatSelect
+DailyRoutines,,,,Errer,
+DailyRoutines,,,,ErxCharlotte,
+DailyRoutines,,,,Exit game,ゲームを終了
+DailyRoutines,,,,Expires At:,有効期限：
+DailyRoutines,,,,Explicit Aetheric Density For Anima Weapons,アニマウェポンのエーテル密度を明示表示
+DailyRoutines,,,,Explicit Instance ID For Field Operations,フィールドオペレーションのインスタンスIDを明示表示
+DailyRoutines,,,,"Explicitly display the destination above the
+dotted line at each map connection.",各マップ接続地点で、点線の上に移動先を明示的に表示します。
+DailyRoutines,,,,"Explicitly display the scores of other party
+members upon the completion of Keybound
+Brawler.",Keybound Brawlerの完了時に、他のパーティメンバーのスコアを明示的に表示します。
+DailyRoutines,,,,explorer,
+DailyRoutines,,,,"Extend all the action ranges, including melee
+actions and ranged actions, by a specified
+amount.",近接アクションや遠隔アクションを含む、すべてのアクションの射程を、指定した量だけ拡張します。
+DailyRoutines,,,,Extended Action Range,アクション射程の拡張
+DailyRoutines,,,,Extra Blue Mage Active Set,青魔道士のアクティブセット追加
+DailyRoutines,,,,F.A.T.E.,
+DailyRoutines,,,,F.A.T.E.##AutoDismountFATE,
+DailyRoutines,,,,Fashion Accessory Command,ファッションアクセサリーコマンド
+DailyRoutines,,,,Fast Object Interaction,オブジェクトへの高速インタラクト
+DailyRoutines,,,,Fast Teleportation Panel,高速テレポパネル
+DailyRoutines,,,,FATE & CE Monitor,FATE＆CEモニター
+DailyRoutines,,,,FATE Item Counter,FATEアイテムカウンター
+DailyRoutines,,,,Faux Hollows Solver,Faux Hollowsソルバー
+DailyRoutines,,,,Favorite,お気に入り
+DailyRoutines,,,,FC Member Manage Panel,FCメンバー管理パネル
+DailyRoutines,,,,Field Operation Entry Command,フィールドオペレーション参加コマンド
+DailyRoutines,,,,FINAL FANTASY XIV,
+DailyRoutines,,,,FOCUS,フォーカス
+DailyRoutines,,,,FOCUS CAST,フォーカスキャスト
+DailyRoutines,,,,Font Scale###FontSize,フォント倍率###FontSize
+DailyRoutines,,,,Font Scaling,フォントスケーリング
+DailyRoutines,,,,Font size,フォントサイズ
+DailyRoutines,,,,"For example:
+	/pdr callback SelectYesno 0
+	Explanation: Execute the operation 0 (type int) in SelectYesno interface, which is the common yes-or-no interface.
+	Effect: The operation is equivalent to clicking the yes button. And it would be equivalent to no when the parameter is 1.
+
+Notes:
+	- Internal names of UIs could be inquired via /xldata AddonInspector
+	- Relevant parameters could be inquired in Simple Tweaks Plugin, executing /tweaks Debug and then navigating to Addon Logging - Callbacks.","例：
+	/pdr callback SelectYesno 0
+	説明：SelectYesnoインターフェース（一般的なはい／いいえのインターフェース）で、操作0（int型）を実行します。
+	効果：この操作は「はい」ボタンをクリックすることと等価です。パラメーターが1の場合は「いいえ」と等価になります。
+
+注意：
+	- UIの内部名は /xldata AddonInspector で確認できます
+	- 関連パラメーターはSimple Tweaks Pluginで確認できます。/tweaks Debug を実行し、Addon Logging - Callbacks へ移動してください。"
+DailyRoutines,,,,Fragile,脆い
+DailyRoutines,,,,Frame-by-frame Emote In Portrait,ポートレート内エモートのコマ送り
+DailyRoutines,,,,Frontline Map Radar,フロントライン用マップレーダー
+DailyRoutines,,,,Frontline Player Radar,フロントライン用プレイヤーレーダー
+DailyRoutines,,,,Furthest enemy,最も遠い敵
+DailyRoutines,,,,Furthest party member,最も遠いパーティメンバー
+DailyRoutines,,,,Game,ゲーム
+DailyRoutines,,,,Game Interaction Optimization,ゲームインタラクションの最適化
+DailyRoutines,,,,General,一般
+DailyRoutines,,,,GitHub,
+DailyRoutines,,,,Glamour Plate Switching Commands,ミラージュプレート切り替えコマンド
+DailyRoutines,,,,Gold Saucer,ゴールドソーサー
+DailyRoutines,,,,HaKu,
+DailyRoutines,,,,HD-enhanced Interface Texts,インターフェーステキストのHD強化
+DailyRoutines,,,,Healer Helper,ヒーラーヘルパー
+DailyRoutines,,,,Help Translate,翻訳に協力
+DailyRoutines,,,,Hide Auto-attack Icons###TargetHideAutoAttackIcon,オートアタックアイコンを非表示###TargetHideAutoAttackIcon
+DailyRoutines,,,,Higher Initial Quality Cap In Trial,試作における初期品質上限の引き上げ
+DailyRoutines,,,,Higher Purchase Cap At NPC Vendors,NPCショップでの購入上限の引き上げ
+DailyRoutines,,,,Highlight,ハイライト
+DailyRoutines,,,,"Hold the interrupt hotkey to interrupt certain ongoing tasks, switch among certain modes, or temporarily apply certain behaviours.",中断ホットキーを長押しすると、進行中の特定のタスクを中断したり、特定のモードを切り替えたり、特定の挙動を一時的に適用したりできます。
+DailyRoutines,,,,HP,
+DailyRoutines,,,,HSS,
+DailyRoutines,,,,Hullbreaker Isle Helper,ハルブレーカー・アイルヘルパー
+DailyRoutines,,,,hydatos,
+DailyRoutines,,,,"If the current job is a healer profession, the use
+of specific skills will be optimized according to
+the settings when using them.",現在のジョブがヒーラー職の場合、特定のスキルを使用する際に、設定に従ってその使用が最適化されます。
+DailyRoutines,,,,"If the current job is crafter and gatherer, is not at
+max level, holds any valid survival
+science/engineering manual, and does not have
+the corresponding experience bonus effect, the
+corresponding manual item will be automatically
+used",現在のジョブがクラフターまたはギャザラーで、最大レベルではなく、有効なサバイバルマニュアル／エンジニアマニュアルを所持しており、対応する経験値ボーナス効果が付いていない場合、対応するマニュアルアイテムを自動で使用します。
+DailyRoutines,,,,"If the current target is chanting an interruptible
+skill and Interject is available, replace Low Blow
+with Interject in the Hotbar.",現在のターゲットが中断可能なスキルを詠唱中であり、インタージェクトが使用可能な場合、ホットバーのロウブロウをインタージェクトに置き換えます。
+DailyRoutines,,,,"If the current target is not casting an
+interruptible action, prevent the use of interrupt
+actions (e.g., Interject, Head Graze)",現在のターゲットが中断可能なアクションを詠唱していない場合、中断アクション（例：インタージェクト、ヘッドグレイズ）の使用を防ぎます。
+DailyRoutines,,,,"If the current target is not casting an interruptible
+action, prevent the use of interrupt actions (e.g.,
+Interject, Head Graze)",現在のターゲットが中断可能なアクションを詠唱していない場合、中断アクション（例：インタージェクト、ヘッドグレイズ）の使用を防ぎます。
+DailyRoutines,,,,"If there is a nearby FATE that requires dialogue to
+start, automatically initiate it.",開始に会話が必要なFATEが近くにある場合、自動で開始します。
+DailyRoutines,,,,"If there're main scenario quests to be complete,
+display the number of remaining main scenario
+quests and the progress percentage in the Main
+Scenario Guide interface.",完了すべきメインシナリオクエストがある場合、メインシナリオガイドのインターフェースに、残りのメインシナリオクエスト数と進行度のパーセンテージを表示します。
+DailyRoutines,,,,"If there're several interfaces which allow item
+storage (like inventory or saddlebag) available at
+the moment, the module will provide shortcuts
+to shuttle items between interfaces by simply
+clicking items while holding the interrupt hotkey.",その時点で利用できる、アイテムを収納できるインターフェース（所持品やチョコボかばんなど）が複数ある場合、中断ホットキーを押しながらアイテムをクリックするだけで、インターフェース間でアイテムを移動できるショートカットを提供します。
+DailyRoutines,,,,"If you want to switch to the bait ""Versatile Lure,"" you can use the command in following ways:
+
+/pdr bait 29717 (Item ID)
+/pdr bait Versatile Lure/Versatile (Item Name)
+/pdr bait wannengnier/wanneng (Chinese Pinyin)
+
+Note: Except for the Item ID, all inputs should match the current client language.","エサ「Versatile Lure」に切り替えたい場合は、次の方法でコマンドを使用できます：
+
+/pdr bait 29717 (Item ID)
+/pdr bait Versatile Lure/Versatile (Item Name)
+/pdr bait wannengnier/wanneng (Chinese Pinyin)
+
+注意：アイテムID以外は、すべての入力が現在のクライアント言語に一致する必要があります。"
+DailyRoutines,,,,"Ignore the warnings popped up caused by the
+level or the job of the character while
+purchasing, exchanging or just claiming items
+from shops.",ショップでアイテムを購入、交換、または受け取る際に、キャラクターのレベルやジョブが原因で表示される警告を無視します。
+DailyRoutines,,,,"Ignoring rank requirements, directly unlock the
+Expert Delivery feature after joining any Grand
+Company",階級要件を無視し、いずれかのグランドカンパニーに所属した後、稀少品調達機能を直接アンロックします。
+DailyRoutines,,,,In Hours,時間単位
+DailyRoutines,,,,In Minutes,分単位
+DailyRoutines,,,,In Seconds,秒単位
+DailyRoutines,,,,Incapacitated party member,戦闘不能のパーティメンバー
+DailyRoutines,,,,Increase the initial quality cap in trial synthesis from half of the bar to full.,試作における初期品質の上限を、バーの半分から最大まで引き上げます。
+DailyRoutines,,,,"Increase the purchase cap at NPC vendors up to
+999 or 255.",NPCショップでの購入上限を999または255まで引き上げます。
+DailyRoutines,,,,Instance Info In Server Info Bar,サーバー情報バーにインスタンス情報を表示
+DailyRoutines,,,,Instant Character Acceleration,キャラクターの加速を即時に
+DailyRoutines,,,,Instant Logout Or Exit,即時ログアウト／終了
+DailyRoutines,,,,Instantly Dismount,即時マウント解除
+DailyRoutines,,,,Instantly Place Ground-Targeted Action,地面ターゲットアクションの即時設置
+DailyRoutines,,,,Interface,インターフェース
+DailyRoutines,,,,Interrupt Hotkey: SHIFT,中断ホットキー：SHIFT
+DailyRoutines,,,,Interrupt Hotkey（Controller）,中断ホットキー（コントローラー）
+DailyRoutines,,,,Interrupt Hotkey（Keyboard）,中断ホットキー（キーボード）
+DailyRoutines,,,,Interrupt Wayfinding While Manually Moving,手動移動中に経路探索を中断
+DailyRoutines,,,,"Introduce a new button in the character
+inspection interface, allowing to try on the full
+appearance set on your character.",キャラクター確認画面に新しいボタンを追加し、外見セット一式を自分のキャラクターで試着できるようにします。
+DailyRoutines,,,,island,
+DailyRoutines,,,,Item,アイテム
+DailyRoutines,,,,Item Right-click Search,アイテムを右クリックで検索
+DailyRoutines,,,,Item Using Command,アイテム使用コマンド
+DailyRoutines,,,,JiaXX,
+DailyRoutines,,,,Job Switching Commands,ジョブ切り替えコマンド
+DailyRoutines,,,,Join State:,参加状態：
+DailyRoutines,,,,KirisameVanilla,
+DailyRoutines,,,,Label,ラベル
+DailyRoutines,,,,Language,言語
+DailyRoutines,,,,Leave Recruitment & Join Another,募集から離脱して別の募集に参加
+DailyRoutines,,,,Left Alignment###AlignLeft,左揃え###AlignLeft
+DailyRoutines,,,,"Let the recruitments in Party Finder be sorted by
+the exact value of the remaining time.",パーティ募集の一覧を、残り時間の正確な値で並び替えできるようにします。
+DailyRoutines,,,,limitleveling,
+DailyRoutines,,,,Line,行
+DailyRoutines,,,,Live Anonymous Mode,配信時匿名モード
+DailyRoutines,,,,Loading……,読み込み中……
+DailyRoutines,,,,Local Modules,ローカルモジュール
+DailyRoutines,,,,"Lock the character in place while casting in order
+to prevent a failed cast.",詠唱中にキャラクターをその場に固定して、詠唱が失敗しないようにします。
+DailyRoutines,,,,Logout,ログアウト
+DailyRoutines,,,,lootgreed,
+DailyRoutines,,,,lootmaster,
+DailyRoutines,,,,lootnormal,
+DailyRoutines,,,,Lowest enmity target,敵視が最も低いターゲット
+DailyRoutines,,,,Lowest enmity target in Enmity List,敵対リストで敵視が最も低いターゲット
+DailyRoutines,,,,Magnified Dye Preview,カララントプレビューの拡大
+DailyRoutines,,,,Magnified IME Option Interface,拡大したIMEオプション画面
+DailyRoutines,,,,"Make some actions always cast in the current
+camera direction",一部のアクションを常に現在のカメラ方向に発動するようにします。
+DailyRoutines,,,,"Make some tabs in game could be switched by
+scrolling the middle button of the mouse.",ゲーム内の一部タブを、マウスの中ボタンでのスクロールで切り替えられるようにします。
+DailyRoutines,,,,"Make the texts in Recruitment Criteria selectable
+for copying or editing purposes.",募集条件のテキストを、コピーや編集のために選択できるようにします。
+DailyRoutines,,,,Manual operation:,手動操作：
+DailyRoutines,,,,Mark on the map,マップにマーク
+DailyRoutines,,,,Marsh,
+DailyRoutines,,,,Middo,
+DailyRoutines,,,,minil,
+DailyRoutines,,,,Minimal-gil Navigation,ギル最小経路案内
+DailyRoutines,,,,Mode,モード
+DailyRoutines,,,,Module,モジュール
+DailyRoutines,,,,Module Config,モジュール設定
+DailyRoutines,,,,Module: 171/351,モジュール: 171/351
+DailyRoutines,,,,More Chat Filters,チャットフィルター追加
+DailyRoutines,,,,More Macro Parameters,マクロパラメーター追加
+DailyRoutines,,,,Movement Lock While Casting,詠唱中の移動ロック
+DailyRoutines,,,,"Multi-line texts would be automatically
+converted into single-line texts while pasting in
+any single-line input bar. End-of-line characters
+would be converted into ones valid for the game
+while pasting in any multi-line input bar.","複数行のテキストは、1行の
+入力欄に貼り付けると自動的に1行のテキストに
+変換されます。行末文字は、複数行の
+入力欄に貼り付けるとゲームで有効な文字に
+変換されます。"
+DailyRoutines,,,,Name Copy For All Items,全アイテムの名前コピー
+DailyRoutines,,,,Nearby Player Counter & Radar,近くのプレイヤー数表示とレーダー
+DailyRoutines,,,,Never AFK,離席状態にならない
+DailyRoutines,,,,Neverreap Helper,Neverreap支援
+DailyRoutines,,,,Ninja Flip For Everyone,誰でも忍者フリップ
+DailyRoutines,,,,No Black Screen While Loading,ロード中にブラックアウトしない
+DailyRoutines,,,,No DR Prefix,DRプレフィックスなし
+DailyRoutines,,,,"No Gap Closer For ""Phantom Kick""##NoMoveMonk","""Phantom Kick""のギャップクローザーを無効化##NoMoveMonk"
+DailyRoutines,,,,"No longer hide some UI(e.g. hotbars) because of
+special operations automatically.",特殊な操作によって一部のUI（ホットバーなど）が自動で隠れないようにします。
+DailyRoutines,,,,None,なし
+DailyRoutines,,,,normal,
+DailyRoutines,,,,Normal Duty,通常コンテンツ
+DailyRoutines,,,,Notification,通知
+DailyRoutines,,,,Notorious Monster Scanner,ノートリアスモンスター探索
+DailyRoutines,,,,Nukoooo,
+DailyRoutines,,,,Number Format,数値形式
+DailyRoutines,,,,Number Preview:,数値プレビュー：
+DailyRoutines,,,,Nyy,
+DailyRoutines,,,,"Obfuscate all player names and models in the
+game to encrypt gameplay information.
+(This is not an actual modification and does not
+affect non-model-related plugins, but be aware
+that other plugin interfaces may still reveal
+information.)","ゲーム内の全プレイヤーの名前とモデルを難読化し、
+ゲームプレイ情報を秘匿します。
+（これは実際の改変ではなく、モデルに
+関係しないプラグインには影響しませんが、
+他のプラグインの画面から情報が漏れる場合が
+あることに注意してください。）"
+DailyRoutines,,,,Occult Crescent Helper,クレセントアイル支援
+DailyRoutines,,,,ocn,
+DailyRoutines,,,,ocs,
+DailyRoutines,,,,Official Website,公式サイト
+DailyRoutines,,,,Offset,オフセット
+DailyRoutines,,,,oizys,
+DailyRoutines,,,,Only Retrieve Gears In Complete Sets,セットが揃った装備のみ取り出す
+DailyRoutines,,,,Opacity,不透明度
+DailyRoutines,,,,"Open the Materia Transmutation interface, and
+after clicking Start, automatically select and
+transmute Materia.","マテリア精製画面を開き、開始をクリックすると、
+マテリアを自動で選択して
+精製します。"
+DailyRoutines,,,,"Open the Material Delivery interface and, upon
+clicking ""Start,"" automatically deliver all available
+materials","素材納品画面を開き、「開始」をクリックすると、
+納品可能な素材をすべて自動で
+納品します"
+DailyRoutines,,,,Open Time And Weather Panel,時刻と天候パネルを開く
+DailyRoutines,,,,Operation,操作
+DailyRoutines,,,,"Optimize the custom deliveries interface to
+display clients with increased rewards this week
+and add quick action options, such as
+teleportation, for these clients.","お得意様取引の画面を最適化し、今週ボーナスが
+増えている依頼相手を表示し、その依頼相手への
+テレポなどのクイックアクションを
+追加します。"
+DailyRoutines,,,,Other,その他
+DailyRoutines,,,,Page Size,ページサイズ
+DailyRoutines,,,,pagos,
+DailyRoutines,,,,Parameter,パラメーター
+DailyRoutines,,,,Party member with Esuna-ble status,エスナで解除可能なステータスが付いたパーティメンバー
+DailyRoutines,,,,Party member with Esuna-ble status (self included),エスナで解除可能なステータスが付いたパーティメンバー（自分を含む）
+DailyRoutines,,,,Party member with specified status,指定したステータスが付いたパーティメンバー
+DailyRoutines,,,,Party member with specified status (self included),指定したステータスが付いたパーティメンバー（自分を含む）
+DailyRoutines,,,,Party member with the lowest HP percentage,HP割合が最も低いパーティメンバー
+DailyRoutines,,,,Party member with the lowest HP percentage (self included),HP割合が最も低いパーティメンバー（自分を含む）
+DailyRoutines,,,,Party Scoreboard In Keybound Brawler,Keybound Brawlerのパーティスコアボード
+DailyRoutines,,,,Persistent Fishing Status,釣り状態の保持
+DailyRoutines,,,,Persistent Targeting,ターゲットの保持
+DailyRoutines,,,,phaenna,
+DailyRoutines,,,,Phantom Job Switching Command,サポートジョブ切り替えコマンド
+DailyRoutines,,,,Player Right-click Search,プレイヤーを右クリックで検索
+DailyRoutines,,,,Player Target Info Expand,プレイヤーのターゲット情報拡張
+DailyRoutines,,,,Ponta,
+DailyRoutines,,,,Pool Of Tribute Helper,Pool Of Tribute支援
+DailyRoutines,,,,Position,位置
+DailyRoutines,,,,Position Offset,位置オフセット
+DailyRoutines,,,,Powered by NekoVerifier（猫猫验证）,
+DailyRoutines,,,,Praetorium Helper,魔導城プラエトリウム支援
+DailyRoutines,,,,Prerequisite Modules (0/1),前提モジュール (0/1)
+DailyRoutines,,,,Prerequisite Modules (0/2),前提モジュール (0/2)
+DailyRoutines,,,,Prerequisite Modules (0/3),前提モジュール (0/3)
+DailyRoutines,,,,Prerequisite Modules (1/1),前提モジュール (1/1)
+DailyRoutines,,,,Prerequisite Modules (1/2),前提モジュール (1/2)
+DailyRoutines,,,,Prerequisite Modules (2/2),前提モジュール (2/2)
+DailyRoutines,,,,Prerequisite Modules (2/4),前提モジュール (2/4)
+DailyRoutines,,,,Prerequisite Modules (2/7),前提モジュール (2/7)
+DailyRoutines,,,,Prerequisite Modules (2/8),前提モジュール (2/8)
+DailyRoutines,,,,Prerequisite Modules (3/3),前提モジュール (3/3)
+DailyRoutines,,,,Prerequisite Modules (3/7),前提モジュール (3/7)
+DailyRoutines,,,,Prerequisite Modules (3/8),前提モジュール (3/8)
+DailyRoutines,,,,Prerequisite Modules (5/6),前提モジュール (5/6)
+DailyRoutines,,,,Preset & Command For Seal Exchange,軍票交換のプリセットとコマンド
+DailyRoutines,,,,"Pressing the Esc key during casting will no longer
+interrupt the current casting process","詠唱中にEscキーを押しても、現在の詠唱が
+中断されなくなります"
+DailyRoutines,,,,Preview,プレビュー
+DailyRoutines,,,,"Provide a ""Copy"" option in the right-click menu
+of all the items.","全アイテムの右クリックメニューに「コピー」
+オプションを追加します。"
+DailyRoutines,,,,"Provide a ""Leave & Join"" button in the
+""Recruitment Criteria"" interface, allowing to leave
+the current recruitment party and then join the
+new one immediately.","「募集条件」画面に「離脱して参加」ボタンを
+追加し、現在の募集パーティから離脱してすぐに
+新しい募集に参加できるようにします。"
+DailyRoutines,,,,"Provide a ""Solve Recipe"" button above the ""Synthesize"" button to generate a recipe solution. The solution will be based on the current statistics of the character.",「製作する」ボタンの上に「レシピ解析」ボタンを追加して製作方法を生成します。生成される方法はキャラクターの現在のステータスに基づきます。
+DailyRoutines,,,,"Provide a better blacklist system, allowing to add
+an unlimited amount of players to a blacklist,
+categorize, import & export blacklists, and join
+shared blacklists online.",より優れたブラックリスト機能を提供し、無制限にプレイヤーをブラックリストに登録でき、分類、インポートとエクスポート、オンラインの共有ブラックリストへの参加ができるようにします。
+DailyRoutines,,,,"Provide a better Borderless Windowed screen
+mode, where the game window will no longer
+pop up if users access the Windows right-click
+menu when the game window is running in the
+background.",より優れたボーダーレスウィンドウモードを提供し、ゲームウィンドウがバックグラウンドで動作中にユーザーがWindowsの右クリックメニューにアクセスしても、ゲームウィンドウが前面に出なくなります。
+DailyRoutines,,,,"Provide a better Collectables Exchange interface,
+allowing to exchange collectables in batch,
+access the scrip exchange nearby, memoize the
+collectable exchanged last time, replace
+placeholder icons with item icons, and display
+possessed collectables only or in priority.",より優れた収集品取引画面を提供し、収集品の一括交換、近くのスクリップ交換へのアクセス、前回交換した収集品の記憶、プレースホルダーアイコンのアイテムアイコンへの置き換え、所持している収集品のみの表示または優先表示ができるようにします。
+DailyRoutines,,,,"Provide a better Command Panel, including a
+lock button and improved interaction logic,
+which is identical with that of hotbars. The
+vanilla commands /quickpanel and could also
+take a parameter to directly access a specified
+page.",より優れたコマンドパネルを提供し、ロックボタンと、ホットバーと同一の改善された操作ロジックを備えます。バニラのコマンド /quickpanel も、パラメーターで指定したページに直接アクセスできるようになります。
+DailyRoutines,,,,"Provide a better Company Chest system,
+allowing to store or retrieve items by right
+clicking, customize the default tab upon
+accessing and automatically pre-request the
+chest data. All the user operation cooldowns will
+be disabled too. The feature also comes with a
+price estimate for exchangeable items.",より優れたカンパニーチェスト機能を提供し、右クリックでアイテムを預けたり取り出したりでき、開いたときのデフォルトタブをカスタマイズでき、チェストデータを自動で事前に要求します。ユーザーの操作クールダウンもすべて無効化されます。交換可能なアイテムの価格見積もりも備えます。
+DailyRoutines,,,,"Provide a better Desynthesis interface, including
+desynthesis information, desynthesis skill
+information, batch desynthesis and auto
+confirmation while desynthesizing manually.",より優れたアイテム分解画面を提供し、分解情報、分解スキル情報、一括分解、手動で分解する際の自動確認を備えます。
+DailyRoutines,,,,"Provide a better Duty Finder interface, allowing to
+access the ""Classes/Jobs"" overview by clicking the
+job thumbnail, adjust Duty Finder Settings by
+clicking the buttons in the toolbar above, display
+the prerequisite duties explicitly, uncheck all
+automatically after a run. The feature also comes
+with registration shortcuts and better indicators
+regarding the daily rewards of Duty Roulettes.",より優れたコンテンツファインダー画面を提供し、ジョブサムネイルをクリックして「クラス／ジョブ」一覧にアクセスでき、上部ツールバーのボタンをクリックしてコンテンツファインダー設定を調整でき、前提コンテンツを明示し、終了後にすべてのチェックを自動で外します。申請用ショートカットと、コンテンツルーレットのデイリー報酬に関する改善された表示も備えます。
+DailyRoutines,,,,"Provide a better Enmity List, including detailed
+information of health, enmity, status and cast. It
+also allows to target an object even when the
+game applies a lock on Enmity List.",より優れた敵対リストを提供し、HP、敵視、ステータス、詠唱の詳細情報を備えます。ゲームが敵対リストにロックをかけている場合でも、対象をターゲットできます。
+DailyRoutines,,,,"Provide a better filter in Party Finder, which
+integrates several vanilla features together and
+provides smart filter sets.",より優れたパーティ募集フィルターを提供し、複数のバニラ機能を統合し、スマートなフィルターセットを提供します。
+DailyRoutines,,,,"Provide a better Friend List which allows to
+search for a friend, acquire the name and Home
+World for ones ""(Unable to Retrieve)"", add
+nicknames & comments, and inquire previous
+names.",より優れたフレンドリストを提供し、フレンドの検索、「（取得できません）」となっているフレンドの名前とホームワールドの取得、ニックネームとコメントの追加、以前の名前の照会ができるようにします。
+DailyRoutines,,,,"Provide a better Granaries interface, including
+one-click acceptance for expedition materials and
+smart expedition dispatch for the materials with
+the lowest inventory. Provide a list of available
+rare materials and related inventory information
+for each destination in the Select Expedition Area
+interface.",より優れたグラナリー画面を提供し、探検素材のワンクリック受取と、所持数が最も少ない素材へのスマートな探検派遣を備えます。探検エリア選択画面では、目的地ごとに利用可能なレア素材と関連する所持情報の一覧を表示します。
+DailyRoutines,,,,"Provide a better Isleworks Agenda interface,
+allowing to generate an optimal agenda based
+on the given demands using a built-in solver,
+implement the generated agenda, and stitch two
+consecutive seasons together.",より優れた開拓工房の計画画面を提供し、内蔵ソルバーを使って指定された需要に基づく最適な計画を生成でき、生成した計画を適用でき、連続する2シーズンをつなげられます。
+DailyRoutines,,,,"Provide a better letter system including batch
+claims, batch deletion, a search bar while
+specifying the recipient, and no cooldown for
+the button ""Reward/Purchase Delivery Request"".",より優れたレターシステムを提供し、一括受取、一括削除、宛先指定時の検索バー、「報酬／購入品の受け取りリクエスト」ボタンにクールダウンがないことを備えます。
+DailyRoutines,,,,"Provide a better loading system for active sets of
+Blue Mage, allowing to switch active sets without
+removing the Aetheric Mimicry status or waiting
+for action cooldown. The feature comes with a
+command ""/pdr {0}"" for better access.","青魔道士のアクティブセットの読み込みを改善し、エーテルコピーのステータスを外したりアクションのクールダウンを待ったりせずにアクティブセットを切り替えられるようにします。より簡単にアクセスできるコマンド ""/pdr {0}"" も備えます。"
+DailyRoutines,,,,"Provide a better Master’s Bestiary, which allows
+to check the information of beasts hasn't been
+captured yet and to set the beast size by directly
+clicking.",より優れた獣魔図鑑を提供し、まだ捕獲していない獣の情報を確認でき、直接クリックして獣のサイズを設定できます。
+DailyRoutines,,,,"Provide a better Mount Roulette which allows
+users to set dedicated lists for specified zones
+individually and assign an unlimited number of
+mounts to a list.",より優れたマウントルーレットを提供し、指定したゾーンごとに専用リストを設定でき、リストに無制限のマウントを割り当てられます。
+DailyRoutines,,,,"Provide a better Phantom Job Repertoire
+interface, allowing to customize job order,
+display job names explicitly, assign immutable
+job actions, inquire unlock requirements, etc.","より優れたサポートジョブ一覧画面を提供し、
+ジョブの順序のカスタマイズ、ジョブ名の明示、
+変更できないジョブアクションの割り当て、
+解放条件の確認などができます。"
+DailyRoutines,,,,"Provide a better Phantom Job Repertoire
+interface, allowing to customize job order, display
+job names explicitly, assign immutable job
+actions, inquire unlock requirements, etc.",より優れたサポートジョブ一覧画面を提供し、ジョブの順序のカスタマイズ、ジョブ名の明示、変更できないジョブアクションの割り当て、解放条件の確認などができます。
+DailyRoutines,,,,"Provide a better Phantom Job Repertoire interface,
+allowing to customize job order, display job
+names explicitly, assign immutable job actions,
+inquire unlock requirements, etc.",より優れたサポートジョブ一覧画面を提供し、ジョブの順序のカスタマイズ、ジョブ名の明示、変更できないジョブアクションの割り当て、解放条件の確認などができます。
+DailyRoutines,,,,"Provide a better progress bar including a
+slidecast indicator, appearance customization,
+and detailed cast information in some scenarios
+like teleportation destination and Mount
+Roulette.","より優れたプログレスバーを提供し、
+滑り撃ち可能タイミングの表示、外観の
+カスタマイズ、テレポ先やマウント
+ルーレットなど一部場面での詳細な
+詠唱情報を備えます。"
+DailyRoutines,,,,"Provide a better progress bar including a slidecast
+indicator, appearance customization, and
+detailed cast information in some scenarios like
+teleportation destination and Mount Roulette.","より優れたプログレスバーを提供し、滑り撃ち
+可能タイミングの表示、外観のカスタマイズ、
+テレポ先やマウントルーレットなど一部場面での
+詳細な詠唱情報を備えます。"
+DailyRoutines,,,,"Provide a better progress bar including a slidecast
+indicator, appearance customization, and detailed
+cast information in some scenarios like
+teleportation destination and Mount Roulette.","より優れたプログレスバーを提供し、滑り撃ち
+可能タイミングの表示、外観のカスタマイズ、詳細な
+詠唱情報を、テレポ先やマウント
+ルーレットなど一部場面で備えます。"
+DailyRoutines,,,,"Provide a better PvP Role Action widget, allowing
+an action that cannot be assigned to a hotbar to
+be assigned to the widget.",より優れたPvPロールアクションウィジェットを提供し、ホットバーに割り当てられないアクションをウィジェットに割り当てられるようにします。
+DailyRoutines,,,,"Provide a better Reward interface, allowing to
+claim job gear in batch, replace placeholder icons
+with gear icons, and skip confirmation while
+claiming manually.",より優れた報酬画面を提供し、ジョブ装備の一括受取、プレースホルダーアイコンの装備アイコンへの置き換え、手動で受け取る際の確認スキップができるようにします。
+DailyRoutines,,,,"Provide a better Target Bar & Focus Target Bar,
+including accurate target health, cast time,
+enlarged status that was applied by self, and
+shortcuts related to focus.",より優れたターゲットバーとフォーカスターゲットバーを提供し、正確なターゲットHP、詠唱時間、自分が付与したステータスの拡大表示、フォーカス関連のショートカットを備えます。
+DailyRoutines,,,,"Provide a better teleportation interface, allowing
+to search, comment and preview the destination
+along with many quality-of-life shortcuts. The
+feature also comes with customizable spawns
+after teleportation including any aethernet shard
+location.",より優れたテレポ画面を提供し、目的地の検索、コメント、プレビューと多数の利便性ショートカットを備えます。テレポ後の出現位置を、都市内エーテライトの場所を含めカスタマイズできる機能も備えます。
+DailyRoutines,,,,"Provide a better Wondrous Tails interface,
+allowing to redirect to Duty Finder or the list of
+applicable duties by clicking. The feature comes
+with a probability prediction in Reward List.",より優れたクロの空想帳画面を提供し、クリックでコンテンツファインダーや対象コンテンツ一覧へ移動できるようにします。報酬リストでの確率予測も備えます。
+DailyRoutines,,,,"Provide a better World Visit system which allows
+to initiate a World Visit request anywhere in the
+three major settlements and to initiate an
+automated World Visit process anywhere except
+in duty. The feature comes with a clean &
+accessible interface and a command ""/pdr
+worldtravel"" to initiate World Visit.","より優れたワールド間テレポシステムを提供し、3つの主要都市のどこからでもワールド間テレポを申請でき、コンテンツ中以外ならどこからでも自動ワールド間テレポを開始できます。わかりやすく使いやすい画面と、ワールド間テレポを開始するコマンド ""/pdr
+worldtravel"" も備えます。"
+DailyRoutines,,,,"Provide a command ""/pdr leaveduty"" to
+immediately leave the current duty.","現在のコンテンツから即座に退出するコマンド ""/pdr leaveduty"" を提供します。"
+DailyRoutines,,,,"Provide a command /pdr agentevent <agent
+name> <​event type​> <​parameter(s)​...> for
+direct access to various internal agents.","コマンド /pdr agentevent <agent
+name> <​event type​> <​parameter(s)​...> を提供し、さまざまな内部エージェントに直接アクセスできるようにします。"
+DailyRoutines,,,,"Provide a command /pdr bait <item ID/item
+name/item name in pinyin> to switch bait.","コマンド /pdr bait <item ID/item
+name/item name in pinyin> を提供し、餌を切り替えられるようにします。"
+DailyRoutines,,,,"Provide a command /pdr callback <UI internal
+name> <parameter(s)...> for direct control and
+interaction with various UIs.","コマンド /pdr callback <UI internal
+name> <parameter(s)...> を提供し、さまざまなUIを直接制御して操作できるようにします。"
+DailyRoutines,,,,"Provide a command /pdr ccd to cancel
+countdown.",コマンド /pdr ccd を提供し、カウントダウンをキャンセルできるようにします。
+DailyRoutines,,,,"Provide a command /pdr gpapply <index>
+(starting from 1) to switch among the glamour
+plates.",コマンド /pdr gpapply <index>（1から開始）を提供し、ミラージュプレートを切り替えられるようにします。
+DailyRoutines,,,,"Provide a command /pdr item <item ID/item
+name/item name in pinyin> to use a specific item
+in the inventory.","コマンド /pdr item <item ID/item
+name/item name in pinyin> を提供し、所持品の特定のアイテムを使用できるようにします。"
+DailyRoutines,,,,"Provide a command /pdr job <job ID/job
+name/job name in pinyin> (partial inclusive and
+case insensitive) to switch to a specified job.","コマンド /pdr job <job ID/job
+name/job name in pinyin>（部分一致、大文字小文字を区別しない）を提供し、指定したジョブに切り替えられるようにします。"
+DailyRoutines,,,,"Provide a command /pdr joinexitduty for joining
+& leaving a duty.",コマンド /pdr joinexitduty を提供し、コンテンツへの参加と退出ができるようにします。
+DailyRoutines,,,,"Provide a command /pdr mini/tray as well as
+buttons in order to minimize the game window
+conveniently.",コマンド /pdr mini/tray とボタンを提供し、ゲームウィンドウを便利に最小化できるようにします。
+DailyRoutines,,,,"Provide a command /pdr oac <action ID/action
+name/action name in pinyin> (partial inclusive
+and case insensitive) to execute a Fashion
+Accessory action.","コマンド /pdr oac <action ID/action
+name/action name in pinyin>（部分一致、大文字小文字を区別しない）を提供し、ファッションアクセサリーのアクションを実行できるようにします。"
+DailyRoutines,,,,"Provide a command /pdr pjob <ID / name (case
+insensitive, partial inclusive)> to switch to the
+specified phantom job in Occult Crescent.","コマンド /pdr pjob <ID / name (case
+insensitive, partial inclusive)> を提供し、クレセントアイルで指定したサポートジョブに切り替えられるようにします。"
+DailyRoutines,,,,"Provide a dedicated interface composed of
+vanilla game assets which allows users to set
+time and weather as wish. Combinations of time
+and weather based on areas could be saved for
+auto application purposes. The interface could
+be accessed by clicking the weather icon on the
+minimap or executing the command /pdr wt.",ゲームの標準素材で構成された専用画面を提供し、希望通りに時刻と天候を設定できるようにします。エリアに基づく時刻と天候の組み合わせを保存して自動適用できます。画面はミニマップの天候アイコンをクリックするか、コマンド /pdr wt を実行して開けます。
+DailyRoutines,,,,"Provide a dedicated interface for glamoured gear
+management and glamour plate editing,
+including filtering & favouriting for all the gear in
+Glamour Dresser and Armoire, as well as
+quality-of-life shortcuts, importing & exporting
+for glamour plates.",ミラージュ装備の管理とミラージュプレート編集のための専用画面を提供し、ミラージュドレッサーと愛蔵品キャビネット内の全装備のフィルターとお気に入り、利便性ショートカット、ミラージュプレートのインポートとエクスポートを備えます。
+DailyRoutines,,,,"Provide a dedicated panel for the Free Company
+Member interface in order to manage (like
+promoting, demoting, discharging, etc.)
+company members in batch.",フリーカンパニーメンバー画面のための専用パネルを提供し、メンバー（昇格、降格、除名など）を一括で管理できます。
+DailyRoutines,,,,"Provide a emphasized KO counter on the left of
+the screen for a better sense of perception and
+achievement.",画面左側に強調されたKOカウンターを提供し、より認識しやすく達成感を高めます。
+DailyRoutines,,,,"Provide a fast teleportation panel for teleporting
+to any location in the current zone.",現在のゾーン内の任意の場所へテレポできる、高速テレポパネルを提供します。
+DailyRoutines,,,,"Provide a floating window including all the
+interactable objects nearby for better interaction.",近くの対話可能なオブジェクトをすべて含むフローティングウィンドウを提供し、対話しやすくします。
+DailyRoutines,,,,"Provide a new remote Market Board which could
+be accessed from anywhere and in any character
+status, allowing to inquire & compare item prices,
+monitor trends and purchase items in batch. The
+feature comes with a command ""/pdr market"" to
+access the new remote Market Board.","どこからでも、キャラクターがどの状態でもアクセスできる新しいリモートマーケットボードを提供し、アイテム価格の照会と比較、動向の監視、アイテムの一括購入ができます。コマンド ""/pdr market"" で新しいリモートマーケットボードにアクセスできる機能も備えます。"
+DailyRoutines,,,,"Provide a preset feature for recruitment criteria,
+allowing to save the current recruitment criteria
+as a preset or apply a preset to the current
+recruitment criteria.","募集条件のプリセット機能を提供し、
+現在の募集条件をプリセットとして保存したり、
+プリセットを現在の募集条件に
+適用したりできます。"
+DailyRoutines,,,,"Provide a preset feature for recruitment criteria,
+allowing to save the current recruitment criteria as
+a preset or apply a preset to the current
+recruitment criteria.","募集条件のプリセット機能を提供し、現在の募集条件を
+プリセットとして保存したり、プリセットを現在の
+募集条件に適用したりできます。"
+DailyRoutines,,,,"Provide a right-click menu to entrust or retrieve
+duplicates while accessing a retainer.",リテイナーを利用している際に、右クリックメニューで重複アイテムを預けたり取り出したりできるようにします。
+DailyRoutines,,,,"Provide a search option in the right-click menu
+of items to search for item information across
+multiple external websites.",アイテムの右クリックメニューに検索オプションを追加し、複数の外部サイトでアイテム情報を検索できるようにします。
+DailyRoutines,,,,"Provide a search option in the right-click menu
+of players to search for player information across
+multiple external websites.",プレイヤーの右クリックメニューに検索オプションを追加し、複数の外部サイトでプレイヤー情報を検索できるようにします。
+DailyRoutines,,,,"Provide a series of life-quality features in
+Glamour Dresser, including automatically
+switching to the catalog corresponding to the
+current job, and retrieving gears which are
+duplicate, or share the same item model, or
+could be stored in The Armoire, or could be
+stored as an outfit glamour.",ミラージュドレッサーでの利便性機能を一式提供し、現在のジョブに対応するカタログへの自動切り替えや、重複している装備、同じアイテムモデルを共有する装備、愛蔵品キャビネットに収納できる装備、装備セットのミラージュとして収納できる装備の取り出しを備えます。
+DailyRoutines,,,,"Provide a simplified System Menu excluding the
+options unrelated to daily game experience for a
+neat layout.",日常のゲーム体験に関係ないオプションを除外した簡略化されたシステムメニューを提供し、すっきりしたレイアウトにします。
+DailyRoutines,,,,"Provide a tray widget on the screen to access the main interface.
+
+※ Hold the right mouse and drag the widget to adjust its position.","画面上にトレイウィジェットを提供し、メイン画面にアクセスできるようにします。
+
+※ 右マウスボタンを押しながらウィジェットをドラッグすると位置を調整できます。"
+DailyRoutines,,,,"Provide an unlimited amount of custom map
+markers for the in-game map, along with
+comments, grouping, and batch import & export.",ゲーム内マップに無制限のカスタムマップマーカーを提供し、コメント、グループ化、一括インポートとエクスポートを備えます。
+DailyRoutines,,,,"Provide assistance while making Mudra for
+Ninjutsu. In auto mode, Mudra will be made in
+order automatically after clicking a Ninjutsu. In
+manual mode, each Mudra could only be made
+once before executing a Ninjutsu.",忍術の印を結ぶ際の支援を提供します。自動モードでは、忍術をクリックすると印が自動で順番に結ばれます。手動モードでは、忍術を実行する前に各印を1回だけ結べます。
+DailyRoutines,,,,"Provide better access to aetherytes and aethernet
+shards on the map by making them always on
+top and making aethernet shards interactable for
+teleportation purposes. The feature also comes
+with extensive teleportation shortcuts on the
+map.",マップ上のエーテライトと都市内エーテライトを常時最前面に表示し、都市内エーテライトをテレポのために対話可能にすることで、アクセスを改善します。マップ上での豊富なテレポ用ショートカットも備えます。
+DailyRoutines,,,,"Provide better chat bubbles that the cap of text
+lines and the duration could be customized. The
+bubbles could also be displayed in combat after
+enabling a certain option.",より優れたチャットバブルを提供し、テキストの行数上限と表示時間をカスタマイズできます。特定のオプションを有効にすると、戦闘中にもバブルを表示できます。
+DailyRoutines,,,,"Provide better interfaces for Classes/Jobs in PVE
+and Character in PVP which allows users to
+switch between jobs by clicking job icons or
+names.",PvEのクラス／ジョブ画面とPvPのキャラクター画面の改善版を提供し、ジョブアイコンや名前をクリックしてジョブを切り替えられます。
+DailyRoutines,,,,"Provide better macro management, allowing to
+save available macros as a whole in a preset and
+switch among presets. The feature comes with
+line numbers for macros.",より優れたマクロ管理を提供し、使用可能なマクロ全体をプリセットとして保存し、プリセット間で切り替えられます。マクロの行番号も備えます。
+DailyRoutines,,,,"Provide better object interaction by removing the
+restrictions when the target object is out of
+sight, obstructed, positioned too high or too
+low, and the restrictions when character is
+jumping or flying at low altitude.",対象のオブジェクトが見えない、遮られている、高すぎる、低すぎる場合の制限と、キャラクターがジャンプ中や低空飛行中の制限を取り除き、オブジェクトへの対話を改善します。
+DailyRoutines,,,,"Provide buttons on the right of the chat panel to
+send draft messages or to access a versatile
+panel. The versatile panel allows to inquire
+in-game items and send ready messages, macros,
+system sound triggers and special characters.",チャットパネルの右側にボタンを提供し、下書きメッセージの送信や多機能パネルへのアクセスができます。多機能パネルでは、ゲーム内アイテムの照会や、定型メッセージ、マクロ、システムサウンドトリガー、特殊文字の送信ができます。
+DailyRoutines,,,,"Provide improvements for the time widget in
+Server Info Bar, including auto calibration based
+on server time and higher precision down to the
+second.",サーバー情報バーの時刻ウィジェットを改善し、サーバー時刻に基づく自動補正と秒単位の高精度表示を備えます。
+DailyRoutines,,,,"Provide magnified dye previews in related
+interfaces for better visibility and details.",関連画面でカララントプレビューの拡大を提供し、より見やすく詳細に確認できます。
+DailyRoutines,,,,"Provide more helpful information in the
+Keybound Brawler interface, including the
+remaining duration of the current bonus, current
+holdings of MGP, MGC & Keybound coffers, and
+progress of related achievements.",Keybound Brawler画面でより役立つ情報を提供し、現在のボーナスの残り時間、現在のMGP、MGC、Keybound宝箱の所持数、関連アチーブメントの進捗を備えます。
+DailyRoutines,,,,"Provide quality-of-life improvements for instance
+switching, allowing to automatically retry after a
+failed attempt and re-mount after entering the
+destination instance. The feature also comes with
+a dedicated shortcut interface along with a
+command ""/pdr insc"" for better access.","インスタンス切り替えの利便性を改善し、失敗後に自動で再試行し、移動先のインスタンスに入った後に再びマウントに乗ります。専用のショートカット画面とコマンド ""/pdr insc"" も備え、より簡単にアクセスできます。"
+DailyRoutines,,,,"Provide real-time network metrics in Server Info
+Bar. The feature also comes with the explicit
+server IP and GeoIP, as well as a real-time ping
+chart.",サーバー情報バーにリアルタイムのネットワーク指標を提供します。明示的なサーバーIPとGeoIP、リアルタイムのpingグラフも備えます。
+DailyRoutines,,,,"Provide some special rendering modes for some
+niche demands.",一部のニッチな需要向けに、特殊なレンダリングモードを提供します。
+DailyRoutines,,,,"Provide the count of players nearby in Server
+Info Bar along with a radar feature and a search
+bar.","サーバー情報バーに近くのプレイヤー数を、
+レーダー機能と検索バーとともに提供します。"
+DailyRoutines,,,,"Provide the count of players nearby in Server Info
+Bar along with a radar feature and a search bar.",サーバー情報バーに近くのプレイヤー数を、レーダー機能と検索バーとともに提供します。
+DailyRoutines,,,,"Provide the exact progress of Aetheric Density in
+the ""Enhanced Anima Glass"" interface for Anima
+Weapons.",アニマウェポン用の「アニマグラス」画面で、エーテル濃度の正確な進捗を提供します。
+DailyRoutines,,,,"Provide the instance ID in Server Info Bar and
+send a notification indicating the instance ID
+while joining a Field Operation duty.",サーバー情報バーにインスタンスIDを提供し、フィールドオペレーション系コンテンツに参加した際にインスタンスIDを示す通知を送ります。
+DailyRoutines,,,,"Provide various assistance for the Occult Crescent
+series of duties, including better teleportation,
+CE & FATE notifications, auto coffer highlighting
+& contacting, etc.",クレセントアイル系コンテンツ向けの各種支援を提供し、より優れたテレポ、CEとFATEの通知、宝箱の自動強調表示と接触などを含みます。
+DailyRoutines,,,,"Provide various assistance for the Occult Crescent
+series of duties, including better teleportation, CE
+& FATE notifications, auto coffer highlighting &
+contacting, etc.",クレセントアイル系コンテンツ向けの各種支援を提供し、より優れたテレポ、CEとFATEの通知、宝箱の自動強調表示と接触などを含みます。
+DailyRoutines,,,,PVP,
+DailyRoutines,,,,pyros,
+DailyRoutines,,,,qingsiweisan,
+DailyRoutines,,,,Qty Per Group,グループあたりの数量
+DailyRoutines,,,,Real-time Network Metrics,リアルタイムネットワーク指標
+DailyRoutines,,,,Recipe Solving Button,レシピ解析ボタン
+DailyRoutines,,,,Recommended,おすすめ
+DailyRoutines,,,,Recruitment,募集
+DailyRoutines,,,,Recruitment Criteria Preset,募集条件プリセット
+DailyRoutines,,,,Reload Modules,モジュールを再読み込み
+DailyRoutines,,,,"Remove all the restrictions on logging out a
+character and exiting the game, and perform the
+operation forcibly without delay.","キャラクターのログアウトとゲーム終了に関するすべての制限を
+解除し、遅延なく強制的に
+実行します。"
+DailyRoutines,,,,"Remove the 60-second wait cap for both the
+""/wait"" and ""<wait>"" commands. Allow for higher
+precision up to two decimal places.
+(For example, /wait 180, <wait.54.87>)","""/wait"" と ""<wait>"" コマンドの60秒の待機上限を
+解除します。小数第2位までの高い
+精度を指定できます。
+(例: /wait 180, <wait.54.87>)"
+DailyRoutines,,,,"Remove the acceleration process of the character
+and allow the character to immediately accelerate
+to the full speed after starting moving.","キャラクターの加速処理をなくし、
+移動開始直後に即座に
+最高速度まで加速するようにします。"
+DailyRoutines,,,,"Remove the target type restriction while
+initiating following. Provide an option in the
+right-click menu to better follow the target even
+across zones.","追従開始時のターゲット種別の制限を
+解除します。右クリックメニューにオプションを
+追加し、エリアをまたいでもターゲットをより適切に
+追従できるようにします。"
+DailyRoutines,,,,"Replace ""Rage"" Animation##BerserkerRageReplace","""Rage""モーションに置換##BerserkerRageReplace"
+DailyRoutines,,,,"Replace and customize all in-game text according
+to presets saved","保存したプリセットに従って、ゲーム内の
+すべてのテキストを置換してカスタマイズします。"
+DailyRoutines,,,,"Replace the category icons with the icons of the
+corresponding items at NPC vendors.","NPCショップで、カテゴリアイコンを対応する
+アイテムのアイコンに置き換えます。"
+DailyRoutines,,,,"Replace the jump with Ninja Flip while drawing
+the weapon regardless of the current job.","現在のジョブに関係なく、抜刀時はジャンプを
+忍者の宙返りに置き換えます。"
+DailyRoutines,,,,"Replace the native game interface with the
+module interface, enabling instant switching
+without loading, real-time data updates, and
+right-click quick teleportation support","ゲーム標準のインターフェースをモジュールの
+インターフェースに置き換え、読み込みなしの即時切り替え、
+リアルタイムのデータ更新、および
+右クリックでのクイックテレポに対応します。"
+DailyRoutines,,,,Replace Vanilla World Visit,標準のワールド間テレポを置換
+DailyRoutines,,,,Reset All Striking Dummies,すべての木人をリセット
+DailyRoutines,,,,Retrieve Armoire Gears,愛蔵品キャビネットの装備を取り出す
+DailyRoutines,,,,Retrieve Duplicate Gears,重複した装備を取り出す
+DailyRoutines,,,,Retrieve Outfit-glamour Gears,コーディネートミラプリ装備を取り出す
+DailyRoutines,,,,Retrieve Same-model Gears,同じモデルの装備を取り出す
+DailyRoutines,,,,Retry Until Successful,成功するまでリトライ
+DailyRoutines,,,,Right-click Movement,右クリックで移動
+DailyRoutines,,,,Rorinnn,
+DailyRoutines,,,,roulette,
+DailyRoutines,,,,Sastasha Helper,サスタシャ支援
+DailyRoutines,,,,Scale,スケール
+DailyRoutines,,,,Script,スクリプト
+DailyRoutines,,,,Scrolling Switching Of In-game Tabs,ゲーム内タブのスクロール切り替え
+DailyRoutines,,,,Search,検索
+DailyRoutines,,,,Search Bar In Blue Magic Spellbook,青魔道書の検索バー
+DailyRoutines,,,,Selectable Recruitment Text,募集文を選択可能に
+DailyRoutines,,,,"Send a notification if a player manually removes
+status applied by you.","自分が付与したステータスをプレイヤーが手動で
+解除したら通知します。"
+DailyRoutines,,,,Send a notification including authentication details every time the authentication status is refreshed.,認証ステータスが更新されるたびに、認証の詳細を含む通知を送信します。
+DailyRoutines,,,,Send Chat Message,チャットメッセージを送信
+DailyRoutines,,,,Set Time And Weather As Wish,時刻と天候を任意に設定
+DailyRoutines,,,,Set Try-on While Inspecting,検査中に試着を設定
+DailyRoutines,,,,Settings,設定
+DailyRoutines,,,,SHIFT,
+DailyRoutines,,,,Shiyuvi,
+DailyRoutines,,,,Signs In Party List,パーティリストにサイン
+DailyRoutines,,,,silence,
+DailyRoutines,,,,Simplified System Menu,システムメニューを簡略化
+DailyRoutines,,,,Siren,
+DailyRoutines,,,,Skip all the logos and disclaimers during client startup.,クライアント起動時のすべてのロゴと免責事項をスキップします。
+DailyRoutines,,,,Skip Dyed Gears,染色済み装備をスキップ
+DailyRoutines,,,,Skip Logos,ロゴをスキップ
+DailyRoutines,,,,Skip Return Confirm,デジョン確認をスキップ
+DailyRoutines,,,,"Skip the confirmation while entering and leaving
+Inn. The feature also comes with a command
+""/pdr inn"" to access the nearest Inn immediately.","宿屋への出入りの際の確認をスキップします。
+コマンド ""/pdr inn"" で最寄りの宿屋へ即座に
+移動できる機能も備えています。"
+DailyRoutines,,,,Slidecast Indicator,スライドキャスト表示
+DailyRoutines,,,,"Some modules and features provided by Daily Routines are powered by crowdsourced data. Please rest assured, all the data collected from users are completely anonymous.
+※ The modules and features based on crowdsourced data may be unavailable if the crowdsourcing is disabled.","Daily Routinesが提供する一部のモジュールと機能は、クラウドソースされたデータによって動作しています。ご安心ください。ユーザーから収集されるデータはすべて完全に匿名です。
+※ クラウドソースデータに基づくモジュールと機能は、クラウドソーシングを無効にすると利用できなくなる場合があります。"
+DailyRoutines,,,,"Sometimes the game would prevent you targeting an object via Enmity List.
+For example, during the ""Manusya Confuse"" status in the second boss battle ""Sanduruva"" in the duty ""Tower of Zot"".","ゲームの仕様で、敵視リストから対象をターゲットできない場合があります。
+例：コンテンツ「ゾットの塔」の2ボス「Sanduruva」戦でのステータス「Manusya Confuse」の影響を受けている間。"
+DailyRoutines,,,,Sound Effect Throttler,効果音スロットラー
+DailyRoutines,,,,"South, West",南、西
+DailyRoutines,,,,Special Rendering Modes,特殊レンダリングモード
+DailyRoutines,,,,Square Enix,
+DailyRoutines,,,,Start,開始
+DailyRoutines,,,,Status Manual Removal Notification,ステータス手動解除の通知
+DailyRoutines,,,,status102,
+DailyRoutines,,,,Stop,停止
+DailyRoutines,,,,Striking Tree Helper,木人支援
+DailyRoutines,,,,Stroke Colour,縁取りの色
+DailyRoutines,,,,Style,スタイル
+DailyRoutines,,,,Summon Size Menu Option,召喚獣サイズのメニューオプション
+DailyRoutines,,,,supply,
+DailyRoutines,,,,Support,サポート
+DailyRoutines,,,,support,
+DailyRoutines,,,,Support Job,サポートジョブ
+DailyRoutines,,,,Swap HP And Status,HPとステータスを入れ替え
+DailyRoutines,,,,Swap the positions of health and status. Display the status on the left while also expanding toward the left. Display the health on the right while also expanding toward the right.,体力とステータスの位置を入れ替えます。ステータスを左側に表示して左方向へ展開し、体力を右側に表示して右方向へ展開します。
+DailyRoutines,,,,Switch To Job Catalog,ジョブカタログに切り替え
+DailyRoutines,,,,sync,
+DailyRoutines,,,,System,システム
+DailyRoutines,,,,TARGET,
+DailyRoutines,,,,TE8A6BBD92057B281E0BB0F112E8C544D##TID (Device Cred),
+DailyRoutines,,,,Teleport To Nearest Aetheryte If None Nearby,近くにエーテライトがない場合は最寄りのエーテライトへテレポ
+DailyRoutines,,,,Tell In Duty,コンテンツ中のTell
+DailyRoutines,,,,Text Colour,テキストの色
+DailyRoutines,,,,Text Format,テキスト形式
+DailyRoutines,,,,"The actual percentage of all the mitigation
+currently applied, including the mitigation status
+on the character and the mitigation actions
+applied on the target, will be displayed in Server
+Info Bar.","現在適用されているすべての軽減の実際の割合を、
+キャラクターへの軽減ステータスとターゲットへ
+適用した軽減アクションを含めて、
+サーバー情報バーに表示します。"
+DailyRoutines,,,,"The character would be undetectable in all the
+sneaking quests.","すべての隠密クエストで、キャラクターが
+検知されなくなります。"
+DailyRoutines,,,,"The font scaling here is relative to the font size in Dalamud. Its value is 1 by default, with a minimum of 0.1.",ここのフォント倍率はDalamudのフォントサイズに対する相対値です。デフォルトは1で、最小値は0.1です。
+DailyRoutines,,,,The page displayed upon the first access to the main interface each time after loading Daily Routines.,Daily Routinesを読み込んだあと、メインインターフェースに初めてアクセスしたときに表示されるページです。
+DailyRoutines,,,,The text-to-speech feature has been migrated to an independent plugin named EdgeTTS.Dalamud. Please consider downloading and enabling it for the latest text-to-speech experience.,読み上げ機能は、独立したプラグイン「EdgeTTS.Dalamud」に移行しました。最新の読み上げ体験のために、ダウンロードして有効にすることをご検討ください。
+DailyRoutines,,,,"The vanilla category panel is actually a unidirectional circular toggle rather than what its appearance typically suggests.
+Enable the option to turn the fake panel into a real three-button panel.","標準のカテゴリパネルは、見た目とは異なり、実際には一方向に循環する切り替え方式です。
+オプションを有効にすると、見せかけのパネルを実際の3ボタンパネルに変えます。"
+DailyRoutines,,,,Theme Loading On The Fly,テーマの動的読み込み
+DailyRoutines,,,,TID (Device Cred),
+DailyRoutines,,,,ToxicStar,
+DailyRoutines,,,,Tray Notification Delay When Client Is Active,クライアントがアクティブなときのトレイ通知の遅延
+DailyRoutines,,,,Tray Widget,トレイウィジェット
+DailyRoutines,,,,Type,種類
+DailyRoutines,,,,Unified Glamour Manager,統合ミラプリマネージャー
+DailyRoutines,,,,Unlock the position of the floating window,フローティングウィンドウの位置固定を解除
+DailyRoutines,,,,unrest,
+DailyRoutines,,,,Unrestricted Macro Icon,マクロアイコンの制限を解除
+DailyRoutines,,,,"Upload the information of all the available recruitments at the moment while accessing Party Finder.
+The information will be uploaded to https://xivpf.com/","パーティ募集にアクセスした時点の、利用可能なすべての募集情報をアップロードします。
+情報は https://xivpf.com/ にアップロードされます。"
+DailyRoutines,,,,"Upload the information of Chaotic Alliance Raid bonus while accessing Duty Finder.
+The information will be uploaded to https://uptime.ff14.xin/","コンテンツファインダーにアクセスした時点の、滅アライアンスレイドのボーナス情報をアップロードします。
+情報は https://uptime.ff14.xin/ にアップロードされます。"
+DailyRoutines,,,,"Upload the information of FATEs and CEs in the current instance when the character is in a Field Operation duty.
+The information will be uploaded to https://ce-crowdsource.atmoomen.top/","フィールドオペレーションコンテンツ内にいるとき、現在のインスタンスのFATEとCEの情報をアップロードします。
+情報は https://ce-crowdsource.atmoomen.top/ にアップロードされます。"
+DailyRoutines,,,,"Upon attempting to dismount, immediately step
+down to the ground.","マウントから降りようとした際に、即座に
+地面へ降ります。"
+DailyRoutines,,,,"Upon entering a duty, automatically redirect the
+placement of ground-targeted actions to the
+center of the area","コンテンツに入った際に、設置アクションの
+設置位置を自動でエリアの
+中心に変更します。"
+DailyRoutines,,,,Useful Links,便利なリンク
+DailyRoutines,,,,"Using ground-targeted actions (e.g., Asylum,
+Earthly Star) will no longer change the current
+facing direction","設置アクション（例：アサイラム、
+アーサリースター）を使用しても、現在の
+向きが変わらなくなります。"
+DailyRoutines,,,,Veever,
+DailyRoutines,,,,Wayfinding,経路探索
+DailyRoutines,,,,"When high level actions are unavailable due to
+level sync, automatically replace them with their
+low level counterparts.","レベルシンクで高レベルアクションが使えないとき、
+自動で対応する低レベルアクションに置き換えます。"
+DailyRoutines,,,,"When interacting with objects that require quest
+items and opening the Key Item inventory,
+automatically use the corresponding quest item","クエストアイテムが必要なオブジェクトを調べ、
+大事なものリストを開いたときに、
+対応するクエストアイテムを自動で使用します。"
+DailyRoutines,,,,"When placing a flag, automatically use Waymarks
+to create a light pillar to highlight the
+destination.","フラグを立てたときに、フィールドマーカーを
+自動で使用して光の柱を作り、
+目的地を強調表示します。"
+DailyRoutines,,,,"When placing a flag, automatically use Waymarks
+to create a light pillar to highlight the destination.","フラグを立てたときに、フィールドマーカーを自動で使用して
+光の柱を作り、目的地を強調表示します。"
+DailyRoutines,,,,"When retrieving any gear's materia, retrieve all.",いずれかの装備からマテリアを回収するとき、すべて回収します。
+DailyRoutines,,,,"When the confirmation window for gathering
+items as Collectables appears, auto click confirm","収集品としてアイテムを採集する際の確認ウィンドウが
+表示されたら、自動で確認をクリックします。"
+DailyRoutines,,,,"When the portrait update preview interface
+appears, click OK automatically to update the
+portrait to the latest equipment status.","ポートレート更新のプレビュー画面が表示されたら、
+自動でOKをクリックし、ポートレートを最新の
+装備状態に更新します。"
+DailyRoutines,,,,"When using the Warrior action Holmgang, force
+target self.","戦士のアクション「ホルムギャング」を使用するとき、
+強制的に自分をターゲットします。"
+DailyRoutines,,,,"When you open the Faux Hollows interface, the
+current optimal solution will be highlighted
+automatically according to your settings.
+(Highlight colour: Blue → Twin Swords / Pink →
+Treasure Box, Gift Box / Gold → Faux)","Faux Hollowsの画面を開くと、設定に従って
+現在の最適解が自動でハイライトされます。
+（ハイライト色：青 → Twin Swords / ピンク →
+Treasure Box、Gift Box / 金 → Faux）"
+DailyRoutines,,,,While checking,確認中
+DailyRoutines,,,,"While encountering a lobby error, the module
+will automatically prevent game exiting. Instead,
+it will return to the login page.","ロビーエラーが発生した際に、モジュールが
+自動でゲームの終了を防ぎます。代わりに、
+ログイン画面へ戻ります。"
+DailyRoutines,,,,"While feeding your companion in the Chocobo
+stable, automatically skip the cutscenes and
+complete the feeding immediately.","チョコボ厩舎でバディに餌をあげる際に、
+カットシーンを自動でスキップし、
+餌やりを即座に完了します。"
+DailyRoutines,,,,"While the members in the current recruitment
+change, prevent the party finder interface from
+being closed and re-open the recruitment which
+the user was just reading if applicable.","現在の募集のメンバーが変わった際に、
+パーティ募集画面が閉じないようにし、該当する場合は
+読んでいた募集を再度開きます。"
+DailyRoutines,,,,World Visit shortcut in Server Info Bar,サーバー情報バーにワールド間テレポのショートカット
+DailyRoutines,,,,Wotou,
+DailyRoutines,,,,xivpf,
+DailyRoutines,,,,XSZYYS,
+DailyRoutines,,,,Xww,
+DailyRoutines,,,,yamiYori,
+DailyRoutines,,,,Yangdoubao,
+DailyRoutines,,,,Yarukon,
+DailyRoutines,,,,YLCHEN,
+DailyRoutines,,,,zadnor,
+DailyRoutines,,,,zodiac,
+DailyRoutines,,,,Zone,ゾーン
+DailyRoutines,,,,「コンテンツルーレット：レベリング」参加先制限,「コンテンツルーレット：レベリング」参加先制限
+DailyRoutines,,,,【 ロットルール：通常ロット 】,【 ロットルール：通常ロット 】
+DailyRoutines,,,,アクション名,アクション名
+DailyRoutines,,,,エンテ (E.S.),エンテ (E.S.)
+DailyRoutines,,,,カルナック城塞##SetDefaultPositionEnterZoneNorthHorn,カルナック城塞##SetDefaultPositionEnterZoneNorthHorn
+DailyRoutines,,,,クリティカルエンゲージメント##AutoDismountCE,クリティカルエンゲージメント##AutoDismountCE
+DailyRoutines,,,,コンテンツ名,コンテンツ名
+DailyRoutines,,,,サポート吟遊詩人,サポート吟遊詩人
+DailyRoutines,,,,ザトゥノル高原,ザトゥノル高原
+DailyRoutines,,,,レベルシンク状態での参加,レベルシンク状態での参加
+DailyRoutines,,,,ロットルール：GREED限定,ロットルール：GREED限定
+DailyRoutines,,,,三日月島北部,三日月島北部
+DailyRoutines,,,,三日月島南部,三日月島南部
+DailyRoutines,,,,下限アイテムレベルでの参加,下限アイテムレベルでの参加
+DailyRoutines,,,,丝瓜卡夫卡,
+DailyRoutines,,,,光子工作室群,
+DailyRoutines,,,,制限解除,制限解除
+DailyRoutines,,,,勾选框,チェックボックス
+DailyRoutines,,,,南方ボズヤ戦線,南方ボズヤ戦線
+DailyRoutines,,,,南沢响也,
+DailyRoutines,,,,参数,パラメーター
+DailyRoutines,,,,古樹の湿原前##SetDefaultPositionEnterZoneSouthHorn,古樹の湿原前##SetDefaultPositionEnterZoneSouthHorn
+DailyRoutines,,,,吉田直樹,吉田直樹
+DailyRoutines,,,,名称,名称
+DailyRoutines,,,,妖火の漁村##SetDefaultPositionEnterZoneNorthHorn,妖火の漁村##SetDefaultPositionEnterZoneNorthHorn
+DailyRoutines,,,,宝箱,宝箱
+DailyRoutines,,,,惑星アウクセシア,惑星アウクセシア
+DailyRoutines,,,,惑星オイジュス,惑星オイジュス
+DailyRoutines,,,,惑星パエンナ,惑星パエンナ
+DailyRoutines,,,,拂晓工作室,
+DailyRoutines,,,,指导者任务记录上传助手,指導者タスク記録アップロードアシスタント
+DailyRoutines,,,,探査地点,探査地点
+DailyRoutines,,,,探査隊のベースキャンプ##SetDefaultPositionEnterZoneSouthHorn,探査隊のベースキャンプ##SetDefaultPositionEnterZoneSouthHorn
+DailyRoutines,,,,探査隊の北部ベースキャンプ##SetDefaultPositionEnterZoneNorthHorn,探査隊の北部ベースキャンプ##SetDefaultPositionEnterZoneNorthHorn
+DailyRoutines,,,,描述,説明
+DailyRoutines,,,,操作,操作
+DailyRoutines,,,,攻略途中パーティへの参加,攻略途中パーティへの参加
+DailyRoutines,,,,放浪神聖域跡前##SetDefaultPositionEnterZoneSouthHorn,放浪神聖域跡前##SetDefaultPositionEnterZoneSouthHorn
+DailyRoutines,,,,数量,数量
+DailyRoutines,,,,敵視,敵視
+DailyRoutines,,,,日常の反復作業を軽量に自動化します。,日常の反復作業を軽量に自動化します。
+DailyRoutines,,,,最终幻想14：水晶世界（已停服）,ファイナルファンタジー14：水晶世界（サービス終了済み）
+DailyRoutines,,,,有効にする###Enable,有効にする###Enable
+DailyRoutines,,,,水晶洞窟前##SetDefaultPositionEnterZoneSouthHorn,水晶洞窟前##SetDefaultPositionEnterZoneSouthHorn
+DailyRoutines,,,,沈んだ聖堂前##SetDefaultPositionEnterZoneNorthHorn,沈んだ聖堂前##SetDefaultPositionEnterZoneNorthHorn
+DailyRoutines,,,,浮遊遺跡##SetDefaultPositionEnterZoneNorthHorn,浮遊遺跡##SetDefaultPositionEnterZoneNorthHorn
+DailyRoutines,,,,灵视,霊視
+DailyRoutines,,,,無人島開拓,無人島開拓
+DailyRoutines,,,,焦がれの入江,焦がれの入江
+DailyRoutines,,,,状態,状態
+DailyRoutines,,,,盛趣游戏,
+DailyRoutines,,,,石塔水沼前##SetDefaultPositionEnterZoneSouthHorn,石塔水沼前##SetDefaultPositionEnterZoneSouthHorn
+DailyRoutines,,,,祖堅正慶,祖堅正慶
+DailyRoutines,,,,禁断の地 エウレカ：アネモス編,禁断の地 エウレカ：アネモス編
+DailyRoutines,,,,禁断の地 エウレカ：パゴス編,禁断の地 エウレカ：パゴス編
+DailyRoutines,,,,禁断の地 エウレカ：ヒュダトス編,禁断の地 エウレカ：ヒュダトス編
+DailyRoutines,,,,禁断の地 エウレカ：ピューロス編,禁断の地 エウレカ：ピューロス編
+DailyRoutines,,,,穷孩子,
+DailyRoutines,,,,腐敗した市街地前##SetDefaultPositionEnterZoneNorthHorn,腐敗した市街地前##SetDefaultPositionEnterZoneNorthHorn
+DailyRoutines,,,,腾讯游戏,
+DailyRoutines,,,,自动显示副本攻略,コンテンツ攻略を自動表示
+DailyRoutines,,,,自由探索での参加,自由探索での参加
+DailyRoutines,,,,蜃気楼の島 クレセントアイル：北征編,蜃気楼の島 クレセントアイル：北征編
+DailyRoutines,,,,蜃気楼の島 クレセントアイル：南征編,蜃気楼の島 クレセントアイル：南征編
+DailyRoutines,,,,超える力無効での参加,超える力無効での参加
+DailyRoutines,,,,"进入副本后，自动在悬浮窗内显示来自“新大陆见闻录
+”网站的攻略。","コンテンツに入ると、フローティングウィンドウ内に「新大陸見聞録
+」サイトの攻略を自動で表示します。"
+DailyRoutines,,,,"进入副本后，自动在悬浮窗内显示来自“新大陆见闻录”
+网站的攻略。","コンテンツに入ると、フローティングウィンドウ内に「新大陸見聞録」
+サイトの攻略を自動で表示します。"
+DailyRoutines,,,,逆光,逆光
+DailyRoutines,,,,那年雪落,
+DailyRoutines,,,,"配置后，完成指导者任务时，自动记录并上传至
+“DungeonLogger”网站。","設定すると、指導者タスク完了時に自動で記録し、
+“DungeonLogger”サイトにアップロードします。"
+DailyRoutines,,,,雲海採集 ディアデム諸島,雲海採集 ディアデム諸島
+DailyRoutines,,,,魔道通路,魔道通路
+DailyRoutines,,,,##TrayOverlay,
+DailyRoutines,,,, Add, 追加
