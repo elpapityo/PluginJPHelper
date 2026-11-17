@@ -1,0 +1,22 @@
+Plugin,Menu,Section,Type,English,Japanese
+Glamaholic,,,@Window,Glamaholic,
+Glamaholic,,,,Adding glamour plates,ミラージュプレートの追加
+Glamaholic,,,,Advanced search,高度な検索
+Glamaholic,,,,Eorzea Collection,
+Glamaholic,,,,Finding items that share a model,同じモデルのアイテムを探しています
+Glamaholic,,,,Glamour Dresser is empty or has not been opened. Glamaholic will not know which items you have.,ミラージュドレッサーが空か、まだ開かれていません。Glamaholicは、あなたがどのアイテムを持っているか把握できません。
+Glamaholic,,,,Help,ヘルプ
+Glamaholic,,,,How to use Glamaholic,Glamaholicの使い方
+Glamaholic,,,,Import from Clipboard,クリップボードからインポート
+Glamaholic,,,,Import from URL,URLからインポート
+Glamaholic,,,,Mass Import,一括インポート
+Glamaholic,,,,New,新規
+Glamaholic,,,,No valid plate data in clipboard.,クリップボードに有効なプレートデータがありません。
+Glamaholic,,,,Plates,プレート
+Glamaholic,,,,Settings,設定
+Glamaholic,,,,Support Anna on Ko-fi,Ko-fiでAnnaを支援
+Glamaholic,,,,"Thank you for installing Glamaholic! This plugin can act as your home for glamours, since you can store as many as you would like in it. To get started, try reading the section called ""Adding glamour plates"". Keep in mind that you'll need to be editing your plates at the Glamour Dresser to be able to copy those plates into the plugin or apply new plates.",Glamaholicをインストールしていただきありがとうございます！このプラグインには好きなだけミラージュを保存できるので、ミラージュの置き場所として使えます。まずは「ミラージュプレートの追加」のセクションを読んでみてください。なお、プレートをプラグインにコピーしたり新しいプレートを適用したりするには、ミラージュドレッサーでプレートを編集中である必要があります。
+Glamaholic,,,,View Changelog,変更履歴を表示
+Glamaholic,,,,Warnings (1)###warnings,警告 (1)###warnings
+Glamaholic,,,,You can search for items that share the same model as another item by either middle-clicking (click with mouse wheel) or holding Control and left-clicking on any item name or item icon. This will open a window listing items with the same model where you can link or try them on.,別のアイテムと同じモデルのアイテムは、アイテム名やアイテムアイコンを中クリック（マウスホイールでクリック）するか、Controlを押しながら左クリックすることで検索できます。同じモデルのアイテムを一覧表示するウィンドウが開き、リンクしたり試着したりできます。
+Glamaholic,,,,設定###Settings,設定###Settings
