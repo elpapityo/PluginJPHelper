@@ -1,0 +1,122 @@
+Plugin,Menu,Section,Type,English,Japanese
+Browsingway,,,@Window,Browsingway,
+Browsingway,,,,- Overlays -,- オーバーレイ -
+Browsingway,,,,/bw config,
+Browsingway,,,,/bw overlay [overlayCommandName] [setting] [value],
+Browsingway,,,,ACT/IINACT optimizations,ACT/IINACT 最適化
+Browsingway,,,,ACT/IINACT 最適化###ACT/IINACT optimizations,ACT/IINACT 最適化###ACT/IINACT optimizations
+Browsingway,,,,Automatically makes this overlay cover the entire screen when enabled.,有効にすると、このオーバーレイが自動的に画面全体を覆うようになります。
+Browsingway,,,,"Change a setting for an overlay.
+	overlayCommandName: The overlay to edit. Use the 'Command Name' shown in its config.
+	setting: Value to change. Accepted settings are:
+		url: string
+		disabled: boolean
+		muted: boolean
+		act: boolean
+		locked: boolean
+		hidden: boolean
+		typethrough: boolean
+		clickthrough: boolean
+		fullscreen: boolean
+		reload: -
+	value: Value to set for the setting. Accepted values are:
+		string: any string value
+		boolean: on, off, toggle","オーバーレイの設定を変更します。
+	overlayCommandName: 編集するオーバーレイ。設定に表示される 'コマンド名' を使用します。
+	setting: 変更する値。指定できる設定は次のとおりです：
+		url: string
+		disabled: boolean
+		muted: boolean
+		act: boolean
+		locked: boolean
+		hidden: boolean
+		typethrough: boolean
+		clickthrough: boolean
+		fullscreen: boolean
+		reload: -
+	value: 設定に指定する値。指定できる値は次のとおりです：
+		string: 任意の文字列
+		boolean: on, off, toggle"
+Browsingway,,,,Click Through,クリックスルー
+Browsingway,,,,Command Help,コマンドヘルプ
+Browsingway,,,,Command Name,コマンド名
+Browsingway,,,,Custom CSS code,カスタムCSSコード
+Browsingway,,,,Custom CSS code:,カスタムCSSコード：
+Browsingway,,,,Delay to hide overlay when out-of-combat in seconds.,非戦闘時にオーバーレイを非表示にするまでの遅延（秒）。
+Browsingway,,,,Disabled,無効
+Browsingway,,,,Disables the overlay. Contrary to just hiding it this setting will stop it from ever being created.,オーバーレイを無効にします。単に非表示にするのとは異なり、この設定ではオーバーレイ自体が作成されなくなります。
+Browsingway,,,,"Enables ACT/IINACT specific optimizations. This will automatically disable the overlay if ACT/IINACT is not running.
+
+NOTE: This does NOT disable the overlay if the websocket is not reporting data.",ACT/IINACT 専用の最適化を有効にします。ACT/IINACT が動作していない場合、このオーバーレイは自動的に無効になります。\n\n注意：WebSocket がデータを送信していない場合に、このオーバーレイが無効になることはありません。
+Browsingway,,,,Enables or disables audio playback.,音声の再生を有効または無効にします。
+Browsingway,,,,Experimental / Unsupported,実験的／サポート対象外
+Browsingway,,,,Framerate,フレームレート
+Browsingway,,,,Fullscreen,フルスクリーン
+Browsingway,,,,General,一般
+Browsingway,,,,Hidden,非表示
+Browsingway,,,,Hide Delay,非表示までの遅延
+Browsingway,,,,Hide in PvP,PvP中は非表示
+Browsingway,,,,Hide out of combat,非戦闘時は非表示
+Browsingway,,,,"Hide the overlay. This does not stop the overlay from executing, only from being displayed.",オーバーレイを非表示にします。オーバーレイの実行は止まらず、表示されなくなるだけです。
+Browsingway,,,,Hide this overlay when in a PvP area.,PvPエリアではこのオーバーレイを非表示にします。
+Browsingway,,,,Hide this overlay when out-of-combat.,非戦闘時にこのオーバーレイを非表示にします。
+Browsingway,,,,Locked,ロック
+Browsingway,,,,Muted,ミュート
+Browsingway,,,,Name,名前
+Browsingway,,,,Opacity,不透明度
+Browsingway,,,,Open Dev Tools,開発者ツールを開く
+Browsingway,,,,Open this configuration window.,この設定ウィンドウを開きます。
+Browsingway,,,,Prevent the overlay from being resized or moved. This is implicitly set by Click Through and Fullscreen.,オーバーレイのサイズ変更や移動を防ぎます。クリックスルーとフルスクリーンでは暗黙的に設定されます。
+Browsingway,,,,Prevent the overlay from intercepting any keyboard events. Implicitly set by Click Through.,オーバーレイがキーボードイベントを受け取らないようにします。クリックスルーでは暗黙的に設定されます。
+Browsingway,,,,Prevent the overlay from intercepting any mouse events. Implicitly sets Locked and Type Through.,オーバーレイがマウスイベントを受け取らないようにします。ロックとタイプスルーが暗黙的に設定されます。
+Browsingway,,,,PvP中は非表示###Hide in PvP,PvP中は非表示###Hide in PvP
+Browsingway,,,,Reload,再読み込み
+Browsingway,,,,Select an overlay on the left to edit its settings.,左側でオーバーレイを選択すると、その設定を編集できます。
+Browsingway,,,,Type Through,タイプスルー
+Browsingway,,,,URL,
+Browsingway,,,,Zoom,ズーム
+Browsingway,,,,この設定ウィンドウを開きます。,この設定ウィンドウを開きます。
+Browsingway,,,,オーバーレイがキーボードイベントを受け取らないようにします。クリックスルーでは暗黙的に設定されます。,オーバーレイがキーボードイベントを受け取らないようにします。クリックスルーでは暗黙的に設定されます。
+Browsingway,,,,オーバーレイのサイズ変更や移動を防ぎます。クリックスルーとフルスクリーンでは暗黙的に設定されます。,オーバーレイのサイズ変更や移動を防ぎます。クリックスルーとフルスクリーンでは暗黙的に設定されます。
+Browsingway,,,,"オーバーレイの設定を変更します。
+	overlayCommandName: 編集するオーバーレイ。設定に表示される 'コマンド名' を使用します。
+	setting: 変更する値。指定できる設定は次のとおりです：
+		url: string
+		disabled: boolean
+		muted: boolean
+		act: boolean
+		locked: boolean
+		hidden: boolean
+		typethrough: boolean
+		clickthrough: boolean
+		fullscreen: boolean
+		reload: -
+	value: 設定に指定する値。指定できる値は次のとおりです：
+		string: 任意の文字列
+		boolean: on, off, toggle","オーバーレイの設定を変更します。
+	overlayCommandName: 編集するオーバーレイ。設定に表示される 'コマンド名' を使用します。
+	setting: 変更する値。指定できる設定は次のとおりです：
+		url: string
+		disabled: boolean
+		muted: boolean
+		act: boolean
+		locked: boolean
+		hidden: boolean
+		typethrough: boolean
+		clickthrough: boolean
+		fullscreen: boolean
+		reload: -
+	value: 設定に指定する値。指定できる値は次のとおりです：
+		string: 任意の文字列
+		boolean: on, off, toggle"
+Browsingway,,,,オーバーレイを無効にします。単に非表示にするのとは異なり、この設定ではオーバーレイ自体が作成されなくなります。,オーバーレイを無効にします。単に非表示にするのとは異なり、この設定ではオーバーレイ自体が作成されなくなります。
+Browsingway,,,,クリックスルー###Click Through,クリックスルー###Click Through
+Browsingway,,,,タイプスルー###Type Through,タイプスルー###Type Through
+Browsingway,,,,ミュート###Muted,ミュート###Muted
+Browsingway,,,,ロック###Locked,ロック###Locked
+Browsingway,,,,左側でオーバーレイを選択すると、その設定を編集できます。,左側でオーバーレイを選択すると、その設定を編集できます。
+Browsingway,,,,無効###Disabled,無効###Disabled
+Browsingway,,,,非戦闘時にこのオーバーレイを非表示にします。,非戦闘時にこのオーバーレイを非表示にします。
+Browsingway,,,,非戦闘時は非表示###Hide out of combat,非戦闘時は非表示###Hide out of combat
+Browsingway,,,,非表示###Hidden,非表示###Hidden
+Browsingway,,,,音声の再生を有効または無効にします。,音声の再生を有効または無効にします。
