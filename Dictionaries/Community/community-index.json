@@ -303,6 +303,16 @@
       "sha": "20525d6c23b63a8d321a19944a195b0656bf0b36",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/GatherBuddy.csv",
       "deleteKeyHash": "9efd9667b8517cae8fe3f518d5b36939dcba280e8c188aed88ddc45d315a00ad"
+    },
+    {
+      "fileName": "Glamaholic.csv",
+      "pluginName": "Glamaholic",
+      "owner": "shidare",
+      "note": "",
+      "updated": "2026-11-17",
+      "sha": "33d7b56198ec5a6a4111ba740e2fceed06e584a3",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/Glamaholic.csv",
+      "deleteKeyHash": "ac9c83575e835dbfa9201b21e89f4934de9babb5e48962b7fea0cad3d1203049"
     }
   ]
 }
