@@ -313,6 +313,16 @@
       "sha": "33d7b56198ec5a6a4111ba740e2fceed06e584a3",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/Glamaholic.csv",
       "deleteKeyHash": "ac9c83575e835dbfa9201b21e89f4934de9babb5e48962b7fea0cad3d1203049"
+    },
+    {
+      "fileName": "IINACT.csv",
+      "pluginName": "IINACT",
+      "owner": "shidare",
+      "note": "",
+      "updated": "2026-11-17",
+      "sha": "667a0ebeddb31895f13f1efe1c8b71d3d03b1ede",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/IINACT.csv",
+      "deleteKeyHash": "5a7839c95bea6d83ac3c8af31fac1353376037e28c92fa870945e8f9358f8608"
     }
   ]
 }
