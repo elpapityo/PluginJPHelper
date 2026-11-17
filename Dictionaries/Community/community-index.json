@@ -323,6 +323,16 @@
       "sha": "667a0ebeddb31895f13f1efe1c8b71d3d03b1ede",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/IINACT.csv",
       "deleteKeyHash": "5a7839c95bea6d83ac3c8af31fac1353376037e28c92fa870945e8f9358f8608"
+    },
+    {
+      "fileName": "Browsingway.csv",
+      "pluginName": "Browsingway",
+      "owner": "shidare",
+      "note": "",
+      "updated": "2026-11-17",
+      "sha": "f2af4a0410228511e22580e6270f5d9e0dfae444",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/Browsingway.csv",
+      "deleteKeyHash": "9fab1ce625e0562daf919599ab810f5c9fc6f6f2a7710b3ff6a70253311896e6"
     }
   ]
 }
