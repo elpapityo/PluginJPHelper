@@ -293,6 +293,16 @@
       "sha": "743a8be49cb83342ef7c45792b11f958ffe657bd",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/RezPls.csv",
       "deleteKeyHash": "20feaf80e6cd586a0f5f59e202723b0d3b95fc0366ab3f976fbdd67c87aa46d7"
+    },
+    {
+      "fileName": "GatherBuddy.csv",
+      "pluginName": "GatherBuddy",
+      "owner": "shidare",
+      "note": "",
+      "updated": "2026-11-17",
+      "sha": "20525d6c23b63a8d321a19944a195b0656bf0b36",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/GatherBuddy.csv",
+      "deleteKeyHash": "9efd9667b8517cae8fe3f518d5b36939dcba280e8c188aed88ddc45d315a00ad"
     }
   ]
 }
