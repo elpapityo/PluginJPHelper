@@ -92,6 +92,7 @@ jobs:
               owner = owner_for(path, path.name)
               quoted = urllib.parse.quote(path.name)
               entries.append({
+                  **{k: v for k, v in old.get(path.name, {}).items() if k in ('note', 'deleteKeyHash')},
                   'fileName': path.name,
                   'pluginName': plugin,
                   'owner': owner,

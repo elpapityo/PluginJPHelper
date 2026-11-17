@@ -268,6 +268,7 @@ jobs:
               except Exception:
                   updated = ''
               entries.append({
+                  **{k: v for k, v in old.get(path.name, {}).items() if k in ('note', 'deleteKeyHash')},
                   'fileName': path.name,
                   'pluginName': plugin,
                   'owner': owner_for(path, path.name),
