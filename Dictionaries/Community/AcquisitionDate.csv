@@ -1,0 +1,51 @@
+Plugin,Menu,Section,Type,English,Japanese
+AcquisitionDate,,,@Window,Acquisition Date,
+AcquisitionDate,,,@Window,AcquisitionDate,
+AcquisitionDate,,,,   v1.2.1.1,
+AcquisitionDate,,,,"!! Warning !!
+This cancels your current downloads!",!! 警告 !!\n現在のダウンロードをキャンセルします！
+AcquisitionDate,,,,Achievements,アチーブメント
+AcquisitionDate,,,,Acquisition,入手
+AcquisitionDate,,,,Acquisition Date Settings,入手日の設定
+AcquisitionDate,,,,Apply Session Token.,セッショントークンを適用します。
+AcquisitionDate,,,,Completion Percentage: 0%,完了率：0%
+AcquisitionDate,,,,Date Format,日付形式
+AcquisitionDate,,,,Day/Month/Year,日/月/年
+AcquisitionDate,,,,Debug,デバッグ
+AcquisitionDate,,,,Default,デフォルト
+AcquisitionDate,,,,Draw Dates for Achievements,アチーブメントの日付を表示
+AcquisitionDate,,,,Draw Dates for Character Level,キャラクターレベルの日付を表示
+AcquisitionDate,,,,Draw Dates for Fashion Items,ファッションアイテムの日付を表示
+AcquisitionDate,,,,Draw Dates for Glasses,眼鏡の日付を表示
+AcquisitionDate,,,,Draw Dates for Minions,ミニオンの日付を表示
+AcquisitionDate,,,,Draw Dates for Mounts,マウントの日付を表示
+AcquisitionDate,,,,Draw Dates for Orchestrion Rolls,オーケストリオン譜の日付を表示
+AcquisitionDate,,,,Draw Dates for Quests,クエストの日付を表示
+AcquisitionDate,,,,Draw Dates on Cutscene Replay,カットシーンリプレイに日付を表示
+AcquisitionDate,,,,Draw Dates on the Duty Finder,コンテンツファインダーに日付を表示
+AcquisitionDate,,,,Draw Dates on the Fish Guide,魚類図鑑に日付を表示
+AcquisitionDate,,,,Draw Dates on the Sightseeing Log,探検手帳に日付を表示
+AcquisitionDate,,,,Enable Debug Mode.,デバッグモードを有効にします。
+AcquisitionDate,,,,English,英語
+AcquisitionDate,,,,French,フランス語
+AcquisitionDate,,,,Game-UI Settings,ゲームUI設定
+AcquisitionDate,,,,General Settings,一般設定
+AcquisitionDate,,,,German,ドイツ語
+AcquisitionDate,,,,Glasses,眼鏡
+AcquisitionDate,,,,Japanese,日本語
+AcquisitionDate,,,,Ko-fi,
+AcquisitionDate,,,,Minions,ミニオン
+AcquisitionDate,,,,Month/Day/Year,月/日/年
+AcquisitionDate,,,,Mounts,マウント
+AcquisitionDate,,,,Open Debug Window On Start.,起動時にデバッグウィンドウを開きます。
+AcquisitionDate,,,,Plugin Language,プラグインの言語
+AcquisitionDate,,,,Quests,クエスト
+AcquisitionDate,,,,Show Dates for Alt-Accounts if they are available.,利用可能な場合は、サブアカウントの日付を表示します。
+AcquisitionDate,,,,Show Placeholder Dates [??/??/????],プレースホルダーの日付 [??/??/????] を表示
+AcquisitionDate,,,,Stop Lodestone Download.,ロードストーンのダウンロードを停止します。
+AcquisitionDate,,,,UI Settings,UI設定
+AcquisitionDate,,,,Year/Day/Month,年/日/月
+AcquisitionDate,,,,Year/Month/Day,年/月/日
+AcquisitionDate,,,,##quickButton_2,
+AcquisitionDate,,,,##quickButton_1,
+AcquisitionDate,,,,##quickButton_3,
