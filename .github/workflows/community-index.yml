@@ -17,13 +17,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          ref: main
           fetch-depth: 0
 
-      - name: Rebuild community-index.json
+      - name: Update community-index.json when changed
+        shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPOSITORY: ${{ github.repository }}
         run: |
+          rebuild_index() {
           python3 - <<'PY'
           import csv, json, os, pathlib, subprocess, urllib.parse, urllib.request
 
@@ -31,30 +34,29 @@ jobs:
           index_path = root / 'community-index.json'
           expected = ['Plugin','Menu','Section','Type','English','Japanese']
 
-          old = {}
-          if index_path.exists():
-              try:
-                  data = json.loads(index_path.read_text(encoding='utf-8-sig'))
-                  old = {e.get('fileName',''): e for e in data.get('entries', [])}
-              except Exception:
-                  old = {}
+          try:
+              index = json.loads(index_path.read_text(encoding='utf-8-sig'))
+          except FileNotFoundError:
+              index = {'version': 1, 'entries': []}
+
+          existing = index['entries']
+          if not isinstance(existing, list):
+              raise ValueError('Invalid entries in community-index.json')
+          entries = {entry['fileName']: entry for entry in existing}
+          if len(entries) != len(existing):
+              raise ValueError('Duplicate file names in community-index.json')
 
           token = os.environ.get('GH_TOKEN','')
           repo = os.environ.get('GH_REPOSITORY','')
 
           def git(*args):
-              return subprocess.check_output(['git', *args], text=True).strip()
+              return subprocess.check_output(['git', '--literal-pathspecs', *args], text=True).strip()
 
-          def owner_for(path, filename):
-              prev = old.get(filename, {}).get('owner','').strip()
-              if prev and prev != 'unknown':
-                  return prev
+          def owner_for(added_commit):
               try:
-                  commits = git('log','--diff-filter=A','--format=%H','--reverse','--',str(path)).splitlines()
-                  if commits:
-                      sha = commits[0].strip()
+                  if added_commit:
                       req = urllib.request.Request(
-                          f'https://api.github.com/repos/{repo}/commits/{sha}',
+                          f'https://api.github.com/repos/{repo}/commits/{added_commit}',
                           headers={'Authorization': f'Bearer {token}', 'Accept':'application/vnd.github+json'}
                       )
                       with urllib.request.urlopen(req, timeout=20) as r:
@@ -66,13 +68,33 @@ jobs:
                   pass
               return os.environ.get('GITHUB_ACTOR','unknown') or 'unknown'
 
-          entries = []
+          changed = False
           for path in sorted(root.glob('*.csv'), key=lambda p: p.name.casefold()):
+              entry = entries.get(path.name)
+              blob_sha = git('rev-parse', f'HEAD:{path.as_posix()}')
+              if entry is not None and entry.get('sha') == blob_sha:
+                  continue
+
+              last_subject = git('log', '-1', '--format=%s', '--', str(path))
+              added_commit = ''
+              added_subject = ''
+              if entry is None:
+                  added_commit, _, added_subject = git(
+                      'log', '-1', '--no-renames', '--diff-filter=A',
+                      '--format=%H%x09%s', '--', str(path)
+                  ).partition('\t')
+
+              web_upload = f'Community dictionary upload: {path.name} by '
+              if last_subject.startswith(web_upload) or added_subject.startswith(web_upload):
+                  print(f'Waiting for Web upload to update the index: {path.name}')
+                  continue
+
               try:
                   with path.open('r', encoding='utf-8-sig', newline='') as f:
                       reader = csv.reader(f)
                       header = next(reader, None)
                       if header != expected:
+                          print(f'Skipping CSV with an invalid header: {path.name}')
                           continue
                       plugin = ''
                       for row in reader:
@@ -81,38 +103,59 @@ jobs:
                               break
                       if not plugin:
                           plugin = path.stem
-              except Exception:
+              except (OSError, UnicodeError, csv.Error):
+                  print(f'Skipping unreadable CSV: {path.name}')
                   continue
 
-              blob_sha = git('hash-object', str(path))
-              try:
-                  updated = git('log','-1','--format=%as','--',str(path)) or ''
-              except Exception:
-                  updated = ''
-              owner = owner_for(path, path.name)
-              quoted = urllib.parse.quote(path.name)
-              entries.append({
-                  **{k: v for k, v in old.get(path.name, {}).items() if k in ('note', 'deleteKeyHash')},
-                  'fileName': path.name,
+              if entry is None:
+                  entry = {'fileName': path.name, 'owner': owner_for(added_commit)}
+                  entries[path.name] = entry
+              entry.update({
                   'pluginName': plugin,
-                  'owner': owner,
-                  'updated': updated,
+                  'updated': git('log', '-1', '--format=%as', '--', str(path)),
                   'sha': blob_sha,
-                  'downloadUrl': f'https://raw.githubusercontent.com/{repo}/main/Dictionaries/Community/{quoted}'
+                  'downloadUrl': f'https://raw.githubusercontent.com/{repo}/main/Dictionaries/Community/{urllib.parse.quote(path.name)}',
               })
+              changed = True
 
-          out = {'version': 1, 'entries': entries}
-          index_path.write_text(json.dumps(out, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          for file_name in list(entries):
+              path = root / file_name
+              if path.exists():
+                  continue
+              last_subject = git('log', '-1', '--format=%s', '--', str(path))
+              if last_subject == f'Delete community dictionary: {file_name}':
+                  print(f'Waiting for Web deletion to update the index: {file_name}')
+                  continue
+              del entries[file_name]
+              changed = True
+
+          if changed:
+              index['entries'] = list(entries.values())
+              index_path.write_text(json.dumps(index, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
           PY
+          }
 
-      - name: Commit index when changed
-        run: |
-          if git diff --quiet -- Dictionaries/Community/community-index.json; then
-            echo "community-index.json is already current."
-            exit 0
-          fi
+          index_path=Dictionaries/Community/community-index.json
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add Dictionaries/Community/community-index.json
-          git commit -m "Update community dictionary index"
-          git push
+
+          for attempt in 1 2 3; do
+            base=$(git rev-parse HEAD)
+            rebuild_index
+            if [[ -z $(git status --porcelain -- "$index_path") ]]; then
+              echo "No changes to community-index.json."
+              exit 0
+            fi
+            git add -- "$index_path"
+            git commit -m "Update community dictionary index" -- "$index_path"
+            if git push origin HEAD:refs/heads/main; then
+              exit 0
+            fi
+
+            git fetch --no-tags origin refs/heads/main
+            if [[ $(git rev-parse FETCH_HEAD) == "$base" || $attempt == 3 ]]; then
+              exit 1
+            fi
+            echo "main advanced. Rebuilding the index from its latest commit."
+            git checkout --detach FETCH_HEAD
+          done
