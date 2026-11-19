@@ -333,6 +333,16 @@
       "sha": "f2af4a0410228511e22580e6270f5d9e0dfae444",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/Browsingway.csv",
       "deleteKeyHash": "9fab1ce625e0562daf919599ab810f5c9fc6f6f2a7710b3ff6a70253311896e6"
+    },
+    {
+      "fileName": "AcquisitionDate.csv",
+      "pluginName": "AcquisitionDate",
+      "owner": "shidare",
+      "note": "",
+      "updated": "2026-11-19",
+      "sha": "8c3fa29cc5b487c4651447ecba73c8d94fd5fa5e",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/AcquisitionDate.csv",
+      "deleteKeyHash": "4b44897ab41f87ad8bd38101c39e7eef2bde0e0d2576f225a4be5d05751888ec"
     }
   ]
 }
