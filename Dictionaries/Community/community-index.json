@@ -343,6 +343,16 @@
       "sha": "8c3fa29cc5b487c4651447ecba73c8d94fd5fa5e",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/AcquisitionDate.csv",
       "deleteKeyHash": "4b44897ab41f87ad8bd38101c39e7eef2bde0e0d2576f225a4be5d05751888ec"
+    },
+    {
+      "fileName": "BetterTargetingSystem.csv",
+      "pluginName": "BetterTargetingSystem",
+      "owner": "shidare",
+      "note": "",
+      "updated": "2026-11-19",
+      "sha": "798c8ba7f558800942e294c960d1de830eaa228f",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/BetterTargetingSystem.csv",
+      "deleteKeyHash": "aab4d73e584e842953a077dece950bd9a7b6274a82b84726a3deb23108b37170"
     }
   ]
 }
