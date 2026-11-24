@@ -353,6 +353,16 @@
       "sha": "798c8ba7f558800942e294c960d1de830eaa228f",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/BetterTargetingSystem.csv",
       "deleteKeyHash": "aab4d73e584e842953a077dece950bd9a7b6274a82b84726a3deb23108b37170"
+    },
+    {
+      "fileName": "BossModReborn-shidare.csv",
+      "pluginName": "BossModReborn",
+      "owner": "shidare",
+      "note": "",
+      "updated": "2026-11-24",
+      "sha": "cedfda54631bc62bca9b3d8c99e5d3afefb2ecae",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/BossModReborn-shidare.csv",
+      "deleteKeyHash": "4b12508c2318b6b503fc3a2aa7c7dcb607a272efc71f094d23161642981b1723"
     }
   ]
 }
