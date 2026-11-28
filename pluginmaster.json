@@ -4,7 +4,7 @@
     "Name": "Plugin JP Helper",
     "Punchline": "Dalamudプラグインの固定辞書日本語化支援",
     "Description": "Dalamudプラグインの表示文字列を日本語化する補助プラグインです。Plugin Installerの説明翻訳・日本語検索にも対応します。",
-    "Changelog": "v0.5.1: 翻訳辞書の更新表示の一部を修正。",
+    "Changelog": "v0.5.5: UIを全面刷新。アイコン付きサイドメニュー、カード形式の設定、コンパクトなタイトルバーと折りたたみ表示を追加。従来の翻訳・辞書機能は維持。",
     "InternalName": "PluginJPHelper",
     "AssemblyVersion": "0.5.5.0",
     "RepoUrl": "https://github.com/elpapityo/PluginJPHelper",
