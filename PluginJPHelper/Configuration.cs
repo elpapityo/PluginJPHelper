@@ -11,6 +11,8 @@ public sealed class Configuration : IPluginConfiguration
     public int DataResetVersion { get; set; } = 0;
     public bool CleanSlateMode { get; set; } = false;
     public bool CaptureAutoImport { get; set; } = true;
+    // v0.5.2: 重さを感じる環境向けの追加軽量化。既定OFF。
+    public bool LowImpactTranslationMode { get; set; } = false;
     public string LastAcknowledgedOfficialNotice { get; set; } = string.Empty;
     public string LastAcknowledgedOfficialNoticeSha { get; set; } = string.Empty;
     // 旧GitHub投稿方式の設定値。互換性のため残すが、新方式では使用しない。

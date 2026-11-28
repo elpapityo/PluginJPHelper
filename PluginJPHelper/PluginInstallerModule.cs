@@ -3022,53 +3022,57 @@ internal sealed class PluginInstallerModule : IDisposable
 
         private void DrawMainTab()
         {
-            ImGui.TextUnformatted("日本語検索補助");
-            ImGui.SetNextItemWidth(-1);
-            if (ImGui.InputTextWithHint("##JapaneseSearch", "例：手配書 / 討伐手帳 / 製作 / リテイナー", ref this.owner.searchJapanese, 200, ImGuiInputTextFlags.EnterReturnsTrue))
-                _ = this.owner.SearchJapaneseAsync();
-            if (ColoredButton("日本語から検索", ButtonKind.Primary)) _ = this.owner.SearchJapaneseAsync();
-            ImGui.SameLine();
-            if (ColoredButton("検索をクリア", ButtonKind.Danger))
+            using (new PjhUi.Card("日本語検索補助"))
             {
-                this.owner.searchJapanese = string.Empty;
-                this.owner.searchEnglish = string.Empty;
-                this.owner.SetInstallerSearchText(string.Empty);
+                ImGui.SetNextItemWidth(-8f * PjhUi.Scale);
+                if (ImGui.InputTextWithHint("##JapaneseSearch", "例：手配書 / 討伐手帳 / 製作 / リテイナー", ref this.owner.searchJapanese, 200, ImGuiInputTextFlags.EnterReturnsTrue))
+                    _ = this.owner.SearchJapaneseAsync();
+                if (ColoredButton("日本語から検索", ButtonKind.Primary)) _ = this.owner.SearchJapaneseAsync();
+                ImGui.SameLine();
+                if (ColoredButton("検索をクリア", ButtonKind.Danger))
+                {
+                    this.owner.searchJapanese = string.Empty;
+                    this.owner.searchEnglish = string.Empty;
+                    this.owner.SetInstallerSearchText(string.Empty);
+                }
+                if (!string.IsNullOrWhiteSpace(this.owner.searchEnglish))
+                    ImGui.TextWrapped("Dalamudへ渡した英語: " + this.owner.searchEnglish);
             }
-            if (!string.IsNullOrWhiteSpace(this.owner.searchEnglish))
-                ImGui.TextWrapped("Dalamudへ渡した英語: " + this.owner.searchEnglish);
 
             ImGui.Separator();
-            var enabled = this.owner.config.TranslateInstallerDescriptions;
-            if (ImGui.Checkbox("Plugin Installerの説明を辞書で日本語化", ref enabled))
+            using (new PjhUi.Card("日本語化設定"))
             {
-                this.owner.config.TranslateInstallerDescriptions = enabled;
-                if (!enabled) this.owner.RestoreAll(); else this.owner.forceDiffCheck = true;
-                this.owner.SaveConfig();
-            }
-            ImGui.SameLine();
-            if (this.owner.config.TranslateInstallerDescriptions)
-                ImGui.TextColored(new System.Numerics.Vector4(0.45f, 1f, 0.55f, 1f), "[ON] 日本語化中");
-            else
-                ImGui.TextColored(new System.Numerics.Vector4(1f, 0.45f, 0.45f, 1f), "[OFF] 日本語化停止");
+                var enabled = this.owner.config.TranslateInstallerDescriptions;
+                if (PjhUi.Toggle("Plugin Installerの説明を辞書で日本語化", ref enabled, true))
+                {
+                    this.owner.config.TranslateInstallerDescriptions = enabled;
+                    if (!enabled) this.owner.RestoreAll(); else this.owner.forceDiffCheck = true;
+                    this.owner.SaveConfig();
+                }
+                if (this.owner.config.TranslateInstallerDescriptions)
+                    ImGui.TextColored(new System.Numerics.Vector4(0.45f, 1f, 0.55f, 1f), "[ON] 日本語化中");
+                else
+                    ImGui.TextColored(new System.Numerics.Vector4(1f, 0.45f, 0.45f, 1f), "[OFF] 日本語化停止");
 
-            var showOriginal = this.owner.config.ShowOriginalBelowTranslation;
-            if (ImGui.Checkbox("翻訳の下に原文も表示", ref showOriginal))
-            {
-                this.owner.config.ShowOriginalBelowTranslation = showOriginal;
-                this.owner.RestoreAll();
-                this.owner.forceDiffCheck = true;
-                this.owner.SaveConfig();
-            }
+                var showOriginal = this.owner.config.ShowOriginalBelowTranslation;
+                if (PjhUi.Toggle("翻訳の下に原文も表示", ref showOriginal, true))
+                {
+                    this.owner.config.ShowOriginalBelowTranslation = showOriginal;
+                    this.owner.RestoreAll();
+                    this.owner.forceDiffCheck = true;
+                    this.owner.SaveConfig();
+                }
 
-            var minutes = this.owner.config.DiffCheckMinutes;
-            ImGui.SetNextItemWidth(110);
-            if (ImGui.InputInt("差分チェック間隔（分）", ref minutes))
-            {
-                this.owner.config.DiffCheckMinutes = Math.Clamp(minutes, 1, 1440);
-                this.owner.SaveConfig();
+                var minutes = this.owner.config.DiffCheckMinutes;
+                ImGui.SetNextItemWidth(110);
+                if (ImGui.InputInt("差分チェック間隔（分）", ref minutes))
+                {
+                    this.owner.config.DiffCheckMinutes = Math.Clamp(minutes, 1, 1440);
+                    this.owner.SaveConfig();
+                }
+                ImGui.SameLine();
+                if (ColoredButton("今すぐ差分チェック", ButtonKind.Warning)) this.owner.forceDiffCheck = true;
             }
-            ImGui.SameLine();
-            if (ColoredButton("今すぐ差分チェック", ButtonKind.Warning)) this.owner.forceDiffCheck = true;
 
             ImGui.Separator();
             ImGui.TextUnformatted("翻訳方式");
@@ -3229,14 +3233,7 @@ internal sealed class PluginInstallerModule : IDisposable
 
         private static bool ColoredButton(string label, ButtonKind kind)
         {
-            var baseColor = kind switch
-            {
-                ButtonKind.Success => new System.Numerics.Vector4(0.16f, 0.52f, 0.28f, 1f),
-                ButtonKind.Warning => new System.Numerics.Vector4(0.70f, 0.48f, 0.10f, 1f),
-                ButtonKind.Danger => new System.Numerics.Vector4(0.65f, 0.20f, 0.20f, 1f),
-                ButtonKind.Neutral => new System.Numerics.Vector4(0.34f, 0.37f, 0.42f, 1f),
-                _ => new System.Numerics.Vector4(0.18f, 0.42f, 0.68f, 1f),
-            };
+            var baseColor = PjhUi.ActionColor((int)kind);
 
             static System.Numerics.Vector4 Shift(System.Numerics.Vector4 c, float amount)
                 => new(

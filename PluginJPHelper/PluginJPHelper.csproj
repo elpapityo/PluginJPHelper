@@ -10,12 +10,13 @@
     <Nullable>enable</Nullable>
     <AssemblyName>PluginJPHelper</AssemblyName>
     <RootNamespace>PluginJPHelper</RootNamespace>
-    <Version>0.5.0</Version>
-    <AssemblyVersion>0.5.0.0</AssemblyVersion>
-    <FileVersion>0.5.0.0</FileVersion>
+    <Version>0.5.5</Version>
+    <AssemblyVersion>0.5.5.0</AssemblyVersion>
+    <FileVersion>0.5.5.0</FileVersion>
     <Description>Dalamud plugin display-string Japanese translation helper.</Description>
   </PropertyGroup>
   <ItemGroup>
+    <EmbeddedResource Include="../images/icon.png" LogicalName="PluginJPHelper.BrandIcon.png" />
     <None Include="PluginJPHelper.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

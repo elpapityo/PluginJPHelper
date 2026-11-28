@@ -5,7 +5,7 @@ cd /d "%~dp0"
 title Plugin JP Helper Build
 
 set "PLUGIN=PluginJPHelper"
-set "VERSION=0.5.0"
+set "VERSION=0.5.5"
 set "CONFIG=Release"
 set "PROJECT=%~dp0PluginJPHelper\PluginJPHelper.csproj"
 set "SOURCEICON=%~dp0images\icon.png"
@@ -86,10 +86,8 @@ if errorlevel 1 (
     goto :fail
 )
 
-rem 同梱するのはプラグインが実行時に読み込む辞書だけにする。
-rem Dictionaries\Official と Dictionaries\Community は GitHub 配布用の置き場で、
-rem 実行時はユーザーの設定フォルダー側 (ConfigDirectory\Dictionaries\...) を参照するため
-rem 同梱しても読まれない。再帰コピーすると配布 ZIP が 3MB 以上膨らむ。
+rem Bundle only runtime dictionaries used by the plugin.
+rem Official and Community folders are distribution/update sources and are not bundled here.
 if exist "%SOURCEDICT%" (
     if exist "%RELEASE%\Dictionaries" rmdir /s /q "%RELEASE%\Dictionaries"
     mkdir "%RELEASE%\Dictionaries" >nul 2>nul
