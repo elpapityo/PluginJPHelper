@@ -363,6 +363,16 @@
       "sha": "cedfda54631bc62bca9b3d8c99e5d3afefb2ecae",
       "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/BossModReborn-shidare.csv",
       "deleteKeyHash": "4b12508c2318b6b503fc3a2aa7c7dcb607a272efc71f094d23161642981b1723"
+    },
+    {
+      "fileName": "GatherBuddyReborn_v0.2.csv",
+      "pluginName": "GatherBuddyReborn",
+      "owner": "エルパ（開発者）",
+      "note": "細かいところまで、日本語化してみました。\r\n公式アップするの面倒だったのでこっちに💦",
+      "updated": "2026-11-28",
+      "sha": "d87bf0e375a0b61f381539c9a73a897335810d65",
+      "downloadUrl": "https://raw.githubusercontent.com/elpapityo/PluginJPHelper/main/Dictionaries/Community/GatherBuddyReborn_v0.2.csv",
+      "deleteKeyHash": "976c48520b4698bc3a97cafce5f28da51fbce263ab53b66709c66eb5d79be4e8"
     }
   ]
 }
