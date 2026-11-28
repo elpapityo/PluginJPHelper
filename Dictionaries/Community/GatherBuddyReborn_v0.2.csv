@@ -1,0 +1,2673 @@
+Plugin,Menu,Section,Type,English,Japanese
+GatherBuddyReborn,,,Button,<No Description>,<説明なし>
+GatherBuddyReborn,,,RenderText/Button/Selectable,<Unnamed>,<名称なし>
+GatherBuddyReborn,,,Checkbox/RenderText,Abandon nodes without needed items,必要なアイテムがない採集ポイントをスキップ
+GatherBuddyReborn,,,Text/RenderTextWrapped,"Add all currently visible gatherables to a selected auto-gather list.
+Items already present in the list are skipped.","現在表示されている採集物を、選択した自動採集リストへすべて追加します。
+すでにリストにあるアイテムはスキップされます。"
+GatherBuddyReborn,,,Button,Add All Filtered Fish to Auto-Gather List...,絞り込み中の魚をすべて自動採集リストへ追加...
+GatherBuddyReborn,,,Button,Add All Filtered Gatherables to Auto-Gather List...,絞り込み中の採集物をすべて自動採集リストへ追加...
+GatherBuddyReborn,,,Checkbox/RenderText,Add In-Game Context Menus,ゲーム内コンテキストメニューを追加
+GatherBuddyReborn,,,RenderText,Additional Modifier,追加修飾キー
+GatherBuddyReborn,,,CollapsingHeaderPtr,Aetherytes (107),エーテライト (107)
+GatherBuddyReborn,,,Text/RenderTextWrapped,"After gathering umbral items from a clouded node, re-enter the instance to make the node reappear.",雲海の採集ポイントから霊砂系アイテムを採集した後、インスタンスへ入り直して採集ポイントを再出現させます。
+GatherBuddyReborn,,,Selectable,Alarm,アラーム
+GatherBuddyReborn,,,Text/RenderTextWrapped,Alarm Chat Format,アラームのチャット書式
+GatherBuddyReborn,,,Text,Alarm Message in Chat,アラームをチャットに表示
+GatherBuddyReborn,,,TabItem/Selectable,Alarms,アラーム
+GatherBuddyReborn,,,CollapsingHeaderPtr,Alarms##AlarmDebug,アラーム##AlarmDebug
+GatherBuddyReborn,,,Text/RenderTextWrapped,"Allows the use of Windmires for jumping between islands in the Diadem.
+Windmires will only be used when they provide a significant distance advantage over normal movement.","ディアデム諸島で島間を移動する際に風脈を利用します。
+通常移動より大きく距離を短縮できる場合のみ使用します。"
+GatherBuddyReborn,,,Checkbox/RenderText,Always gather maps when available,地図が採集可能なら常に採集
+GatherBuddyReborn,,,Checkbox/RenderText,Always Reduce All Items,すべてのアイテムを常に精選
+GatherBuddyReborn,,,Checkbox/RenderText,Anchor Gather Window to Bottom Left,採集ウィンドウを左下に固定
+GatherBuddyReborn,,,RenderText,Anti-Stuck Cooldown,スタック回避クールダウン
+GatherBuddyReborn,,,Text,Arguments in Chat,チャット内の引数
+GatherBuddyReborn,,,Checkbox/RenderText,Auto Collectables,収集品を自動採集
+GatherBuddyReborn,,,Text/RenderTextWrapped,AUTO-GATHER,自動採集
+GatherBuddyReborn,,,TabItem,Auto-Gather,自動採集
+GatherBuddyReborn,,,CollapsingHeaderPtr,AutoGather,自動採集
+GatherBuddyReborn,,,Checkbox/RenderText,Automatically decide what actions to use,使用するアクションを自動判断
+GatherBuddyReborn,,,Button,Automatically generated from context menu.,コンテキストメニューから自動生成されました。
+GatherBuddyReborn,,,Text/RenderTextWrapped,"Automatically target and fire aethercannon at nearby enemies when gauge is ready (≥200).
+Only fires while not pathing/navigating. 2-second cooldown between uses.","ゲージが200以上の時、近くの敵を自動ターゲットしてエーテルキャノンを発射します。
+経路移動・ナビゲーション中は発射しません。使用間隔は2秒です。"
+GatherBuddyReborn,,,Text/RenderTextWrapped,Available Bait,使用可能な餌
+GatherBuddyReborn,,,RenderText,Botanist Set,園芸師設定
+GatherBuddyReborn,,,Text/RenderTextWrapped,"Breaking rocks with a pickaxe or felling trees counts as gathering, why do you ask?
+Find all information about botanist and miner items you could ever need.","採掘や伐採も立派な採集です。
+園芸師・採掘師のアイテム情報をまとめて確認できます。"
+GatherBuddyReborn,,,Button,Can't find something?,見つからないものがありますか？
+GatherBuddyReborn,,,RenderText,Chat Type for Errors,エラー用チャット種別
+GatherBuddyReborn,,,RenderText,Chat Type for Messages,通常メッセージ用チャット種別
+GatherBuddyReborn,,,Button,Check,確認
+GatherBuddyReborn,,,Checkbox/RenderText,Check Retainer Inventories,リテイナー所持品も確認
+GatherBuddyReborn,,,Text/RenderTextWrapped,Choose a sound that is played every 8 Eorzea hours on regular weather changes.,通常の天候変化時、エオルゼア時間8時間ごとに鳴らす音を選択します。
+GatherBuddyReborn,,,Text/RenderTextWrapped,Choose a sound that is played every time the current Eorzea hour changes.,エオルゼア時間の時刻が変わるたびに鳴らす音を選択します。
+GatherBuddyReborn,,,Text/RenderTextWrapped,"Choose your job preference when gathering items that can be gathered by miners as well as botanists.
+This effectively turns the regular gather command to /gathermin or /gatherbtn when an item can be gathered by both, ignoring the other options even on successive tries.","採掘師・園芸師の両方で採集できるアイテムについて、優先するジョブを選択します。
+両方で採れる場合は通常の /gather が /gathermin または /gatherbtn として扱われ、再試行時も他の選択肢を無視します。"
+GatherBuddyReborn,,,Button,Cleanup,整理
+GatherBuddyReborn,,,Text/RenderTextWrapped,"Click for some help navigating this table.
+Control + Shift + Right-Click to permanently hide this button.","この表の操作ヘルプを表示します。
+Ctrl + Shift + 右クリックでこのボタンを常に非表示にできます。"
+GatherBuddyReborn,,,Text/RenderTextWrapped,Click to /gather this alarm.,クリックしてこのアラーム対象を /gather します。
+GatherBuddyReborn,,,Checkbox/RenderText,Clouded,雲海
+GatherBuddyReborn,,,Button/Checkbox/RenderText,Collectables,収集品
+GatherBuddyReborn,,,Selectable,Colors,色
+GatherBuddyReborn,,,Text,Commands in Chat,チャット内のコマンド
+GatherBuddyReborn,,,TabItem,Config,設定
+GatherBuddyReborn,,,TabItem,Config Presets,設定プリセット
+GatherBuddyReborn,,,Selectable,Config Window,設定ウィンドウ
+GatherBuddyReborn,,,Text/RenderTextWrapped,"Config window too big? Why can't you hold all this information?
+Prepare a small window with only those items that actually interest you!","設定ウィンドウが大きすぎますか？
+必要な項目だけを表示する小さなウィンドウを作成できます。"
+GatherBuddyReborn,,,Text/RenderTextWrapped,Configure what actions to use with Auto-Gather.,自動採集で使用するアクションを設定します。
+GatherBuddyReborn,,,Button,Contains Archeo Kingdom crafting nodes.,アルケオキングダムの製作素材採集ポイントを含みます。
+GatherBuddyReborn,,,Button,Copy Caught Fish JSON,釣った魚のJSONをコピー
+GatherBuddyReborn,,,Checkbox/RenderText,Copy Multi Hook Stats when reporting.,報告時にマルチフック統計をコピー
+GatherBuddyReborn,,,Checkbox/RenderText,Copy Sizes Stats when reporting.,報告時にサイズ統計をコピー
+GatherBuddyReborn,,,Checkbox/RenderText,Copy Time Stats when reporting.,報告時に時間統計をコピー
+GatherBuddyReborn,,,RenderText,Cordial,コーディアル
+GatherBuddyReborn,,,CollapsingHeaderPtr,Cosmic Exploration Fishing Missions##CosmicDebug,コスモエクスプローラー・漁師ミッション##CosmicDebug
+GatherBuddyReborn,,,Button,Create Alarms,アラームを作成
+GatherBuddyReborn,,,Button,Create Auto-Gather List,自動採集リストを作成
+GatherBuddyReborn,,,Button,Create Preset,プリセットを作成
+GatherBuddyReborn,,,Button,Create Window Preset,ウィンドウプリセットを作成
+GatherBuddyReborn,,,Checkbox/RenderText,Crystals,クリスタル
+GatherBuddyReborn,,,Text/RenderTextWrapped,Custom Fish Data,魚データのカスタム
+GatherBuddyReborn,,,Text/RenderTextWrapped,Custom Location Data Background,カスタム位置データの背景
+GatherBuddyReborn,,,Text/RenderTextWrapped,"Default locations getting you down?
+Set up custom aetherytes or map marker locations for specific nodes.",既定の移動先が使いにくい場合、特定の採集ポイント用にエーテライトやマップマーカー位置を個別設定できます。
+GatherBuddyReborn,,,Checkbox/RenderText,Defer aetherial reduction during fishing buffs,釣りバフ中は精選を後回し
+GatherBuddyReborn,,,Checkbox/RenderText,Defer materia extraction during fishing buffs,釣りバフ中はマテリア精製を後回し
+GatherBuddyReborn,,,Checkbox/RenderText,Defer repairs during fishing buffs,釣りバフ中は修理を後回し
+GatherBuddyReborn,,,MenuItem/RenderText,Delete List,リストを削除
+GatherBuddyReborn,,,Checkbox/RenderText,Diadem Auto-Aethercannon,ディアデムでエーテルキャノンを自動使用
+GatherBuddyReborn,,,Checkbox/RenderText,Diadem Windmire Jumps,ディアデムで風脈ジャンプを使用
+GatherBuddyReborn,,,Checkbox/RenderText,Disable map marker navigation,マップマーカーへのナビゲーションを無効化
+GatherBuddyReborn,,,Checkbox/RenderText,Disable Random Landing Positions,ランダム着地点を無効化
+GatherBuddyReborn,,,Text/RenderTextWrapped,"Do you often find yourself late for a very important date with no time to say hello or goodbye?
+Set up your very own alarm clock. Viera might even be able to wear it around their neck.",時間指定の採集を忘れないよう、自分用のアラームを設定できます。
+GatherBuddyReborn,,,Text/RenderTextWrapped,"Do you really need to catch a Dirty Herry from 8PM to 10PM but gather mythril ore otherwise?
+Set up your own gather groups! You can even share them with others!",時間帯ごとに異なる採集対象をまとめたい場合は、採集グループを作成できます。他の人と共有することもできます。
+GatherBuddyReborn,,,MenuItem/RenderText,Duplicate List,リストを複製
+GatherBuddyReborn,,,Checkbox/RenderText,Edit Fish Timer,魚タイマーを編集
+GatherBuddyReborn,,,Checkbox/RenderText,Enable Aetherial Reduction,精選を有効化
+GatherBuddyReborn,,,Checkbox/RenderText,Enable Alarms,アラームを有効化
+GatherBuddyReborn,,,Checkbox/RenderText,Enable Alarms in Duty,コンテンツ中もアラームを有効化
+GatherBuddyReborn,,,Checkbox/RenderText,Enable Alarms Only In-Game,ゲーム内にいる時だけアラームを有効化
+GatherBuddyReborn,,,Checkbox/RenderText,Enable Fish Stats,魚統計を有効化
+GatherBuddyReborn,,,Checkbox/RenderText,Enable Fish Timer Clickthrough,魚タイマーをクリック透過
+GatherBuddyReborn,,,Checkbox/RenderText,Enable Gathering Window Interaction (DISABLING THIS IS UNSUPPORTED),採集ウィンドウ操作を有効化（無効化はサポート対象外）
+GatherBuddyReborn,,,Checkbox/RenderText,Enable Gear Change,装備変更を有効化
+GatherBuddyReborn,,,Checkbox/RenderText,Enable Graphs.,グラフを有効化
+GatherBuddyReborn,,,Checkbox/RenderText,Enable materia extraction,マテリア精製を有効化
+GatherBuddyReborn,,,Checkbox/RenderText,Enable Teleport,テレポを有効化
+GatherBuddyReborn,,,RenderText,Eorzea Hour Change Alarm,エオルゼア時刻変更アラーム
+GatherBuddyReborn,,,Checkbox/RenderText/RenderTextWrapped,Ephemeral,刻限
+GatherBuddyReborn,,,Checkbox/RenderText,Escape Closes Main Window,ESCでメインウィンドウを閉じる
+GatherBuddyReborn,,,RenderText,Execution delay (Milliseconds),実行遅延（ミリ秒）
+GatherBuddyReborn,,,Button,Export JSON,JSONを書き出し
+GatherBuddyReborn,,,Button,Export TSV,TSVを書き出し
+GatherBuddyReborn,,,Checkbox/RenderText,Fallback##list,予備##list
+GatherBuddyReborn,,,TabItem/Checkbox/RenderText,Fish,魚
+GatherBuddyReborn,,,TabItem,Fish Records,魚の記録
+GatherBuddyReborn,,,Selectable,Fish Stats,魚統計
+GatherBuddyReborn,,,Selectable,Fish Timer,魚タイマー
+GatherBuddyReborn,,,RenderText,Fish Timer Bite Time Scale,魚タイマーのヒット時間スケール
+GatherBuddyReborn,,,RenderText,Fish Timer Interval Rounding,魚タイマー間隔の丸め
+GatherBuddyReborn,,,RenderText,Fish Timer Interval Separators,魚タイマー間隔の区切り
+GatherBuddyReborn,,,Text/RenderTextWrapped,Fish Timer Window Background,魚タイマーの背景
+GatherBuddyReborn,,,Text/RenderTextWrapped,Fish Timer Window Bite time Highlight Markers (Bait),魚タイマーのヒット時間強調マーカー（餌）
+GatherBuddyReborn,,,Text,Fish Timer Window Bite time Highlight Markers (Overall),魚タイマーのヒット時間強調マーカー（全体）
+GatherBuddyReborn,,,Text/RenderTextWrapped,Fish Timer Window Legendary Tug (Powerful Hookset),魚タイマー：伝説級の引き（ストロングフッキング）
+GatherBuddyReborn,,,Text/RenderTextWrapped,"Fish Timer Window Legendary Tug (Powerful Hookset, Uncaught)",魚タイマー：伝説級の引き（ストロングフッキング・未釣獲）
+GatherBuddyReborn,,,Text/RenderTextWrapped,Fish Timer Window Legendary Tug (Precision Hookset),魚タイマー：伝説級の引き（プレシジョンフッキング）
+GatherBuddyReborn,,,Text/RenderTextWrapped,"Fish Timer Window Legendary Tug (Precision Hookset, Uncaught)",魚タイマー：伝説級の引き（プレシジョンフッキング・未釣獲）
+GatherBuddyReborn,,,Text,Fish Timer Window Lure Dead Zone Hatching,魚タイマー：ルアー無効帯の網掛け
+GatherBuddyReborn,,,Text/RenderTextWrapped,Fish Timer Window Progress Bar,魚タイマーの進行バー
+GatherBuddyReborn,,,Text/RenderTextWrapped,Fish Timer Window Strong Tug,魚タイマー：強震
+GatherBuddyReborn,,,Text/RenderTextWrapped,Fish Timer Window Strong Tug (Uncaught),魚タイマー：強震（未釣獲）
+GatherBuddyReborn,,,Text,Fish Timer Window Text,魚タイマーの文字
+GatherBuddyReborn,,,Text/RenderTextWrapped,Fish Timer Window Unavailable Fish,魚タイマー：現在釣れない魚
+GatherBuddyReborn,,,Text/RenderTextWrapped,Fish Timer Window Unknown Tug,魚タイマー：不明な引き
+GatherBuddyReborn,,,Text/RenderTextWrapped,Fish Timer Window Weak Tug,魚タイマー：弱震
+GatherBuddyReborn,,,Text/RenderTextWrapped,Fish Timer Window Weak Tug (Uncaught),魚タイマー：弱震（未釣獲）
+GatherBuddyReborn,,,RenderText,Fisher Set,漁師設定
+GatherBuddyReborn,,,CollapsingHeaderPtr,Fishing State,釣り状態
+GatherBuddyReborn,,,CollapsingHeaderPtr,Fishing Times,釣り時間
+GatherBuddyReborn,,,Checkbox/RenderText,Force Walking,歩行を強制
+GatherBuddyReborn,,,Checkbox/RenderText,Gather any crystals when The Giving Land is off cooldown,大地の恵みが使用可能ならクリスタルを採集
+GatherBuddyReborn,,,Selectable,Gather Command,採集コマンド
+GatherBuddyReborn,,,TabItem,Gather Groups,採集グループ
+GatherBuddyReborn,,,Text/RenderTextWrapped,Gather random crystals on any regular node when The Giving Land is avaiable regardles of current target item.,現在の対象アイテムに関係なく、大地の恵みが使用可能な時は通常採集ポイントでランダムにクリスタルを採集します。
+GatherBuddyReborn,,,TabItem/Selectable,Gather Window,採集ウィンドウ
+GatherBuddyReborn,,,Text,Gather Window Available Item,採集ウィンドウ：採集可能アイテム
+GatherBuddyReborn,,,Text,Gather Window Background,採集ウィンドウ：背景
+GatherBuddyReborn,,,Text,Gather Window Text,採集ウィンドウ：文字
+GatherBuddyReborn,,,Text,Gather Window Upcoming Item,採集ウィンドウ：今後のアイテム
+GatherBuddyReborn,,,TabItem/Checkbox/RenderText,Gatherables,採集物
+GatherBuddyReborn,,,Text/RenderTextWrapped,GENERAL,一般
+GatherBuddyReborn,,,BeginMenu/RenderText,Generate Bait Buy List,餌購入リストを生成
+GatherBuddyReborn,,,Checkbox/RenderText,Go home when done,完了後に帰還
+GatherBuddyReborn,,,Checkbox/RenderText,Go home when idle,待機時に帰還
+GatherBuddyReborn,,,Text,Header Eorzea Time Background,ヘッダー：エオルゼア時間背景
+GatherBuddyReborn,,,Text,Header Next Eorzea Background,ヘッダー：次のエオルゼア背景
+GatherBuddyReborn,,,Text,Header Next Eorzea Hour Background,ヘッダー：次のエオルゼア時刻背景
+GatherBuddyReborn,,,Checkbox/RenderText,Hide Catch Popup,釣獲ポップアップを非表示
+GatherBuddyReborn,,,Checkbox/RenderText,Hide Completed Items,完了済みアイテムを非表示
+GatherBuddyReborn,,,Checkbox/RenderText,Hide Gather Window in Duty,コンテンツ中は採集ウィンドウを非表示
+GatherBuddyReborn,,,Checkbox/RenderText,Hide GatherClippy Button,GatherClippyボタンを非表示
+GatherBuddyReborn,,,Checkbox/RenderText,Hide Unavailable Fish in Fish Timer,魚タイマーで現在釣れない魚を非表示
+GatherBuddyReborn,,,Checkbox/RenderText,Hide Uncaught Fish in Fish Timer,魚タイマーで未釣獲魚を非表示
+GatherBuddyReborn,,,Text/RenderTextWrapped,Highlight Text,強調文字
+GatherBuddyReborn,,,RenderText,Hotkey to Open Gather Window,採集ウィンドウを開くホットキー
+GatherBuddyReborn,,,RenderText,Hotkey to Open Main Interface,メイン画面を開くホットキー
+GatherBuddyReborn,,,Text/RenderTextWrapped,I really hope there is a good reason for you seeing this.,この表示を見る必要がある状況でないことを願います。
+GatherBuddyReborn,,,Text/RenderTextWrapped,Identified Gatherable Chat Format,特定済み採集物のチャット書式
+GatherBuddyReborn,,,Text/RenderTextWrapped,"If this does not correspond to your in-game Eorzea Time, verify that your windows system time is accurate.",ゲーム内のエオルゼア時間と一致しない場合は、Windowsのシステム時刻が正しいか確認してください。
+GatherBuddyReborn,,,Button,Import From Artisan,Artisanから取り込み
+GatherBuddyReborn,,,Button,Import from Clipboard,クリップボードから取り込み
+GatherBuddyReborn,,,Button,Import from TeamCraft,TeamCraftから取り込み
+GatherBuddyReborn,,,Text/RenderTextWrapped,INTERFACE,インターフェース
+GatherBuddyReborn,,,Text/RenderTextWrapped,Interface Available Items,インターフェース：採集可能アイテム
+GatherBuddyReborn,,,Text/RenderTextWrapped,Interface Dependent Available Fish,インターフェース：条件付きで釣れる魚
+GatherBuddyReborn,,,Text/RenderTextWrapped,Interface Dependent Upcoming Fish,インターフェース：条件付きで今後釣れる魚
+GatherBuddyReborn,,,Text/RenderTextWrapped,Interface Disabled Text,インターフェース：無効時の文字
+GatherBuddyReborn,,,Text/RenderTextWrapped,Interface Upcoming Items,インターフェース：今後のアイテム
+GatherBuddyReborn,,,RenderText,Item Sorting Method,アイテム並び替え方法
+GatherBuddyReborn,,,Text/RenderTextWrapped,Item types:,アイテム種別：
+GatherBuddyReborn,,,Checkbox/RenderText,Keep Fish Records,魚の記録を保存
+GatherBuddyReborn,,,RenderText,Landing Distance,着地距離
+GatherBuddyReborn,,,Checkbox/RenderText/RenderTextWrapped,Legendary,伝説
+GatherBuddyReborn,,,RenderText,Lifestream Command,Lifestreamコマンド
+GatherBuddyReborn,,,Selectable,Location,場所
+GatherBuddyReborn,,,TabItem,Locations,場所
+GatherBuddyReborn,,,MenuItem/RenderText,Lock,固定
+GatherBuddyReborn,,,Checkbox/RenderText,Lock Config UI Movement,設定UIの移動を固定
+GatherBuddyReborn,,,Checkbox/RenderText,Lock Config UI Size,設定UIのサイズを固定
+GatherBuddyReborn,,,Checkbox/RenderText,Lock Gather Window Position,採集ウィンドウ位置を固定
+GatherBuddyReborn,,,Text/RenderTextWrapped,Locking an item prevents this item from being dragged to other positions. It does not prevent any other manipulations of the item.,アイテムを固定すると、他の位置へドラッグできなくなります。その他の操作は制限されません。
+GatherBuddyReborn,,,Text/RenderTextWrapped,Manual Preset Generator,手動プリセット生成
+GatherBuddyReborn,,,Checkbox/RenderText,Manually set collectability scores,収集価値を手動設定
+GatherBuddyReborn,,,RenderText,Max Fishing Spot Minutes,釣り場の最大滞在時間（分）
+GatherBuddyReborn,,,RenderText,Medicine,薬品
+GatherBuddyReborn,,,Selectable,Messages,メッセージ
+GatherBuddyReborn,,,RenderText,Miner Set,採掘師設定
+GatherBuddyReborn,,,Text/RenderTextWrapped,Minimum and maximum GP,最小／最大GP
+GatherBuddyReborn,,,Text/RenderTextWrapped,Minimum and maximum item,最小／最大アイテム数
+GatherBuddyReborn,,,RenderText,Minimum GP for collecting collectables,収集品採集の最低GP
+GatherBuddyReborn,,,RenderText,Minimum GP for gathering regular items or crystals,通常アイテム／クリスタル採集の最低GP
+GatherBuddyReborn,,,RenderText,Minimum GP for using actions on collectables,収集品でアクションを使う最低GP
+GatherBuddyReborn,,,RenderText,Modifier,修飾キー
+GatherBuddyReborn,,,RenderText,Modifier to Delete Items on Right-Click,右クリック削除用の修飾キー
+GatherBuddyReborn,,,RenderText,Mount Up Distance,マウント使用距離
+GatherBuddyReborn,,,MenuItem/RenderText,Move Down,下へ移動
+GatherBuddyReborn,,,MenuItem/RenderText,Move Up,上へ移動
+GatherBuddyReborn,,,Checkbox/RenderText,Move while mounting up,マウント中も移動
+GatherBuddyReborn,,,Text/RenderTextWrapped,Multiple,複数
+GatherBuddyReborn,,,Text,Names in Chat,チャット内の名前
+GatherBuddyReborn,,,Text/RenderTextWrapped,Next Aldenard Ocean Routes:,次のアルデナード航路：
+GatherBuddyReborn,,,Text/RenderTextWrapped,Next Othard Ocean Routes:,次のオサード航路：
+GatherBuddyReborn,,,Text/RenderTextWrapped,No direct fishing bait was found in this auto-gather list.,この自動採集リストには直接使用できる釣り餌がありません。
+GatherBuddyReborn,,,Button,No Fish Alarm Triggered,魚アラームなし
+GatherBuddyReborn,,,Button,No Item Alarm Triggered,アイテムアラームなし
+GatherBuddyReborn,,,Selectable,No Preference,指定なし
+GatherBuddyReborn,,,Text/RenderTextWrapped,Node types:,採集ポイント種別：
+GatherBuddyReborn,,,Text/RenderTextWrapped,Ocean Fish,オーシャンフィッシング
+GatherBuddyReborn,,,Checkbox/RenderText,Only Show Gather Window if Holding Key,キーを押している間だけ採集ウィンドウを表示
+GatherBuddyReborn,,,Checkbox/RenderText,Open Config UI On Start,起動時に設定UIを開く
+GatherBuddyReborn,,,Checkbox/RenderText,Open Map With Location,場所と一緒にマップを開く
+GatherBuddyReborn,,,Text/RenderTextWrapped,Open the collectables window.,収集品ウィンドウを開きます。
+GatherBuddyReborn,,,Text/RenderTextWrapped,Open the Vulcan crafting window.,Vulcanの製作ウィンドウを開きます。
+GatherBuddyReborn,,,Checkbox/RenderText,Opt-in to fishing data collection,釣りデータ収集に協力する
+GatherBuddyReborn,,,RenderText,Patience / Patience II,ペーシェンス／ペーシェンスII
+GatherBuddyReborn,,,Text/RenderTextWrapped,Pause GBR automatically when AutoRetainer has retainers to process during Multi-mode,AutoRetainerのMulti Modeでリテイナー処理がある時はGBRを自動停止
+GatherBuddyReborn,,,Checkbox/RenderText,Place Custom Waymarks,カスタムウェイマークを設置
+GatherBuddyReborn,,,Checkbox/RenderText,Place Flag Marker on Map,マップに旗を設置
+GatherBuddyReborn,,,Checkbox/RenderText,Play a sound when done gathering,採集完了時に音を鳴らす
+GatherBuddyReborn,,,RadioButtonBool/RenderText,Prefer Cheaper Aetherytes,安いエーテライトを優先
+GatherBuddyReborn,,,RadioButtonBool/RenderText,Prefer Less Travel Time,移動時間の短さを優先
+GatherBuddyReborn,,,RenderText,Preferred Job,優先ジョブ
+GatherBuddyReborn,,,Text/RenderTextWrapped,Prevents GBR from stopping fishing for materia extraction when you have active fishing skill buffs.,釣り用スキルバフが有効な間、マテリア精製のためにGBRが釣りを中断しないようにします。
+GatherBuddyReborn,,,Checkbox/RenderText,Print Clipboard Information,クリップボード情報を表示
+GatherBuddyReborn,,,Checkbox/RenderText,Print Map Location,マップ位置を表示
+GatherBuddyReborn,,,Checkbox/RenderText,Print Node Uptimes On Gather,採集時に採集ポイントの出現時間を表示
+GatherBuddyReborn,,,Text/RenderTextWrapped,Print the uptimes of nodes you try to /gather in the chat if they are not always up.,/gather した採集ポイントが常時出現でない場合、その出現時間をチャットに表示します。
+GatherBuddyReborn,,,Text/RenderTextWrapped,Print to the chat whenever you save an object to the clipboard. Failures will be printed regardless.,オブジェクトをクリップボードへ保存するたびにチャットへ表示します。失敗時は設定に関係なく表示されます。
+GatherBuddyReborn,,,Checkbox/RenderText,Re-enter The Diadem to Reset Clouded Nodes,雲海採集ポイントを復活させるためディアデムへ再突入
+GatherBuddyReborn,,,Checkbox/RenderText,Remove Completed##list,完了済みを削除##list
+GatherBuddyReborn,,,Checkbox/RenderText,Repair gear when needed,必要に応じて装備を修理
+GatherBuddyReborn,,,RenderText,Repair Threshold,修理しきい値
+GatherBuddyReborn,,,Button,Restore Default Groups,既定グループを復元
+GatherBuddyReborn,,,RenderText,Select Mount,使用マウントを選択
+GatherBuddyReborn,,,Text/RenderTextWrapped,Select Target Fish:,対象の魚を選択：
+GatherBuddyReborn,,,Text/RenderTextWrapped,Set a hotkey to open the main GatherBuddy interface.,GatherBuddyのメイン画面を開くホットキーを設定します。
+GatherBuddyReborn,,,Selectable,Set Names,名前を設定
+GatherBuddyReborn,,,Text/RenderTextWrapped,"Set up your very own GatherBuddy to your meticulous specifications.
+If you treat him well, he might even become a real boy.",GatherBuddyを自分好みに細かく設定できます。
+GatherBuddyReborn,,,Checkbox/RenderText,Show Active Alarms in Gather Window,採集ウィンドウに有効なアラームを表示
+GatherBuddyReborn,,,Checkbox/RenderText,Show Center Line,中央線を表示
+GatherBuddyReborn,,,Checkbox/RenderText,Show Collectable Hints,収集品ヒントを表示
+GatherBuddyReborn,,,Checkbox/RenderText,Show Fish Name Overlay,魚名オーバーレイを表示
+GatherBuddyReborn,,,Checkbox/RenderText,Show Fish Names in Fixed Position,魚名を固定位置に表示
+GatherBuddyReborn,,,Checkbox/RenderText,Show Fish Timer,魚タイマーを表示
+GatherBuddyReborn,,,Checkbox/RenderText,Show Gather Window,採集ウィンドウを表示
+GatherBuddyReborn,,,Checkbox/RenderText,Show Gather Window Timers,採集ウィンドウにタイマーを表示
+GatherBuddyReborn,,,Checkbox/RenderText,Show List of Available Fish,釣れる魚の一覧を表示
+GatherBuddyReborn,,,Checkbox/RenderText,Show Multi Hook Hints,マルチフックのヒントを表示
+GatherBuddyReborn,,,Checkbox/RenderText,Show Names in Weather Tab,天候タブに名前を表示
+GatherBuddyReborn,,,Checkbox/RenderText,Show Only Available Items,採集可能なアイテムだけ表示
+GatherBuddyReborn,,,Checkbox/RenderText,Show Spearfishing Helper,銛漁ヘルパーを表示
+GatherBuddyReborn,,,Checkbox/RenderText,Show Speed and Size as Text,速度とサイズを文字で表示
+GatherBuddyReborn,,,Checkbox/RenderText,Show Speed of Fish in Overlay,オーバーレイに魚の速度を表示
+GatherBuddyReborn,,,Checkbox/RenderText,Show Status Line,ステータス行を表示
+GatherBuddyReborn,,,Checkbox/RenderText,Show Uptimes in Fish Timer,魚タイマーに出現時間を表示
+GatherBuddyReborn,,,Checkbox/RenderText,Skip Nearby Teleports,近距離のテレポをスキップ
+GatherBuddyReborn,,,Checkbox/RenderText,Sort Gather Window by Uptime,採集ウィンドウを出現時間順に並べる
+GatherBuddyReborn,,,Text,Spearfish Helper Center Line,銛漁ヘルパー：中央線
+GatherBuddyReborn,,,Text,Spearfish Helper Fish Background,銛漁ヘルパー：魚の背景
+GatherBuddyReborn,,,Text,Spearfish Helper Fish Text,銛漁ヘルパー：魚の文字
+GatherBuddyReborn,,,Text,Spearfish Helper List Background,銛漁ヘルパー：一覧背景
+GatherBuddyReborn,,,RenderText,Squadron Pass,小隊転送網利用券
+GatherBuddyReborn,,,Text/RenderTextWrapped,Status: Idle,状態：待機中
+GatherBuddyReborn,,,Text/RenderTextWrapped,Strong,強震
+GatherBuddyReborn,,,RenderText,Stuck Threshold,スタック判定しきい値
+GatherBuddyReborn,,,Checkbox/RenderText,Teleport to next timed item,次の時間限定アイテムへテレポ
+GatherBuddyReborn,,,Text/RenderTextWrapped,The background color of warning badges in the user interface.,UI内の警告バッジの背景色です。
+GatherBuddyReborn,,,Text/RenderTextWrapped,"The chat type used to print error messages issued by GatherBuddy.
+Note that the message only gets printed to your chat log, regardless of the selected channel - other people will not see your 'Say' message.","GatherBuddyのエラーメッセージに使用するチャット種別です。
+選択したチャンネルに関係なく自分のチャットログにだけ表示され、他のプレイヤーには送信されません。"
+GatherBuddyReborn,,,Text/RenderTextWrapped,"The chat type used to print regular messages issued by GatherBuddy.
+Note that the message only gets printed to your chat log, regardless of the selected channel - other people will not see your 'Say' message.","GatherBuddyの通常メッセージに使用するチャット種別です。
+選択したチャンネルに関係なく自分のチャットログにだけ表示され、他のプレイヤーには送信されません。"
+GatherBuddyReborn,,,Text/RenderTextWrapped,The distance at which you will mount up to move to a node.,採集ポイントへ移動する際にマウントへ乗る距離です。
+GatherBuddyReborn,,,Text/RenderTextWrapped,"The records of my fishing prowess have been greatly exaggerated.
+Find, cleanup and share all data you have collected while fishing.",釣りで収集したデータの確認・整理・共有ができます。
+GatherBuddyReborn,,,Text/RenderTextWrapped,"There are plenty of fish in the sea. And the air. And the sand. And the lava. And space, for some reason.
+ Gotta catch'em all!
+Enough information about fish to get you started, and for everything else there's TeamCraft!","海だけでなく空や砂、溶岩、さらには宇宙にも魚がいます。
+魚に関する基本情報を確認でき、さらに詳しい情報はTeamCraftも利用できます。"
+GatherBuddyReborn,,,CollapsingHeaderPtr,Time,時間
+GatherBuddyReborn,,,RenderText,Timed Node Precognition (Seconds),時間限定採集ポイント先読み（秒）
+GatherBuddyReborn,,,Text/RenderTextWrapped,Toggle all alarms on or off.,すべてのアラームを一括でON／OFFします。
+GatherBuddyReborn,,,Text/RenderTextWrapped,Toggle whether to automatically set a red flag marker on the approximate location of the chosen node without opening the map.,マップを開かず、選択した採集ポイントのおおよその位置に赤い旗を自動設置するか切り替えます。
+GatherBuddyReborn,,,Text/RenderTextWrapped,Toggle whether to automatically teleport to a chosen node.,選択した採集ポイントへ自動テレポするか切り替えます。
+GatherBuddyReborn,,,Text/RenderTextWrapped,Toggle whether to place custom Waymarks you set manually set up for certain locations.,特定の場所に手動設定したカスタムウェイマークを設置するか切り替えます。
+GatherBuddyReborn,,,Text/RenderTextWrapped,Unknown,不明
+GatherBuddyReborn,,,Checkbox/RenderText/RenderTextWrapped,Unspoiled,未知
+GatherBuddyReborn,,,Checkbox/RenderText,Use AutoHook Global Preset,AutoHookの全体プリセットを使用
+GatherBuddyReborn,,,Checkbox/RenderText,Use existing AutoHook presets,既存のAutoHookプリセットを使用
+GatherBuddyReborn,,,Checkbox/RenderText,Use Hook Timers in AutoHook Presets,AutoHookプリセットのフックタイマーを使用
+GatherBuddyReborn,,,Checkbox/RenderText,Use Local Time in Records,記録にローカル時間を使用
+GatherBuddyReborn,,,Checkbox/RenderText,Use skills for fallback items,予備アイテムにもスキルを使用
+GatherBuddyReborn,,,Checkbox/RenderText,Use vnavmesh Navigation,vnavmeshナビゲーションを使用
+GatherBuddyReborn,,,Button,Vulcan,Vulcan
+GatherBuddyReborn,,,Checkbox/RenderText,Wait for AutoRetainer Multi-mode,AutoRetainer Multi Modeを待機
+GatherBuddyReborn,,,Text/RenderTextWrapped,Warning Background,警告背景
+GatherBuddyReborn,,,Text/RenderTextWrapped,Weak,弱震
+GatherBuddyReborn,,,TabItem,Weather,天候
+GatherBuddyReborn,,,RenderText,Weather Change Alarm,天候変化アラーム
+GatherBuddyReborn,,,Text,Weather Tab Current Weather Column,天候タブ：現在天候の列
+GatherBuddyReborn,,,Text,Weather Tab Current Weather Header,天候タブ：現在天候の見出し
+GatherBuddyReborn,,,Text,Weather Tab Last Weather Column,天候タブ：前回天候の列
+GatherBuddyReborn,,,Text,Weather Tab Last Weather Header,天候タブ：前回天候の見出し
+GatherBuddyReborn,,,Text/RenderTextWrapped,What method to use when sorting items internally,内部でアイテムを並べ替える方法を選択します
+GatherBuddyReborn,,,Text/RenderTextWrapped,"When disabled, collectability scores will be automatically detected from the game UI.
+When enabled, you can manually specify the target and minimum scores below.","無効時はゲームUIから収集価値を自動取得します。
+有効時は下で目標値と最低値を手動指定できます。"
+GatherBuddyReborn,,,CollapsingHeaderPtr,World Objects,ワールドオブジェクト
+GatherBuddyReborn,,,Text/RenderTextWrapped,"Yes, 'Gloom' is weather.
+See the weather forecast in all zones for the following days, as well as the last one.","「妖霧」も天候です。
+全エリアの今後の天気予報と直前の天候を確認できます。"
+GatherBuddyReborn,,,Text/RenderTextWrapped,You read that right! Auto-gather!,その通り、自動採集です！
+GatherBuddyReborn,,,,"
+Collectible!","
+収集品！"
+GatherBuddyReborn,,,,"
+Disable ""Edit Fish Timer""","
+「釣りタイマーを編集」を無効にします"
+GatherBuddyReborn,,,,"  Gather > Fish > Scrip > Drops > Craft > Vendor > Tomes > Other
+
+","  採集 > 釣り > スクリップ > ドロップ > 製作 > ショップ > トークン > その他
+
+"
+GatherBuddyReborn,,,, all items in the list, リスト内の全アイテム
+GatherBuddyReborn,,,, Anything, 任意
+GatherBuddyReborn,,,, · running, ・実行中
+GatherBuddyReborn,,,,#Alarm Groups,アラームグループ数
+GatherBuddyReborn,,,,#Enabled Alarms,有効なアラーム数
+GatherBuddyReborn,,,,#Nodes,採集ポイント数
+GatherBuddyReborn,,,,#Weathers,天候数
+GatherBuddyReborn,,,,(ended),（終了）
+GatherBuddyReborn,,,,(macro not found),（マクロが見つかりません）
+GatherBuddyReborn,,,,(Unknown vendor),（販売NPC不明）
+GatherBuddyReborn,,,,"(with the same content id and timestamp).
+Usually there are none.
+Use at your own risk, no backup is made.","（コンテンツIDとタイムスタンプが同じ記録）。
+通常は存在しません。
+バックアップは作成されません。自己責任で使用してください。"
+GatherBuddyReborn,,,,+3 yield and +100% boon chance hidden bonuses exist and that you meet their requirements. ,採集数+3、獲得数ボーナス発生率+100%の隠しボーナスが存在し、条件を満たしていることを確認してください。
+GatherBuddyReborn,,,,-> Interface -> Fish Timer Window,→ インターフェース → 釣りタイマーウィンドウ
+GatherBuddyReborn,,,,1 column hidden,非表示の列：1列
+GatherBuddyReborn,,,,1 craft,1回製作
+GatherBuddyReborn,,,,1 list,1リスト
+GatherBuddyReborn,,,,1 matching group of settings,一致する設定グループ：1件
+GatherBuddyReborn,,,,1 project,1件の製作計画
+GatherBuddyReborn,,,,1. Build the purchase list in Vulcan Vendors,1. Vulcanのショップで購入リストを作成
+GatherBuddyReborn,,,,"1. Install the Browsingway plugin
+","1. Browsingwayプラグインを導入
+"
+GatherBuddyReborn,,,,2. Review the list in Vendor Buy Lists,2. ショップ購入リストを確認
+GatherBuddyReborn,,,,"2. Run /bw config
+","2. /bw config を実行
+"
+GatherBuddyReborn,,,,3. Assign the list in Collectables,3. 収集品画面でリストを設定
+GatherBuddyReborn,,,,"3. Create a new overlay (+ button)
+","3. 新しいオーバーレイを作成（＋ボタン）
+"
+GatherBuddyReborn,,,,"4. Set its Command Name to 'teamcraft'
+","4. Command Nameを「teamcraft」に設定
+"
+GatherBuddyReborn,,,,4. Turn on the purchase behaviour you want,4. 必要な購入動作を有効にする
+GatherBuddyReborn,,,,"5. Close the config and click this button
+
+","5. 設定を閉じてこのボタンをクリック
+
+"
+GatherBuddyReborn,,,,A collectables run is going,収集品を納品中
+GatherBuddyReborn,,,,"A dynamic solver adapted from Artisan.
+Reacts to conditions, more flexible.","Artisanを基にした動的ソルバー。
+製作状態に応じて柔軟に対応します。"
+GatherBuddyReborn,,,,A gather group needs a name.,採集グループには名前が必要です。
+GatherBuddyReborn,,,,A list with that name already exists.,同じ名前のリストが既に存在します。
+GatherBuddyReborn,,,,A list with this name already exists. It will be renamed automatically.,同じ名前のリストが存在します。自動的に名前が変更されます。
+GatherBuddyReborn,,,,A Realm Reborn,新生エオルゼア
+GatherBuddyReborn,,,,"A sound played every 8 Eorzea hours, on regular weather changes.",通常の天候が変わる8エオルゼア時間ごとに再生する音。
+GatherBuddyReborn,,,,A sound played every time the Eorzea hour changes.,エオルゼア時間の時間が変わるたびに再生する音。
+GatherBuddyReborn,,,,A/Cross,A／×
+GatherBuddyReborn,,,,Above,以上
+GatherBuddyReborn,,,,Accent color,アクセントカラー
+GatherBuddyReborn,,,,Action,アクション
+GatherBuddyReborn,,,,Action delay,アクション間隔
+GatherBuddyReborn,,,,"actions are chosen for the most yield. For regular nodes, actions are chosen for the most yield per GP spent.",採集数が最大となるアクションを選び、通常の採集ポイントでは消費GPあたりの採集数が最大となるものを選びます。
+GatherBuddyReborn,,,,Active,出現中
+GatherBuddyReborn,,,,Active solves,計算中
+GatherBuddyReborn,,,,Add 1 to a list,1件をリストに追加
+GatherBuddyReborn,,,,Add a 'Gather' entry to in-game right-click menus for gatherable items.,採集可能なアイテムのゲーム内右クリックメニューに「採集」を追加します。
+GatherBuddyReborn,,,,Add a group with the plus button below the list.,リスト下の＋ボタンでグループを追加します。
+GatherBuddyReborn,,,,Add a new entry,項目を新規追加
+GatherBuddyReborn,,,,Add a preset with the plus button below the list.,リスト下の＋ボタンでプリセットを追加してください。
+GatherBuddyReborn,,,,Add all missing to existing list,不足分をすべて既存リストに追加
+GatherBuddyReborn,,,,Add an item,アイテムを追加
+GatherBuddyReborn,,,,Add in-game context menus,ゲーム内コンテキストメニューを追加
+GatherBuddyReborn,,,,Add recipe,レシピを追加
+GatherBuddyReborn,,,,Add recipes on the right to build the queue.,右側からレシピを追加して製作キューを作成します。
+GatherBuddyReborn,,,,Add recipes to a list,レシピをリストに追加
+GatherBuddyReborn,,,,Add stats about multi-hook yields when copying a report.,レポートをコピーするときに複数釣りでの獲得数の統計を追加します。
+GatherBuddyReborn,,,,"Add supported vendor items from Vulcan's Vendors page, the Materials window, or a TeamCraft import.",Vulcanのショップページ、素材ウィンドウ、またはTeamCraftインポートから対応する販売品を追加してください。
+GatherBuddyReborn,,,,Add the chosen item at the end of the list,選択したアイテムをリストの末尾に追加
+GatherBuddyReborn,,,,Add the items of a TeamCraft list in your clipboard to this list.,クリップボードのTeamCraftリストのアイテムをこのリストに追加します。
+GatherBuddyReborn,,,,Add the minimum and maximum sizes when copying a report.,レポートをコピーするときに最小・最大サイズを追加します。
+GatherBuddyReborn,,,,Add the minimum and maximum times when copying a report.,レポートをコピーするときに最短・最長時間を追加します。
+GatherBuddyReborn,,,,Add these recipes to one of your crafting lists.,これらのレシピを既存の製作リストに追加します。
+GatherBuddyReborn,,,,Add this alarm,このアラームを追加
+GatherBuddyReborn,,,,Add this item,このアイテムを追加
+GatherBuddyReborn,,,,Add this item at the end of the preset,このアイテムをプリセットの末尾に追加
+GatherBuddyReborn,,,,Add to a buy list,購入リストに追加
+GatherBuddyReborn,,,,Add to a crafting list,製作リストに追加
+GatherBuddyReborn,,,,Add to a list,リストに追加
+GatherBuddyReborn,,,,Add to alarm preset,アラームプリセットに追加
+GatherBuddyReborn,,,,Add to auto-gather list,自動採集リストに追加
+GatherBuddyReborn,,,,Add to existing list,既存リストに追加
+GatherBuddyReborn,,,,Add to gather group,採集グループに追加
+GatherBuddyReborn,,,,Add to gather window preset,採集ウィンドウのプリセットに追加
+GatherBuddyReborn,,,,Add to list,リストに追加
+GatherBuddyReborn,,,,Add to the active buy list. Right-click for more options.,現在の購入リストに追加。右クリックで詳細メニュー。
+GatherBuddyReborn,,,,Adds a page that collects and reports fish stats from your local records. Currently in testing.,ローカルの記録から釣り統計を集計・表示するページを追加します。現在テスト中です。
+GatherBuddyReborn,,,,Adds to a crafting list every recipe the filters show that you haven't crafted yet.,フィルターに一致する未製作のレシピをすべて製作リストに追加します。
+GatherBuddyReborn,,,,Adjusting position for Cast...,キャスティングのため位置を調整中…
+GatherBuddyReborn,,,,Adjusting rotation...,向きを調整中…
+GatherBuddyReborn,,,,Advanced,詳細設定
+GatherBuddyReborn,,,,Advanced unstuck in progress!,スタック回避の詳細処理中！
+GatherBuddyReborn,,,,Aetherial reduction,精選
+GatherBuddyReborn,,,,Aetherstream,エーテリアルストリーム
+GatherBuddyReborn,,,,Aetheryte,エーテライト
+GatherBuddyReborn,,,,Aetheryte preference,エーテライトの優先設定
+GatherBuddyReborn,,,,"After a queue is interrupted for collectables, return home before crafting resumes.",収集品納品で製作キューが中断された場合、製作再開前に帰宅します。
+GatherBuddyReborn,,,,Alarm chat format,アラームのチャット書式
+GatherBuddyReborn,,,,Alarm Group Details,アラームグループの詳細
+GatherBuddyReborn,,,,Alarm message in chat,アラームのチャットメッセージ
+GatherBuddyReborn,,,,"Alarms
+ 
+Do you often find yourself late for a very important date? Set up your very own alarm clock.","アラーム
+ 
+大事な時間に遅れてしまうことはありませんか？ 自分専用のアラームを設定しましょう。"
+GatherBuddyReborn,,,,Alarms are off. Click to turn them all on.,アラームが無効です。クリックですべて有効にします。
+GatherBuddyReborn,,,,Alarms are on. Click to turn them all off.,アラームが有効です。クリックですべて無効にします。
+GatherBuddyReborn,,,,Alarms off,アラームOFF
+GatherBuddyReborn,,,,Alarms on,アラームON
+GatherBuddyReborn,,,,Alarms that tell you when nodes and fish come up,採集ポイントや魚の出現時刻を知らせるアラーム
+GatherBuddyReborn,,,,ALC,錬金
+GatherBuddyReborn,,,,Alchemist (ALC),錬金術師 (ALC)
+GatherBuddyReborn,,,,Aldenard,アルデナード
+GatherBuddyReborn,,,,All,すべて
+GatherBuddyReborn,,,,All active nodes in The Diadem are blacklisted,ディアデム諸島の出現中の全採集ポイントが除外されています
+GatherBuddyReborn,,,,All currencies,すべての通貨
+GatherBuddyReborn,,,,All HQ,すべてHQ
+GatherBuddyReborn,,,,All materials ready,すべての素材が揃っています
+GatherBuddyReborn,,,,"All materials, with precrafts",全素材（中間素材を含む）
+GatherBuddyReborn,,,,Allow more than one Material Miracle,ミラクルマテリアルの複数回使用を許可
+GatherBuddyReborn,,,,Allow specialist actions,マイスターアクションを許可
+GatherBuddyReborn,,,,"Allows the use of windmires for jumping between islands in the Diadem, when they give a significant distance advantage over normal movement.",ディアデム諸島の島間移動で、通常移動より大幅に距離を短縮できる場合に風脈を使用します。
+GatherBuddyReborn,,,,Already Caught,釣り上げ済み
+GatherBuddyReborn,,,,Already Gathered,採集済み
+GatherBuddyReborn,,,,Already gathered,採集済み
+GatherBuddyReborn,,,,Also reduce final crafts based on how many you already have. Useful for resuming an interrupted list.,所持数に応じて最終製作品の必要数も減らします。中断したリストの再開に便利です。
+GatherBuddyReborn,,,,"Also show active alarms as a last preset in the gather window, following the window's usual rules.",採集ウィンドウ通常の規則に従い、有効なアラームを最後のプリセットとして表示します。
+GatherBuddyReborn,,,,Always,常時
+GatherBuddyReborn,,,,Always reduce all items,すべてのアイテムを常に精選
+GatherBuddyReborn,,,,Always Up,常時出現
+GatherBuddyReborn,,,,Amber,琥珀
+GatherBuddyReborn,,,,Ambitious Lure,アンビシャスルアー
+GatherBuddyReborn,,,,Amt,個数
+GatherBuddyReborn,,,,An error occurred during collectables automation.,収集品の自動処理中にエラーが発生しました。
+GatherBuddyReborn,,,,An unexpected error occurred during collectables automation.,収集品の自動処理中に予期しないエラーが発生しました。
+GatherBuddyReborn,,,,Anchor gather window to bottom left,採集ウィンドウを左下に固定
+GatherBuddyReborn,,,,and hide this when not fishing.,釣りをしていない時は非表示にします。
+GatherBuddyReborn,,,,Animation length,アニメーション時間
+GatherBuddyReborn,,,,Annotation,注記
+GatherBuddyReborn,,,,Another vendor purchase is already running.,別のショップ購入処理を実行中です。
+GatherBuddyReborn,,,,Anti-stuck cooldown,スタック回避クールダウン
+GatherBuddyReborn,,,,Any,任意
+GatherBuddyReborn,,,,Applies to,適用対象
+GatherBuddyReborn,,,,Applies to every GatherBuddy Reborn and Vulcan window.,GatherBuddy RebornとVulcanのすべてのウィンドウに適用されます。
+GatherBuddyReborn,,,,"Apply Quick synth all and Prefer NQ only to generated precrafts, leaving the final items unchanged.",すべて簡易製作とNQ優先を中間素材だけに適用し、最終製作品には適用しません。
+GatherBuddyReborn,,,,Area,エリア
+GatherBuddyReborn,,,,Arguments in chat,チャット内の引数
+GatherBuddyReborn,,,,ARM,甲冑
+GatherBuddyReborn,,,,Armorer (ARM),甲冑師 (ARM)
+GatherBuddyReborn,,,,Artisan can't be turned on or off from here right now.,現在ここからArtisanの有効・無効を切り替えられません。
+GatherBuddyReborn,,,,Artisan detected,Artisanを検出しました
+GatherBuddyReborn,,,,Artisan is disabled. Click to enable it.,Artisanが無効です。クリックで有効にします。
+GatherBuddyReborn,,,,Artisan is enabled. Click to disable it.,Artisanが有効です。クリックで無効にします。
+GatherBuddyReborn,,,,"Artisan isn't installed. Once it is installed, Vulcan can turn it on and off for you while crafting.",Artisanがインストールされていません。インストールすると製作中にVulcanからArtisanの有効・無効を切り替えられます。
+GatherBuddyReborn,,,,Artisan missing,Artisan未導入
+GatherBuddyReborn,,,,Artisan off,Artisan OFF
+GatherBuddyReborn,,,,Artisan on,Artisan ON
+GatherBuddyReborn,,,,Artisan plugin is loaded. Please unload Artisan to use Vulcan's crafting system.,Artisanが読み込まれています。Vulcanの製作機能を使用するにはArtisanを無効にしてください。
+GatherBuddyReborn,,,,"Ascending, click for descending",昇順。クリックで降順
+GatherBuddyReborn,,,,Assume all HQ materials,すべての素材をHQとして扱う
+GatherBuddyReborn,,,,Assume all HQ materials##ListUseAllHQ,すべての素材をHQとして扱う##ListUseAllHQ
+GatherBuddyReborn,,,,Auto accept or decline collectable fish based on minimum collectability.,最低収集価値に応じて収集品の魚の取得・破棄を自動で行います。
+GatherBuddyReborn,,,,Auto collectables,収集品を自動採集
+GatherBuddyReborn,,,,Auto Offsets,自動位置補正
+GatherBuddyReborn,,,,Auto turn in collectables,収集品を自動納品
+GatherBuddyReborn,,,,"Auto-Gather
+ 
+You read that right! Auto-gather!","自動採集
+ 
+その通り、自動採集です！"
+GatherBuddyReborn,,,,Auto-Gather Baits,自動採集用の釣り餌
+GatherBuddyReborn,,,,Auto-gather list,自動採集リスト
+GatherBuddyReborn,,,,Auto-Gather settings,自動採集設定
+GatherBuddyReborn,,,,Auto-Gather###auto_gather_enabled,自動採集###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Adjusting position for Cast...,自動採集：キャスティングのため位置を調整中…
+GatherBuddyReborn,,,,Auto-Gather: Adjusting position for Cast...###auto_gather_enabled,自動採集：キャスティングのため位置を調整中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Adjusting position for Cast...###toggle-button,自動採集：キャスティングのため位置を調整中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Adjusting rotation...,自動採集：向きを調整中…
+GatherBuddyReborn,,,,Auto-Gather: Adjusting rotation...###auto_gather_enabled,自動採集：向きを調整中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Adjusting rotation...###toggle-button,自動採集：向きを調整中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Advanced unstuck in progress!,自動採集：スタック回避の詳細処理中！
+GatherBuddyReborn,,,,Auto-Gather: Advanced unstuck in progress!###auto_gather_enabled,自動採集：スタック回避の詳細処理中！###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Advanced unstuck in progress!###toggle-button,自動採集：スタック回避の詳細処理中！###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Aetherial reduction,自動採集：精選
+GatherBuddyReborn,,,,Auto-Gather: Aetherial reduction###auto_gather_enabled,自動採集：精選###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Aetherial reduction###toggle-button,自動採集：精選###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: All active nodes in The Diadem are blacklisted,自動採集：ディアデム諸島の出現中の全採集ポイントが除外されています
+GatherBuddyReborn,,,,Auto-Gather: All active nodes in The Diadem are blacklisted###auto_gather_enabled,自動採集：ディアデム諸島の出現中の全採集ポイントが除外されています###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: All active nodes in The Diadem are blacklisted###toggle-button,自動採集：ディアデム諸島の出現中の全採集ポイントが除外されています###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Calculating best action sequence...,自動採集：最適なアクションの順序を計算中…
+GatherBuddyReborn,,,,Auto-Gather: Calculating best action sequence...###auto_gather_enabled,自動採集：最適なアクションの順序を計算中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Calculating best action sequence...###toggle-button,自動採集：最適なアクションの順序を計算中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Can not teleport when bound by duty,自動採集：コンテンツ中はテレポできません
+GatherBuddyReborn,,,,Auto-Gather: Can not teleport when bound by duty###auto_gather_enabled,自動採集：コンテンツ中はテレポできません###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Can not teleport when bound by duty###toggle-button,自動採集：コンテンツ中はテレポできません###toggle-button
+GatherBuddyReborn,,,,"Auto-Gather: Can't land here, recovering before selecting a nearby spot...",自動採集：ここでは着地できません。近くの場所を選ぶ前に復旧中…
+GatherBuddyReborn,,,,"Auto-Gather: Can't land here, recovering before selecting a nearby spot...###auto_gather_enabled",自動採集：ここでは着地できません。近くの場所を選ぶ前に復旧中…###auto_gather_enabled
+GatherBuddyReborn,,,,"Auto-Gather: Can't land here, recovering before selecting a nearby spot...###toggle-button",自動採集：ここでは着地できません。近くの場所を選ぶ前に復旧中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Closing fishing before teleport...,自動採集：テレポ前に釣りを終了中…
+GatherBuddyReborn,,,,Auto-Gather: Closing fishing before teleport...###auto_gather_enabled,自動採集：テレポ前に釣りを終了中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Closing fishing before teleport...###toggle-button,自動採集：テレポ前に釣りを終了中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Closing gathering window before teleport...,自動採集：テレポ前に採集ウィンドウを閉じています…
+GatherBuddyReborn,,,,Auto-Gather: Closing gathering window before teleport...###auto_gather_enabled,自動採集：テレポ前に採集ウィンドウを閉じています…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Closing gathering window before teleport...###toggle-button,自動採集：テレポ前に採集ウィンドウを閉じています…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Dismounting...,自動採集：マウントから降りています…
+GatherBuddyReborn,,,,Auto-Gather: Dismounting...###auto_gather_enabled,自動採集：マウントから降りています…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Dismounting...###toggle-button,自動採集：マウントから降りています…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Fell out of control loop unexpectedly. Please report this error.,自動採集：制御処理が予期せず終了しました。このエラーを報告してください。
+GatherBuddyReborn,,,,Auto-Gather: Fell out of control loop unexpectedly. Please report this error.###auto_gather_enabled,自動採集：制御処理が予期せず終了しました。このエラーを報告してください。###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Fell out of control loop unexpectedly. Please report this error.###toggle-button,自動採集：制御処理が予期せず終了しました。このエラーを報告してください。###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Finishing current cast before switching target...,自動採集：釣りを終えてから対象を変更中…
+GatherBuddyReborn,,,,Auto-Gather: Finishing current cast before switching target...###auto_gather_enabled,自動採集：釣りを終えてから対象を変更中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Finishing current cast before switching target...###toggle-button,自動採集：釣りを終えてから対象を変更中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Fish detected! Relocating and waiting...,自動採集：魚に警戒されました。移動して待機中…
+GatherBuddyReborn,,,,Auto-Gather: Fish detected! Relocating and waiting...###auto_gather_enabled,自動採集：魚に警戒されました。移動して待機中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Fish detected! Relocating and waiting...###toggle-button,自動採集：魚に警戒されました。移動して待機中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Fish wary - relocating...,自動採集：魚が警戒しています。移動中…
+GatherBuddyReborn,,,,Auto-Gather: Fish wary - relocating...###auto_gather_enabled,自動採集：魚が警戒しています。移動中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Fish wary - relocating...###toggle-button,自動採集：魚が警戒しています。移動中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Fishing recovery in progress...,自動採集：釣りの復旧処理中…
+GatherBuddyReborn,,,,Auto-Gather: Fishing recovery in progress...###auto_gather_enabled,自動採集：釣りの復旧処理中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Fishing recovery in progress...###toggle-button,自動採集：釣りの復旧処理中…###toggle-button
+GatherBuddyReborn,,,,"Auto-Gather: Fishing route stalled twice, finding a nearby spot...",自動採集：釣り場への移動が2回停滞。近くの場所を検索中…
+GatherBuddyReborn,,,,"Auto-Gather: Fishing route stalled twice, finding a nearby spot...###auto_gather_enabled",自動採集：釣り場への移動が2回停滞。近くの場所を検索中…###auto_gather_enabled
+GatherBuddyReborn,,,,"Auto-Gather: Fishing route stalled twice, finding a nearby spot...###toggle-button",自動採集：釣り場への移動が2回停滞。近くの場所を検索中…###toggle-button
+GatherBuddyReborn,,,,"Auto-Gather: Fishing route stalled, retrying the same spot...",自動採集：釣り場への移動が停滞。同じ場所への移動を再試行中…
+GatherBuddyReborn,,,,"Auto-Gather: Fishing route stalled, retrying the same spot...###auto_gather_enabled",自動採集：釣り場への移動が停滞。同じ場所への移動を再試行中…###auto_gather_enabled
+GatherBuddyReborn,,,,"Auto-Gather: Fishing route stalled, retrying the same spot...###toggle-button",自動採集：釣り場への移動が停滞。同じ場所への移動を再試行中…###toggle-button
+GatherBuddyReborn,,,,"Auto-Gather: Fishing route stopped short twice, finding a nearby spot...",自動採集：釣り場への移動が2回途中停止。近くの場所を検索中…
+GatherBuddyReborn,,,,"Auto-Gather: Fishing route stopped short twice, finding a nearby spot...###auto_gather_enabled",自動採集：釣り場への移動が2回途中停止。近くの場所を検索中…###auto_gather_enabled
+GatherBuddyReborn,,,,"Auto-Gather: Fishing route stopped short twice, finding a nearby spot...###toggle-button",自動採集：釣り場への移動が2回途中停止。近くの場所を検索中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Fishing...,自動採集：釣り中…
+GatherBuddyReborn,,,,Auto-Gather: Fishing...###auto_gather_enabled,自動採集：釣り中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Fishing...###toggle-button,自動採集：釣り中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Gathering...,自動採集：採集中…
+GatherBuddyReborn,,,,Auto-Gather: Gathering...###auto_gather_enabled,自動採集：採集中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Gathering...###toggle-button,自動採集：採集中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Generating path...,自動採集：経路を生成中…
+GatherBuddyReborn,,,,Auto-Gather: Generating path...###auto_gather_enabled,自動採集：経路を生成中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Generating path...###toggle-button,自動採集：経路を生成中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Idle,自動採集：待機中
+GatherBuddyReborn,,,,Auto-Gather: Idle###auto_gather_enabled,自動採集：待機中###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Idle###toggle-button,自動採集：待機中###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Idle...,自動採集：待機中…
+GatherBuddyReborn,,,,Auto-Gather: Idle...###auto_gather_enabled,自動採集：待機中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Idle...###toggle-button,自動採集：待機中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Install Lifestream to access housing wards,自動採集：ハウジングエリアへ移動するにはLifestreamを導入してください
+GatherBuddyReborn,,,,Auto-Gather: Install Lifestream to access housing wards###auto_gather_enabled,自動採集：ハウジングエリアへ移動するにはLifestreamを導入してください###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Install Lifestream to access housing wards###toggle-button,自動採集：ハウジングエリアへ移動するにはLifestreamを導入してください###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Inventory is full,自動採集：所持品がいっぱいです
+GatherBuddyReborn,,,,Auto-Gather: Inventory is full###auto_gather_enabled,自動採集：所持品がいっぱいです###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Inventory is full###toggle-button,自動採集：所持品がいっぱいです###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Manual teleporting required,自動採集：手動でテレポしてください
+GatherBuddyReborn,,,,Auto-Gather: Manual teleporting required###auto_gather_enabled,自動採集：手動でテレポしてください###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Manual teleporting required###toggle-button,自動採集：手動でテレポしてください###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Moving to aetheryte...,自動採集：エーテライトへ移動中…
+GatherBuddyReborn,,,,Auto-Gather: Moving to aetheryte...###auto_gather_enabled,自動採集：エーテライトへ移動中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Moving to aetheryte...###toggle-button,自動採集：エーテライトへ移動中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Moving to Diadem NPC...,自動採集：ディアデム諸島のNPCへ移動中…
+GatherBuddyReborn,,,,Auto-Gather: Moving to Diadem NPC...###auto_gather_enabled,自動採集：ディアデム諸島のNPCへ移動中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Moving to Diadem NPC...###toggle-button,自動採集：ディアデム諸島のNPCへ移動中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Moving to far node...,自動採集：遠くの採集ポイントへ移動中…
+GatherBuddyReborn,,,,Auto-Gather: Moving to far node...###auto_gather_enabled,自動採集：遠くの採集ポイントへ移動中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Moving to far node...###toggle-button,自動採集：遠くの採集ポイントへ移動中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Moving to fishing spot,自動採集：釣り場へ移動中
+GatherBuddyReborn,,,,Auto-Gather: Moving to fishing spot###auto_gather_enabled,自動採集：釣り場へ移動中###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Moving to fishing spot###toggle-button,自動採集：釣り場へ移動中###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Moving to new fishing spot...,自動採集：新しい釣り場へ移動中…
+GatherBuddyReborn,,,,Auto-Gather: Moving to new fishing spot...###auto_gather_enabled,自動採集：新しい釣り場へ移動中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Moving to new fishing spot...###toggle-button,自動採集：新しい釣り場へ移動中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Moving to node...,自動採集：採集ポイントへ移動中…
+GatherBuddyReborn,,,,Auto-Gather: Moving to node...###auto_gather_enabled,自動採集：採集ポイントへ移動中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Moving to node...###toggle-button,自動採集：採集ポイントへ移動中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Moving to Swimming Shadows...,自動採集：魚影へ移動中…
+GatherBuddyReborn,,,,Auto-Gather: Moving to Swimming Shadows...###auto_gather_enabled,自動採集：魚影へ移動中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Moving to Swimming Shadows...###toggle-button,自動採集：魚影へ移動中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: No available items to gather,自動採集：採集可能なアイテムがありません
+GatherBuddyReborn,,,,Auto-Gather: No available items to gather###auto_gather_enabled,自動採集：採集可能なアイテムがありません###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: No available items to gather###toggle-button,自動採集：採集可能なアイテムがありません###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Persistent amiss! Teleporting out to clear...,自動採集：警戒が続いています。解除のためテレポ中…
+GatherBuddyReborn,,,,Auto-Gather: Persistent amiss! Teleporting out to clear...###auto_gather_enabled,自動採集：警戒が続いています。解除のためテレポ中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Persistent amiss! Teleporting out to clear...###toggle-button,自動採集：警戒が続いています。解除のためテレポ中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Player is busy...,自動採集：プレイヤーが別の操作中…
+GatherBuddyReborn,,,,Auto-Gather: Player is busy...###auto_gather_enabled,自動採集：プレイヤーが別の操作中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Player is busy...###toggle-button,自動採集：プレイヤーが別の操作中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Refreshing Swimming Shadows state...,自動採集：魚影の状態を更新中…
+GatherBuddyReborn,,,,Auto-Gather: Refreshing Swimming Shadows state...###auto_gather_enabled,自動採集：魚影の状態を更新中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Refreshing Swimming Shadows state...###toggle-button,自動採集：魚影の状態を更新中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Refreshing timers...,自動採集：タイマーを更新中…
+GatherBuddyReborn,,,,Auto-Gather: Refreshing timers...###auto_gather_enabled,自動採集：タイマーを更新中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Refreshing timers...###toggle-button,自動採集：タイマーを更新中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Repairing...,自動採集：修理中…
+GatherBuddyReborn,,,,Auto-Gather: Repairing...###auto_gather_enabled,自動採集：修理中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Repairing...###toggle-button,自動採集：修理中…###toggle-button
+GatherBuddyReborn,,,,"Auto-Gather: Repairs needed, but no dark matter found.",自動採集：修理が必要ですが、ダークマターがありません。
+GatherBuddyReborn,,,,"Auto-Gather: Repairs needed, but no dark matter found.###auto_gather_enabled",自動採集：修理が必要ですが、ダークマターがありません。###auto_gather_enabled
+GatherBuddyReborn,,,,"Auto-Gather: Repairs needed, but no dark matter found.###toggle-button",自動採集：修理が必要ですが、ダークマターがありません。###toggle-button
+GatherBuddyReborn,,,,"Auto-Gather: Repairs needed, but no repair job found.",自動採集：修理が必要ですが、修理可能なジョブが見つかりません。
+GatherBuddyReborn,,,,"Auto-Gather: Repairs needed, but no repair job found.###auto_gather_enabled",自動採集：修理が必要ですが、修理可能なジョブが見つかりません。###auto_gather_enabled
+GatherBuddyReborn,,,,"Auto-Gather: Repairs needed, but no repair job found.###toggle-button",自動採集：修理が必要ですが、修理可能なジョブが見つかりません。###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Repairs needed.,自動採集：修理が必要です。
+GatherBuddyReborn,,,,Auto-Gather: Repairs needed.###auto_gather_enabled,自動採集：修理が必要です。###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Repairs needed.###toggle-button,自動採集：修理が必要です。###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Returning to fishing spot...,自動採集：釣り場へ戻っています…
+GatherBuddyReborn,,,,Auto-Gather: Returning to fishing spot...###auto_gather_enabled,自動採集：釣り場へ戻っています…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Returning to fishing spot...###toggle-button,自動採集：釣り場へ戻っています…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Stopping fishing to change target...,自動採集：対象変更のため釣りを終了中…
+GatherBuddyReborn,,,,Auto-Gather: Stopping fishing to change target...###auto_gather_enabled,自動採集：対象変更のため釣りを終了中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Stopping fishing to change target...###toggle-button,自動採集：対象変更のため釣りを終了中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Stopping fishing to relocate to new spot...,自動採集：別の釣り場へ移動するため釣りを終了中…
+GatherBuddyReborn,,,,Auto-Gather: Stopping fishing to relocate to new spot...###auto_gather_enabled,自動採集：別の釣り場へ移動するため釣りを終了中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Stopping fishing to relocate to new spot...###toggle-button,自動採集：別の釣り場へ移動するため釣りを終了中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Teleporting to housing ward...,自動採集：ハウジングエリアへテレポ中…
+GatherBuddyReborn,,,,Auto-Gather: Teleporting to housing ward...###auto_gather_enabled,自動採集：ハウジングエリアへテレポ中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Teleporting to housing ward...###toggle-button,自動採集：ハウジングエリアへテレポ中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Teleporting...,自動採集：テレポ中…
+GatherBuddyReborn,,,,Auto-Gather: Teleporting...###auto_gather_enabled,自動採集：テレポ中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Teleporting...###toggle-button,自動採集：テレポ中…###toggle-button
+GatherBuddyReborn,,,,"Auto-Gather: Too many jiggle attempts, finding a nearby spot...",自動採集：位置調整の試行回数が上限に達したため、近くの場所を検索中…
+GatherBuddyReborn,,,,"Auto-Gather: Too many jiggle attempts, finding a nearby spot...###auto_gather_enabled",自動採集：位置調整の試行回数が上限に達したため、近くの場所を検索中…###auto_gather_enabled
+GatherBuddyReborn,,,,"Auto-Gather: Too many jiggle attempts, finding a nearby spot...###toggle-button",自動採集：位置調整の試行回数が上限に達したため、近くの場所を検索中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Trying to reset the bugged Clouded node,自動採集：不具合のある雲海採集ポイントの再出現を試行中
+GatherBuddyReborn,,,,Auto-Gather: Trying to reset the bugged Clouded node###auto_gather_enabled,自動採集：不具合のある雲海採集ポイントの再出現を試行中###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Trying to reset the bugged Clouded node###toggle-button,自動採集：不具合のある雲海採集ポイントの再出現を試行中###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Turning in collectables...,自動採集：収集品を納品中…
+GatherBuddyReborn,,,,Auto-Gather: Turning in collectables...###auto_gather_enabled,自動採集：収集品を納品中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Turning in collectables...###toggle-button,自動採集：収集品を納品中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Using aethernet...,自動採集：都市内エーテライトを使用中…
+GatherBuddyReborn,,,,Auto-Gather: Using aethernet...###auto_gather_enabled,自動採集：都市内エーテライトを使用中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Using aethernet...###toggle-button,自動採集：都市内エーテライトを使用中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Waiting after recent node interaction before teleport...,自動採集：テレポ前に採集ポイントへの操作終了を待機中…
+GatherBuddyReborn,,,,Auto-Gather: Waiting after recent node interaction before teleport...###auto_gather_enabled,自動採集：テレポ前に採集ポイントへの操作終了を待機中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Waiting after recent node interaction before teleport...###toggle-button,自動採集：テレポ前に採集ポイントへの操作終了を待機中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Waiting for character change to complete...,自動採集：キャラクター変更の完了を待機中…
+GatherBuddyReborn,,,,Auto-Gather: Waiting for character change to complete...###auto_gather_enabled,自動採集：キャラクター変更の完了を待機中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Waiting for character change to complete...###toggle-button,自動採集：キャラクター変更の完了を待機中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Waiting for correct Umbral weather,自動採集：適切な霊風系の天候を待機中
+GatherBuddyReborn,,,,Auto-Gather: Waiting for correct Umbral weather###auto_gather_enabled,自動採集：適切な霊風系の天候を待機中###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Waiting for correct Umbral weather###toggle-button,自動採集：適切な霊風系の天候を待機中###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Waiting for current action to complete before teleport...,自動採集：テレポ前に現在のアクションの完了を待機中…
+GatherBuddyReborn,,,,Auto-Gather: Waiting for current action to complete before teleport...###auto_gather_enabled,自動採集：テレポ前に現在のアクションの完了を待機中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Waiting for current action to complete before teleport...###toggle-button,自動採集：テレポ前に現在のアクションの完了を待機中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Waiting for current tasks to complete before teleport...,自動採集：テレポ前に現在の処理の完了を待機中…
+GatherBuddyReborn,,,,Auto-Gather: Waiting for current tasks to complete before teleport...###auto_gather_enabled,自動採集：テレポ前に現在の処理の完了を待機中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Waiting for current tasks to complete before teleport...###toggle-button,自動採集：テレポ前に現在の処理の完了を待機中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Waiting for Gathering Point... (No Nav Mode),自動採集：採集ポイントを待機中…（移動なしモード）
+GatherBuddyReborn,,,,Auto-Gather: Waiting for Gathering Point... (No Nav Mode)###auto_gather_enabled,自動採集：採集ポイントを待機中…（移動なしモード）###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Waiting for Gathering Point... (No Nav Mode)###toggle-button,自動採集：採集ポイントを待機中…（移動なしモード）###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Waiting for GP to regenerate...,自動採集：GPの回復を待機中…
+GatherBuddyReborn,,,,Auto-Gather: Waiting for GP to regenerate...###auto_gather_enabled,自動採集：GPの回復を待機中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Waiting for GP to regenerate...###toggle-button,自動採集：GPの回復を待機中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Waiting for map marker to show up,自動採集：マップマーカーの表示を待機中
+GatherBuddyReborn,,,,Auto-Gather: Waiting for map marker to show up###auto_gather_enabled,自動採集：マップマーカーの表示を待機中###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Waiting for map marker to show up###toggle-button,自動採集：マップマーカーの表示を待機中###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Waiting for node to become targetable...,自動採集：採集ポイントがターゲット可能になるまで待機中…
+GatherBuddyReborn,,,,Auto-Gather: Waiting for node to become targetable...###auto_gather_enabled,自動採集：採集ポイントがターゲット可能になるまで待機中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Waiting for node to become targetable...###toggle-button,自動採集：採集ポイントがターゲット可能になるまで待機中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Waiting for player to be ready...,自動採集：プレイヤーが操作可能になるまで待機中…
+GatherBuddyReborn,,,,Auto-Gather: Waiting for player to be ready...###auto_gather_enabled,自動採集：プレイヤーが操作可能になるまで待機中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Waiting for player to be ready...###toggle-button,自動採集：プレイヤーが操作可能になるまで待機中…###toggle-button
+GatherBuddyReborn,,,,Auto-Gather: Waiting for rotation...,自動採集：向きの調整を待機中…
+GatherBuddyReborn,,,,Auto-Gather: Waiting for rotation...###auto_gather_enabled,自動採集：向きの調整を待機中…###auto_gather_enabled
+GatherBuddyReborn,,,,Auto-Gather: Waiting for rotation...###toggle-button,自動採集：向きの調整を待機中…###toggle-button
+GatherBuddyReborn,,,,Auto-navigate to retainer bell,呼び鈴へ自動移動
+GatherBuddyReborn,,,,"Automatically deleted after crafting completes. Has no effect if stopped manually.
+Click to keep this list.","製作完了後に自動削除します。手動で停止した場合は削除されません。
+クリックでリストを保持します。"
+GatherBuddyReborn,,,,Automatically extract materia from items with a complete spiritbond.,錬精度が最大のアイテムから自動でマテリアを精製します。
+GatherBuddyReborn,,,,Automatically gather items. Disable this for navigation-only mode; disabling it is unsupported.,アイテムを自動採集します。無効にすると移動のみモードになりますが、無効時の動作はサポート対象外です。
+GatherBuddyReborn,,,,Automatically open the map of the node's territory with its gathering location highlighted.,採集場所を強調表示したエリアのマップを自動で開きます。
+GatherBuddyReborn,,,,"Automatically perform aetherial reduction when idling, or if the number of free inventory slots drops below 20.",待機時、または所持品の空きが20枠未満の場合に自動で精選します。
+GatherBuddyReborn,,,,"Automatically set a red flag marker on the approximate location of the chosen node, without opening the map.",マップを開かずに選択した採集ポイントのおおよその位置に赤いフラッグを設置します。
+GatherBuddyReborn,,,,"Automatically switch to the correct job gear for a node, using the miner, botanist and fisher sets below.",採掘師・園芸師・漁師の以下のギアセットを使用し、採集ポイントに合ったジョブ装備へ自動で切り替えます。
+GatherBuddyReborn,,,,Automatically target and fire the aethercannon at nearby enemies when the gauge is ready (200 or more). ,ゲージが使用可能（200以上）になると近くの敵を自動でターゲットしてエーテルオーガーを発射します。
+GatherBuddyReborn,,,,"Automatically target and fire the aethercannon at nearby enemies when the gauge is ready (200 or more). Only fires while not pathing, with a 2 second cooldown between uses.",ゲージが使用可能（200以上）になると近くの敵を自動でターゲットしてエーテルオーガーを発射します。経路移動中は発射せず、使用間隔は2秒です。
+GatherBuddyReborn,,,,Automatically teleport to the chosen node.,選択した採集ポイントへ自動でテレポします。
+GatherBuddyReborn,,,,Automation,自動化
+GatherBuddyReborn,,,,Automation is not available for the selected vendor route,選択した購入先では自動購入を利用できません
+GatherBuddyReborn,,,,AutoRetainer threshold,AutoRetainerの待機しきい値
+GatherBuddyReborn,,,,Average,平均
+GatherBuddyReborn,,,,B/Circle,B／○
+GatherBuddyReborn,,,,Back to your lists,リスト一覧に戻る
+GatherBuddyReborn,,,,Backload progress,工数を最後に進める
+GatherBuddyReborn,,,,Bait,釣り餌
+GatherBuddyReborn,,,,Baits to get yourself,自分で入手する釣り餌
+GatherBuddyReborn,,,,Begin pathfinding to the next node while summoning a mount.,マウント召喚中に次の採集ポイントへの経路探索を開始します。
+GatherBuddyReborn,,,,Below,以下
+GatherBuddyReborn,,,,Best Node,最適な採集ポイント
+GatherBuddyReborn,,,,Best Spot,最適な釣り場
+GatherBuddyReborn,,,,Best Zone,最適なエリア
+GatherBuddyReborn,,,,Between crafts,製作の合間
+GatherBuddyReborn,,,,Bicolor Gemstones,バイカラージェム
+GatherBuddyReborn,,,,Big,ヌシ
+GatherBuddyReborn,,,,Big Fish,ヌシ
+GatherBuddyReborn,,,,Big Game Fishing,大物の知識
+GatherBuddyReborn,,,,Bite,アタリ時間
+GatherBuddyReborn,,,,Bite Time,アタリ時間
+GatherBuddyReborn,,,,Bite Type,アタリの種類
+GatherBuddyReborn,,,,Bite Type Address,アタリの種類のアドレス
+GatherBuddyReborn,,,,BiteType,アタリの種類
+GatherBuddyReborn,,,,Blacksmith (BSM),鍛冶師 (BSM)
+GatherBuddyReborn,,,,Boon chance,獲得数ボーナス発生率
+GatherBuddyReborn,,,,Botanist,園芸師
+GatherBuddyReborn,,,,Botanist set,園芸師ギアセット
+GatherBuddyReborn,,,,"Breaking rocks with a pickaxe or felling trees counts as gathering, why do you ask?",ツルハシで岩を砕くことも木を伐採することも採集です。
+GatherBuddyReborn,,,,Browse,閲覧
+GatherBuddyReborn,,,,"Browse every recipe, craft it now or add it to a list",すべてのレシピを閲覧し、すぐに製作するかリストに追加
+GatherBuddyReborn,,,,Browse Teamcraft,Teamcraftを閲覧
+GatherBuddyReborn,,,,Browsingway isn't available,Browsingwayを利用できません
+GatherBuddyReborn,,,,BSM,鍛冶
+GatherBuddyReborn,,,,"Build the scrip purchase list in Vulcan's Vendors page, then assign it here so collectables runs know what to buy after turn-ins.",Vulcanのショップページでスクリップ購入リストを作成し、ここで設定してください。
+GatherBuddyReborn,,,,"But if a node doesn't contain any items from regular lists, or you gathered enough of them,
+","通常リストのアイテムが採集ポイントになかった場合、または必要数を採集済みの場合に、
+"
+GatherBuddyReborn,,,,"but timed nodes and fish are always prioritized.
+","時間制限のある採集ポイントと魚を常に優先します。
+"
+GatherBuddyReborn,,,,"Button filters like ""Next Uptime"", ""Node Type"" or ""Fish Type"" open a menu of what to show.",「次の出現時間」「採集ポイントの種類」「魚の種類」などのボタン式フィルターは表示対象のメニューを開きます。
+GatherBuddyReborn,,,,Buy and sell,売買
+GatherBuddyReborn,,,,Buy list: Another vendor purchase is already running.,購入リスト：別のショップ購入処理を実行中です。
+GatherBuddyReborn,,,,Buy list: Leaving vendor interaction.,購入リスト：ショップ操作を終了中。
+GatherBuddyReborn,,,,Buy list: No vendor list is available.,購入リスト：利用可能なショップリストがありません。
+GatherBuddyReborn,,,,Buy list: Timed out leaving the previous vendor interaction.,購入リスト：前回のショップ操作を終了する処理がタイムアウトしました。
+GatherBuddyReborn,,,,Buy list: Vendor automation requires Allagan Tools or Allagan Item Search.,購入リスト：自動購入にはAllagan ToolsまたはAllagan Item Searchが必要です。
+GatherBuddyReborn,,,,Buy list: Vendor data is still loading.,購入リスト：ショップデータを読み込み中です。
+GatherBuddyReborn,,,,Buy list: Vendor list stopped.,購入リスト：ショップリストを停止しました。
+GatherBuddyReborn,,,,Buy list: Vendor location data is not ready yet.,購入リスト：ショップの位置情報の準備ができていません。
+GatherBuddyReborn,,,,Buy list: Vendor location data is still loading.,購入リスト：ショップの位置情報を読み込み中です。
+GatherBuddyReborn,,,,Cache,キャッシュ
+GatherBuddyReborn,,,,Cache max age,キャッシュ保持期間
+GatherBuddyReborn,,,,Cached solutions,キャッシュ済みの解
+GatherBuddyReborn,,,,Calculating best action sequence...,最適なアクションの順序を計算中…
+GatherBuddyReborn,,,,Calculating materials...,素材を計算中…
+GatherBuddyReborn,,,,Can not teleport when bound by duty,コンテンツ中はテレポできません
+GatherBuddyReborn,,,,Can repair yourself,自分で修理可能
+GatherBuddyReborn,,,,"Can't land here, recovering before selecting a nearby spot...",ここでは着地できません。近くの場所を選ぶ前に復旧中…
+GatherBuddyReborn,,,,Cancel,キャンセル
+GatherBuddyReborn,,,,Cancel queued and active Raphael solves while keeping completed cached solutions.,完了済みの解を保持して、待機中と実行中のRaphaelの計算をキャンセルします。
+GatherBuddyReborn,,,,Carpenter (CRP),木工師 (CRP)
+GatherBuddyReborn,,,,Caught,釣り上げ済み
+GatherBuddyReborn,,,,Caught Fish,釣果
+GatherBuddyReborn,,,,Caught once,1回釣り上げ済み
+GatherBuddyReborn,,,,Change job,ジョブ変更
+GatherBuddyReborn,,,,Changing this clears the solution cache.,変更するとソルバーの解のキャッシュがクリアされます。
+GatherBuddyReborn,,,,Chat,チャット
+GatherBuddyReborn,,,,Chat colors,チャットの色
+GatherBuddyReborn,,,,Chat messages,チャットメッセージ
+GatherBuddyReborn,,,,Chat type for errors,エラーのチャット種別
+GatherBuddyReborn,,,,Chat type for messages,メッセージのチャット種別
+GatherBuddyReborn,,,,Cheaper,料金の安さを優先
+GatherBuddyReborn,,,,Check retainer inventories,リテイナー所持品を確認
+GatherBuddyReborn,,,,Check which preset each item uses,アイテムごとの使用プリセットを確認
+GatherBuddyReborn,,,,Choose a fish or bait,魚または釣り餌を選択
+GatherBuddyReborn,,,,Choose a fishing spot,釣り場を選択
+GatherBuddyReborn,,,,Choose a territory,エリアを選択
+GatherBuddyReborn,,,,Choose a weather,天候を選択
+GatherBuddyReborn,,,,Choose an item,アイテムを選択
+GatherBuddyReborn,,,,Choosing fish turns off deciding actions automatically.,魚を選択すると使用アクションの自動判定が無効になります。
+GatherBuddyReborn,,,,Chum,撒き餌
+GatherBuddyReborn,,,,Clean up,整理
+GatherBuddyReborn,,,,Clear,クリア
+GatherBuddyReborn,,,,Clear all,すべてクリア
+GatherBuddyReborn,,,,Clear AutoHook's selected custom preset and let AutoHook use its built-in Global Preset for rod fishing. ,AutoHookの選択中のカスタムプリセットを解除して、釣りでは内蔵の全体プリセットを使用します。
+GatherBuddyReborn,,,,Clear AutoHook's selected custom preset and let AutoHook use its built-in Global Preset for rod fishing. This takes precedence over both GBR-generated presets and fish ID AutoHook presets. Spearfishing still uses GBR-generated AutoGig presets.,AutoHookの選択中のカスタムプリセットを解除して、釣りでは内蔵の全体プリセットを使用します。GBR生成プリセット・魚IDのAutoHookプリセットよりも優先します。刺突漁ではGBR生成のAutoGigプリセットを使用します。
+GatherBuddyReborn,,,,Clear cache,キャッシュをクリア
+GatherBuddyReborn,,,,Clear history,履歴をクリア
+GatherBuddyReborn,,,,Clear list,リストをクリア
+GatherBuddyReborn,,,,Clear search,検索をクリア
+GatherBuddyReborn,,,,Clear the search to reorder items.,並べ替えるには検索条件をクリアしてください。
+GatherBuddyReborn,,,,Clear the solution cache,解のキャッシュをクリア
+GatherBuddyReborn,,,,Clear Timed Node Memory,時間制限のある採集ポイントの記憶を消去
+GatherBuddyReborn,,,,Clear when a queue starts,キュー開始時にクリア
+GatherBuddyReborn,,,,Cleared the Raphael solution cache.,Raphaelの解のキャッシュをクリアしました。
+GatherBuddyReborn,,,,"Clears cached solutions each time a new crafting queue starts.
+Turn this off to reuse solutions across queue runs when your stats haven't changed.","新しい製作キューを開始するたびに解のキャッシュをクリアします。
+無効にするとステータスが同じ場合、別のキューでも解を再利用します。"
+GatherBuddyReborn,,,,"Click - or + to change it by 1.
+Hold Ctrl for 10, Shift for 100.","－または＋をクリックして1ずつ変更。
+Ctrlで10、Shiftで100ずつ変更。"
+GatherBuddyReborn,,,,Click for map flags and teleports.,クリックでマップマーカーとテレポを表示。
+GatherBuddyReborn,,,,"Click the blank space of a header to sort the table by that column, ascending or descending. A small triangle shows the direction.",列見出しの空白をクリックすると昇順・降順に並べ替えます。小さな三角形が方向を示します。
+GatherBuddyReborn,,,,"Click the swatch to pick a colour, right-click it to clear.",色見本をクリックして色を選び、右クリックでクリアします。
+GatherBuddyReborn,,,,Click to add notes...,クリックしてメモを追加…
+GatherBuddyReborn,,,,Click to copy the name. Right-click for more.,クリックで名前をコピー。右クリックでメニューを表示。
+GatherBuddyReborn,,,,Click to enable/disable auto-gather. Right click to toggle interface,クリックで自動採集の切替。右クリックでメイン画面の切替
+GatherBuddyReborn,,,,Click to open this list,クリックでこのリストを開く
+GatherBuddyReborn,,,,Click to select. Hold Ctrl or Shift to select more. Right-click a recipe for its settings.,クリックで選択。CtrlまたはShiftを押しながら複数選択。右クリックでレシピの設定を開きます。
+GatherBuddyReborn,,,,Close,閉じる
+GatherBuddyReborn,,,,Close search,検索を閉じる
+GatherBuddyReborn,,,,Closest aetheryte,最寄りエーテライト
+GatherBuddyReborn,,,,Closing fishing before teleport...,テレポ前に釣りを終了中…
+GatherBuddyReborn,,,,Closing gathering window before teleport...,テレポ前に採集ウィンドウを閉じています…
+GatherBuddyReborn,,,,Closing the collectables turn-in window.,収集品納品ウィンドウを閉じています。
+GatherBuddyReborn,,,,Coll.,収集品
+GatherBuddyReborn,,,,Collapse all,すべて折りたたむ
+GatherBuddyReborn,,,,Collectable,収集品
+GatherBuddyReborn,,,,Collectable actions,収集品アクション
+GatherBuddyReborn,,,,Collectable target,収集品の目標
+GatherBuddyReborn,,,,Collectable threshold,収集品の個数
+GatherBuddyReborn,,,,Collectable turn-ins require Allagan Tools or Allagan Item Search.,収集品の納品にはAllagan ToolsまたはAllagan Item Searchが必要です。
+GatherBuddyReborn,,,,Collectables are still blocked by the scrip cap after running the purchase list.,購入リストの実行後もスクリップが上限に達しており、納品できません。
+GatherBuddyReborn,,,,Collectables are still blocked by the scrip cap after running the purchase list. The configured scrip reserve prevented spending enough scrips to continue.,購入リストの実行後もスクリップが上限に達しており、納品できません。保持するスクリップの設定により、再開に必要な量のスクリップを消費できませんでした。
+GatherBuddyReborn,,,,Collectables carried,所持している収集品
+GatherBuddyReborn,,,,Collectables item data is still loading.,収集品データを読み込み中です。
+GatherBuddyReborn,,,,Collectables item data is unavailable.,収集品データを取得できません。
+GatherBuddyReborn,,,,Collectables route data is unavailable.,収集品の納品先データを取得できません。
+GatherBuddyReborn,,,,Collectables route locations are still loading.,収集品の納品先を読み込み中です。
+GatherBuddyReborn,,,,Collectables run stopped.,収集品の処理を停止しました。
+GatherBuddyReborn,,,,Collectables setup guide,収集品設定ガイド
+GatherBuddyReborn,,,,Collectables Setup Guide,収集品設定ガイド
+GatherBuddyReborn,,,,Collectables Setup Guide###GatherBuddyCollectablesSetupGuide,収集品設定ガイド###GatherBuddyCollectablesSetupGuide
+GatherBuddyReborn,,,,Collectables turn-in complete.,収集品の納品が完了しました。
+GatherBuddyReborn,,,,Collectables###GatherBuddyCollectablesWindow,収集品###GatherBuddyCollectablesWindow
+GatherBuddyReborn,,,,Collectible,収集品
+GatherBuddyReborn,,,,Collectible!,収集品！
+GatherBuddyReborn,,,,"Colors used in tables, the gather window and chat messages.",テーブル、採集ウィンドウ、チャットメッセージで使用する色。
+GatherBuddyReborn,,,,Columns,列
+GatherBuddyReborn,,,,Commands in chat,チャット内のコマンド
+GatherBuddyReborn,,,,Compact layout,コンパクト表示
+GatherBuddyReborn,,,,Company workshop projects and what they still need,カンパニー製作計画と不足素材
+GatherBuddyReborn,,,,Complete,完了
+GatherBuddyReborn,,,,"Completes crafts without quality actions.
+Fastest execution, no quality output.","品質アクションを使用せず製作を完了します。
+最速ですが品質は上げません。"
+GatherBuddyReborn,,,,Config flags,設定フラグ
+GatherBuddyReborn,,,,Config preset,設定プリセット
+GatherBuddyReborn,,,,"Config Presets
+ 
+Which actions and consumables auto-gather uses, for which items","設定プリセット
+ 
+自動採集でアイテムごとに使用するアクションと消耗品"
+GatherBuddyReborn,,,,Config Presets Checker,設定プリセットの確認
+GatherBuddyReborn,,,,Config Presets Checker###gbr_preset_checker,設定プリセットの確認###gbr_preset_checker
+GatherBuddyReborn,,,,Consumables,消耗品
+GatherBuddyReborn,,,,Consumables & macros,消耗品とマクロ
+GatherBuddyReborn,,,,Content ID,コンテンツID
+GatherBuddyReborn,,,,Context menu entries,コンテキストメニューの項目
+GatherBuddyReborn,,,,Context menus,コンテキストメニュー
+GatherBuddyReborn,,,,Control,加工精度
+GatherBuddyReborn,,,,Control size,操作部品のサイズ
+GatherBuddyReborn,,,,Control##editMinCtrl,加工精度##editMinCtrl
+GatherBuddyReborn,,,,Control##previewMinCtrl,加工精度##previewMinCtrl
+GatherBuddyReborn,,,,Coordinates,座標
+GatherBuddyReborn,,,,Coords,座標
+GatherBuddyReborn,,,,Copied,コピー済み
+GatherBuddyReborn,,,,"Copies the preset to your clipboard, ready to import with the list's import button.",プリセットをクリップボードにコピーし、リストのインポートボタンから取り込めるようにします。
+GatherBuddyReborn,,,,Copy,コピー
+GatherBuddyReborn,,,,Copy a TeamCraft import link built from this list's recipes.,このリストのレシピからTeamCraftのインポート用リンクを作成してコピーします。
+GatherBuddyReborn,,,,"Copy all fish records to your clipboard, to share them with other people. This may be a lot.",すべての釣り記録をクリップボードにコピーして他の人と共有します。大量になる場合があります。
+GatherBuddyReborn,,,,Copy caught fish,釣り上げ済みの魚をコピー
+GatherBuddyReborn,,,,Copy export,エクスポートをコピー
+GatherBuddyReborn,,,,Copy export string,エクスポート文字列をコピー
+GatherBuddyReborn,,,,Copy GatherBuddy's list export string to the clipboard.,GatherBuddyのリストのエクスポート文字列をクリップボードにコピーします。
+GatherBuddyReborn,,,,Copy most recent unknown fish data,最新の不明な魚データをコピー
+GatherBuddyReborn,,,,Copy multi hook stats when reporting,レポートに複数釣りの統計を含めてコピー
+GatherBuddyReborn,,,,Copy report,レポートをコピー
+GatherBuddyReborn,,,,Copy size stats when reporting,レポートにサイズの統計を含めてコピー
+GatherBuddyReborn,,,,Copy TeamCraft link,TeamCraftのリンクをコピー
+GatherBuddyReborn,,,,Copy the item ID,アイテムIDをコピー
+GatherBuddyReborn,,,,"Copy the item IDs of every fish in your fish log that you have caught, as JSON.",釣り手帳で釣り上げ済みの全魚のアイテムIDをJSON形式でコピーします。
+GatherBuddyReborn,,,,Copy the weather IDs,天候IDをコピー
+GatherBuddyReborn,,,,Copy this alarm group to your clipboard,このアラームグループをクリップボードにコピー
+GatherBuddyReborn,,,,Copy this auto-gather list to your clipboard,この自動採集リストをクリップボードにコピー
+GatherBuddyReborn,,,,Copy this gather group to your clipboard,この採集グループをクリップボードにコピー
+GatherBuddyReborn,,,,Copy this gather window preset to your clipboard,この採集ウィンドウのプリセットをクリップボードにコピー
+GatherBuddyReborn,,,,Copy this list's export string to the clipboard,このリストのエクスポート文字列をクリップボードにコピー
+GatherBuddyReborn,,,,Copy time stats when reporting,レポートに時間の統計を含めてコピー
+GatherBuddyReborn,,,,Copy to clipboard,クリップボードにコピー
+GatherBuddyReborn,,,,Cosmic Exploration Fishing Missions,コスモエクスプローラー・漁師ミッション
+GatherBuddyReborn,,,,Cost,費用
+GatherBuddyReborn,,,,Could not determine the current Grand Company for the requested shop.,指定したショップに対応する現在のグランドカンパニーを判定できませんでした。
+GatherBuddyReborn,,,,Could not export the fish records.,釣り記録をエクスポートできませんでした。
+GatherBuddyReborn,,,,Count,件数
+GatherBuddyReborn,,,,Craft,製作
+GatherBuddyReborn,,,,Craft queue,製作キュー
+GatherBuddyReborn,,,,Craft Settings,製作設定
+GatherBuddyReborn,,,,Craft settings,製作設定
+GatherBuddyReborn,,,,Craft settings...,製作設定…
+GatherBuddyReborn,,,,Craftable,製作可能
+GatherBuddyReborn,,,,Crafted,製作済み
+GatherBuddyReborn,,,,Crafting,製作
+GatherBuddyReborn,,,,Crafting jobs,製作ジョブ
+GatherBuddyReborn,,,,Crafting list,製作リスト
+GatherBuddyReborn,,,,Crafting Lists,製作リスト
+GatherBuddyReborn,,,,"Crafting Lists
+ 
+Lists of things to craft, with their materials and precrafts","製作リスト
+ 
+製作するアイテムのリストと素材・中間素材"
+GatherBuddyReborn,,,,crafting manual turn-ins. 'Use active list' copies the active vendor list into that slot.,製作収集品の手動納品には製作用購入リストを選びます。「現在のリストを使用」で有効なショップリストを設定できます。
+GatherBuddyReborn,,,,Crafting purchase list,製作用購入リスト
+GatherBuddyReborn,,,,Crafting queue,製作キュー
+GatherBuddyReborn,,,,Crafting Status,製作状況
+GatherBuddyReborn,,,,Crafting Status###GatherBuddyCraftingStatus,製作状況###GatherBuddyCraftingStatus
+GatherBuddyReborn,,,,Crafting Tree,製作ツリー
+GatherBuddyReborn,,,,Crafting Tree###CraftingTree,製作ツリー###CraftingTree
+GatherBuddyReborn,,,,Crafts,製作回数
+GatherBuddyReborn,,,,Craftsmanship,作業精度
+GatherBuddyReborn,,,,Craftsmanship##editMinCraft,作業精度##editMinCraft
+GatherBuddyReborn,,,,Craftsmanship##previewMinCraft,作業精度##previewMinCraft
+GatherBuddyReborn,,,,Create,作成
+GatherBuddyReborn,,,,"Create a crafting list first, then you can add workshop selections to it.",先に製作リストを作成すると、カンパニー製作で選択した項目を追加できます。
+GatherBuddyReborn,,,,Create a new alarm group from this gather group.,この採集グループからアラームグループを新規作成します。
+GatherBuddyReborn,,,,Create a new alarm group from this gather window preset.,この採集ウィンドウのプリセットからアラームグループを新規作成します。
+GatherBuddyReborn,,,,Create a new auto-gather list,自動採集リストを新規作成
+GatherBuddyReborn,,,,Create a new auto-gather list from this gather group.,この採集グループから自動採集リストを新規作成します。
+GatherBuddyReborn,,,,Create a new buy list,新しい購入リストを作成
+GatherBuddyReborn,,,,Create a new folder,新しいフォルダーを作成
+GatherBuddyReborn,,,,Create a new gather window preset from this alarm group.,このアラームグループから新しい採集ウィンドウのプリセットを作成します。
+GatherBuddyReborn,,,,Create a new gather window preset from this gather group.,この採集グループから採集ウィンドウのプリセットを新規作成します。
+GatherBuddyReborn,,,,Create and add,作成して追加
+GatherBuddyReborn,,,,Create link,リンクを作成
+GatherBuddyReborn,,,,Create list,リストを作成
+GatherBuddyReborn,,,,Create new list,新規リストを作成
+GatherBuddyReborn,,,,Create new list with all missing,不足分をすべて新規リストに追加
+GatherBuddyReborn,,,,Create one with the buttons above.,上のボタンから作成してください。
+GatherBuddyReborn,,,,Created a gather window preset.,採集ウィンドウのプリセットを作成しました。
+GatherBuddyReborn,,,,Created an alarm group.,アラームグループを作成しました。
+GatherBuddyReborn,,,,Created an auto-gather list.,自動採集リストを作成しました。
+GatherBuddyReborn,,,,Crimson,深紅
+GatherBuddyReborn,,,,CRP,木工
+GatherBuddyReborn,,,,CUL,調理
+GatherBuddyReborn,,,,Culinarian (CUL),調理師 (CUL)
+GatherBuddyReborn,,,,Currency,通貨
+GatherBuddyReborn,,,,Currency · have / need,通貨・所持数／必要数
+GatherBuddyReborn,,,,Current Bait,現在の釣り餌
+GatherBuddyReborn,,,,Current Catch,現在の釣果
+GatherBuddyReborn,,,,Current Computed Weather,現在の計算上の天候
+GatherBuddyReborn,,,,Current Mission,現在のミッション
+GatherBuddyReborn,,,,Current recipe,現在のレシピ
+GatherBuddyReborn,,,,Current Save Changes,保存対象の変更
+GatherBuddyReborn,,,,Current Spot,現在の釣り場
+GatherBuddyReborn,,,,Current Step,現在の手順
+GatherBuddyReborn,,,,Current True Weather,現在の実際の天候
+GatherBuddyReborn,,,,Current weather,現在の天候
+GatherBuddyReborn,,,,Current Zone NPCs,現在のエリアのNPC
+GatherBuddyReborn,,,,Currently Available,現在釣り上げ可能
+GatherBuddyReborn,,,,Currently Unavailable,現在釣り上げ不可
+GatherBuddyReborn,,,,Custom aetherytes and map marker locations for specific nodes,特定の採集ポイントのエーテライトとマップマーカーの位置設定
+GatherBuddyReborn,,,,D-pad,方向キー
+GatherBuddyReborn,,,,Data,データ
+GatherBuddyReborn,,,,DataShare first,DataShare優先
+GatherBuddyReborn,,,,"DataShare, Level, supplemental, LGB",DataShare、Level、補足データ、LGB
+GatherBuddyReborn,,,,Dawntrail,黄金のレガシー
+GatherBuddyReborn,,,,Day,昼
+GatherBuddyReborn,,,,Day or Night,昼または夜
+GatherBuddyReborn,,,,days,日
+GatherBuddyReborn,,,,Debug,デバッグ
+GatherBuddyReborn,,,,"Debug
+ 
+I really hope there is a good reason for you seeing this.","デバッグ
+ 
+この表示を見る必要がある状況でないことを願います。"
+GatherBuddyReborn,,,,"Debug
+ 
+Internal crafting data, for troubleshooting","デバッグ
+ 
+トラブル調査用の製作内部データ"
+GatherBuddyReborn,,,,Debug list for diadem gatherables,ディアデム諸島の採集物のデバッグリスト
+GatherBuddyReborn,,,,Default preset,既定プリセット
+GatherBuddyReborn,,,,"Default priority:
+","既定の優先順位：
+"
+GatherBuddyReborn,,,,"Default priority:
+  Gather > Fish > Scrip > Drops > Craft > Vendor > Tomes > Other
+
+When on, a gil vendor wins over Gather, Fish, Drops and Craft
+for items also sold at a gil shop.","既定の優先順位：
+  採集 > 釣り > スクリップ > ドロップ > 製作 > ショップ > トークン > その他
+
+有効にするとギルで購入できる素材は採集・釣り・ドロップ・製作よりも
+ショップ購入を優先します。"
+GatherBuddyReborn,,,,"Default, use the solver",既定（ソルバーを使用）
+GatherBuddyReborn,,,,Delay AutoRetainer for timed nodes,時間制限付き採集ポイントをAutoRetainerより優先
+GatherBuddyReborn,,,,Delay between each crafting action.,各製作アクション間の待機時間。
+GatherBuddyReborn,,,,Delay executing each action by this amount.,各アクションの実行にこの時間の待機を挟みます。
+GatherBuddyReborn,,,,"Delay in milliseconds between crafting actions. 0 is instant, 1000 the most.",製作アクション間の待機時間（ミリ秒）。0で即時、最大1000。
+GatherBuddyReborn,,,,Delete,削除
+GatherBuddyReborn,,,,"Delete all entries that were marked as invalid for some reason, as well as all entries that have a duplicate ",何らかの理由で無効とされた記録と重複する記録をすべて削除します
+GatherBuddyReborn,,,,"Delete all entries that were marked as invalid for some reason, as well as all entries that have a duplicate (with the same content id and timestamp).
+Usually there are none.
+Use at your own risk, no backup is made.","何らかの理由で無効とされた記録と重複する記録をすべて削除します（コンテンツIDとタイムスタンプが同じ記録）。
+通常は存在しません。
+バックアップは作成されません。自己責任で使用してください。"
+GatherBuddyReborn,,,,Delete crafting list,製作リストを削除
+GatherBuddyReborn,,,,Delete crafting list###gbr_delete_crafting_list,製作リストを削除###gbr_delete_crafting_list
+GatherBuddyReborn,,,,Delete folder,フォルダーを削除
+GatherBuddyReborn,,,,Delete macro,マクロを削除
+GatherBuddyReborn,,,,Delete the list once crafting completes. You can change this later in the list editor.,製作完了後にリストを削除します。後からリスト編集画面で変更できます。
+GatherBuddyReborn,,,,Delete the selected entry. Hold Control while clicking.,選択した項目を削除します。Ctrlを押しながらクリックしてください。
+GatherBuddyReborn,,,,Delete this alarm,このアラームを削除
+GatherBuddyReborn,,,,Delete this list automatically after crafting completes. You can turn this off later in the list editor.,製作完了後にこのリストを自動削除します。後からリスト編集画面で無効にできます。
+GatherBuddyReborn,,,,Delete this list?,このリストを削除しますか？
+GatherBuddyReborn,,,,Delete...,削除…
+GatherBuddyReborn,,,,Deleted automatically after crafting completes.,製作完了後に自動削除されます。
+GatherBuddyReborn,,,,Deletes every saved Raphael solution.,保存済みのRaphaelの解をすべて削除します。
+GatherBuddyReborn,,,,Dependent On Other Restrictions,他の条件に依存
+GatherBuddyReborn,,,,Dependent on Time of Day,時間帯に依存
+GatherBuddyReborn,,,,Dependent on Weather,天候に依存
+GatherBuddyReborn,,,,Depends on another fish's uptime,別の魚の出現時間に依存
+GatherBuddyReborn,,,,"Descending, click for ascending",降順。クリックで昇順
+GatherBuddyReborn,,,,Description,説明
+GatherBuddyReborn,,,,Destination,追加先
+GatherBuddyReborn,,,,Diadem auto-aethercannon,ディアデム諸島でエーテルオーガーを自動使用
+GatherBuddyReborn,,,,Diadem Debug,ディアデム諸島デバッグ
+GatherBuddyReborn,,,,Diadem windmire jumps,ディアデム諸島の風脈ジャンプ
+GatherBuddyReborn,,,,Difficulty,工数
+GatherBuddyReborn,,,,Dirty,更新が必要
+GatherBuddyReborn,,,,Disable,無効化
+GatherBuddyReborn,,,,Disable random landing positions,ランダム着地位置を無効化
+GatherBuddyReborn,,,,Disable the items shown,表示中のアイテムを無効化
+GatherBuddyReborn,,,,Disabled,無効
+GatherBuddyReborn,,,,Disabled presets are skipped. Double-click a preset in the list to toggle it too.,無効なプリセットはスキップされます。リストのプリセットをダブルクリックしても切り替えられます。
+GatherBuddyReborn,,,,Disabling Artisan…,Artisanを無効化中…
+GatherBuddyReborn,,,,Dismounting...,マウントから降りています…
+GatherBuddyReborn,,,,Distance,距離
+GatherBuddyReborn,,,,Do you often find yourself late for a very important date? Set up your very own alarm clock.,大事な時間に遅れてしまうことはありませんか？ 自分専用のアラームを設定しましょう。
+GatherBuddyReborn,,,,"Don't show the popup with your caught fish and its size, amount and quality.",釣れた魚とサイズ・個数・品質を示すポップアップを非表示にします。
+GatherBuddyReborn,,,,Double Hook and Triple Hook can't both be on; turning one on turns the other off.,ダブルフッキングとトリプルフッキングは同時に有効にできません。一方を有効にすると他方が無効になります。
+GatherBuddyReborn,,,,Down,下
+GatherBuddyReborn,,,,Downtime,出現していない時間
+GatherBuddyReborn,,,,"Drag an item onto another preset in the list to move it there.
+","別のプリセットにアイテムをドラッグすると移動します。
+"
+GatherBuddyReborn,,,,"Drag items by their handle to rearrange them, or onto another list in the tree to move them there.
+","アイテムをハンドルでドラッグして並べ替え、別のリストにドロップすると移動します。
+"
+GatherBuddyReborn,,,,"Drag items in a preset to move them.
+","プリセット内のアイテムをドラッグして移動します。
+"
+GatherBuddyReborn,,,,"Drag lists in the tree to move them, or onto a folder to put them in it.
+","ツリーのリストをドラッグして移動、フォルダー上にドロップして格納します。
+"
+GatherBuddyReborn,,,,"Drag presets in the list to move them.
+","リスト内のプリセットをドラッグして移動します。
+"
+GatherBuddyReborn,,,,Drop,ドロップ
+GatherBuddyReborn,,,,Drop here to move it out of its folder,ここにドロップするとフォルダーの外へ移動します
+GatherBuddyReborn,,,,Drops / Bicolor,ドロップ／バイカラージェム
+GatherBuddyReborn,,,,Duplicate,複製
+GatherBuddyReborn,,,,Duplicate entry,項目を複製
+GatherBuddyReborn,,,,Duplicate the selected entry,選択した項目を複製
+GatherBuddyReborn,,,,Durability,耐久
+GatherBuddyReborn,,,,Duration,時間
+GatherBuddyReborn,,,,Dyes,染料
+GatherBuddyReborn,,,,Edit consumables & macros,消耗品とマクロを編集
+GatherBuddyReborn,,,,Edit fish timer,釣りタイマーを編集
+GatherBuddyReborn,,,,Edit this recipe's craft settings,このレシピの製作設定を編集
+GatherBuddyReborn,,,,Elapsed Time,経過時間
+GatherBuddyReborn,,,,Elemental Clusters,クラスター
+GatherBuddyReborn,,,,Elemental Crystals,クリスタル
+GatherBuddyReborn,,,,Elemental Shards,シャード
+GatherBuddyReborn,,,,Enable,有効化
+GatherBuddyReborn,,,,Enable aetherial reduction,精選を有効化
+GatherBuddyReborn,,,,Enable alarms,アラームを有効化
+GatherBuddyReborn,,,,Enable alarms in duty,コンテンツ中もアラームを有効化
+GatherBuddyReborn,,,,Enable alarms only in-game,ゲーム内でのみアラームを有効化
+GatherBuddyReborn,,,,"Enable all alarms, or disable all alarms.",すべてのアラームを有効化または無効化します。
+GatherBuddyReborn,,,,Enable bite timer windows in generated AutoHook presets.,生成するAutoHookプリセットのアタリ時間の範囲を有効にします。
+GatherBuddyReborn,,,,Enable fish stats,釣り統計を有効化
+GatherBuddyReborn,,,,Enable fish timer clickthrough,釣りタイマーのクリック透過を有効化
+GatherBuddyReborn,,,,Enable gathering window interaction,採集ウィンドウ操作を有効化
+GatherBuddyReborn,,,,Enable gear change,装備変更を有効化
+GatherBuddyReborn,,,,Enable graphs,グラフを有効化
+GatherBuddyReborn,,,,Enable repair,修理を有効化
+GatherBuddyReborn,,,,Enable teleport,テレポを有効化
+GatherBuddyReborn,,,,Enable the items shown,表示中のアイテムを有効化
+GatherBuddyReborn,,,,Enable this alarm group. Only the alarms in it that are enabled themselves count as active.,このアラームグループを有効にします。グループ内で個別に有効なアラームだけが動作します。
+GatherBuddyReborn,,,,Enable this alarm.,このアラームを有効にします。
+GatherBuddyReborn,,,,Enabled,有効
+GatherBuddyReborn,,,,Enabled. Click to skip this entry.,有効。クリックでこの項目をスキップします。
+GatherBuddyReborn,,,,Enabling Artisan…,Artisanを有効化中…
+GatherBuddyReborn,,,,Endwalker,暁月のフィナーレ
+GatherBuddyReborn,,,,Enhanced Weather (ClientStructs),拡張天候（ClientStructs）
+GatherBuddyReborn,,,,Entries,項目
+GatherBuddyReborn,,,,Eorzea hour change alarm,エオルゼア時間の正時アラーム
+GatherBuddyReborn,,,,Eorzea time,エオルゼア時間
+GatherBuddyReborn,,,,Ephemeral##ctxNewListEphemeral,一時リスト##ctxNewListEphemeral
+GatherBuddyReborn,,,,Ephemeral##importListEphemeral,一時リスト##importListEphemeral
+GatherBuddyReborn,,,,Ephemeral##newListEphemeral,一時リスト##newListEphemeral
+GatherBuddyReborn,,,,Ephemeral##teamCraftEphemeral,一時リスト##teamCraftEphemeral
+GatherBuddyReborn,,,,Ephemeral##workshopEphemeral,一時リスト##workshopEphemeral
+GatherBuddyReborn,,,,Equip level,装備レベル
+GatherBuddyReborn,,,,Escape closes main window,Escapeでメインウィンドウを閉じる
+GatherBuddyReborn,,,,"Estimate based on the active craft path for each queue item. Macros, Standard Solver, and Progress Only are simulated, ",キュー内の各アイテムで使用される製作手順に基づいて推定します。マクロ・標準ソルバー・工数のみはシミュレーションし、
+GatherBuddyReborn,,,,"Estimate based on the active craft path for each queue item. Macros, Standard Solver, and Progress Only are simulated, while Raphael uses cached solution length when available and falls back to a provisional default until ready. Excludes time spent gathering, repairing, or switching jobs.",キュー内の各アイテムで使用される製作手順に基づいて推定します。マクロ・標準ソルバー・工数のみはシミュレーションし、Raphaelは利用できる場合はキャッシュされた手順の長さを使用し、準備ができるまでは仮の値を使用します。採集・修理・ジョブ変更にかかる時間は含まれません。
+GatherBuddyReborn,,,,"Every fish, with its bait, conditions and uptimes",すべての魚と釣り餌・条件・出現時間
+GatherBuddyReborn,,,,"Every item miners and botanists can gather, with where and when to find it",採掘師・園芸師が採集できる全アイテムと採集場所・時間
+GatherBuddyReborn,,,,Every missing item in this panel that a vendor sells,このパネルに表示される不足素材のうちショップで購入できるものすべて
+GatherBuddyReborn,,,,Everything this needs is installed and enabled:,必要なプラグインはすべてインストール済みで有効です：
+GatherBuddyReborn,,,,"Excludes time spent gathering, repairing, or switching jobs.",採集・修理・ジョブ変更にかかる時間は含まれません。
+GatherBuddyReborn,,,,Execution delay,実行間隔
+GatherBuddyReborn,,,,Existing list,既存リスト
+GatherBuddyReborn,,,,Exp.,拡張
+GatherBuddyReborn,,,,Expand all,すべて展開
+GatherBuddyReborn,,,,Expert,高難易度
+GatherBuddyReborn,,,,Expert recipes,高難易度レシピ
+GatherBuddyReborn,,,,Export,エクスポート
+GatherBuddyReborn,,,,Export all records to a single JSON file.,すべての記録を1つのJSONファイルにエクスポートします。
+GatherBuddyReborn,,,,Export all records to a single tab-separated file.,すべての記録を1つのタブ区切りファイルにエクスポートします。
+GatherBuddyReborn,,,,Export fish records as JSON,釣り記録をJSONでエクスポート
+GatherBuddyReborn,,,,Export fish records as TSV,釣り記録をTSVでエクスポート
+GatherBuddyReborn,,,,Export Node Offsets to Clipboard,採集ポイントの補正位置をクリップボードにエクスポート
+GatherBuddyReborn,,,,Extract materia from fully spiritbonded gear between crafts.,製作の合間に錬精度が最大の装備からマテリアを精製します。
+GatherBuddyReborn,,,,Extracting Materia,マテリアを精製中
+GatherBuddyReborn,,,,Extraction unlocked,マテリア精製解放済み
+GatherBuddyReborn,,,,Face buttons,フェイスボタン
+GatherBuddyReborn,,,,Failed to parse macro. Ensure it contains recognizable crafting action names or a supported Artisan JSON export.,マクロの解析に失敗しました。認識可能な製作アクション名または対応するArtisanのJSONエクスポートが含まれているか確認してください。
+GatherBuddyReborn,,,,Failed: Could not read gearset stats for this job,失敗：このジョブのギアセットのステータスを取得できませんでした
+GatherBuddyReborn,,,,fails,失敗
+GatherBuddyReborn,,,,"fails, CP runs out",失敗：CP不足
+GatherBuddyReborn,,,,"fails, durability breaks",失敗：耐久不足
+GatherBuddyReborn,,,,Fallback,予備
+GatherBuddyReborn,,,,Far Nodes Seen So Far,これまでに検出した遠くの採集ポイント
+GatherBuddyReborn,,,,Fell out of control loop unexpectedly. Please report this error.,制御処理が予期せず終了しました。このエラーを報告してください。
+GatherBuddyReborn,,,,Fetching market data...,マーケットのデータを取得中…
+GatherBuddyReborn,,,,File path,ファイルパス
+GatherBuddyReborn,,,,Filter and sort by the item's equip level instead of its craft level.,製作レベルの代わりにアイテムの装備レベルで絞り込み・並べ替えします。
+GatherBuddyReborn,,,,Filter fish,魚を絞り込み
+GatherBuddyReborn,,,,Filter items,アイテムを絞り込み
+GatherBuddyReborn,,,,Filter items by name. Reordering is off while a search is active.,名前で絞り込みます。検索中は並べ替えできません。
+GatherBuddyReborn,,,,Filter zones,エリアを絞り込み
+GatherBuddyReborn,,,,Filters,フィルター
+GatherBuddyReborn,,,,Final,最終製作品
+GatherBuddyReborn,,,,Final crafts,最終製作品
+GatherBuddyReborn,,,,Final items,最終製作品
+GatherBuddyReborn,,,,find fish IDs by hovering over fish in the Fish page. Ignored when the AutoHook global preset is in use. ,魚ページで魚にカーソルを合わせるとアイテムIDが確認できます。AutoHookの全体プリセット使用時は無視されます。
+GatherBuddyReborn,,,,Find vendors for items and keep buy lists,アイテムの販売NPCを検索し購入リストを管理
+GatherBuddyReborn,,,,"Find, clean up and share the fishing data you have collected",収集した釣りデータの検索・整理・共有
+GatherBuddyReborn,,,,Finishing current cast before switching target...,釣りを終えてから対象を変更中…
+GatherBuddyReborn,,,,FISH,釣り
+GatherBuddyReborn,,,,"Fish
+ 
+There are plenty of fish in the sea. And the air. And the sand. And the lava. And space, for some reason.","魚
+ 
+海にはたくさんの魚がいます。空にも砂にも溶岩にも、なぜか宇宙にも。"
+GatherBuddyReborn,,,,Fish detected! Relocating and waiting...,魚に警戒されました。移動して待機中…
+GatherBuddyReborn,,,,Fish Eyes,フィッシュアイ
+GatherBuddyReborn,,,,Fish here,この場所の魚
+GatherBuddyReborn,,,,Fish name position,魚名の表示位置
+GatherBuddyReborn,,,,"Fish Records
+ 
+Find, clean up and share the fishing data you have collected","魚の記録
+ 
+収集した釣りデータの検索・整理・共有"
+GatherBuddyReborn,,,,Fish stats,釣り統計
+GatherBuddyReborn,,,,Fish timer,釣りタイマー
+GatherBuddyReborn,,,,Fish timer bite time scale,釣りタイマーのアタリ時間スケール
+GatherBuddyReborn,,,,Fish timer interval rounding,釣りタイマーの時間丸め
+GatherBuddyReborn,,,,Fish timer interval separators,釣りタイマーの時間目盛り
+GatherBuddyReborn,,,,Fish Type,魚の種類
+GatherBuddyReborn,,,,Fish wary - relocating...,魚が警戒しています。移動中…
+GatherBuddyReborn,,,,Fisher,漁師
+GatherBuddyReborn,,,,Fisher set,漁師ギアセット
+GatherBuddyReborn,,,,Fishes,魚
+GatherBuddyReborn,,,,FishId,魚ID
+GatherBuddyReborn,,,,Fishing,釣り
+GatherBuddyReborn,,,,Fishing actions,釣りアクション
+GatherBuddyReborn,,,,Fishing recovery in progress...,釣りの復旧処理中…
+GatherBuddyReborn,,,,"Fishing route stalled twice, finding a nearby spot...",釣り場への移動が2回停滞。近くの場所を検索中…
+GatherBuddyReborn,,,,"Fishing route stalled, retrying the same spot...",釣り場への移動が停滞。同じ場所への移動を再試行中…
+GatherBuddyReborn,,,,"Fishing route stopped short twice, finding a nearby spot...",釣り場への移動が2回途中停止。近くの場所を検索中…
+GatherBuddyReborn,,,,Fishing Spot,釣り場
+GatherBuddyReborn,,,,Fishing Spot Stats,釣り場別統計
+GatherBuddyReborn,,,,"Fishing Spot Stats
+ 
+Your fish records summed up per fishing spot","釣り場別統計
+ 
+釣り場ごとに集計した釣り記録"
+GatherBuddyReborn,,,,Fishing Spots,釣り場
+GatherBuddyReborn,,,,Fishing...,釣り中…
+GatherBuddyReborn,,,,FishingEventHandler Address,釣りイベントハンドラーのアドレス
+GatherBuddyReborn,,,,FishingTree,釣りツリー
+GatherBuddyReborn,,,,Flags,条件
+GatherBuddyReborn,,,,Folder name,フォルダー名
+GatherBuddyReborn,,,,Folder names must be unique within the current location and cannot contain / or \.,同じ場所のフォルダー名は重複できず、/ または \\ を含めることはできません。
+GatherBuddyReborn,,,,Folklore,伝承録
+GatherBuddyReborn,,,,followed by,その後
+GatherBuddyReborn,,,,followed by one of,その後、次のいずれか
+GatherBuddyReborn,,,,Food,食事
+GatherBuddyReborn,,,,For Auto-Gather runs and gathering manual turn-ins.,自動採集と採集収集品の手動納品用です。
+GatherBuddyReborn,,,,"For collectables, the usual collectable rotation is used with every action. For unspoiled and legendary nodes, ",収集品ではすべてのアクションを用いて通常の収集品用手順を使います。未知・伝説の採集ポイントでは、
+GatherBuddyReborn,,,,"For collectables, the usual collectable rotation is used with every action. For unspoiled and legendary nodes, actions are chosen for the most yield. For regular nodes, actions are chosen for the most yield per GP spent.",収集品ではすべてのアクションを用いて通常の収集品用手順を使います。未知・伝説の採集ポイントでは、採集数が最大となるアクションを選び、通常の採集ポイントでは消費GPあたりの採集数が最大となるものを選びます。
+GatherBuddyReborn,,,,for items also sold at a gil shop.,ショップ購入を優先します。
+GatherBuddyReborn,,,,"For items both miners and botanists can gather, turn /gather into /gathermin or /gatherbtn. The other job is ignored even on later tries.",採掘師と園芸師の両方が採集可能なアイテムについて /gather を /gathermin または /gatherbtn に切り替えます。再試行時も他方のジョブは無視します。
+GatherBuddyReborn,,,,For Vulcan queue runs and crafting manual turn-ins.,Vulcanキューと製作収集品の手動納品用です。
+GatherBuddyReborn,,,,Force Cancellation,強制キャンセル
+GatherBuddyReborn,,,,Force quick synthesis on eligible items in this list.,対象のアイテムをすべて簡易製作します。
+GatherBuddyReborn,,,,Force walking,徒歩移動を強制
+GatherBuddyReborn,,,,Force walking to nodes instead of using mounts.,マウントを使用せず、採集ポイントまで徒歩で移動します。
+GatherBuddyReborn,,,,Forced on by Quick Synth All for this recipe. Disable the list-level override to edit the per-item quick synth setting.,このレシピはリスト設定の「すべて簡易製作」により有効です。個別設定を編集するにはリストの設定を解除してください。
+GatherBuddyReborn,,,,Forest,フォレスト
+GatherBuddyReborn,,,,Forget every cached solution.,キャッシュした解をすべて消去します。
+GatherBuddyReborn,,,,Framework Eorzea,フレームワークET
+GatherBuddyReborn,,,,Framework Func,フレームワーク関数
+GatherBuddyReborn,,,,Framework Timestamp,フレームワーク時刻
+GatherBuddyReborn,,,,Free inventory slots,所持品の空き枠
+GatherBuddyReborn,,,,from,開始
+GatherBuddyReborn,,,,From Gatherables List,採集物リストから
+GatherBuddyReborn,,,,G. Id,採集ID
+GatherBuddyReborn,,,,Gamepad input,ゲームパッド入力
+GatherBuddyReborn,,,,Gath.,採集力
+GatherBuddyReborn,,,,Gather,採集
+GatherBuddyReborn,,,,Gather & craft,採集と製作
+GatherBuddyReborn,,,,"Gather anything that's missing, then craft the queue.",不足している素材を採集してから製作キューを実行します。
+GatherBuddyReborn,,,,Gather command,採集コマンド
+GatherBuddyReborn,,,,"Gather different things depending on the time of day, and share them with others",時間帯ごとに異なるものを採集し、他の人と共有
+GatherBuddyReborn,,,,"Gather Groups
+ 
+Gather different things depending on the time of day, and share them with others","採集グループ
+ 
+時間帯ごとに異なるものを採集し、他の人と共有"
+GatherBuddyReborn,,,,Gather list,採集リスト
+GatherBuddyReborn,,,,"Gather random crystals on any regular node when The Giving Land is available, regardless of the current target item.",大地の恵みを使用可能な通常の採集ポイントで、現在の採集対象に関係なくクリスタルを採集します。
+GatherBuddyReborn,,,,Gather the enabled items of this list.,このリストで有効なアイテムを採集します。
+GatherBuddyReborn,,,,Gather window,採集ウィンドウ
+GatherBuddyReborn,,,,"Gather Window
+ 
+Presets for the small window that shows only the items you care about","採集ウィンドウ
+ 
+必要なアイテムだけを表示する小ウィンドウのプリセット"
+GatherBuddyReborn,,,,Gather Window Reader,採集ウィンドウ読み取り
+GatherBuddyReborn,,,,Gatherable,採集可能
+GatherBuddyReborn,,,,"Gatherables
+ 
+Breaking rocks with a pickaxe or felling trees counts as gathering, why do you ask?","採集物
+ 
+ツルハシで岩を砕くことも木を伐採することも採集です。"
+GatherBuddyReborn,,,,Gatherables within 200 yalms,200ヤルム以内の採集物
+GatherBuddyReborn,,,,GatherBuddy EorzeaTime,GatherBuddyエオルゼア時間
+GatherBuddyReborn,,,,GatherBuddy TimeStamp,GatherBuddyタイムスタンプ
+GatherBuddyReborn,,,,Gathering,採集
+GatherBuddyReborn,,,,Gathering actions,採集アクション
+GatherBuddyReborn,,,,Gathering level,採集レベル
+GatherBuddyReborn,,,,Gathering level range,採集レベル範囲
+GatherBuddyReborn,,,,Gathering Materials,素材を採集中
+GatherBuddyReborn,,,,Gathering purchase list,採集用購入リスト
+GatherBuddyReborn,,,,Gathering settings,採集設定
+GatherBuddyReborn,,,,Gathering...,採集中…
+GatherBuddyReborn,,,,GatheringId,採集ID
+GatherBuddyReborn,,,,GatheringTree,採集ツリー
+GatherBuddyReborn,,,,GBR collects the positions where players were seen gathering and lands at one of them at random. ,GBRはプレイヤーが採集していた位置を収集し、その中からランダムに着地します。
+GatherBuddyReborn,,,,GBR collects the positions where players were seen gathering and lands at one of them at random. Turn this on to use the fixed landing distance instead.,GBRはプレイヤーが採集していた位置を収集し、その中からランダムに着地します。有効にすると固定の着地距離を使用します。
+GatherBuddyReborn,,,,GBR will always grab maps first if it sees one in a node.,採集ポイントに地図がある場合、GBRは常に地図を先に採集します。
+GatherBuddyReborn,,,,GC Seals,軍票
+GatherBuddyReborn,,,,Gear sets,ギアセット
+GatherBuddyReborn,,,,Gearset stats,ギアセットのステータス
+GatherBuddyReborn,,,,General,一般
+GatherBuddyReborn,,,,Generate an AutoHook preset for this fish.,この魚のAutoHookプリセットを生成します。
+GatherBuddyReborn,,,,Generate preset,プリセットを生成
+GatherBuddyReborn,,,,Generate the preset,プリセットを生成
+GatherBuddyReborn,,,,Generate the preset##preset_generate,プリセットを生成##preset_generate
+GatherBuddyReborn,,,,Generating path...,経路を生成中…
+GatherBuddyReborn,,,,Getting around the tables,テーブルの使い方
+GatherBuddyReborn,,,,Gil,ギル
+GatherBuddyReborn,,,,Give it a name.,名前を入力してください。
+GatherBuddyReborn,,,,Goldsmith (GSM),彫金師 (GSM)
+GatherBuddyReborn,,,,GP threshold,GPしきい値
+GatherBuddyReborn,,,,Green (default),緑（既定）
+GatherBuddyReborn,,,,Group Details,グループの詳細
+GatherBuddyReborn,,,,GSM,彫金
+GatherBuddyReborn,,,,Has its own craft settings. Right-click for Craft settings.,個別の製作設定があります。右クリックして製作設定を開きます。
+GatherBuddyReborn,,,,Have,所持数
+GatherBuddyReborn,,,,Heavensward,蒼天のイシュガルド
+GatherBuddyReborn,,,,Hide catch popup,釣果ポップアップを非表示
+GatherBuddyReborn,,,,Hide completed items,完了したアイテムを非表示
+GatherBuddyReborn,,,,Hide crafted,製作済みを非表示
+GatherBuddyReborn,,,,Hide fish that have never been recorded with your current combination of snagging and bait.,現在の引掛釣りと釣り餌の組み合わせで記録がない魚を非表示にします。
+GatherBuddyReborn,,,,"Hide fish with known requirements you don't meet, like Fisher's Intuition or snagging.",漁師の直感や引掛釣りなど、既知の条件を満たしていない魚を非表示にします。
+GatherBuddyReborn,,,,Hide gather window in duty,コンテンツ中は採集ウィンドウを非表示
+GatherBuddyReborn,,,,Hide GatherClippy button,GatherClippyボタンを非表示
+GatherBuddyReborn,,,,Hide items you already have the required amount of in your inventory.,必要数を既に所持しているアイテムを非表示にします。
+GatherBuddyReborn,,,,Hide overlay,オーバーレイを非表示
+GatherBuddyReborn,,,,Hide the crafting tree,製作ツリーを非表示
+GatherBuddyReborn,,,,Hide the gather window while you are bound by any duty.,コンテンツ中は採集ウィンドウを非表示にします。
+GatherBuddyReborn,,,,Hide the materials window,素材ウィンドウを非表示
+GatherBuddyReborn,,,,Hide unavailable fish in fish timer,釣りタイマーで釣れない魚を非表示
+GatherBuddyReborn,,,,Hide uncaught fish in fish timer,釣りタイマーで未釣り上げの魚を非表示
+GatherBuddyReborn,,,,High quality,高品質
+GatherBuddyReborn,,,,Hold Control and right-click to delete...,Ctrlを押しながら右クリックで削除…
+GatherBuddyReborn,,,,"Hold Control to apply. Default Groups are:
+	- ","Ctrlを押しながら適用します。既定グループ：
+	- "
+GatherBuddyReborn,,,,Hold off spending GP until a node with the best bonuses,より良いボーナスの採集ポイントまでGP消費を控える
+GatherBuddyReborn,,,,"Hold this key to keep the gather window visible. Click, then press it; Alt, Ctrl and Shift work on their own.",このキーを押し続けると採集ウィンドウを表示します。クリックしてからキーを押してください。Alt、Ctrl、Shiftは単独で使用できます。
+GatherBuddyReborn,,,,Hold this while right-clicking an item in the gather window to remove it.,このキーを押しながら採集ウィンドウのアイテムを右クリックすると削除できます。
+GatherBuddyReborn,,,,Hold to confirm,長押しで確定
+GatherBuddyReborn,,,,Hold to delete this list,長押しでこのリストを削除
+GatherBuddyReborn,,,,Hold to delete this list.,長押しでこのリストを削除します。
+GatherBuddyReborn,,,,Hold to remove every entry from this list.,長押しでリスト内の全項目を削除します。
+GatherBuddyReborn,,,,HookSet,フッキング
+GatherBuddyReborn,,,,Hookset,フッキング
+GatherBuddyReborn,,,,Hotkey to open recipes,レシピを開くホットキー
+GatherBuddyReborn,,,,Hotkey to open the gather window,採集ウィンドウを開くホットキー
+GatherBuddyReborn,,,,Hotkey to open the main window,メインウィンドウを開くホットキー
+GatherBuddyReborn,,,,Housing,ハウジング
+GatherBuddyReborn,,,,Housing/Furnishing,ハウジング／調度品
+GatherBuddyReborn,,,,Hover a list or folder to preview it. Click a list to open it.,リストやフォルダーにカーソルを合わせるとプレビューします。クリックでリストを開きます。
+GatherBuddyReborn,,,,"How auto-gather moves, gathers, fishes and looks after your gear",自動採集の移動・採集・釣り・装備管理の設定
+GatherBuddyReborn,,,,How far up the spearfishing window the names sit.,刺突漁ウィンドウ内で魚名をどの高さに表示するか。
+GatherBuddyReborn,,,,"How long animations take, such as folding a window or opening a card. 0% turns them off.",ウィンドウの折りたたみやカードを開く際などのアニメーション時間。0%で無効になります。
+GatherBuddyReborn,,,,How many crafting steps to take before it is used.,使用するまでに実行する製作手順数。
+GatherBuddyReborn,,,,How many gathering windows the upcoming uptimes tooltip lists.,次回出現時間のツールチップに表示する採集可能時間帯の数。
+GatherBuddyReborn,,,,How many HQ ones to use,使用するHQ素材数
+GatherBuddyReborn,,,,"How many interval lines, with their seconds, the timer shows. 0 turns them off.",タイマーに秒数付きの目盛り線を何本表示するか。0で非表示になります。
+GatherBuddyReborn,,,,How many Raphael solves can run at the same time.,同時に実行可能なRaphaelの計算数。
+GatherBuddyReborn,,,,How many recent crafting lists context menus offer.,コンテキストメニューに表示する最近の製作リストの数。
+GatherBuddyReborn,,,,How many seconds before a node is actually up GBR should consider it up.,実際に出現する何秒前からGBRが出現済みとして扱うか。
+GatherBuddyReborn,,,,How many seconds before a retainer venture completes GBR should pause and wait for multi-mode.,リテイナーベンチャー完了の何秒前からGBRを一時停止し、マルチモードを待機するか。
+GatherBuddyReborn,,,,How many times to craft it,製作回数
+GatherBuddyReborn,,,,How many times to make this selection.,選択範囲の製作回数。
+GatherBuddyReborn,,,,How much of the need you already have,必要数に対する所持数の割合
+GatherBuddyReborn,,,,How the dynamic Standard Solver behaves,動的な標準ソルバーの動作設定
+GatherBuddyReborn,,,,How Vulcan decides which crafting actions to use.,Vulcanが使用する製作アクションの決定方法。
+GatherBuddyReborn,,,,HQ materials,HQ素材
+GatherBuddyReborn,,,,Icons-only sidebar,サイドバーをアイコンのみ表示
+GatherBuddyReborn,,,,Identical Cast,セイムキャスト
+GatherBuddyReborn,,,,Identified gatherable chat format,採集物特定時のチャット書式
+GatherBuddyReborn,,,,Identify...,特定…
+GatherBuddyReborn,,,,Idle,待機中
+GatherBuddyReborn,,,,Idle...,待機中…
+GatherBuddyReborn,,,,"If the config option to sort by location is not selected, items are gathered in the order of the enabled lists, then in the order of items in each list, ",設定で採集場所順の並べ替えを選択していない場合は、有効なリストの順番と各リスト内のアイテム順に採集しますが、
+GatherBuddyReborn,,,,"If the config option to sort by location is not selected, items are gathered in the order of the enabled lists, then in the order of items in each list, but timed nodes and fish are always prioritized.
+Drag lists in the tree to move them, or onto a folder to put them in it.
+Drag items by their handle to rearrange them, or onto another list in the tree to move them there.
+In the Gather Window, hold Control and right-click an item to delete it from the list it belongs to.","設定で採集場所順の並べ替えを選択していない場合は、有効なリストの順番と各リスト内のアイテム順に採集しますが、時間制限のある採集ポイントと魚を常に優先します。
+ツリーのリストをドラッグして移動、フォルダー上にドロップして格納します。
+アイテムをハンドルでドラッグして並べ替え、別のリストにドロップすると移動します。
+採集ウィンドウでCtrlを押しながらアイテムを右クリックすると、所属リストから削除されます。"
+GatherBuddyReborn,,,,"If the gather window is not sorted by uptimes, items are added once each, in the order of the enabled presets and then their items.
+","出現時間順で並べ替えていない場合、有効なプリセットとそのアイテムの順番に、一度ずつ追加します。
+"
+GatherBuddyReborn,,,,"If the gather window is not sorted by uptimes, items are added once each, in the order of the enabled presets and then their items.
+Drag presets in the list to move them.
+Drag items in a preset to move them.
+Drag an item onto another preset in the list to move it there.
+In the gather window itself, hold Control and right-click an item to delete it from its preset. Removing the last item of a preset removes the preset too.","出現時間順で並べ替えていない場合、有効なプリセットとそのアイテムの順番に、一度ずつ追加します。
+リスト内のプリセットをドラッグして移動します。
+プリセット内のアイテムをドラッグして移動します。
+別のプリセットにアイテムをドラッグすると移動します。
+採集ウィンドウでCtrlを押しながらアイテムを右クリックするとプリセットから削除されます。最後のアイテムを削除するとプリセットも削除されます。"
+GatherBuddyReborn,,,,"If this doesn't match your in-game Eorzea time, check that your Windows clock is accurate.
+ 
+","ゲーム内のエオルゼア時間と一致しない場合は、Windowsの時計が正確か確認してください。
+ 
+"
+GatherBuddyReborn,,,,"If this doesn't match your in-game Eorzea time, check that your Windows clock is accurate.
+ 
+Next Aldenard ocean routes:
+","ゲーム内のエオルゼア時間と一致しない場合は、Windowsの時計が正確か確認してください。
+ 
+次のアルデナード航路：
+"
+GatherBuddyReborn,,,,"If times for multiple items overlap, the first item from top to bottom will be gathered.",複数のアイテムの出現時間が重なる場合は、上から最初のアイテムを採集します。
+GatherBuddyReborn,,,,"If turn-ins or purchase automation are unavailable, install or enable Allagan Tools or Allagan Item Search first.",納品または自動購入が利用できない場合は、Allagan ToolsかAllagan Item Searchを導入し有効にしてください。
+GatherBuddyReborn,,,,Ilm,イルム
+GatherBuddyReborn,,,,Import,インポート
+GatherBuddyReborn,,,,Import a list,リストをインポート
+GatherBuddyReborn,,,,Import a list someone exported from Vulcan,他の人がVulcanからエクスポートしたリストをインポート
+GatherBuddyReborn,,,,Import a macro,マクロをインポート
+GatherBuddyReborn,,,,Import an Artisan list,Artisanリストをインポート
+GatherBuddyReborn,,,,Import an auto-gather list from your clipboard,クリップボードから自動採集リストをインポート
+GatherBuddyReborn,,,,Import an entry from your clipboard,クリップボードから項目をインポート
+GatherBuddyReborn,,,,Import crafting list,製作リストをインポート
+GatherBuddyReborn,,,,Import crafting list###gbr_import_crafting_list,製作リストをインポート###gbr_import_crafting_list
+GatherBuddyReborn,,,,Import fish records shared with you from your clipboard. Duplicates are skipped.,共有された釣り記録をクリップボードからインポートします。重複はスキップされます。
+GatherBuddyReborn,,,,Import from Artisan,Artisanからインポート
+GatherBuddyReborn,,,,Import from clipboard,クリップボードからインポート
+GatherBuddyReborn,,,,Import Node Offsets from Clipboard,採集ポイントの補正位置をクリップボードからインポート
+GatherBuddyReborn,,,,Import one with the panel on the right.,右側のパネルからインポートしてください。
+GatherBuddyReborn,,,,Import the 'Vendors' section of a TeamCraft list.,TeamCraftリストの「Vendors」セクションをインポートします。
+GatherBuddyReborn,,,,Imported from TeamCraft,TeamCraftからインポート
+GatherBuddyReborn,,,,in /gatherbuddy -> Config,/gatherbuddy → 設定
+GatherBuddyReborn,,,,"In the gather window itself, hold Control and right-click an item to delete it from its preset. Removing the last item of a preset removes the preset too.",採集ウィンドウでCtrlを押しながらアイテムを右クリックするとプリセットから削除されます。最後のアイテムを削除するとプリセットも削除されます。
+GatherBuddyReborn,,,,"In the Gather Window, hold Control and right-click an item to delete it from the list it belongs to.",採集ウィンドウでCtrlを押しながらアイテムを右クリックすると、所属リストから削除されます。
+GatherBuddyReborn,,,,In your bags,所持品内
+GatherBuddyReborn,,,,In your inventory,所持品内
+GatherBuddyReborn,,,,In your inventory and retainers,所持品とリテイナー内
+GatherBuddyReborn,,,,Include final crafts,最終製作品も対象
+GatherBuddyReborn,,,,Include final crafts##sife,最終製作品も対象##sife
+GatherBuddyReborn,,,,Include intermediate craftable components and non-gear final craftables.,中間素材と装備品以外の最終製作品も含めます。
+GatherBuddyReborn,,,,Ingredient,素材
+GatherBuddyReborn,,,,Ingredient quality,素材の品質
+GatherBuddyReborn,,,,Ingredients,材料
+GatherBuddyReborn,,,,Inherit,継承
+GatherBuddyReborn,,,,Initial quality,初期品質
+GatherBuddyReborn,,,,Inline descriptions,説明文を常時表示
+GatherBuddyReborn,,,,InLog,手帳登録
+GatherBuddyReborn,,,,Install Lifestream to access housing wards,ハウジングエリアへ移動するにはLifestreamを導入してください
+GatherBuddyReborn,,,,instead of only one item type.,1種類だけには限定しません。
+GatherBuddyReborn,,,,Interface settings,インターフェース設定
+GatherBuddyReborn,,,,"Internal crafting data, for troubleshooting",トラブル調査用の製作内部データ
+GatherBuddyReborn,,,,"Internal data, for troubleshooting",問題調査向けの内部データ
+GatherBuddyReborn,,,,Intuition,漁師の直感
+GatherBuddyReborn,,,,Intuition for 1 Minute,1分間の漁師の直感
+GatherBuddyReborn,,,,Invalid,無効
+GatherBuddyReborn,,,,Inventory,所持品
+GatherBuddyReborn,,,,Inventory is full,所持品がいっぱいです
+GatherBuddyReborn,,,,Inventory threshold,所持品の使用枠数
+GatherBuddyReborn,,,,It needs to be crafted or obtained outside the vendor system.,製作するか、ショップ以外の方法で入手する必要があります。
+GatherBuddyReborn,,,,Item,アイテム
+GatherBuddyReborn,,,,Item Id,アイテムID
+GatherBuddyReborn,,,,Item level,アイテムレベル
+GatherBuddyReborn,,,,Item level range,アイテムレベル範囲
+GatherBuddyReborn,,,,Item sorting method,アイテムの並べ替え方法
+GatherBuddyReborn,,,,Item types,アイテムの種類
+GatherBuddyReborn,,,,ItemId,アイテムID
+GatherBuddyReborn,,,,Items,アイテム
+GatherBuddyReborn,,,,Items and precrafts can still pick their own.,アイテムと中間素材には個別の設定も可能です。
+GatherBuddyReborn,,,,items from fallback lists are gathered instead if that node has them.,その採集ポイントに予備リストのアイテムがあれば採集します。
+GatherBuddyReborn,,,,"Items from fallback lists won't be auto-gathered on their own.
+","予備リストのアイテムは単独では自動採集の対象になりません。
+"
+GatherBuddyReborn,,,,"Items from fallback lists won't be auto-gathered on their own.
+But if a node doesn't contain any items from regular lists, or you gathered enough of them,
+items from fallback lists are gathered instead if that node has them.","予備リストのアイテムは単独では自動採集の対象になりません。
+通常リストのアイテムが採集ポイントになかった場合、または必要数を採集済みの場合に、
+その採集ポイントに予備リストのアイテムがあれば採集します。"
+GatherBuddyReborn,,,,"Items from your enabled auto-gather lists, and crystals, with the preset that matches each of them.",有効な自動採集リストのアイテムとクリスタルに一致するプリセットを表示します。
+GatherBuddyReborn,,,,"Items in your inventory are listed first, with how many you have.",所持しているアイテムを所持数とともに優先表示します。
+GatherBuddyReborn,,,,Items ready,対象アイテム数
+GatherBuddyReborn,,,,Items required,必要アイテム
+GatherBuddyReborn,,,,Items to Gather,採集対象アイテム
+GatherBuddyReborn,,,,Job,ジョブ
+GatherBuddyReborn,,,,Join the Discord,Discordに参加
+GatherBuddyReborn,,,,just now,たった今
+GatherBuddyReborn,,,,Keep at least this many of each scrip when buy lists spend scrips.,購入リストでスクリップを消費する際に各スクリップを最低この個数保持します。
+GatherBuddyReborn,,,,Keep fish records,釣り記録を保持
+GatherBuddyReborn,,,,Keep fulfilled,所持済みも表示
+GatherBuddyReborn,,,,"Keep fulfilled materials visible even when ""Skip if Already Have Enough"" is enabled on the list.",リストの「必要数を所持している場合はスキップ」が有効でも、所持済みの素材を表示します。
+GatherBuddyReborn,,,,Keep going until the item reaches this collectability.,アイテムがこの収集価値に達するまで続けます。
+GatherBuddyReborn,,,,Keep it as high as your longest bite window and otherwise as low as possible; about 40 seconds is usually enough.,最長のアタリ時間が収まる範囲でできるだけ低く設定します。通常は40秒程度で十分です。
+GatherBuddyReborn,,,,Key to hold,押し続けるキー
+GatherBuddyReborn,,,,Landing distance,着地距離
+GatherBuddyReborn,,,,Large,大物
+GatherBuddyReborn,,,,Large Catch,大物
+GatherBuddyReborn,,,,Large Catch!,大物！
+GatherBuddyReborn,,,,Last Catch,前回釣った魚
+GatherBuddyReborn,,,,Last Fishing State,前回の釣りの状態
+GatherBuddyReborn,,,,Last weather,直前の天候
+GatherBuddyReborn,,,,Leatherworker (LTW),革細工師 (LTW)
+GatherBuddyReborn,,,,Leave empty for no chat message,空欄ならチャットメッセージなし
+GatherBuddyReborn,,,,"Leave empty for no chat message. {Alarm} is the alarm name in brackets, {Item} the item link, {Offset} the alarm offset in seconds, ",空欄ならチャットメッセージなし。{Alarm} は括弧付きアラーム名、{Item} はアイテムリンク、{Offset} は通知の事前秒数、
+GatherBuddyReborn,,,,"Leave empty for no chat message. {Alarm} is the alarm name in brackets, {Item} the item link, {Offset} the alarm offset in seconds, {DurationString} says how long it will be up or is up for, and {Location} is the map flag link and location name.",空欄ならチャットメッセージなし。{Alarm} は括弧付きアラーム名、{Item} はアイテムリンク、{Offset} は通知の事前秒数、{DurationString} は出現まで／出現終了までの時間、{Location} はマップフラッグリンクと場所の名前です。
+GatherBuddyReborn,,,,Leave empty for no chat message. {Input} is the text you searched for and {Item} the item link.,空欄ならチャットメッセージなし。{Input} は検索文字列、{Item} はアイテムリンクです。
+GatherBuddyReborn,,,,Leave out precrafts you already have enough of.,必要数を既に所持している中間素材を除外します。
+GatherBuddyReborn,,,,Leaving vendor interaction.,ショップ操作を終了中。
+GatherBuddyReborn,,,,Left,左
+GatherBuddyReborn,,,,Left stick,左スティック
+GatherBuddyReborn,,,,Legacy,旧データ
+GatherBuddyReborn,,,,Length,時間
+GatherBuddyReborn,,,,Less travel time,移動時間を優先
+GatherBuddyReborn,,,,Let alarms trigger while you are bound by a duty.,コンテンツ中もアラームを鳴らします。
+GatherBuddyReborn,,,,"Let clicks go through the fish timer, which also turns off its context menus.",クリックが釣りタイマーを通過するようにし、コンテキストメニューも無効にします。
+GatherBuddyReborn,,,,Let it be used several times in one craft.,1回の製作で複数回使用できるようにします。
+GatherBuddyReborn,,,,Let the fish timer window be moved and resized.,釣りタイマーを移動・サイズ変更できるようにします。
+GatherBuddyReborn,,,,Lets Auto-Gather and Vulcan queues run collectable turn-ins automatically.,自動採集とVulcanの製作キューから収集品を自動納品できます。
+GatherBuddyReborn,,,,Level,レベル
+GatherBuddyReborn,,,,Level range,レベル範囲
+GatherBuddyReborn,,,,Level type,レベルの種類
+GatherBuddyReborn,,,,Leveling,レベル上げ用
+GatherBuddyReborn,,,,Leveling only,レベル上げ用のみ
+GatherBuddyReborn,,,,LGB first,LGB優先
+GatherBuddyReborn,,,,"LGB, Level, supplemental, DataShare",LGB、Level、補足データ、DataShare
+GatherBuddyReborn,,,,Lifestream command,Lifestreamコマンド
+GatherBuddyReborn,,,,Link in chat,チャットにリンク
+GatherBuddyReborn,,,,List,リスト
+GatherBuddyReborn,,,,List Defaults,リストの既定設定
+GatherBuddyReborn,,,,List Details,リストの詳細
+GatherBuddyReborn,,,,List name,リスト名
+GatherBuddyReborn,,,,List the fish available at your current spearfishing spot beside the spearfishing window.,刺突漁ウィンドウの横に現在の刺突漁場で捕獲可能な魚を一覧表示します。
+GatherBuddyReborn,,,,Lists,リスト
+GatherBuddyReborn,,,,Lists appear here once one is made.,リストが作成されるとここに表示されます。
+GatherBuddyReborn,,,,"Lists every item in your enabled auto-gather lists, and crystals, with the preset it will use.",有効な自動採集リスト内の各アイテムとクリスタルに適用されるプリセットを表示します。
+GatherBuddyReborn,,,,Lists of items for auto-gather to collect,自動採集の対象アイテムのリスト
+GatherBuddyReborn,,,,"Lists of things to craft, with their materials and precrafts",製作するアイテムのリストと素材・中間素材
+GatherBuddyReborn,,,,Loading Grand Company seal data...,軍票交換データを読み込み中…
+GatherBuddyReborn,,,,Loading vendor data...,ショップデータを読み込み中…
+GatherBuddyReborn,,,,Loading...,読み込み中…
+GatherBuddyReborn,,,,Location cache not initialized,位置情報キャッシュ未初期化
+GatherBuddyReborn,,,,"Locations
+ 
+Custom aetherytes and map marker locations for specific nodes","場所
+ 
+特定の採集ポイントのエーテライトとマップマーカーの位置設定"
+GatherBuddyReborn,,,,Lock gather window position,採集ウィンドウ位置を固定
+GatherBuddyReborn,,,,Lock window position,ウィンドウ位置を固定
+GatherBuddyReborn,,,,Lock window size,ウィンドウサイズを固定
+GatherBuddyReborn,,,,Log,手帳
+GatherBuddyReborn,,,,Log recipe properties,レシピ情報をログに出力
+GatherBuddyReborn,,,,Log State Unavailable,手帳の状態を取得できません
+GatherBuddyReborn,,,,Look the price up again,価格を再検索
+GatherBuddyReborn,,,,Look up the prices of every item in the history again.,履歴にあるすべてのアイテムの価格を再検索します。
+GatherBuddyReborn,,,,Lowest equipped condition,装備の最低耐久度
+GatherBuddyReborn,,,,LTW,革細工
+GatherBuddyReborn,,,,Lvl,Lv
+GatherBuddyReborn,,,,Macro,マクロ
+GatherBuddyReborn,,,,Macro name,マクロ名
+GatherBuddyReborn,,,,Macro or solver,マクロまたはソルバー
+GatherBuddyReborn,,,,Macro text,マクロ本文
+GatherBuddyReborn,,,,Macros,マクロ
+GatherBuddyReborn,,,,"Macros
+ 
+Your own crafting macros","マクロ
+ 
+自分の製作マクロ"
+GatherBuddyReborn,,,,Main window,メインウィンドウ
+GatherBuddyReborn,,,,Make a crafting list,製作リストを作成
+GatherBuddyReborn,,,,Make a gather list from this list's materials,このリストの素材から採集リストを作成
+GatherBuddyReborn,,,,Make a list from the 'Final Items' of a TeamCraft list,TeamCraftリストの「Final Items」からリストを作成
+GatherBuddyReborn,,,,Make alarms,アラームを作成
+GatherBuddyReborn,,,,Make auto-gather list,自動採集リストを作成
+GatherBuddyReborn,,,,Make bait buy list,釣り餌の購入リストを作成
+GatherBuddyReborn,,,,Make gather window preset,採集ウィンドウのプリセットを作成
+GatherBuddyReborn,,,,Make window preset,ウィンドウプリセットを作成
+GatherBuddyReborn,,,,Manipulation,マニピュレーション
+GatherBuddyReborn,,,,Manual,マニュアル
+GatherBuddyReborn,,,,Manual preset generator,手動プリセット生成
+GatherBuddyReborn,,,,Manual teleporting required,手動でテレポしてください
+GatherBuddyReborn,,,,Markers,マーカー
+GatherBuddyReborn,,,,Marketboard,マーケットボード
+GatherBuddyReborn,,,,"Marketboard
+ 
+Marketboard prices and sale history","マーケットボード
+ 
+マーケットボードの価格と取引履歴"
+GatherBuddyReborn,,,,Marketboard prices and sale history,マーケットボードの価格と取引履歴
+GatherBuddyReborn,,,,Marketboard unavailable,マーケットボード利用不可
+GatherBuddyReborn,,,,Master,秘伝書
+GatherBuddyReborn,,,,Master recipes,秘伝書レシピ
+GatherBuddyReborn,,,,Materia extraction,マテリア精製
+GatherBuddyReborn,,,,Material Miracle,ミラクルマテリアル
+GatherBuddyReborn,,,,Materials,素材
+GatherBuddyReborn,,,,Materials###CraftingMaterials,素材###CraftingMaterials
+GatherBuddyReborn,,,,Max concurrent solves,最大同時計算数
+GatherBuddyReborn,,,,Max fishing spot minutes,同じ釣り場での最大釣り時間（分）
+GatherBuddyReborn,,,,Max Inner Quiet for Preparatory Touch,下地加工に使用するインナークワイエットの最大スタック数
+GatherBuddyReborn,,,,Max quality,最大品質
+GatherBuddyReborn,,,,min,分
+GatherBuddyReborn,,,,Miner,採掘師
+GatherBuddyReborn,,,,Miner set,採掘師ギアセット
+GatherBuddyReborn,,,,Minimize,最小化
+GatherBuddyReborn,,,,Minimum collectability at the last integrity point,最終採集回数での最低収集価値
+GatherBuddyReborn,,,,Minimum GP for actions on collectables,収集品アクションの最低GP
+GatherBuddyReborn,,,,Minimum GP for collectables,収集品の最低GP
+GatherBuddyReborn,,,,Minimum GP for regular items and crystals,通常アイテム・クリスタルの最低GP
+GatherBuddyReborn,,,,Minimum initial node integrity,最低初期採集回数
+GatherBuddyReborn,,,,Minimum stats,最低ステータス
+GatherBuddyReborn,,,,"Minimum stats, optional",最低ステータス（任意）
+GatherBuddyReborn,,,,Minimum steps before Material Miracle,ミラクルマテリアル使用前の最低手順数
+GatherBuddyReborn,,,,Minimum total yield,最低合計獲得数
+GatherBuddyReborn,,,,Minimum yield bonus,最低獲得数ボーナス
+GatherBuddyReborn,,,,Minutes per Raphael solve. A solve that takes longer is marked as failed and the craft is skipped.,Raphaelの1回の計算の制限時間（分）。超過すると計算失敗として製作をスキップします。
+GatherBuddyReborn,,,,Modest Lure,モデストルアー
+GatherBuddyReborn,,,,Modifier to delete items on right-click,右クリック削除用の修飾キー
+GatherBuddyReborn,,,,Mount,マウント
+GatherBuddyReborn,,,,Mount Roulette,マウントルーレット
+GatherBuddyReborn,,,,Mount up distance,マウントに乗る距離
+GatherBuddyReborn,,,,Move down,下に移動
+GatherBuddyReborn,,,,Move or delete the lists in this folder before removing it.,フォルダーを削除する前に中のリストを移動または削除してください。
+GatherBuddyReborn,,,,Move to,移動先
+GatherBuddyReborn,,,,Move to backup,バックアップに移動
+GatherBuddyReborn,,,,Move to folder,フォルダーへ移動
+GatherBuddyReborn,,,,Move up,上に移動
+GatherBuddyReborn,,,,Moving to aetheryte...,エーテライトへ移動中…
+GatherBuddyReborn,,,,Moving to Diadem NPC...,ディアデム諸島のNPCへ移動中…
+GatherBuddyReborn,,,,Moving to far node...,遠くの採集ポイントへ移動中…
+GatherBuddyReborn,,,,Moving to fishing spot,釣り場へ移動中
+GatherBuddyReborn,,,,Moving to new fishing spot...,新しい釣り場へ移動中…
+GatherBuddyReborn,,,,Moving to node...,採集ポイントへ移動中…
+GatherBuddyReborn,,,,Moving to Swimming Shadows...,魚影へ移動中…
+GatherBuddyReborn,,,,Name,名前
+GatherBuddyReborn,,,,Name of the new alarm,新しいアラームの名前
+GatherBuddyReborn,,,,Names are optional and can be used in the alarm message that is printed to chat.,名前は任意で、チャットに表示するアラームメッセージで使用できます。
+GatherBuddyReborn,,,,Names in chat,チャット内の名前
+GatherBuddyReborn,,,,Navigating to Retainer Bell,呼び鈴へ移動中
+GatherBuddyReborn,,,,Navigation active,ナビゲーション有効
+GatherBuddyReborn,,,,Navigation visible,ナビゲーション表示
+GatherBuddyReborn,,,,NavTo,移動
+GatherBuddyReborn,,,,Need,必要数
+GatherBuddyReborn,,,,Needs one of these plugins installed and enabled:,以下のプラグインのいずれかをインストールして有効にする必要があります：
+GatherBuddyReborn,,,,"Needs one of these plugins, and one is ready:",以下のプラグインのいずれかが必要です。1つは使用可能です：
+GatherBuddyReborn,,,,Needs these plugins installed and enabled:,以下のプラグインをインストールして有効にする必要があります：
+GatherBuddyReborn,,,,Never,なし
+GatherBuddyReborn,,,,New auto-gather list,新しい自動採集リスト
+GatherBuddyReborn,,,,New buy list...,新規購入リスト…
+GatherBuddyReborn,,,,New crafting list,新しい製作リスト
+GatherBuddyReborn,,,,New crafting list folder,新しい製作リストフォルダー
+GatherBuddyReborn,,,,New crafting list folder###gbr_create_crafting_folder,新しい製作リストフォルダー###gbr_create_crafting_folder
+GatherBuddyReborn,,,,New crafting list###gbr_create_crafting_list,新しい製作リスト###gbr_create_crafting_list
+GatherBuddyReborn,,,,New entry,新規項目
+GatherBuddyReborn,,,,New folder,新規フォルダー
+GatherBuddyReborn,,,,New list,新規リスト
+GatherBuddyReborn,,,,New list here,ここに新規リストを作成
+GatherBuddyReborn,,,,New subfolder,サブフォルダーを作成
+GatherBuddyReborn,,,,Next,次回
+GatherBuddyReborn,,,,"Next Aldenard ocean routes:
+","次のアルデナード航路：
+"
+GatherBuddyReborn,,,,Next Change (Absolute),次回変更（絶対時刻）
+GatherBuddyReborn,,,,Next Change (Relative),次回変更（相対時刻）
+GatherBuddyReborn,,,,"Next Othard ocean routes:
+","次のオサード航路：
+"
+GatherBuddyReborn,,,,Next Timed Save,次回の定期保存
+GatherBuddyReborn,,,,Next Uptime,次の出現時間
+GatherBuddyReborn,,,,Next weather,次の天候
+GatherBuddyReborn,,,,Night,夜
+GatherBuddyReborn,,,,No,いいえ
+GatherBuddyReborn,,,,No alarm group selected,アラームグループが選択されていません
+GatherBuddyReborn,,,,No available items to gather,採集可能なアイテムがありません
+GatherBuddyReborn,,,,No cached solutions,キャッシュ済みの解がありません
+GatherBuddyReborn,,,,No collectables are ready for turn-in.,納品可能な収集品がありません。
+GatherBuddyReborn,,,,No collectables turn-in route is configured.,収集品の納品先が設定されていません。
+GatherBuddyReborn,,,,No collectables turn-in routes are available right now.,現在利用可能な収集品の納品先がありません。
+GatherBuddyReborn,,,,No collectables were available for turn-in.,納品可能な収集品がありませんでした。
+GatherBuddyReborn,,,,No color,色指定なし
+GatherBuddyReborn,,,,No coordinates,座標なし
+GatherBuddyReborn,,,,No coordinates available for this location.,この場所の座標情報がありません。
+GatherBuddyReborn,,,,No crafting lists yet.,製作リストがありません。
+GatherBuddyReborn,,,,No crafting queue is running.,実行中の製作キューがありません。
+GatherBuddyReborn,,,,No currency needed.,必要な通貨はありません。
+GatherBuddyReborn,,,,No Dependencies,条件なし
+GatherBuddyReborn,,,,No fish alarm yet,魚のアラーム履歴なし
+GatherBuddyReborn,,,,No fish available.,釣れる魚がありません。
+GatherBuddyReborn,,,,No folder,フォルダーなし
+GatherBuddyReborn,,,,No Folklore,伝承録なし
+GatherBuddyReborn,,,,No gather group selected,採集グループが選択されていません
+GatherBuddyReborn,,,,No gatherable items were found in your clipboard.,クリップボードに採集可能なアイテムがありません。
+GatherBuddyReborn,,,,No item alarm yet,アイテムのアラーム履歴なし
+GatherBuddyReborn,,,,No item selected,アイテムが選択されていません
+GatherBuddyReborn,,,,No items match the search.,検索に一致するアイテムがありません。
+GatherBuddyReborn,,,,No items match your search.,検索に一致するアイテムがありません。
+GatherBuddyReborn,,,,No list open,リストが開いていません
+GatherBuddyReborn,,,,No list selected,リストが選択されていません
+GatherBuddyReborn,,,,No listings.,出品がありません。
+GatherBuddyReborn,,,,No lists in this folder.,このフォルダーにリストがありません。
+GatherBuddyReborn,,,,No lists match your search.,検索に一致するリストがありません。
+GatherBuddyReborn,,,,No lists yet,リストがありません
+GatherBuddyReborn,,,,No location data available,位置情報がありません
+GatherBuddyReborn,,,,No lookups yet,検索履歴がありません
+GatherBuddyReborn,,,,No macros match your search.,検索に一致するマクロがありません。
+GatherBuddyReborn,,,,No macros yet,マクロがありません
+GatherBuddyReborn,,,,No markers set that could be stored for this location.,この場所に保存可能なマーカーが設置されていません。
+GatherBuddyReborn,,,,No markers stored for this location.,この場所のマーカーが保存されていません。
+GatherBuddyReborn,,,,"No market data. The item may not be tradeable, or the request failed.",マーケットデータがありません。取引不可のアイテムか、取得に失敗した可能性があります。
+GatherBuddyReborn,,,,No matches,一致なし
+GatherBuddyReborn,,,,No materials needed,必要な素材がありません
+GatherBuddyReborn,,,,No materials required,必要素材なし
+GatherBuddyReborn,,,,"No personal information about you or your character is collected, only data relevant to the caught fish. You can opt out again at any time.",本人やキャラクターの個人情報は収集されず、釣れた魚に関するデータだけが送られます。いつでも同意を取り消せます。
+GatherBuddyReborn,,,,No preferred location,優先場所なし
+GatherBuddyReborn,,,,No preset selected,プリセットが選択されていません
+GatherBuddyReborn,,,,No recipe selected,レシピが選択されていません
+GatherBuddyReborn,,,,No recipes,レシピがありません
+GatherBuddyReborn,,,,No recipes in this list yet.,このリストにまだレシピがありません。
+GatherBuddyReborn,,,,No recipes match the filters.,フィルターに一致するレシピがありません。
+GatherBuddyReborn,,,,No recipes match.,一致するレシピがありません。
+GatherBuddyReborn,,,,No recipes yet. Add one above.,レシピがありません。上から追加してください。
+GatherBuddyReborn,,,,No settings found,設定が見つかりません
+GatherBuddyReborn,,,,No solution selected,解が選択されていません
+GatherBuddyReborn,,,,No solutions match your search.,検索に一致する解がありません。
+GatherBuddyReborn,,,,No Sound,サウンドなし
+GatherBuddyReborn,,,,No teleport target available for this location.,この場所には利用可能なテレポ先がありません。
+GatherBuddyReborn,,,,No teleport target available for this zone.,このエリアには利用可能なテレポ先がありません。
+GatherBuddyReborn,,,,No usable stats are available for this recipe.,このレシピで利用できるステータスがありません。
+GatherBuddyReborn,,,,No vendor available for the buy list,購入リスト用の販売NPCが見つかりません
+GatherBuddyReborn,,,,"No vendor buy lists yet. Make one in Vendor Buy Lists, or from Vulcan's Vendors page.",ショップ購入リストがありません。ショップ購入リスト画面かVulcanのショップページで作成してください。
+GatherBuddyReborn,,,,No vendor list is available.,利用可能なショップリストがありません。
+GatherBuddyReborn,,,,No vendor lists,ショップリストがありません
+GatherBuddyReborn,,,,No weather restrictions,天候制限なし
+GatherBuddyReborn,,,,No workshop projects match your search.,検索に一致するカンパニー製作計画がありません。
+GatherBuddyReborn,,,,No workshop requirements were found for this selection.,選択範囲に必要素材が見つかりませんでした。
+GatherBuddyReborn,,,,No workshop selection.,カンパニー製作の選択なし。
+GatherBuddyReborn,,,,No zone-level coordinates are available for this zone.,このエリア内の座標情報がありません。
+GatherBuddyReborn,,,,Node Type,採集ポイントの種類
+GatherBuddyReborn,,,,Node types,採集ポイントの種類
+GatherBuddyReborn,,,,NodeId,採集ポイントID
+GatherBuddyReborn,,,,Non-Leveling,レベル上げ対象外
+GatherBuddyReborn,,,,None,なし
+GatherBuddyReborn,,,,None nearby,近くにありません
+GatherBuddyReborn,,,,None of those items have a recipe. Check that you copied the 'Final Items' section.,レシピのあるアイテムが見つかりません。「Final Items」をコピーしたか確認してください。
+GatherBuddyReborn,,,,None set.,未設定です。
+GatherBuddyReborn,,,,Normal quality,通常品質
+GatherBuddyReborn,,,,Not all minutes have an item.,すべての時間帯にアイテムが設定されていません。
+GatherBuddyReborn,,,,Not caught yet,まだ釣っていません
+GatherBuddyReborn,,,,Not Collectible,収集品対象外
+GatherBuddyReborn,,,,Not gathered yet,未採集
+GatherBuddyReborn,,,,Not In Log,手帳対象外
+GatherBuddyReborn,,,,Not in the correct zone for this location.,この場所のエリアにいません。
+GatherBuddyReborn,,,,Not in the fish log,釣り手帳にありません
+GatherBuddyReborn,,,,not installed or disabled,未インストールまたは無効
+GatherBuddyReborn,,,,Not ready,準備未完了
+GatherBuddyReborn,,,,Not Tracked,手帳対象外
+GatherBuddyReborn,,,,Not tracked by the gathering log,採集手帳の対象外
+GatherBuddyReborn,,,,Notes,メモ
+GatherBuddyReborn,,,,Nothing on this list needs buying right now.,現在このリストに購入が必要なアイテムはありません。
+GatherBuddyReborn,,,,"Nothing on this list needs gathering, buying or crafting first.",事前の採集・購入・製作が必要な素材はありません。
+GatherBuddyReborn,,,,Nothing selected,選択されていません
+GatherBuddyReborn,,,,Nothing to craft yet,製作アイテムがありません
+GatherBuddyReborn,,,,Nothing to pick,選択肢がありません
+GatherBuddyReborn,,,,Nothing to preview,プレビューする項目がありません
+GatherBuddyReborn,,,,Nothing to show,表示できる項目がありません
+GatherBuddyReborn,,,,NPC repair price,NPC修理費
+GatherBuddyReborn,,,,Num SwimBait,泳がせ釣り餌の数
+GatherBuddyReborn,,,,Ocean,オーシャン
+GatherBuddyReborn,,,,Ocean Routes,オーシャンフィッシング航路
+GatherBuddyReborn,,,,Ocean Routes##OceanDebug,オーシャンフィッシング航路##OceanDebug
+GatherBuddyReborn,,,,Oceanfishing,オーシャンフィッシング
+GatherBuddyReborn,,,,Off,OFF
+GatherBuddyReborn,,,,On,ON
+GatherBuddyReborn,,,,"Only fires while not pathing, with a 2 second cooldown between uses.",経路移動中は発射せず、使用間隔は2秒です。
+GatherBuddyReborn,,,,Only let alarms trigger while you are logged in to a character.,キャラクターでログインしている間だけアラームを鳴らします。
+GatherBuddyReborn,,,,Only on the first step,最初の手順のみ
+GatherBuddyReborn,,,,"Only progress-building actions, no quality steps. Fast NQ crafts.",工数を進めるアクションだけを使用し、品質は上げません。NQ品を素早く製作します。
+GatherBuddyReborn,,,,Only show gather window while holding a key,キーを押している間だけ採集ウィンドウを表示
+GatherBuddyReborn,,,,Only show recipes from the level-based crafting log lists.,製作手帳のレベル別リストにあるレシピのみ表示します。
+GatherBuddyReborn,,,,Only show recipes whose result is a dye.,染料を製作するレシピのみ表示します。
+GatherBuddyReborn,,,,Only show recipes whose result is a housing item.,ハウジングアイテムを製作するレシピのみ表示します。
+GatherBuddyReborn,,,,Only show the items from your gather window setup that are available right now.,採集ウィンドウに設定したアイテムのうち現在採集可能なもののみ表示します。
+GatherBuddyReborn,,,,Only use progress actions at the end of the rotation. May lower the quality you can reach; turn it off for the most quality. ,手順の最後にのみ工数アクションを使用します。到達可能な品質が下がる場合があります。最大品質を狙う場合は無効にしてください。
+GatherBuddyReborn,,,,Only use progress actions at the end of the rotation. May lower the quality you can reach; turn it off for the most quality. Changing this clears the solution cache.,手順の最後にのみ工数アクションを使用します。到達可能な品質が下がる場合があります。最大品質を狙う場合は無効にしてください。変更するとソルバーの解のキャッシュがクリアされます。
+GatherBuddyReborn,,,,Open,開く
+GatherBuddyReborn,,,,Open a crafting list in Vulcan to see how its recipes break down.,Vulcanで製作リストを開くとレシピの構成が表示されます。
+GatherBuddyReborn,,,,Open a crafting list in Vulcan to see the materials it needs.,Vulcanで製作リストを開くと必要素材が表示されます。
+GatherBuddyReborn,,,,Open buy list,購入リストを開く
+GatherBuddyReborn,,,,Open in GarlandTools,GarlandToolsで開く
+GatherBuddyReborn,,,,Open in TeamCraft (app),TeamCraftで開く（アプリ）
+GatherBuddyReborn,,,,Open in TeamCraft (browser),TeamCraftで開く（ブラウザ）
+GatherBuddyReborn,,,,Open map with location,採集場所のマップを開く
+GatherBuddyReborn,,,,Open on start,起動時に開く
+GatherBuddyReborn,,,,Open the Auto-Gather support Discord,自動採集サポートDiscordを開く
+GatherBuddyReborn,,,,Open the collectables turn-in and purchase window,収集品の納品・購入ウィンドウを開く
+GatherBuddyReborn,,,,Open the collectables window,収集品ウィンドウを開く
+GatherBuddyReborn,,,,Open Vendor Buy Lists,ショップ購入リストを開く
+GatherBuddyReborn,,,,"Open Vendor Buy Lists to rename the list, adjust target quantities, and confirm the vendor route if an item has several NPCs.",ショップ購入リストで名前や目標数量を変更し、販売NPCが複数いる場合には購入先を確認します。
+GatherBuddyReborn,,,,Open Vulcan,Vulcanを開く
+GatherBuddyReborn,,,,Open Vulcan's crafting lists,Vulcanの製作リストを開く
+GatherBuddyReborn,,,,Open Vulcan's Vendors page,Vulcanのショップページを開く
+GatherBuddyReborn,,,,"Open Vulcan's Vendors page, to add items",アイテムを追加するためVulcanのショップページを開く
+GatherBuddyReborn,,,,"Open Vulcan, switch to the Vendors page, search for the scrip item you want, set the quantity, then use the + button to add it to the active vendor list. ",Vulcanのショップページを開き、目的のスクリップ交換品を検索して数量を設定し、＋ボタンで現在の購入リストに追加します。
+GatherBuddyReborn,,,,"Open Vulcan, switch to the Vendors page, search for the scrip item you want, set the quantity, then use the + button to add it to the active vendor list. Right-click the + button to make a new list or add the item to another list.",Vulcanのショップページを開き、目的のスクリップ交換品を検索して数量を設定し、＋ボタンで現在の購入リストに追加します。＋ボタンを右クリックすると新規リストを作成したり、別のリストに追加したりできます。
+GatherBuddyReborn,,,,"Open Vulcan, the crafting window",製作ウィンドウのVulcanを開く
+GatherBuddyReborn,,,,Open with Reflect for quality instead of Muscle Memory for progress.,工数を進める確信の代わりに、品質を上げる真価から始めます。
+GatherBuddyReborn,,,,"Open your list on TeamCraft, copy the 'Final Items' section with 'Copy as Text', and paste it below. Precrafts are added automatically.",TeamCraftでリストを開き、「Final Items」を「Copy as Text」でコピーして以下に貼り付けてください。中間素材は自動追加されます。
+GatherBuddyReborn,,,,Opens or closes the gather window.,採集ウィンドウを開閉します。
+GatherBuddyReborn,,,,Opens or closes the main GatherBuddy window.,GatherBuddyのメインウィンドウを開閉します。
+GatherBuddyReborn,,,,"Opens Teamcraft community rotations in a Browsingway overlay.
+
+","BrowsingwayのオーバーレイでTeamcraftの公開製作手順を開きます。
+
+"
+GatherBuddyReborn,,,,"Opens Teamcraft community rotations in a Browsingway overlay.
+
+Setup:
+1. Install the Browsingway plugin
+2. Run /bw config
+3. Create a new overlay (+ button)
+4. Set its Command Name to 'teamcraft'
+5. Close the config and click this button
+
+You can also browse https://ffxivteamcraft.com/community-rotations in your web browser.","BrowsingwayのオーバーレイでTeamcraftの公開製作手順を開きます。
+
+設定手順：
+1. Browsingwayプラグインを導入
+2. /bw config を実行
+3. 新しいオーバーレイを作成（＋ボタン）
+4. Command Nameを「teamcraft」に設定
+5. 設定を閉じてこのボタンをクリック
+
+Webブラウザで https://ffxivteamcraft.com/community-rotations を直接閲覧することもできます。"
+GatherBuddyReborn,,,,Opens Vulcan straight to the Recipes page.,Vulcanのレシピページを直接開きます。
+GatherBuddyReborn,,,,Opt in to fishing data collection,釣りデータ収集に同意
+GatherBuddyReborn,,,,or when no collected data is available. Low values make it harder to dismount; high values may produce odd paths. ,収集した座標データがない場合に使用します。距離が短いと降りにくく、長いと不自然な経路になる場合があります。
+GatherBuddyReborn,,,,Othard,オサード
+GatherBuddyReborn,,,,Other,その他
+GatherBuddyReborn,,,,Over 100%,100%超を表示
+GatherBuddyReborn,,,,Overall,全体
+GatherBuddyReborn,,,,Overview,概要
+GatherBuddyReborn,,,,Parse and preview,解析・プレビュー
+GatherBuddyReborn,,,,Part,部品
+GatherBuddyReborn,,,,"Paste a crafting macro from Teamcraft or Artisan. /ac lines, plain one-action-per-line imports, and Artisan JSON exports are supported.",TeamcraftまたはArtisanの製作マクロを貼り付けてください。/ac行、1行1アクションの形式、ArtisanのJSONエクスポートに対応しています。
+GatherBuddyReborn,,,,Paste a list export string from Vulcan below.,Vulcanのリストエクスポート文字列を以下に貼り付けてください。
+GatherBuddyReborn,,,,Paste a TeamCraft or Allagan Tools list below. Only the 'Vendors' section is used when the list has one.,TeamCraftまたはAllagan Toolsのリストを貼り付けてください。「Vendors」セクションがある場合はその部分のみ使用します。
+GatherBuddyReborn,,,,Patch,パッチ
+GatherBuddyReborn,,,,Patience,ペーシェンス
+GatherBuddyReborn,,,,Patience II,ペーシェンスII
+GatherBuddyReborn,,,,Pause,一時停止
+GatherBuddyReborn,,,,Pause GBR automatically when AutoRetainer has retainers to process during multi-mode.,AutoRetainerのマルチモードでリテイナーの処理が必要になったときにGBRを自動で一時停止します。
+GatherBuddyReborn,,,,Paused,一時停止中
+GatherBuddyReborn,,,,Pending solves,計算待ち
+GatherBuddyReborn,,,,Perc.,技術力
+GatherBuddyReborn,,,,Perception,技術力
+GatherBuddyReborn,,,,Permanently hide the GatherClippy button on the Gatherables and Fish pages.,採集物ページと魚ページのGatherClippyボタンを常に非表示にします。
+GatherBuddyReborn,,,,Persistent amiss! Teleporting out to clear...,警戒が続いています。解除のためテレポ中…
+GatherBuddyReborn,,,,Phase,工程
+GatherBuddyReborn,,,,"Pick a gathering purchase list for Auto-Gather runs and gathering manual turn-ins, and a crafting purchase list for Vulcan queue runs and ",自動採集と採集収集品の手動納品には採集用購入リストを、Vulcanキューと
+GatherBuddyReborn,,,,"Pick a gathering purchase list for Auto-Gather runs and gathering manual turn-ins, and a crafting purchase list for Vulcan queue runs and crafting manual turn-ins. 'Use active list' copies the active vendor list into that slot.",自動採集と採集収集品の手動納品には採集用購入リストを、Vulcanキューと製作収集品の手動納品には製作用購入リストを選びます。「現在のリストを使用」で有効なショップリストを設定できます。
+GatherBuddyReborn,,,,"Pick a list on the left, or create one.",左側のリストを選択するか、新規作成してください。
+GatherBuddyReborn,,,,"Pick a project, part or phase to see what it needs. The list it makes uses Vulcan's normal planner.",計画・部品・工程を選択すると必要素材を表示します。リストはVulcanの通常の計画機能で作成します。
+GatherBuddyReborn,,,,Pick a recipe,レシピを選択
+GatherBuddyReborn,,,,Pick a recipe first,先にレシピを選択してください
+GatherBuddyReborn,,,,Pick a recipe to see what it needs and start crafting.,レシピを選択すると必要な素材が表示され、製作を開始できます。
+GatherBuddyReborn,,,,Pick a solution on the left to see its steps.,左側で解を選択すると手順が表示されます。
+GatherBuddyReborn,,,,Pick a workshop project to browse its parts.,カンパニー製作計画を選択すると部品を確認できます。
+GatherBuddyReborn,,,,Pick an item on the left to see its prices.,左側からアイテムを選択すると価格を表示します。
+GatherBuddyReborn,,,,Pick any colour,任意の色を選択
+GatherBuddyReborn,,,,Pick one of your Artisan lists to import into a new auto-gather list.,Artisanのリストを選び、新しい自動採集リストにインポートします。
+GatherBuddyReborn,,,,Pick where collectables runs turn in.,収集品の納品先を選択します。
+GatherBuddyReborn,,,,Place,場所
+GatherBuddyReborn,,,,Place a map marker for this location.,この場所にマップマーカーを設置します。
+GatherBuddyReborn,,,,Place a map marker near the center of this zone's mob locations.,このエリアの敵の出現地点の中心付近にマップマーカーを設置します。
+GatherBuddyReborn,,,,Place custom waymarks,カスタムフィールドマーカーを設置
+GatherBuddyReborn,,,,Place flag marker on map,マップにフラッグマーカーを設置
+GatherBuddyReborn,,,,Place the custom waymarks you have set up for certain locations.,特定の場所に設定したカスタムフィールドマーカーを設置します。
+GatherBuddyReborn,,,,Plan,計画
+GatherBuddyReborn,,,,Play a sound when auto-gathering shuts down because your list is complete.,リストが完了して自動採集が終了したときにサウンドを再生します。
+GatherBuddyReborn,,,,Playback volume,再生音量
+GatherBuddyReborn,,,,Player is busy...,プレイヤーが別の操作中…
+GatherBuddyReborn,,,,Plugin missing,プラグインが見つかりません
+GatherBuddyReborn,,,,Populate Diadem List,ディアデム諸島のリストを生成
+GatherBuddyReborn,,,,Position,座標
+GatherBuddyReborn,,,,Precrafts,中間素材
+GatherBuddyReborn,,,,Precrafts only,中間素材のみ
+GatherBuddyReborn,,,,Precrafts only##qsapo,中間素材のみ##qsapo
+GatherBuddyReborn,,,,Prefer aetherytes closer to the target.,目的地に近いエーテライトを優先します。
+GatherBuddyReborn,,,,Prefer aetherytes that are cheaper to teleport to.,テレポ料金の安いエーテライトを優先します。
+GatherBuddyReborn,,,,"Prefer AllaganTools DataShare locations, then fill gaps from the Level sheet, ENpcPlace supplemental data, and planevent.lgb.",Allagan ToolsのDataShareの位置情報を優先し、足りない位置はLevelシート、ENpcPlace補足データ、planevent.lgbから補います。
+GatherBuddyReborn,,,,Prefer NQ,NQを優先
+GatherBuddyReborn,,,,Prefer NQ##ingredientNQ,NQ優先##ingredientNQ
+GatherBuddyReborn,,,,Prefer NQ##qsapnq,NQを優先##qsapnq
+GatherBuddyReborn,,,,Prefer NQ: crafted from NQ ingredients,NQ優先：NQ素材で製作
+GatherBuddyReborn,,,,"Prefer planevent.lgb locations, then fill gaps from the Level sheet, ENpcPlace supplemental data, and AllaganTools DataShare.",planevent.lgbの位置情報を優先し、足りない位置はLevelシート、ENpcPlace補足データ、Allagan ToolsのDataShareから補います。
+GatherBuddyReborn,,,,Prefer vendors,ショップを優先
+GatherBuddyReborn,,,,Preferred job,優先ジョブ
+GatherBuddyReborn,,,,Preferred repair NPC,優先修理NPC
+GatherBuddyReborn,,,,Preferred turn-in route,優先する納品先
+GatherBuddyReborn,,,,Preset Details,プリセットの詳細
+GatherBuddyReborn,,,,Preset name,プリセット名
+GatherBuddyReborn,,,,Preset name##preset_name,プリセット名##preset_name
+GatherBuddyReborn,,,,"Presets are checked against the item being gathered from top to bottom, and only the first match is used. ",採集するアイテムに対して上から順にプリセットを確認し、最初に一致したものを使用します。
+GatherBuddyReborn,,,,"Presets are checked against the item being gathered from top to bottom, and only the first match is used. The Default preset always comes last and covers every item no other preset matches.",採集するアイテムに対して上から順にプリセットを確認し、最初に一致したものを使用します。既定プリセットは常に最後にあり、他のプリセットに一致しないアイテムに適用されます。
+GatherBuddyReborn,,,,Presets for the small window that shows only the items you care about,必要なアイテムだけを表示する小ウィンドウのプリセット
+GatherBuddyReborn,,,,Press a key,キーを押してください
+GatherBuddyReborn,,,,Press and hold to delete this macro.,長押しでこのマクロを削除します。
+GatherBuddyReborn,,,,Press Enter or Save to keep it.,Enterまたは保存で確定します。
+GatherBuddyReborn,,,,Press Tab or use the D-pad to start navigating.,Tabまたは方向キーでナビゲーションを開始します。
+GatherBuddyReborn,,,,Pressing Escape while the main window is focused closes it.,メインウィンドウにフォーカスがあるときEscapeを押すと閉じます。
+GatherBuddyReborn,,,,Prevents GBR from stopping fishing for aetherial reduction while you have active fishing buffs.,有効な釣りバフがある間、精選で釣りを中断するのを防ぎます。
+GatherBuddyReborn,,,,Prevents GBR from stopping fishing for materia extraction while you have active fishing buffs.,有効な釣りバフがある間、マテリア精製で釣りを中断するのを防ぎます。
+GatherBuddyReborn,,,,"Prevents GBR from stopping fishing for repairs while you have active fishing buffs, like Patience, Surface Slap, Identical Cast or Prize Catch.",ペーシェンス、トレードリリース、セイムキャスト、大物狙いなどの釣りバフが有効な間、修理で釣りを中断するのを防ぎます。
+GatherBuddyReborn,,,,Preview,プレビュー
+GatherBuddyReborn,,,,Price,価格
+GatherBuddyReborn,,,,Print a chat message when this alarm is triggered.,アラームが鳴ったときにチャットメッセージを表示します。
+GatherBuddyReborn,,,,Print clipboard information,クリップボード情報を表示
+GatherBuddyReborn,,,,Print map location,マップ位置をチャットに表示
+GatherBuddyReborn,,,,Print node uptimes on gather,採集時に出現時間を表示
+GatherBuddyReborn,,,,Print the item's link in chat,チャットにアイテムのリンクを表示
+GatherBuddyReborn,,,,"Print the uptimes of nodes you /gather to chat, if they are not always up.",/gather で指定した採集ポイントが常時出現でない場合、出現時間をチャットに表示します。
+GatherBuddyReborn,,,,Print to chat whenever you copy something to the clipboard. Failures are always printed.,クリップボードにコピーしたときにチャットへ表示します。失敗時は常に表示します。
+GatherBuddyReborn,,,,Prioritize NPC repair,NPC修理を優先
+GatherBuddyReborn,,,,Prize Catch,大物狙い
+GatherBuddyReborn,,,,Progress only,工数のみ
+GatherBuddyReborn,,,,Progress Only,工数のみ
+GatherBuddyReborn,,,,Project,計画
+GatherBuddyReborn,,,,Project scope,対象範囲
+GatherBuddyReborn,,,,Purchase lists,購入リスト
+GatherBuddyReborn,,,,Pure Raphael,Raphaelのみ
+GatherBuddyReborn,,,,Puts every setting on this page back to its default. Hold the button to confirm.,このページのすべての設定を既定値に戻します。ボタンを長押しして確定します。
+GatherBuddyReborn,,,,Quality,品質
+GatherBuddyReborn,,,,Quantity,数量
+GatherBuddyReborn,,,,Quantity##browserQty,数量##browserQty
+GatherBuddyReborn,,,,Quest,クエスト
+GatherBuddyReborn,,,,Quest recipes,クエストレシピ
+GatherBuddyReborn,,,,Queue complete!,キュー完了！
+GatherBuddyReborn,,,,Queue options,キュー設定
+GatherBuddyReborn,,,,Quick synth,簡易製作
+GatherBuddyReborn,,,,Quick synth all,すべて簡易製作
+GatherBuddyReborn,,,,Quick synth all##qsa,すべて簡易製作##qsa
+GatherBuddyReborn,,,,Quick synthesis,簡易製作
+GatherBuddyReborn,,,,Quick synthesis unavailable,簡易製作不可
+GatherBuddyReborn,,,,Radius,半径
+GatherBuddyReborn,,,,Raphael isn't used with this choice.,この選択ではRaphaelを使用しません。
+GatherBuddyReborn,,,,Raphael solver,Raphaelソルバー
+GatherBuddyReborn,,,,Raphael validation,Raphael検証
+GatherBuddyReborn,,,,Raphael validation is unavailable.,Raphaelの検証を利用できません。
+GatherBuddyReborn,,,,Re-enable this recipe in the queue.,このレシピをキューで再有効化します。
+GatherBuddyReborn,,,,Re-enter the Diadem to reset clouded nodes,ディアデム諸島に再入場して雲海採集ポイントをリセット
+GatherBuddyReborn,,,,Read stats,ステータスを読み込む
+GatherBuddyReborn,,,,"Read the fish data override file again.
+Right-click to move it to a backup instead.","魚データの上書きファイルを再読み込みします。
+右クリックでバックアップに移動します。"
+GatherBuddyReborn,,,,Ready to Craft,製作準備完了
+GatherBuddyReborn,,,,Real time until the next Eorzea hour.,次のエオルゼア時間の正時までの実時間。
+GatherBuddyReborn,,,,Real time until the weather changes.,天候が変わるまでの実時間。
+GatherBuddyReborn,,,,Reasonable values are between 4 and 8 yalms.,適切な値は4～8ヤルムです。
+GatherBuddyReborn,,,,Recent lists in menus,メニューに表示する最近のリスト
+GatherBuddyReborn,,,,Recipe must be unlocked and previously crafted to use Quick Synthesis,簡易製作を行うにはレシピを解放し、一度製作している必要があります
+GatherBuddyReborn,,,,Recipes,レシピ
+GatherBuddyReborn,,,,"Recipes
+ 
+Browse every recipe, craft it now or add it to a list","レシピ
+ 
+すべてのレシピを閲覧し、すぐに製作するかリストに追加"
+GatherBuddyReborn,,,,Recipes the list gets,リストに追加されるレシピ
+GatherBuddyReborn,,,,Reflection,リフレクション
+GatherBuddyReborn,,,,Refresh all,すべて更新
+GatherBuddyReborn,,,,"Refresh retainer NQ/HQ counts. They don't refresh on their own here, to avoid hitches.",リテイナーのNQ・HQ所持数を更新します。画面が重くなるのを避けるため自動更新は行いません。
+GatherBuddyReborn,,,,Refresh retainers,リテイナー情報を更新
+GatherBuddyReborn,,,,Refreshed retainer counts.,リテイナーの所持数を更新しました。
+GatherBuddyReborn,,,,Refreshing Swimming Shadows state...,魚影の状態を更新中…
+GatherBuddyReborn,,,,Refreshing timers...,タイマーを更新中…
+GatherBuddyReborn,,,,Regular,通常
+GatherBuddyReborn,,,,Regular Fish,通常の魚
+GatherBuddyReborn,,,,"Regular nodes only. Keeps GP for nodes whose bonuses give the best yield per GP: make sure nodes with +2 integrity, ",通常の採集ポイントのみ対象。消費GPあたりの採集数が最良のボーナスにGPを温存します。採集回数+2、
+GatherBuddyReborn,,,,"Regular nodes only. Keeps GP for nodes whose bonuses give the best yield per GP: make sure nodes with +2 integrity, +3 yield and +100% boon chance hidden bonuses exist and that you meet their requirements. ",通常の採集ポイントのみ対象。消費GPあたりの採集数が最良のボーナスにGPを温存します。採集回数+2、採集数+3、獲得数ボーナス発生率+100%の隠しボーナスが存在し、条件を満たしていることを確認してください。
+GatherBuddyReborn,,,,Reimport fish overrides,魚データの上書きを再インポート
+GatherBuddyReborn,,,,Remove,削除
+GatherBuddyReborn,,,,Remove Completed,完了済みを削除
+GatherBuddyReborn,,,,Remove completed,完了したアイテムを削除
+GatherBuddyReborn,,,,Remove completed##list,完了したアイテムを削除##list
+GatherBuddyReborn,,,,Remove enabled items from this list once your inventory reaches their quantity.,有効なアイテムの所持数が目標数に達したら、このリストから削除します。
+GatherBuddyReborn,,,,Remove every setting for this recipe.,このレシピの設定をすべて削除します。
+GatherBuddyReborn,,,,Remove from history,履歴から削除
+GatherBuddyReborn,,,,Remove from the list,リストから削除
+GatherBuddyReborn,,,,Remove this item,このアイテムを削除
+GatherBuddyReborn,,,,Remove this item from the list,このアイテムをリストから削除
+GatherBuddyReborn,,,,Remove this item from the preset,このアイテムをプリセットから削除
+GatherBuddyReborn,,,,Remove this recipe from the list.,このレシピをリストから削除します。
+GatherBuddyReborn,,,,Rename,名前を変更
+GatherBuddyReborn,,,,Rename folder,フォルダー名を変更
+GatherBuddyReborn,,,,Rename this list,このリストの名前を変更
+GatherBuddyReborn,,,,Reopen the Craft Status window for the active crafting queue,実行中の製作キューの製作状況ウィンドウを再表示
+GatherBuddyReborn,,,,Reorder most columns by dragging the blank space of their header. The order is kept across sessions.,多くの列は見出しの空白をドラッグして並べ替えられます。順番は次回起動時にも保持されます。
+GatherBuddyReborn,,,,Repair,修理
+GatherBuddyReborn,,,,Repair gear when it is almost broken.,装備の耐久度が低くなったら修理します。
+GatherBuddyReborn,,,,Repair NPC nearby,近くの修理NPC
+GatherBuddyReborn,,,,Repair threshold,修理しきい値
+GatherBuddyReborn,,,,Repair when the lowest gear condition drops below this percentage.,装備の最低耐久度がこの割合を下回ったら修理します。
+GatherBuddyReborn,,,,Repair your gear between crafts when needed.,必要に応じて製作の合間に装備を修理します。
+GatherBuddyReborn,,,,Repairing Equipment,装備を修理中
+GatherBuddyReborn,,,,Repairing...,修理中…
+GatherBuddyReborn,,,,"Repairs needed, but no dark matter found.",修理が必要ですが、ダークマターがありません。
+GatherBuddyReborn,,,,"Repairs needed, but no repair job found.",修理が必要ですが、修理可能なジョブが見つかりません。
+GatherBuddyReborn,,,,Repairs needed.,修理が必要です。
+GatherBuddyReborn,,,,Requires,必要
+GatherBuddyReborn,,,,Requires Allagan Tools to be installed and enabled.,Allagan Toolsの導入と有効化が必要です。
+GatherBuddyReborn,,,,Requires one of,次のいずれかが必要
+GatherBuddyReborn,,,,Reserve scrips,保持するスクリップ
+GatherBuddyReborn,,,,Reset,リセット
+GatherBuddyReborn,,,,Reset sizes,サイズをリセット
+GatherBuddyReborn,,,,Reset the Standard Solver settings,標準ソルバー設定をリセット
+GatherBuddyReborn,,,,Reset the Standard Solver settings.,標準ソルバーの設定をリセットしました。
+GatherBuddyReborn,,,,Reset to default,既定に戻す
+GatherBuddyReborn,,,,Reset to defaults,既定値に戻す
+GatherBuddyReborn,,,,Resize text columns by dragging the small separators between them. Sizes are kept across sessions.,列間の小さな区切りをドラッグして幅を変更します。設定は次回起動時にも保持されます。
+GatherBuddyReborn,,,,Restock from retainers,リテイナーから素材を引き出す
+GatherBuddyReborn,,,,Restock from retainers##browserRestock,リテイナーから素材を引き出す##browserRestock
+GatherBuddyReborn,,,,Restock from retainers##rrr,リテイナーから素材を引き出す##rrr
+GatherBuddyReborn,,,,Restore,元のサイズに戻す
+GatherBuddyReborn,,,,Restore default groups,既定グループを復元
+GatherBuddyReborn,,,,"Restore the gather groups provided by default if they have been deleted or changed in any way.
+","既定で提供されている採集グループが削除・変更されている場合に復元します。
+"
+GatherBuddyReborn,,,,"Restore the gather groups provided by default if they have been deleted or changed in any way.
+Hold Control to apply. Default Groups are:
+	- ","既定で提供されている採集グループが削除・変更されている場合に復元します。
+Ctrlを押しながら適用します。既定グループ：
+	- "
+GatherBuddyReborn,,,,Restored the default gather groups.,既定の採集グループを復元しました。
+GatherBuddyReborn,,,,Restrictions,制限
+GatherBuddyReborn,,,,Resume,再開
+GatherBuddyReborn,,,,Resuming collectables turn-ins after the purchase list.,購入リストの実行後に収集品納品を再開中。
+GatherBuddyReborn,,,,Ret,リテイナー
+GatherBuddyReborn,,,,Retainer HQ (via Allagan Tools),リテイナーHQ所持数（Allagan Tools経由）
+GatherBuddyReborn,,,,Retainer NQ (via Allagan Tools),リテイナーNQ所持数（Allagan Tools経由）
+GatherBuddyReborn,,,,Retainer total (via Allagan Tools),リテイナー所持数（Allagan Tools経由）
+GatherBuddyReborn,,,,Return home after Vulcan queue turn-ins,Vulcanの納品後に帰宅
+GatherBuddyReborn,,,,Returning home after collectables turn-ins.,収集品納品後に帰宅中。
+GatherBuddyReborn,,,,Returning to fishing spot...,釣り場へ戻っています…
+GatherBuddyReborn,,,,RHQ,リテイナーHQ
+GatherBuddyReborn,,,,Right,右
+GatherBuddyReborn,,,,Right stick,右スティック
+GatherBuddyReborn,,,,Right-click any item in the Materials window to look up its price.,素材ウィンドウのアイテムを右クリックして価格を検索します。
+GatherBuddyReborn,,,,Right-click item names and a few other columns (like bait and fishing spot) for menus with more options.,アイテム名や釣り餌、釣り場などの列を右クリックすると詳細メニューが開きます。
+GatherBuddyReborn,,,,Right-click the + button to make a new list or add the item to another list.,＋ボタンを右クリックすると新規リストを作成したり、別のリストに追加したりできます。
+GatherBuddyReborn,,,,"Right-click the blank space of a header to open the table's context menu, where you can hide columns you are not interested in.",列見出しの空白を右クリックしてメニューを開き、不要な列を非表示にできます。
+GatherBuddyReborn,,,,Right-click to clear the filter.,右クリックでフィルター解除。
+GatherBuddyReborn,,,,RNQ,リテイナーNQ
+GatherBuddyReborn,,,,Root,ルート
+GatherBuddyReborn,,,,Round the interval seconds to this many digits after the decimal point. 0 shows whole numbers.,時間目盛りの秒数を小数点以下何桁まで表示するか。0は整数表示です。
+GatherBuddyReborn,,,,Route,航路
+GatherBuddyReborn,,,,Run the active vendor list.,現在のショップリストを実行します。
+GatherBuddyReborn,,,,Run turn-ins,納品を実行
+GatherBuddyReborn,,,,Run vendor purchase list after turn-in,納品後にショップ購入リストを実行
+GatherBuddyReborn,,,,Running the collectables purchase list.,収集品の購入リストを実行中。
+GatherBuddyReborn,,,,Runs collectable turn-ins straight away.,すぐに収集品の納品を開始します。
+GatherBuddyReborn,,,,"Runs the selected buy list after turn-ins, or during scrip-cap recovery if space must be cleared.",納品後、またはスクリップ上限に達して空きを作る際に選択した購入リストを実行します。
+GatherBuddyReborn,,,,Save,保存
+GatherBuddyReborn,,,,Save defaults,既定設定を保存
+GatherBuddyReborn,,,,Saved Gatherables,保存済み採集物
+GatherBuddyReborn,,,,Saved Raphael solutions,Raphaelの保存済みの解
+GatherBuddyReborn,,,,Saved the minimum stats.,最低ステータスを保存しました。
+GatherBuddyReborn,,,,Saved World Objects,保存済みワールドオブジェクト
+GatherBuddyReborn,,,,"Scales buttons, switches, fields and the other controls.",ボタン、スイッチ、入力欄などの操作部品のサイズを調整します。
+GatherBuddyReborn,,,,"Scales the space around and between things, without resizing them.",部品のサイズは変えず、周囲や部品間の間隔を調整します。
+GatherBuddyReborn,,,,"Scales the text, on top of Dalamud's own font size.",Dalamudのフォントサイズを基準に文字の大きさを調整します。
+GatherBuddyReborn,,,,Scope,範囲
+GatherBuddyReborn,,,,Scrip,スクリップ
+GatherBuddyReborn,,,,"Scrip cap reached while turning in collectables, but no collectables purchase list is configured.",収集品の納品中にスクリップが上限に達しましたが、購入リストが設定されていません。
+GatherBuddyReborn,,,,"Scrip cap reached while turning in collectables, but vendor automation is unavailable because neither Allagan Tools nor Allagan Item Search is installed and enabled.",納品中にスクリップが上限に達しました。Allagan ToolsとAllagan Item Searchのどちらも有効になっていないため、自動購入できません。
+GatherBuddyReborn,,,,"Scrip cap reached, running the collectables purchase list.",スクリップが上限に達したため、収集品の購入リストを実行中。
+GatherBuddyReborn,,,,Scrips,スクリップ
+GatherBuddyReborn,,,,Search,検索
+GatherBuddyReborn,,,,"Search by name, job or level",名前・ジョブ・レベルで検索
+GatherBuddyReborn,,,,Search for a recipe to add,追加するレシピを検索
+GatherBuddyReborn,,,,Search items,アイテムを検索
+GatherBuddyReborn,,,,Search lists,リストを検索
+GatherBuddyReborn,,,,Search macros,マクロを検索
+GatherBuddyReborn,,,,Search marketboard,マケボで検索
+GatherBuddyReborn,,,,Search projects,製作計画を検索
+GatherBuddyReborn,,,,Search recipes,レシピを検索
+GatherBuddyReborn,,,,search results,検索結果
+GatherBuddyReborn,,,,Search results,検索結果
+GatherBuddyReborn,,,,Search settings,設定を検索
+GatherBuddyReborn,,,,Seconds early,事前通知秒数
+GatherBuddyReborn,,,,Select a crafting purchase list for Vulcan and crafting manual turn-ins.,Vulcanと製作収集品の手動納品用の購入リストを選択してください。
+GatherBuddyReborn,,,,Select a gathering purchase list for Auto-Gather and gathering manual turn-ins.,自動採集と採集収集品の手動納品用の購入リストを選択してください。
+GatherBuddyReborn,,,,Select a list,リストを選択
+GatherBuddyReborn,,,,Selected Bait,選択中の釣り餌
+GatherBuddyReborn,,,,Selected SwimBait,選択中の泳がせ釣り餌
+GatherBuddyReborn,,,,Selecting collectables turn-in job.,収集品の納品ジョブを選択中。
+GatherBuddyReborn,,,,Set,設定
+GatherBuddyReborn,,,,Set All Fish Unlocked,すべての魚を解放済みにする
+GatherBuddyReborn,,,,Set collectability scores manually,収集価値を手動設定
+GatherBuddyReborn,,,,"Set food, medicine and more for this recipe",このレシピの食事・薬品などを設定
+GatherBuddyReborn,,,,Set Locations Dirty,場所を再読み込み
+GatherBuddyReborn,,,,Set up and select a gather group first.,先に採集グループを設定して選択してください。
+GatherBuddyReborn,,,,Set Weather Dirty,天候を再読み込み
+GatherBuddyReborn,,,,Settings,設定
+GatherBuddyReborn,,,,"Settings
+ 
+Solver, repair, materia and retainer settings for crafting","設定
+ 
+製作ソルバー・修理・マテリア・リテイナーの設定"
+GatherBuddyReborn,,,,Setup guide,設定ガイド
+GatherBuddyReborn,,,,"Setup:
+","設定手順：
+"
+GatherBuddyReborn,,,,Shadow,魚影
+GatherBuddyReborn,,,,Shadowbringers,漆黒のヴィランズ
+GatherBuddyReborn,,,,Share this preset,このプリセットを共有
+GatherBuddyReborn,,,,Shared collectables turn-ins and purchase automation for Auto-Gather and Vulcan.,自動採集とVulcanで共用する収集品の納品・購入処理。
+GatherBuddyReborn,,,,Shoulder buttons,ショルダーボタン
+GatherBuddyReborn,,,,Show,表示
+GatherBuddyReborn,,,,Show a small window with pinned gatherables and their uptimes.,ピン留めした採集物と出現時間を表示する小ウィンドウを表示します。
+GatherBuddyReborn,,,,Show a status line below the gatherables and fish tables.,採集物・魚のテーブルの下にステータス行を表示します。
+GatherBuddyReborn,,,,Show a straight line up from the center of the gig in the spearfishing window.,刺突漁ウィンドウのギグの中心から上に直線を表示します。
+GatherBuddyReborn,,,,Show active alarms in gather window,採集ウィンドウに有効なアラームを表示
+GatherBuddyReborn,,,,Show all,すべて表示
+GatherBuddyReborn,,,,Show baits vendors don't sell,ショップで購入できない釣り餌を表示
+GatherBuddyReborn,,,,Show center line,中心線を表示
+GatherBuddyReborn,,,,Show collectable hints,収集品のヒントを表示
+GatherBuddyReborn,,,,Show each setting's description under its name. Turn it off to show descriptions on hover instead.,設定名の下に説明文を表示します。無効時はカーソルを合わせると説明が表示されます。
+GatherBuddyReborn,,,,Show every ingredient,すべての素材を表示
+GatherBuddyReborn,,,,Show fish name overlay,魚名のオーバーレイを表示
+GatherBuddyReborn,,,,Show fish names in fixed position,魚名を固定位置に表示
+GatherBuddyReborn,,,,Show fish timer,釣りタイマーを表示
+GatherBuddyReborn,,,,Show gather window,採集ウィンドウを表示
+GatherBuddyReborn,,,,Show gather window timers,採集ウィンドウのタイマーを表示
+GatherBuddyReborn,,,,Show how the recipes break down,レシピの構成を表示
+GatherBuddyReborn,,,,Show list of available fish,捕獲可能な魚のリストを表示
+GatherBuddyReborn,,,,Show multi hook hints,複数釣りのヒントを表示
+GatherBuddyReborn,,,,Show names in weather page,天候ページに天候名を表示
+GatherBuddyReborn,,,,Show only available items,採集可能なアイテムのみ表示
+GatherBuddyReborn,,,,Show only the final items,最終製作品のみを表示
+GatherBuddyReborn,,,,Show percentages above 100 when you have more than you need.,必要数より多く所持している場合、100%を超える割合を表示します。
+GatherBuddyReborn,,,,Show recipe browser item tooltips,レシピ一覧のアイテムツールチップを表示
+GatherBuddyReborn,,,,Show recipes of every job,全ジョブのレシピを表示
+GatherBuddyReborn,,,,Show spearfishing helper,刺突漁ヘルパーを表示
+GatherBuddyReborn,,,,Show speed and size as text,速度・サイズを文字で表示
+GatherBuddyReborn,,,,Show speed of fish in overlay,オーバーレイに魚の速度を表示
+GatherBuddyReborn,,,,Show status line,ステータス行を表示
+GatherBuddyReborn,,,,Show the crafting tree for this list,このリストの製作ツリーを表示
+GatherBuddyReborn,,,,Show the fish timer window while fishing.,釣り中に釣りタイマーウィンドウを表示します。
+GatherBuddyReborn,,,,Show the game's item tooltip when hovering recipe results on the Recipes page.,レシピページで製作品にカーソルを合わせるとゲームのアイテムツールチップを表示します。
+GatherBuddyReborn,,,,Show the GatherBuddy window when you start the game.,ゲーム起動時にGatherBuddyのウィンドウを表示します。
+GatherBuddyReborn,,,,Show the materials for this list,このリストの素材を表示
+GatherBuddyReborn,,,,Show the names of identified fish at a fixed height instead of on the moving fish.,特定された魚の名前を動いている魚の上ではなく一定の高さに表示します。
+GatherBuddyReborn,,,,Show the names of identified fish in the spearfishing window.,刺突漁ウィンドウで特定された魚の名前を表示します。
+GatherBuddyReborn,,,,Show the precrafts that get made before the final items,最終製作品の前に製作する中間素材を表示
+GatherBuddyReborn,,,,Show the spearfishing helper while spearfishing.,刺突漁中にヘルパーを表示します。
+GatherBuddyReborn,,,,Show the speed and size of available fish as text instead of icons.,捕獲可能な魚の速度とサイズをアイコンではなく文字で表示します。
+GatherBuddyReborn,,,,"Show the speed of fish in the spearfishing window, next to their names.",刺突漁ウィンドウで魚名の横に速度を表示します。
+GatherBuddyReborn,,,,Show the uptimes of restricted fish in the fish timer window.,条件付きの魚の出現時間を釣りタイマーに表示します。
+GatherBuddyReborn,,,,Show the uptimes of the items in the gather window.,採集ウィンドウにアイテムの出現時間を表示します。
+GatherBuddyReborn,,,,Show this preset's items in the gather window.,このプリセットのアイテムを採集ウィンドウに表示します。
+GatherBuddyReborn,,,,Show timestamps on the Fish Records page in local time instead of Unix time.,釣り記録ページのタイムスタンプをUnix時間の代わりにローカル時間で表示します。
+GatherBuddyReborn,,,,Show uptimes in fish timer,釣りタイマーに出現時間を表示
+GatherBuddyReborn,,,,"Show Vulcan entries (Open in Vulcan, Add to Crafting List, Add to Vendor Buy List) in the in-game right-click menu.",ゲーム内の右クリックメニューにVulcanの項目（Vulcanで開く、製作リストに追加、ショップ購入リストに追加）を表示します。
+GatherBuddyReborn,,,,Show what this list needs,リストに必要な素材を表示
+GatherBuddyReborn,,,,Show whether a fish can be double or triple hooked in Cosmic Exploration and Ocean Fishing.,コスモエクスプローラーやオーシャンフィッシングでダブルフッキング・トリプルフッキング可能か表示します。
+GatherBuddyReborn,,,,Show whether a fish is collectable in the fish timer window.,釣りタイマーに魚が収集品かどうかを表示します。
+GatherBuddyReborn,,,,Size,サイズ
+GatherBuddyReborn,,,,SizeFactor,サイズ係数
+GatherBuddyReborn,,,,Skip,スキップ
+GatherBuddyReborn,,,,Skip a step that can't be used,使用できない手順をスキップ
+GatherBuddyReborn,,,,Skip a step that can't be used##skipUnusable,使用できない手順をスキップ##skipUnusable
+GatherBuddyReborn,,,,Skip if already have enough,必要数を所持している場合はスキップ
+GatherBuddyReborn,,,,Skip if already have enough##sie,必要数を所持している場合はスキップ##sie
+GatherBuddyReborn,,,,Skip nearby teleports,近距離テレポをスキップ
+GatherBuddyReborn,,,,Skip teleporting if you are in the same map and already closer to the target than the selected aetheryte.,同じマップ内にいて、選択したエーテライトよりも目的地に近い場合はテレポをスキップします。
+GatherBuddyReborn,,,,Skip this recipe in the queue.,キューでこのレシピをスキップします。
+GatherBuddyReborn,,,,Skipped,スキップ済み
+GatherBuddyReborn,,,,Skipped in the queue,キューではスキップします
+GatherBuddyReborn,,,,"Skipped, no recipe",レシピがないためスキップ
+GatherBuddyReborn,,,,Skipped. Click to buy it again.,スキップ中。クリックで再び購入対象にします。
+GatherBuddyReborn,,,,Skipped: you already have enough,スキップ：必要数を所持済み
+GatherBuddyReborn,,,,slots,枠
+GatherBuddyReborn,,,,Snagging,引掛釣り
+GatherBuddyReborn,,,,Solutions,解の一覧
+GatherBuddyReborn,,,,"Solutions
+ 
+Saved Raphael solutions","解の一覧
+ 
+Raphaelの保存済みの解"
+GatherBuddyReborn,,,,Solutions older than this are discarded when the plugin loads.,この期間を超えた解をプラグイン読み込み時に破棄します。
+GatherBuddyReborn,,,,Solve parameters,計算条件
+GatherBuddyReborn,,,,Solve timeout,計算タイムアウト
+GatherBuddyReborn,,,,Solver mode,ソルバーモード
+GatherBuddyReborn,,,,"Solver, repair, materia and retainer settings for crafting",製作ソルバー・修理・マテリア・リテイナーの設定
+GatherBuddyReborn,,,,Solvers,ソルバー
+GatherBuddyReborn,,,,Solves running now,現在計算中の解
+GatherBuddyReborn,,,,Solves waiting in the queue,キューで計算待ちの解
+GatherBuddyReborn,,,,Solving with Raphael,Raphaelで計算中
+GatherBuddyReborn,,,,Some records are hidden by the column filters.,列のフィルターで一部の記録が非表示になっています。
+GatherBuddyReborn,,,,Sort,並べ替え
+GatherBuddyReborn,,,,Sort by,並べ替え基準
+GatherBuddyReborn,,,,Sort gather window by uptime,採集ウィンドウを出現時間順で並べ替え
+GatherBuddyReborn,,,,Sort the items in the gather window by their uptimes.,採集ウィンドウのアイテムを出現時間順に並べ替えます。
+GatherBuddyReborn,,,,Sound,サウンド
+GatherBuddyReborn,,,,Source,入手元
+GatherBuddyReborn,,,,Source order,データソースの順序
+GatherBuddyReborn,,,,Source to prefer,優先するデータソース
+GatherBuddyReborn,,,,Spacing,余白
+GatherBuddyReborn,,,,Spearfishing,刺突漁
+GatherBuddyReborn,,,,Special Currency,特殊通貨
+GatherBuddyReborn,,,,Specialist,マイスター
+GatherBuddyReborn,,,,Specific,個別指定
+GatherBuddyReborn,,,,Specific currency,指定通貨
+GatherBuddyReborn,,,,Spot 1,釣り場1
+GatherBuddyReborn,,,,Spot 1 Normal,釣り場1 通常
+GatherBuddyReborn,,,,Spot 1 Spectral,釣り場1 幻海流
+GatherBuddyReborn,,,,Spot 1###A,釣り場1###A
+GatherBuddyReborn,,,,Spot 1###O,釣り場1###O
+GatherBuddyReborn,,,,Spot 2,釣り場2
+GatherBuddyReborn,,,,Spot 2 Normal,釣り場2 通常
+GatherBuddyReborn,,,,Spot 2 Spectral,釣り場2 幻海流
+GatherBuddyReborn,,,,Spot 2###A,釣り場2###A
+GatherBuddyReborn,,,,Spot 2###O,釣り場2###O
+GatherBuddyReborn,,,,Spot 3,釣り場3
+GatherBuddyReborn,,,,Spot 3 Normal,釣り場3 通常
+GatherBuddyReborn,,,,Spot 3 Spectral,釣り場3 幻海流
+GatherBuddyReborn,,,,Spot 3###A,釣り場3###A
+GatherBuddyReborn,,,,Spot 3###O,釣り場3###O
+GatherBuddyReborn,,,,Squadron manual,軍用マニュアル
+GatherBuddyReborn,,,,Squadron Manual,軍用マニュアル
+GatherBuddyReborn,,,,Standard solver,標準ソルバー
+GatherBuddyReborn,,,,Standard Solver,標準ソルバー
+GatherBuddyReborn,,,,"Standard Solver
+ 
+How the dynamic Standard Solver behaves","標準ソルバー
+ 
+動的な標準ソルバーの動作設定"
+GatherBuddyReborn,,,,Start a queue with the Raphael solver to generate solutions.,Raphaelソルバーを使用するキューを開始して解を生成してください。
+GatherBuddyReborn,,,,Start anyway,このまま開始
+GatherBuddyReborn,,,,Start anyway?,このまま開始しますか？
+GatherBuddyReborn,,,,Start craft,製作開始
+GatherBuddyReborn,,,,Start crafting,製作を開始
+GatherBuddyReborn,,,,Start crafting anyway,マクロが失敗しても製作を開始
+GatherBuddyReborn,,,,Start crafting anyway###gbr_confirm_failed_macros,マクロが失敗しても製作を開始###gbr_confirm_failed_macros
+GatherBuddyReborn,,,,Start list,リストを開始
+GatherBuddyReborn,,,,Start Time,開始時刻
+GatherBuddyReborn,,,,Starts in,開始まで
+GatherBuddyReborn,,,,"Static rotations generated by the Raphael solver.
+Consistent, optimal results.","Raphaelソルバーが生成した固定手順。
+安定した最適な結果が得られます。"
+GatherBuddyReborn,,,,Status,状態
+GatherBuddyReborn,,,,Status: Adjusting position for Cast...,状態：キャスティングのため位置を調整中…
+GatherBuddyReborn,,,,Status: Adjusting rotation...,状態：向きを調整中…
+GatherBuddyReborn,,,,Status: Advanced unstuck in progress!,状態：スタック回避の詳細処理中！
+GatherBuddyReborn,,,,Status: Aetherial reduction,状態：精選
+GatherBuddyReborn,,,,Status: All active nodes in The Diadem are blacklisted,状態：ディアデム諸島の出現中の全採集ポイントが除外されています
+GatherBuddyReborn,,,,Status: Calculating best action sequence...,状態：最適なアクションの順序を計算中…
+GatherBuddyReborn,,,,Status: Can not teleport when bound by duty,状態：コンテンツ中はテレポできません
+GatherBuddyReborn,,,,"Status: Can't land here, recovering before selecting a nearby spot...",状態：ここでは着地できません。近くの場所を選ぶ前に復旧中…
+GatherBuddyReborn,,,,Status: Closing fishing before teleport...,状態：テレポ前に釣りを終了中…
+GatherBuddyReborn,,,,Status: Closing gathering window before teleport...,状態：テレポ前に採集ウィンドウを閉じています…
+GatherBuddyReborn,,,,Status: Dismounting...,状態：マウントから降りています…
+GatherBuddyReborn,,,,Status: Fell out of control loop unexpectedly. Please report this error.,状態：制御処理が予期せず終了しました。このエラーを報告してください。
+GatherBuddyReborn,,,,Status: Finishing current cast before switching target...,状態：釣りを終えてから対象を変更中…
+GatherBuddyReborn,,,,Status: Fish detected! Relocating and waiting...,状態：魚に警戒されました。移動して待機中…
+GatherBuddyReborn,,,,Status: Fish wary - relocating...,状態：魚が警戒しています。移動中…
+GatherBuddyReborn,,,,Status: Fishing recovery in progress...,状態：釣りの復旧処理中…
+GatherBuddyReborn,,,,"Status: Fishing route stalled twice, finding a nearby spot...",状態：釣り場への移動が2回停滞。近くの場所を検索中…
+GatherBuddyReborn,,,,"Status: Fishing route stalled, retrying the same spot...",状態：釣り場への移動が停滞。同じ場所への移動を再試行中…
+GatherBuddyReborn,,,,"Status: Fishing route stopped short twice, finding a nearby spot...",状態：釣り場への移動が2回途中停止。近くの場所を検索中…
+GatherBuddyReborn,,,,Status: Fishing...,状態：釣り中…
+GatherBuddyReborn,,,,Status: Gathering...,状態：採集中…
+GatherBuddyReborn,,,,Status: Generating path...,状態：経路を生成中…
+GatherBuddyReborn,,,,Status: Idle...,状態：待機中…
+GatherBuddyReborn,,,,Status: Install Lifestream to access housing wards,状態：ハウジングエリアへ移動するにはLifestreamを導入してください
+GatherBuddyReborn,,,,Status: Inventory is full,状態：所持品がいっぱいです
+GatherBuddyReborn,,,,Status: Manual teleporting required,状態：手動でテレポしてください
+GatherBuddyReborn,,,,Status: Moving to aetheryte...,状態：エーテライトへ移動中…
+GatherBuddyReborn,,,,Status: Moving to Diadem NPC...,状態：ディアデム諸島のNPCへ移動中…
+GatherBuddyReborn,,,,Status: Moving to far node...,状態：遠くの採集ポイントへ移動中…
+GatherBuddyReborn,,,,Status: Moving to fishing spot,状態：釣り場へ移動中
+GatherBuddyReborn,,,,Status: Moving to new fishing spot...,状態：新しい釣り場へ移動中…
+GatherBuddyReborn,,,,Status: Moving to node...,状態：採集ポイントへ移動中…
+GatherBuddyReborn,,,,Status: Moving to Swimming Shadows...,状態：魚影へ移動中…
+GatherBuddyReborn,,,,Status: No available items to gather,状態：採集可能なアイテムがありません
+GatherBuddyReborn,,,,Status: Persistent amiss! Teleporting out to clear...,状態：警戒が続いています。解除のためテレポ中…
+GatherBuddyReborn,,,,Status: Player is busy...,状態：プレイヤーが別の操作中…
+GatherBuddyReborn,,,,Status: Refreshing Swimming Shadows state...,状態：魚影の状態を更新中…
+GatherBuddyReborn,,,,Status: Refreshing timers...,状態：タイマーを更新中…
+GatherBuddyReborn,,,,Status: Repairing...,状態：修理中…
+GatherBuddyReborn,,,,"Status: Repairs needed, but no dark matter found.",状態：修理が必要ですが、ダークマターがありません。
+GatherBuddyReborn,,,,"Status: Repairs needed, but no repair job found.",状態：修理が必要ですが、修理可能なジョブが見つかりません。
+GatherBuddyReborn,,,,Status: Repairs needed.,状態：修理が必要です。
+GatherBuddyReborn,,,,Status: Returning to fishing spot...,状態：釣り場へ戻っています…
+GatherBuddyReborn,,,,Status: Stopping fishing to change target...,状態：対象変更のため釣りを終了中…
+GatherBuddyReborn,,,,Status: Stopping fishing to relocate to new spot...,状態：別の釣り場へ移動するため釣りを終了中…
+GatherBuddyReborn,,,,Status: Teleporting to housing ward...,状態：ハウジングエリアへテレポ中…
+GatherBuddyReborn,,,,Status: Teleporting...,状態：テレポ中…
+GatherBuddyReborn,,,,"Status: Too many jiggle attempts, finding a nearby spot...",状態：位置調整の試行回数が上限に達したため、近くの場所を検索中…
+GatherBuddyReborn,,,,Status: Trying to reset the bugged Clouded node,状態：不具合のある雲海採集ポイントの再出現を試行中
+GatherBuddyReborn,,,,Status: Turning in collectables...,状態：収集品を納品中…
+GatherBuddyReborn,,,,Status: Using aethernet...,状態：都市内エーテライトを使用中…
+GatherBuddyReborn,,,,Status: Waiting after recent node interaction before teleport...,状態：テレポ前に採集ポイントへの操作終了を待機中…
+GatherBuddyReborn,,,,Status: Waiting for character change to complete...,状態：キャラクター変更の完了を待機中…
+GatherBuddyReborn,,,,Status: Waiting for correct Umbral weather,状態：適切な霊風系の天候を待機中
+GatherBuddyReborn,,,,Status: Waiting for current action to complete before teleport...,状態：テレポ前に現在のアクションの完了を待機中…
+GatherBuddyReborn,,,,Status: Waiting for current tasks to complete before teleport...,状態：テレポ前に現在の処理の完了を待機中…
+GatherBuddyReborn,,,,Status: Waiting for Gathering Point... (No Nav Mode),状態：採集ポイントを待機中…（移動なしモード）
+GatherBuddyReborn,,,,Status: Waiting for GP to regenerate...,状態：GPの回復を待機中…
+GatherBuddyReborn,,,,Status: Waiting for map marker to show up,状態：マップマーカーの表示を待機中
+GatherBuddyReborn,,,,Status: Waiting for node to become targetable...,状態：採集ポイントがターゲット可能になるまで待機中…
+GatherBuddyReborn,,,,Status: Waiting for player to be ready...,状態：プレイヤーが操作可能になるまで待機中…
+GatherBuddyReborn,,,,Status: Waiting for rotation...,状態：向きの調整を待機中…
+GatherBuddyReborn,,,,Stop,停止
+GatherBuddyReborn,,,,"Stop gathering and abandon the node when you have gathered enough items, or if the node didn't have any needed items in the first place.",必要なアイテム数を採集したか、必要なアイテムが最初からない採集ポイントでは採集を中止して離れます。
+GatherBuddyReborn,,,,Stop it here if you need to.,必要に応じてここで停止できます。
+GatherBuddyReborn,,,,Stop queue,キューを停止
+GatherBuddyReborn,,,,Stop run,処理を停止
+GatherBuddyReborn,,,,Stop the crafting queue.,製作キューを停止します。
+GatherBuddyReborn,,,,Stop the gather window from being dragged around.,採集ウィンドウをドラッグで移動できないようにします。
+GatherBuddyReborn,,,,Stop the main window from being moved.,メインウィンドウを移動できないようにします。
+GatherBuddyReborn,,,,Stop the main window from being resized.,メインウィンドウのサイズを変更できないようにします。
+GatherBuddyReborn,,,,Stopping fishing to change target...,対象変更のため釣りを終了中…
+GatherBuddyReborn,,,,Stopping fishing to relocate to new spot...,別の釣り場へ移動するため釣りを終了中…
+GatherBuddyReborn,,,,Store fish records on your computer. The fish timer needs these for bite timings.,釣り記録をPCに保存します。釣りタイマーでアタリ時間を計算するために必要です。
+GatherBuddyReborn,,,,Stormblood,紅蓮のリベレーター
+GatherBuddyReborn,,,,Stuck threshold,スタック判定しきい値
+GatherBuddyReborn,,,,Summary,概要
+GatherBuddyReborn,,,,Sunset,夕方
+GatherBuddyReborn,,,,Sunset or Day,夕方または昼
+GatherBuddyReborn,,,,Sunset or Night,夕方または夜
+GatherBuddyReborn,,,,Supplies with recipes,レシピのある納品素材
+GatherBuddyReborn,,,,Surface Slap,トレードリリース
+GatherBuddyReborn,,,,SwimBait 1,泳がせ釣り餌1
+GatherBuddyReborn,,,,SwimBait 2,泳がせ釣り餌2
+GatherBuddyReborn,,,,SwimBait 3,泳がせ釣り餌3
+GatherBuddyReborn,,,,Switching Job,ジョブ変更中
+GatherBuddyReborn,,,,Target collectability,目標収集価値
+GatherBuddyReborn,,,,Target fish,対象の魚
+GatherBuddyReborn,,,,Target fish##preset_fish,対象の魚##preset_fish
+GatherBuddyReborn,,,,Target HQ chance,目標HQ率
+GatherBuddyReborn,,,,Target list,対象リスト
+GatherBuddyReborn,,,,Targetable,ターゲット可能
+GatherBuddyReborn,,,,Teal,青緑
+GatherBuddyReborn,,,,TeamCraft import,TeamCraftインポート
+GatherBuddyReborn,,,,TeamCraft Import,TeamCraftインポート
+GatherBuddyReborn,,,,Teamcraft link,Teamcraftリンク
+GatherBuddyReborn,,,,Teleport to an upcoming timed node or fishing spot and wait at the aetheryte when there is nothing else to gather. ,他に採集するものがない場合、次の時間制限付き採集ポイントや釣り場へテレポし、エーテライトで待機します。
+GatherBuddyReborn,,,,Teleport to an upcoming timed node or fishing spot and wait at the aetheryte when there is nothing else to gather. This option has priority over going home when idle.,他に採集するものがない場合、次の時間制限付き採集ポイントや釣り場へテレポし、エーテライトで待機します。この設定は待機中の帰宅より優先されます。
+GatherBuddyReborn,,,,Teleport to the nearest aetheryte for this location and place a map marker there.,この場所の最寄りエーテライトへテレポし、マップマーカーを設置します。
+GatherBuddyReborn,,,,Teleport to the nearest aetheryte for this zone and place a map marker there.,このエリアの最寄りエーテライトへテレポし、マップマーカーを設置します。
+GatherBuddyReborn,,,,Teleporting to housing ward...,ハウジングエリアへテレポ中…
+GatherBuddyReborn,,,,Teleporting...,テレポ中…
+GatherBuddyReborn,,,,Territory,エリア
+GatherBuddyReborn,,,,Test Enhanced Weather,拡張天候をテスト
+GatherBuddyReborn,,,,"Text filters also support regular expressions, e.g. ""(blue|green)"" matches all entries that contain either blue or green.",テキストフィルターは正規表現にも対応しています。例：「(blue|green)」はblueまたはgreenを含む項目に一致します。
+GatherBuddyReborn,,,,"Text filters like ""Filter items"" only show entries that contain the given text. They are case-insensitive and are not kept for your next session.",「アイテムを絞り込み」などのテキストフィルターは入力文字列を含む項目だけを表示します。大文字小文字を区別せず、次回起動時には引き継がれません。
+GatherBuddyReborn,,,,Text size,文字サイズ
+GatherBuddyReborn,,,,That doesn't look like a list export string.,リストのエクスポート文字列ではないようです。
+GatherBuddyReborn,,,,The active vendor buy list,現在のショップ購入リスト
+GatherBuddyReborn,,,,The active vendor list is no longer available.,現在のショップリストを利用できなくなりました。
+GatherBuddyReborn,,,,The Artisan plugin is loaded. Unload Artisan to use Vulcan's crafting.,Artisanが読み込まれています。Vulcanの製作を使用するにはArtisanを無効にしてください。
+GatherBuddyReborn,,,,The Browsingway plugin was not found or is not loaded. You can browse Teamcraft in your web browser and paste macros here.,Browsingwayプラグインが見つからないか読み込まれていません。WebブラウザでTeamcraftを閲覧し、ここにマクロを貼り付けられます。
+GatherBuddyReborn,,,,"The chat type used for GatherBuddy's error messages. The message only goes to your own chat log, whatever the channel; nobody else sees it.",GatherBuddyのエラーメッセージに使用するチャット種別。どのチャンネルでもこのメッセージは自分のチャットログだけに表示されます。
+GatherBuddyReborn,,,,"The chat type used for GatherBuddy's regular messages. The message only goes to your own chat log, whatever the channel; nobody else sees it.",GatherBuddyの通常メッセージに使用するチャット種別。どのチャンネルでもこのメッセージは自分のチャットログだけに表示されます。
+GatherBuddyReborn,,,,The clipboard does not hold a valid entry.,クリップボードに有効な項目がありません。
+GatherBuddyReborn,,,,The clipboard does not hold an auto-gather list.,クリップボードに自動採集リストがありません。
+GatherBuddyReborn,,,,The collectables window isn't available.,収集品ウィンドウを利用できません。
+GatherBuddyReborn,,,,The command used when idling or done gathering. Do not include '/li'. Be careful when changing this; GBR does not validate it.,待機中または採集完了時に使用するコマンド。「/li」は含めません。GBRは入力内容を検証しないため、変更には注意してください。
+GatherBuddyReborn,,,,The configured collectables purchase list is unavailable.,設定した収集品の購入リストが利用できません。
+GatherBuddyReborn,,,,The Default preset always comes last and covers every item no other preset matches.,既定プリセットは常に最後にあり、他のプリセットに一致しないアイテムに適用されます。
+GatherBuddyReborn,,,,The Discord link couldn't be opened.,Discordのリンクを開けませんでした。
+GatherBuddyReborn,,,,The fish timer's bite times are scaled to this. Bites longer than this don't show their progress bar and bite windows. ,釣りタイマーのアタリ時間の表示範囲です。これより長いアタリ時間の魚は進行バーとアタリ時間帯が表示されません。
+GatherBuddyReborn,,,,The fish timer's bite times are scaled to this. Bites longer than this don't show their progress bar and bite windows. Keep it as high as your longest bite window and otherwise as low as possible; about 40 seconds is usually enough.,釣りタイマーのアタリ時間の表示範囲です。これより長いアタリ時間の魚は進行バーとアタリ時間帯が表示されません。最長のアタリ時間が収まる範囲でできるだけ低く設定します。通常は40秒程度で十分です。
+GatherBuddyReborn,,,,"The fixed distance from the node at which you will try to land. Used when random landing positions are disabled, ",採集ポイントから着地を試みる固定距離。ランダム着地が無効の場合や、
+GatherBuddyReborn,,,,"The fixed distance from the node at which you will try to land. Used when random landing positions are disabled, or when no collected data is available. Low values make it harder to dismount; high values may produce odd paths. Reasonable values are between 4 and 8 yalms.",採集ポイントから着地を試みる固定距離。ランダム着地が無効の場合や、収集した座標データがない場合に使用します。距離が短いと降りにくく、長いと不自然な経路になる場合があります。適切な値は4～8ヤルムです。
+GatherBuddyReborn,,,,The folder is empty.,フォルダーは空です。
+GatherBuddyReborn,,,,The full path of the file to write. An existing file is overwritten.,出力先ファイルのフルパス。既存ファイルは上書きされます。
+GatherBuddyReborn,,,,"The full project's requirements, for a list covering the whole workshop project.",カンパニー製作計画全体の必要素材。計画のすべてをカバーするリストを作成できます。
+GatherBuddyReborn,,,,The gather window only shows while you hold the key below.,以下で設定したキーを押している間だけ採集ウィンドウを表示します。
+GatherBuddyReborn,,,,The gathering log state is not available,採集手帳の状態を取得できません
+GatherBuddyReborn,,,,The hidden gathering level (glv). Use it to tell different tiers of legendary nodes apart.,非表示の採集レベル（glv）。伝説の採集ポイントの段階を区別するために使います。
+GatherBuddyReborn,,,,The HQ percentage to aim for on normal crafts.,通常製作で目標とするHQ率。
+GatherBuddyReborn,,,,The Hunt,モブハント
+GatherBuddyReborn,,,,The items this preset is used for.,このプリセットを使用するアイテム。
+GatherBuddyReborn,,,,The last fish alarm that went off shows here. Click it to /gather that fish.,最後に鳴った魚のアラームを表示。クリックでその魚に /gather を実行します。
+GatherBuddyReborn,,,,The last item alarm that went off shows here. Click it to /gather that item.,最後に鳴ったアイテムアラームを表示。クリックでそのアイテムに /gather を実行します。
+GatherBuddyReborn,,,,The last list can't be deleted.,最後のリストは削除できません。
+GatherBuddyReborn,,,,The level shown in the gathering log and the gathering window.,採集手帳と採集ウィンドウに表示されるレベルです。
+GatherBuddyReborn,,,,The list in it is deleted too.,中のリストも削除されます。
+GatherBuddyReborn,,,,The list of menders is still loading.,修理NPCのリストを読み込み中です。
+GatherBuddyReborn,,,,The list uses all HQ by default. Change the amounts below to override it for this item.,リストの既定設定はすべてHQです。以下の数量を変更するとこのアイテムだけ上書きできます。
+GatherBuddyReborn,,,,The lowest and highest level this preset is used for.,このプリセットを使用する最低・最高レベル。
+GatherBuddyReborn,,,,"The macro completes the craft.
+","マクロで製作が完了します。
+"
+GatherBuddyReborn,,,,The marketboard service could not start.,マーケットボードサービスを開始できませんでした。
+GatherBuddyReborn,,,,The maximum number of minutes you will fish at a fishing spot.,同じ釣り場で釣りをする最大時間（分）。
+GatherBuddyReborn,,,,The mender to travel to when repairs are needed. Current Zone NPCs uses any mender nearby.,修理が必要になったときに向かうNPC。「現在のエリアのNPC」では付近の修理NPCを利用します。
+GatherBuddyReborn,,,,"The message only goes to your own chat log, whatever the channel; nobody else sees it.",どのチャンネルでもこのメッセージは自分のチャットログだけに表示され、他の人には見えません。
+GatherBuddyReborn,,,,The most Inner Quiet stacks before Preparatory Touch is used.,下地加工を使用するまでのインナークワイエットの最大スタック数。
+GatherBuddyReborn,,,,The mount auto-gather summons.,自動採集で召喚するマウント。
+GatherBuddyReborn,,,,"The name of your botanist set, or its number.",園芸師ギアセットの名前または番号。
+GatherBuddyReborn,,,,"The name of your fisher set, or its number.",漁師ギアセットの名前または番号。
+GatherBuddyReborn,,,,"The name of your miner set, or its number.",採掘師ギアセットの名前または番号。
+GatherBuddyReborn,,,,The percentage of durability at which you will repair your gear.,装備を修理する耐久度の割合。
+GatherBuddyReborn,,,,The preset name should match the fish's item ID for GBR to use it automatically.,GBRが自動で使用するにはプリセット名を魚のアイテムIDと一致させてください。
+GatherBuddyReborn,,,,The queue is empty.,キューが空です。
+GatherBuddyReborn,,,,The small window with your pinned items and their uptimes.,ピン留めしたアイテムと出現時間を表示する小ウィンドウ。
+GatherBuddyReborn,,,,The sound played when this alarm is triggered.,アラームが鳴ったときに再生するサウンド。
+GatherBuddyReborn,,,,The time in seconds before the navigation system considers you stuck.,ナビゲーションが動けなくなったと判定するまでの時間（秒）。
+GatherBuddyReborn,,,,The time in seconds before the navigation system resets if you are stuck.,動けなくなったときにナビゲーションをリセットするまでの時間（秒）。
+GatherBuddyReborn,,,,The vendor buy lists that collectables runs spend scrips on.,収集品の納品処理でスクリップを使うショップ購入リスト。
+GatherBuddyReborn,,,,The Vulcan window isn't available.,Vulcanウィンドウを利用できません。
+GatherBuddyReborn,,,,"The weather forecast in every zone for the coming days, and the last weather",全エリアの今後の天気予報と直前の天候
+GatherBuddyReborn,,,,"The whole color scheme is built from this one color. Pick a preset, or the last swatch for your own color.",テーマ全体の配色がこの色を基準に生成されます。プリセットを選択するか、最後の色見本で任意の色を指定します。
+GatherBuddyReborn,,,,The window grows and shrinks from the top instead of the bottom.,ウィンドウが下部ではなく上部から伸縮するようにします。
+GatherBuddyReborn,,,,Theme,テーマ
+GatherBuddyReborn,,,,"Theme, windows, overlays and colors",テーマ・ウィンドウ・オーバーレイ・色
+GatherBuddyReborn,,,,"There are plenty of fish in the sea. And the air. And the sand. And the lava. And space, for some reason.",海にはたくさんの魚がいます。空にも砂にも溶岩にも、なぜか宇宙にも。
+GatherBuddyReborn,,,,There is no active vendor list.,有効なショップ購入リストがありません。
+GatherBuddyReborn,,,,They need to be crafted or obtained outside the vendor system.,製作するか、ショップ以外の方法で入手する必要があります。
+GatherBuddyReborn,,,,This item is already in the preset.,このアイテムは既にプリセットに入っています。
+GatherBuddyReborn,,,,This list is empty,このリストは空です
+GatherBuddyReborn,,,,"This list is empty, or its recipes couldn't be resolved.",リストが空か、レシピを取得できません。
+GatherBuddyReborn,,,,This list no longer exists.,このリストは存在しません。
+GatherBuddyReborn,,,,This option has priority over going home when idle.,この設定は待機中の帰宅より優先されます。
+GatherBuddyReborn,,,,This recipe cannot be quick synthesized.,このレシピは簡易製作できません。
+GatherBuddyReborn,,,,This selection has no workshop supplies with recipes to add to a Vulcan crafting list.,選択範囲にVulcan製作リストに追加できるレシピのあるカンパニー製作素材がありません。
+GatherBuddyReborn,,,,This selection has no workshop supplies with recipes to add.,選択範囲にレシピのあるカンパニー製作素材がありません。
+GatherBuddyReborn,,,,This takes precedence over both GBR-generated presets and fish ID AutoHook presets. Spearfishing still uses GBR-generated AutoGig presets.,GBR生成プリセット・魚IDのAutoHookプリセットよりも優先します。刺突漁ではGBR生成のAutoGigプリセットを使用します。
+GatherBuddyReborn,,,,This territory does not have that weather.,このエリアにはその天候がありません。
+GatherBuddyReborn,,,,"This will /gather the item that is up currently (or [minute offset] eorzea minutes in the future).
+","現在採集可能なアイテム（または [minute offset] ET分後のアイテム）に /gather を実行します。
+"
+GatherBuddyReborn,,,,Those filters are kept across sessions. A column with an active filter shows a tinted button with a filter icon; right-click it to clear the filter.,これらのフィルターは次回起動時にも保持されます。有効な列はフィルターアイコン付きの色付きボタンで表示し、右クリックで解除できます。
+GatherBuddyReborn,,,,Tier 1 (lowest),段階1（最低）
+GatherBuddyReborn,,,,Tier 2 (middle),段階2（中間）
+GatherBuddyReborn,,,,Tier 3 (highest),段階3（最高）
+GatherBuddyReborn,,,,"Tighter padding and shorter rows, so more fits on screen.",余白を狭め、行を低くして画面により多く表示します。
+GatherBuddyReborn,,,,Timed Node Memory,時間制限のある採集ポイントの記憶
+GatherBuddyReborn,,,,Timed node precognition,時間制限付き採集ポイントの先読み
+GatherBuddyReborn,,,,Timed out closing the collectables turn-in window.,収集品納品ウィンドウを閉じる処理がタイムアウトしました。
+GatherBuddyReborn,,,,Timed out leaving the previous vendor interaction.,前回のショップ操作を終了する処理がタイムアウトしました。
+GatherBuddyReborn,,,,TIMER,タイマー
+GatherBuddyReborn,,,,Times,時間
+GatherBuddyReborn,,,,TimeStamp,タイムスタンプ
+GatherBuddyReborn,,,,to,終了
+GatherBuddyReborn,,,,to enable actual functionality,実際の機能を有効にし
+GatherBuddyReborn,,,,Toggle,切替
+GatherBuddyReborn,,,,Tomestones,アラガントームストーン
+GatherBuddyReborn,,,,"Too many jiggle attempts, finding a nearby spot...",位置調整の試行回数が上限に達したため、近くの場所を検索中…
+GatherBuddyReborn,,,,Tools,ツール
+GatherBuddyReborn,,,,Top level,最上位
+GatherBuddyReborn,,,,"Treat all HQ-capable ingredients as HQ by default, both for planning and for Raphael warmup.
+Item and precraft settings can still override this.","計画とRaphaelの事前計算でHQ対応素材を既定でHQとして扱います。
+アイテムと中間素材の個別設定で上書きできます。"
+GatherBuddyReborn,,,,Tree,ツリー
+GatherBuddyReborn,,,,Tricks of the Trade,秘訣
+GatherBuddyReborn,,,,Trigger this alarm this many seconds before the item is next available.,次に採集可能になる指定秒数前にアラームを鳴らします。
+GatherBuddyReborn,,,,Triggered now,発動中
+GatherBuddyReborn,,,,Trying to reset the bugged Clouded node,不具合のある雲海採集ポイントの再出現を試行中
+GatherBuddyReborn,,,,Tug,アタリ
+GatherBuddyReborn,,,,Turn all alarms on or off.,すべてのアラームの有効・無効を切り替えます。
+GatherBuddyReborn,,,,Turn in now,今すぐ納品
+GatherBuddyReborn,,,,Turn in once this many inventory slots are used.,所持品が指定枠数に達したら納品します。
+GatherBuddyReborn,,,,Turn in once you are carrying this many collectables.,収集品が指定個数に達したら納品します。
+GatherBuddyReborn,,,,"Turn in when your inventory fills up, instead of after carrying a number of collectables.",収集品の個数ではなく所持品が埋まった時点で納品します。
+GatherBuddyReborn,,,,Turn off gamepad navigation,ゲームパッドによるナビゲーションを無効化
+GatherBuddyReborn,,,,Turn off keyboard navigation,キーボードによるナビゲーションを無効化
+GatherBuddyReborn,,,,Turn on 'Auto turn in collectables' to let Auto-Gather and Vulcan queues start turn-ins on their own.,「収集品を自動納品」を有効にすると、自動採集とVulcanキューから自動で納品を開始します。
+GatherBuddyReborn,,,,Turn on 'Run vendor purchase list after turn-in' to let collectables runs spend scrips. Reserve scrips keeps a buffer so the list never spends your last scrip. ,「納品後にショップ購入リストを実行」を有効にすると納品処理でスクリップを消費します。「保持するスクリップ」で最低限残す数量を設定できます。
+GatherBuddyReborn,,,,Turn on 'Run vendor purchase list after turn-in' to let collectables runs spend scrips. Reserve scrips keeps a buffer so the list never spends your last scrip. Turn on 'Auto turn in collectables' to let Auto-Gather and Vulcan queues start turn-ins on their own.,「納品後にショップ購入リストを実行」を有効にすると納品処理でスクリップを消費します。「保持するスクリップ」で最低限残す数量を設定できます。「収集品を自動納品」を有効にすると、自動採集とVulcanキューから自動で納品を開始します。
+GatherBuddyReborn,,,,Turn on an action to set when it is used.,アクションを有効にすると使用条件を設定できます。
+GatherBuddyReborn,,,,Turn on gamepad navigation,ゲームパッドによるナビゲーションを有効化
+GatherBuddyReborn,,,,Turn on keyboard navigation,キーボードによるナビゲーションを有効化
+GatherBuddyReborn,,,,Turn on quick synthesis' 'Synthesize NQ items only' option for these crafts.,これらの簡易製作で「NQアイテムのみを製作」を有効にします。
+GatherBuddyReborn,,,,Turn the sidebar into a narrow strip of icons. Hover an icon to see its name.,サイドバーをアイコンのみの細い帯にします。アイコンにカーソルを合わせると名前が表示されます。
+GatherBuddyReborn,,,,Turn this on to use the fixed landing distance instead.,有効にすると固定の着地距離を使用します。
+GatherBuddyReborn,,,,Turn-in route,納品先
+GatherBuddyReborn,,,,Turn-ins,納品
+GatherBuddyReborn,,,,Turning in collectables...,収集品を納品中…
+GatherBuddyReborn,,,,Type,種類
+GatherBuddyReborn,,,,UiState Address,UI状態アドレス
+GatherBuddyReborn,,,,Unable to pick a collectability increasing action to use. Make sure that at least one of the collectable actions is enabled.,収集価値を上げるアクションを選択できません。収集品用のアクションを1つ以上有効にしてください。
+GatherBuddyReborn,,,,Uncaught,未釣り上げ
+GatherBuddyReborn,,,,Understood,了解
+GatherBuddyReborn,,,,Undo,元に戻す
+GatherBuddyReborn,,,,Ungathered,未採集
+GatherBuddyReborn,,,,Unknown catch method,釣り方不明
+GatherBuddyReborn,,,,"Unknown Location
+Unknown Territory
+Unknown Aetheryte
+","場所不明
+エリア不明
+エーテライト不明
+"
+GatherBuddyReborn,,,,Unknown Uptime,出現時間不明
+GatherBuddyReborn,,,,Unknown weather restrictions,天候制限不明
+GatherBuddyReborn,,,,Up,上
+GatherBuddyReborn,,,,Up%,出現率%
+GatherBuddyReborn,,,,Upcoming windows uptime count,次回出現時間の表示件数
+GatherBuddyReborn,,,,Update saved gearset,保存済みギアセットを更新
+GatherBuddyReborn,,,,Updates the selected job's saved gearset from your currently equipped items. You must be on that job.,現在の装備から選択したジョブのギアセットを更新します。そのジョブに変更している必要があります。
+GatherBuddyReborn,,,,Uptimes,出現時間
+GatherBuddyReborn,,,,"Use /gather alarm to gather the last item alarm triggered.
+","/gather alarm で最後にアラームが鳴った採集物を採集します。
+"
+GatherBuddyReborn,,,,"Use /gather alarm to gather the last item alarm triggered.
+Use /gatherfish alarm to gather the last fish alarm triggered.","/gather alarm で最後にアラームが鳴った採集物を採集します。
+/gatherfish alarm で最後にアラームが鳴った魚を釣ります。"
+GatherBuddyReborn,,,,Use /gatherfish alarm to gather the last fish alarm triggered.,/gatherfish alarm で最後にアラームが鳴った魚を釣ります。
+GatherBuddyReborn,,,,"Use /gathergroup [name] [optional:minute offset] to call a group.
+","/gathergroup [name] [optional:minute offset] でグループを呼び出します。
+"
+GatherBuddyReborn,,,,"Use /gathergroup [name] [optional:minute offset] to call a group.
+This will /gather the item that is up currently (or [minute offset] eorzea minutes in the future).
+If times for multiple items overlap, the first item from top to bottom will be gathered.","/gathergroup [name] [optional:minute offset] でグループを呼び出します。
+現在採集可能なアイテム（または [minute offset] ET分後のアイテム）に /gather を実行します。
+複数のアイテムの出現時間が重なる場合は、上から最初のアイテムを採集します。"
+GatherBuddyReborn,,,,Use a quality starter (Reflect),品質を上げる初手（真価）を使用
+GatherBuddyReborn,,,,Use active list,現在のリストを使用
+GatherBuddyReborn,,,,Use Allagan Tools to check retainer inventories when doing inventory calculations.,所持数を計算する際にAllagan Toolsでリテイナーの所持品を確認します。
+GatherBuddyReborn,,,,Use an NPC mender when one is available and you have enough gil; otherwise repair yourself.,修理NPCを利用でき、ギルが十分にあれば利用します。それ以外は自分で修理します。
+GatherBuddyReborn,,,,Use AutoHook global preset,AutoHookの全体プリセットを使用
+GatherBuddyReborn,,,,Use Careful Observation and Heart and Soul when they are available.,使用可能な場合に設計変更と一心不乱を使用します。
+GatherBuddyReborn,,,,Use hook timers in AutoHook presets,AutoHookプリセットのフックタイマーを使用
+GatherBuddyReborn,,,,Use HQ,HQ使用数
+GatherBuddyReborn,,,,Use inventory-full threshold,所持品の使用枠数で判定
+GatherBuddyReborn,,,,Use it only if nothing has been gathered from the node yet.,採集ポイントでまだ何も採集していない場合のみ使用します。
+GatherBuddyReborn,,,,Use it while the boon chance is in this range.,獲得数ボーナス発生率がこの範囲内の場合に使用します。
+GatherBuddyReborn,,,,Use it while your GP is in this range.,GPがこの範囲内の場合に使用します。
+GatherBuddyReborn,,,,Use item equip level,装備レベルを使用
+GatherBuddyReborn,,,,Use local time in records,記録にローカル時間を使用
+GatherBuddyReborn,,,,Use Material Miracle,ミラクルマテリアルを使用
+GatherBuddyReborn,,,,Use Material Miracle during crafts.,製作中にミラクルマテリアルを使用します。
+GatherBuddyReborn,,,,"Use New list to make one, or import one.",新規リストを作成するか、インポートしてください。
+GatherBuddyReborn,,,,Use nothing,何も使用しない
+GatherBuddyReborn,,,,"Use NQ materials by default, falling back to HQ only when there isn't enough NQ.
+The HQ amounts below still apply.","既定ではNQ素材を使用し、NQが不足した場合のみHQ素材を使用します。
+以下のHQ使用数は引き続き適用されます。"
+GatherBuddyReborn,,,,Use on Excellent condition,最高品質時に使用
+GatherBuddyReborn,,,,Use on Good condition,高品質時に使用
+GatherBuddyReborn,,,,Use quick synthesis for this recipe (NQ only),このレシピを簡易製作する（NQのみ）
+GatherBuddyReborn,,,,Use skills when gathering items from fallback presets.,予備プリセットのアイテムを採集するときにアクションを使用します。
+GatherBuddyReborn,,,,Use specialist actions,マイスターアクションを使用
+GatherBuddyReborn,,,,Use the list's choice,リストの設定を使用
+GatherBuddyReborn,,,,Use the solver once a macro runs out,マクロ終了後にソルバーを使用
+GatherBuddyReborn,,,,Use the solver once a macro runs out##fallbackEnabled,マクロ終了後にソルバーを使用##fallbackEnabled
+GatherBuddyReborn,,,,Use Tricks of the Trade when the condition is Excellent.,製作状態が最高品質の時に秘訣を使用します。
+GatherBuddyReborn,,,,Use Tricks of the Trade when the condition is Good.,製作状態が高品質の時に秘訣を使用します。
+GatherBuddyReborn,,,,Use vnavmesh navigation,vnavmeshナビゲーションを使用
+GatherBuddyReborn,,,,Use vnavmesh navigation to move your character automatically.,vnavmeshナビゲーションでキャラクターを自動移動させます。
+GatherBuddyReborn,,,,Use when GP is,使用するGP条件
+GatherBuddyReborn,,,,Use your own AutoHook presets instead of GBR-generated ones. Name your preset using the fish's item ID (for example '46188' for Goldentail); ,GBR生成の代わりに自分のAutoHookプリセットを使用します。魚のアイテムID（例：Goldentailなら「46188」）をプリセット名に設定します。
+GatherBuddyReborn,,,,Use your own AutoHook presets instead of GBR-generated ones. Name your preset using the fish's item ID (for example '46188' for Goldentail); find fish IDs by hovering over fish in the Fish page. Ignored when the AutoHook global preset is in use. Your presets are never deleted; only GBR-generated presets are cleaned up.,GBR生成の代わりに自分のAutoHookプリセットを使用します。魚のアイテムID（例：Goldentailなら「46188」）をプリセット名に設定します。魚ページで魚にカーソルを合わせるとアイテムIDが確認できます。AutoHookの全体プリセット使用時は無視されます。自分のプリセットは削除されず、GBRが生成したプリセットのみ整理されます。
+GatherBuddyReborn,,,,Used by gear change. The name or the number of each gear set.,装備変更に使用します。各ギアセットの名前または番号。
+GatherBuddyReborn,,,,Useful for leveling,レベル上げに有用
+GatherBuddyReborn,,,,Uses HQ ingredient preferences,HQ素材の優先設定を使用
+GatherBuddyReborn,,,,Uses the '/li auto' command to take you home when done gathering.,採集完了時に「/li auto」コマンドで帰宅します。
+GatherBuddyReborn,,,,Uses the '/li auto' command to take you home when waiting for timed nodes.,時間制限付き採集ポイントを待つ間に「/li auto」コマンドで帰宅します。
+GatherBuddyReborn,,,,Using aethernet...,都市内エーテライトを使用中…
+GatherBuddyReborn,,,,Validate now,今すぐ検証
+GatherBuddyReborn,,,,Validation: no gear stats are available for this job.,検証：このジョブの装備ステータスがありません。
+GatherBuddyReborn,,,,Validation: passes,検証：成功
+GatherBuddyReborn,,,,Vendor,ショップ
+GatherBuddyReborn,,,,Vendor automation requires Allagan Tools or Allagan Item Search.,自動購入にはAllagan ToolsまたはAllagan Item Searchが必要です。
+GatherBuddyReborn,,,,Vendor Buy List,ショップ購入リスト
+GatherBuddyReborn,,,,Vendor buy list manager unavailable,ショップ購入リスト管理を利用できません
+GatherBuddyReborn,,,,Vendor Buy List Name,ショップ購入リストの名前
+GatherBuddyReborn,,,,Vendor Buy List Name###VendorBuyListNamePopup,ショップ購入リストの名前###VendorBuyListNamePopup
+GatherBuddyReborn,,,,Vendor Buy List###VendorBuyListWindow,ショップ購入リスト###VendorBuyListWindow
+GatherBuddyReborn,,,,Vendor buy lists,ショップ購入リスト
+GatherBuddyReborn,,,,Vendor Buy Lists,ショップ購入リスト
+GatherBuddyReborn,,,,Vendor buy lists are not available.,ショップ購入リストが利用できません。
+GatherBuddyReborn,,,,Vendor data is not ready yet.,ショップデータの準備ができていません。
+GatherBuddyReborn,,,,Vendor data is still loading.,ショップデータを読み込み中です。
+GatherBuddyReborn,,,,Vendor data not initialized,ショップデータ未初期化
+GatherBuddyReborn,,,,Vendor items,ショップ販売品
+GatherBuddyReborn,,,,Vendor List,ショップリスト
+GatherBuddyReborn,,,,Vendor list stopped.,ショップリストを停止しました。
+GatherBuddyReborn,,,,Vendor location data is not ready yet.,ショップの位置情報の準備ができていません。
+GatherBuddyReborn,,,,Vendor location data is still loading.,ショップの位置情報を読み込み中です。
+GatherBuddyReborn,,,,Vendor NPC locations,販売NPCの位置
+GatherBuddyReborn,,,,Vendor TeamCraft Import,ショップ購入リストのTeamCraftインポート
+GatherBuddyReborn,,,,Vendors,ショップ
+GatherBuddyReborn,,,,"Vendors
+ 
+Find vendors for items and keep buy lists","ショップ
+ 
+アイテムの販売NPCを検索し購入リストを管理"
+GatherBuddyReborn,,,,Violet,紫
+GatherBuddyReborn,,,,Visited Nodes,訪問済み採集ポイント
+GatherBuddyReborn,,,,Visualise the report data when viewing a fishing spot. Very experimental.,釣り場を閲覧する際にレポートデータを可視化します。実験的な機能です。
+GatherBuddyReborn,,,,Vulcan - Crafting,Vulcan - 製作
+GatherBuddyReborn,,,,Vulcan - Crafting###VulcanWindow,Vulcan - 製作###VulcanWindow
+GatherBuddyReborn,,,,Wait for AutoRetainer multi-mode,AutoRetainerのマルチモードを待機
+GatherBuddyReborn,,,,Wait to process retainers until after active and upcoming timed nodes are gathered.,現在または間もなく出現する時間制限付き採集ポイントの採集が終わるまでリテイナー処理を待機します。
+GatherBuddyReborn,,,,Wait until the running list finishes.,実行中のリストが完了するまで待ってください。
+GatherBuddyReborn,,,,Waiting after recent node interaction before teleport...,テレポ前に採集ポイントへの操作終了を待機中…
+GatherBuddyReborn,,,,Waiting for character change to complete...,キャラクター変更の完了を待機中…
+GatherBuddyReborn,,,,Waiting for correct Umbral weather,適切な霊風系の天候を待機中
+GatherBuddyReborn,,,,Waiting for current action to complete before teleport...,テレポ前に現在のアクションの完了を待機中…
+GatherBuddyReborn,,,,Waiting for current tasks to complete before teleport...,テレポ前に現在の処理の完了を待機中…
+GatherBuddyReborn,,,,Waiting for Dalamud to finish.,Dalamudの処理完了を待機中。
+GatherBuddyReborn,,,,Waiting for Gathering Point... (No Nav Mode),採集ポイントを待機中…（移動なしモード）
+GatherBuddyReborn,,,,Waiting for GP to regenerate...,GPの回復を待機中…
+GatherBuddyReborn,,,,Waiting for map marker to show up,マップマーカーの表示を待機中
+GatherBuddyReborn,,,,Waiting for node to become targetable...,採集ポイントがターゲット可能になるまで待機中…
+GatherBuddyReborn,,,,Waiting for player to be ready...,プレイヤーが操作可能になるまで待機中…
+GatherBuddyReborn,,,,Waiting for rotation...,向きの調整を待機中…
+GatherBuddyReborn,,,,Waiting for vendor data,ショップデータを待機中
+GatherBuddyReborn,,,,Walk to the nearest retainer bell when starting a retainer restock.,リテイナーから素材を引き出す際、最寄りの呼び鈴へ移動します。
+GatherBuddyReborn,,,,Want,目標数
+GatherBuddyReborn,,,,"warning, an action can't be used",警告：アクション使用不可
+GatherBuddyReborn,,,,"warning, not enough progress",警告：工数不足
+GatherBuddyReborn,,,,Waymarks,フィールドマーカー
+GatherBuddyReborn,,,,Waymarks##WaymarkDebug,フィールドマーカー##WaymarkDebug
+GatherBuddyReborn,,,,"Weather
+ 
+Yes, 'Gloom' is weather.","天候
+ 
+「妖霧」も天候です。"
+GatherBuddyReborn,,,,Weather change alarm,天候変化アラーム
+GatherBuddyReborn,,,,Weathers,天候
+GatherBuddyReborn,,,,Weaver (WVR),裁縫師 (WVR)
+GatherBuddyReborn,,,,"What /gather does, gear sets, alarms and chat messages",/gatherの動作、ギアセット、アラーム、チャットメッセージ
+GatherBuddyReborn,,,,What happens when you use /gather on an item.,アイテムに対して /gather を実行したときの動作。
+GatherBuddyReborn,,,,What method to use when sorting items internally.,内部でアイテムを並べ替える方法。
+GatherBuddyReborn,,,,"When a macro ends before the craft is finished, let the solver finish it.",製作完了前にマクロが終了した場合、ソルバーで製作を完了させます。
+GatherBuddyReborn,,,,"When a macro step can't be used right now, go on with the next one instead of stopping.",マクロ内のアクションが使用できないときは、停止せず次の手順へ進みます。
+GatherBuddyReborn,,,,"When an item isn't timed and has several sources, prefer aetherytes closer to the target or cheaper teleports.",時間制限がなく複数の採集場所があるアイテムでは、目的地に近いエーテライトかテレポ料金が安いエーテライトを優先します。
+GatherBuddyReborn,,,,"When free inventory slots drop below 20 while gathering, emergency reduction is performed for all items at once ",採集中に所持品の空きが20枠未満になった場合、緊急精選を全アイテムにまとめて実行し、
+GatherBuddyReborn,,,,"When free inventory slots drop below 20 while gathering, emergency reduction is performed for all items at once instead of only one item type.",採集中に所持品の空きが20枠未満になった場合、緊急精選を全アイテムにまとめて実行し、1種類だけには限定しません。
+GatherBuddyReborn,,,,"When off (the default), Raphael makes non-specialist rotations even if you are a specialist. ",無効（既定）ではマイスターでもRaphaelはマイスター以外で使用可能な手順を生成します。
+GatherBuddyReborn,,,,"When off (the default), Raphael makes non-specialist rotations even if you are a specialist. Changing this clears the solution cache.",無効（既定）ではマイスターでもRaphaelはマイスター以外で使用可能な手順を生成します。変更するとソルバーの解のキャッシュがクリアされます。
+GatherBuddyReborn,,,,"When off, the scores are read from the game. When on, enter the target and minimum scores yourself.",無効時はゲームから収集価値を取得します。有効時は目標値と最低値を指定します。
+GatherBuddyReborn,,,,"When on, a gil vendor wins over Gather, Fish, Drops and Craft
+","有効にするとギルで購入できる素材は採集・釣り・ドロップ・製作よりも
+"
+GatherBuddyReborn,,,,"Whenever you catch a fish, the data for that fish is uploaded to a remote server, to make a usable auto-fishing feature possible. ",自動釣り機能の実現のため、魚を釣り上げるたびに魚のデータが外部サーバーに送信されます。
+GatherBuddyReborn,,,,"Whenever you catch a fish, the data for that fish is uploaded to a remote server, to make a usable auto-fishing feature possible. No personal information about you or your character is collected, only data relevant to the caught fish. You can opt out again at any time.",自動釣り機能の実現のため、魚を釣り上げるたびに魚のデータが外部サーバーに送信されます。本人やキャラクターの個人情報は収集されず、釣れた魚に関するデータだけが送られます。いつでも同意を取り消せます。
+GatherBuddyReborn,,,,Where collectables runs go to turn in.,収集品を納品する場所。
+GatherBuddyReborn,,,,Whether or not to navigate using map markers (timed nodes only).,マップマーカーによる移動を使用するか（時間制限付き採集ポイントのみ）。
+GatherBuddyReborn,,,,"Which actions and consumables auto-gather uses, for which items",自動採集でアイテムごとに使用するアクションと消耗品
+GatherBuddyReborn,,,,Which collectability tier to aim for.,目標とする収集価値の段階。
+GatherBuddyReborn,,,,Which preset each item uses,アイテムごとに使用するプリセット
+GatherBuddyReborn,,,,while Raphael uses cached solution length when available and falls back to a provisional default until ready. ,Raphaelは利用できる場合はキャッシュされた手順の長さを使用し、準備ができるまでは仮の値を使用します。
+GatherBuddyReborn,,,,Whole project,計画全体
+GatherBuddyReborn,,,,Withdraw missing materials from your retainers before crafting.,製作前に不足素材をリテイナーから引き出します。
+GatherBuddyReborn,,,,Withdraw needed materials from retainers before generating the gather list. Respects HQ/NQ preferences.,採集リストを作成する前にリテイナーから必要な素材を引き出します。HQ・NQの設定を反映します。
+GatherBuddyReborn,,,,Working out the craft queue...,製作キューを計算中…
+GatherBuddyReborn,,,,Workshop requirements,カンパニー製作の必要素材
+GatherBuddyReborn,,,,Workshops,カンパニー製作
+GatherBuddyReborn,,,,"Workshops
+ 
+Company workshop projects and what they still need","カンパニー製作
+ 
+カンパニー製作計画と不足素材"
+GatherBuddyReborn,,,,World,ワールド
+GatherBuddyReborn,,,,World Coords,ワールド座標
+GatherBuddyReborn,,,,Write a map link to the approximate location of the chosen node to chat.,選択した採集ポイントのおおよその位置のマップリンクをチャットに表示します。
+GatherBuddyReborn,,,,"Write the weather names in the weather table, instead of only the icons with names on hover.",天候名をカーソルを合わせた時だけ表示するアイコン表示から、天候名をテーブルに直接書く表示へ変更します。
+GatherBuddyReborn,,,,"Writes the recipe's data to the Dalamud log, for troubleshooting.",問題調査用にレシピのデータをDalamudログへ出力します。
+GatherBuddyReborn,,,,WVR,裁縫
+GatherBuddyReborn,,,,X-Coord,X座標
+GatherBuddyReborn,,,,X/Square,X／□
+GatherBuddyReborn,,,,Y-Coord,Y座標
+GatherBuddyReborn,,,,Y/Triangle,Y／△
+GatherBuddyReborn,,,,Yes,はい
+GatherBuddyReborn,,,,"Yes, 'Gloom' is weather.",「妖霧」も天候です。
+GatherBuddyReborn,,,,You are in this zone.,現在このエリアにいます。
+GatherBuddyReborn,,,,You can also browse https://ffxivteamcraft.com/community-rotations in your web browser.,Webブラウザで https://ffxivteamcraft.com/community-rotations を直接閲覧することもできます。
+GatherBuddyReborn,,,,You can craft,製作可能数
+GatherBuddyReborn,,,,You have everything this list needs. Turn on Keep fulfilled to list them anyway.,リストの必要素材をすべて持っています。揃った素材も表示する場合は「所持済みも表示」を有効にします。
+GatherBuddyReborn,,,,Your clipboard is empty.,クリップボードが空です。
+GatherBuddyReborn,,,,Your fish records summed up per fishing spot,釣り場ごとに集計した釣り記録
+GatherBuddyReborn,,,,Your own colour. Click to change it.,カスタム色。クリックして変更します。
+GatherBuddyReborn,,,,Your own crafting macros,自分の製作マクロ
+GatherBuddyReborn,,,,Your presets are never deleted; only GBR-generated presets are cleaned up.,自分のプリセットは削除されず、GBRが生成したプリセットのみ整理されます。
+GatherBuddyReborn,,,,"{DurationString} says how long it will be up or is up for, and {Location} is the map flag link and location name.",{DurationString} は出現まで／出現終了までの時間、{Location} はマップフラッグリンクと場所の名前です。
+GatherBuddyReborn,,,@Window,GatherBuddyMain,
+GatherBuddyReborn,,,@Window,VulcanWindow,
+GatherBuddyReborn,,,@Window,GatherBuddyCollectablesWindow,
+GatherBuddyReborn,,,@Window,GatherBuddyCraftingStatus,
+GatherBuddyReborn,,,@Window,CraftingMaterials,
+GatherBuddyReborn,,,@Window,CraftingTree,
+GatherBuddyReborn,,,@Window,VendorBuyListWindow,
+GatherBuddyReborn,,,@Window,GatherBuddyCraftingListDefaults,
+GatherBuddyReborn,,,@Window,GatherBuddyRecipeCraftSettings,
+GatherBuddyReborn,,,@Window,GatherBuddyVendorTeamCraftImport,
+GatherBuddyReborn,,,@Window,GatherBuddyTeamCraftImport,
+GatherBuddyReborn,,,@Window,FishingTimer,
+GatherBuddyReborn,,,@Window,GatherHelperReborn,
+GatherBuddyReborn,,,@Window,SpearfishingHelper,
